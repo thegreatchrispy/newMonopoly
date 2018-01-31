@@ -6,6 +6,7 @@
 	<property name="bin" value="${basedir}/bin" />
 	<property name="doc" value="${basedir}/doc" />
 	<property name="jar" value="${basedir}/jar" />
+	<property name="war" value="${basedir}/war" />
 	<property name="tst" value="${basedir}/tst" />
 	<property name="sql" value="${basedir}/sql" />
 	<property name="rsrc" value="${basedir}/rsrc" />
@@ -13,6 +14,8 @@
 	<property name="info.txt" value="${basedir}/info.txt" />
 	<property name="jarbasename" value="newMonopoly" />
 	<property name="jarextension" value=".jar" />
+	<property name="warbasename" value="ROOT" />
+	<property name="warextension" value=".war" />
 
 	<condition property="is_ver_set" >
 		<isset property="app_vrsn" />
@@ -50,11 +53,13 @@
 	<target name="prep" description="">
 		<delete dir="${bin}" failonerror="false" includeemptydirs="true" />
 		<delete dir="${jar}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${war}" failonerror="false" includeemptydirs="true" />
 		<delete dir="${lib}" failonerror="false" includeemptydirs="true" />
 		<delete dir="${rslt}" failonerror="false" includeemptydirs="true" />
 		<delete dir="${doc}" failonerror="false" includeemptydirs="true" />
 		<mkdir dir="${bin}" />
 		<mkdir dir="${jar}" />
+		<mkdir dir="${war}" />
 		<mkdir dir="${lib}" />
 		<mkdir dir="${rslt}" />
 		<mkdir dir="${doc}" />
@@ -103,7 +108,14 @@
 		<delete file="${rsrc}/persistence.xml" includeemptydirs="true" failonerror="false" />
 	</target>
 
-	<target name="clean" depends="clean_log,clean_bin,clean_jar,clean_tests,clean_rslt,clean_doc" description=""/>
+	<target name="clean_war">
+		<delete includeemptydirs="true" verbose="true" >
+			<fileset dir="${war}" includes="**/*" />
+		</delete>
+	</target>
+
+
+	<target name="clean" depends="clean_log,clean_bin,clean_jar,clean_war,clean_tests,clean_rslt,clean_doc" description=""/>
 
 	<target name="database_setup">
 		<sql driver="${driver}" url="${url}?currentSchema=${schema}" userid="${usr}" password="${pwd}">
@@ -179,6 +191,14 @@
 			<fileset dir="${bin}" includes="**/*.class" />
 			<fileset dir="${basedir}" includes="info.txt" />
 		</jar>
+	</target>
+
+	<target name="war" depends="clean_war" description="">
+		<war destfile="${war}/${warbasename}${warextension}" webxml="${rsrc}/web.xml" needxmlfile="true" whenmanifestonly="fail" duplicate="fail">
+			<zipfileset dir="${lib}" includes="**/*.jar" excludes="**/tomcat*" prefix="WEB-INF/lib" />
+			<zipfileset dir="${jar}" includes="**/*.jar" prefix="WEB-INF/lib" />
+			<zipfileset dir="${rsrc}" includes="persistence.xml" prefix="WEB-INF/classes/META-INF" />
+		</war>
 	</target>
 
 	<target name="javadoc" depends="clean_doc" description="">
