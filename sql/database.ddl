@@ -4,7 +4,7 @@ CREATE TABLE player (
 	id SERIAL PRIMARY KEY,
 	username VARCHAR() NOT NULL,
 	password VARCHAR() NOT NULL,
-    email VARCHAR(),
+	email VARCHAR(),
 	icon BYTEA,
 	bio VARCHAR(),
 	isAdmin BOOLEAN NOT NULL

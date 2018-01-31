@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8">
+<project name="New Monopoly" default="build" basedir="..">
+	<tstamp />
+	<property name="src" value="${basedir}/src" />
+	<property name="lib" value="${basedir}/lib" />
+	<property name="bin" value="${basedir}/bin" />
+	<property name="doc" value="${basedir}/doc" />
+	<property name="jar" value="${basedir}/jar" />
+	<property name="tst" value="${basedir}/tst" />
+	<property name="sql" value="${basedir}/sql" />
+	<property name="rsrc" value="${basedir}/rsrc" />
+	<property name="rslt" value="${basedir}/junit_results" />
+	<property name="info.txt" value="${basedir}/info.txt" />
+	<property name="jarbasename" value="newMonopoly" />
+	<property name="jarextension" value=".jar" />
+
+	<condition property="is_ver_set" >
+		<isset property="app_vrsn" />
+	</condition>
+
+	<path id="classpath">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean_log">
+		<delete file="${info.txt}" failonerror="false" verbose="true" />
+	</target>
+
+	<target name="vrsn_avail" if="is_ver_set" depends="clean_log">
+		<echo message="Version Provided..." />
+		<echo message="Application:        ${ant.project.name}${line.separator}" file="${info.txt}" />
+		<echo message="Version:            ${app_vrsn}${line.separator}" file="${info.txt}" append="true" />
+	</target>
+
+	<target name="log" depends="vrsn_unavail" description="">
+		<echo message="Writing info.txt..." />
+		<echo message="Build Date:         ${DSTAMP}${line.separator}" file="${info.txt}" append="true" />
+		<echo message="--------------------------------------------------------------------------------${line.separator}" file="${info.txt}" append="true" />
+		<echo message="Java Vendor:        ${java.vendor}${line.separator}" file="${info.txt}" append="true" />
+		<echo message="Java Version:       ${ant.java.version}${line.separator}" file="${info.txt}" append="true" />
+		<echo message="Ant Version:        ${ant.version}${line.separator}" file="${info.txt}" append="true" />
+		<echo message="Ant Java Version:   ${ant.java.version}${line.separator}" file="${info.txt}" append="true" />
+		<echo message="OS Name:            ${os.name}${line.separator}" file="${info.txt}" append="true" />
+		<echo message="OS Version:         ${os.version}${line.separator}" file="${info.txt}" append="true" />
+		<echo message="OS Arch:            ${os.arch}${line.separator}" file="${info.txt}" append="true" />
+	</target>
+
+	<target name="prep" description="">
+		<delete dir="${bin}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${jar}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${lib}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${rslt}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${doc}" failonerror="false" includeemptydirs="true" />
+		<mkdir dir="${bin}" />
+		<mkdir dir="${jar}" />
+		<mkdir dir="${lib}" />
+		<mkdir dir="${rslt}" />
+		<mkdir dir="${doc}" />
+	</target>
+
+	<target name="update_libs" description="">
+	</target>
+
+	<target name="clean_bin">
+		<delete includeemptydirs="true" verbose="true" >
+			<fileset dir="${bin}" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="clean_jar">
+		<delete includeemptydirs="true" verbose="true" >
+			<fileset dir="${jar}" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="clean_tests">
+		<delete includeemptydirs="true" verbose="true" >
+			<fileset dir="${tst}" includes="**/*.class" />
+		</delete>
+	</target>
+
+	<target name="clean_sql">
+		<delete includeemptydirs="true" verbose="true" >
+			<fileset dir="${sql}" includes="**/*.class" />
+		</delete>
+	</target>
+
+	<target name="clean_rslt">
+		<delete includeemptydirs="true" verbose="true" >
+			<fileset dir="${rslt}" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="clean_doc">
+		<delete includeemptydirs="true" verbose="true" >
+			<fileset dir="${doc}" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="clean_rsrc">
+		<delete file="${rsrc}/persistence.xml" includeemptydirs="true" failonerror="false" />
+	</target>
+
+	<target name="clean" depends="clean_log,clean_bin,clean_jar,clean_tests,clean_rslt,clean_doc" description=""/>
+
+	<target name="database_setup">
+		<sql driver="${driver}" url="${url}?currentSchema=${schema}" userid="${usr}" password="${pwd}">
+			<classpath refid="classpath" />
+			<transaction src="${sql}/database.ddl" />
+		</sql>
+	</target>
+	
+	<target name="gen_persist_xml" depends="clean_rsrc" description="">
+		<copy file="${rsrc}/persistence.template" tofile="${rsrc}/persistence.xml" />
+		<replace file="${rsrc}/persistence.xml" token="${db.url}" value="${url}?currentSchema=${schema}" />
+		<replace file="${rsrc}/persistence.xml" token="${db.user}" value="${usr}" />
+		<replace file="${rsrc}/persistence.xml" token="${db.password}" value="${pwd}" />
+		<replace file="${rsrc}/persistence.xml" token="${db.driver}" value="${driver}" />
+	</target>
+
+	<target name="set_tst_xml" depends="gen_persist_xml" description="">
+		<copy file="${rsrc}/persistence.xml" tofile="${tst}/META-INF/persistence.xml"/>
+	</target>
+
+	<target name="compile" depends="clean_bin,log" description="">
+		<javac srcdir="${src}" includeantruntime="false" destdir="${bin}" includes="**/*.java">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<target name="debug" depends="clean_bin" description="">
+		<javac srcdir="${src}" includeantruntime="false" destdir="${bin}" debug="on" debuglevel="lines,vars,source" includes="**/*.java">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<target name="compile_tests" depends="clean_tests" description="">
+		<javac srcdir="${tst}" includeantruntime="false" destdir="${tst}" includes="**/*.java">
+			<classpath>
+				<path refid="classpath" />
+				<pathelement path="${bin}" />
+				<pathelement path="${lib}" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="run_tests" depends="set_tst_xml,compile_tests,clean_rslt" description="">
+		<junit printsummary="withOutAndErr" haltonerror="true" haltonfailure="true" showoutput="true" logfailedtests="true">
+			<classpath>
+				<path refid="classpath" />
+				<pathelement path="${bin}" />
+				<pathelement location="${tst}" />
+			</classpath>
+			<formatter type="xml" />
+			<test name="com.cgi.bountyboard.TrelloClientTest" todir="${rslt}"/>
+		</junit>
+	</target>
+
+	<target name="report" depends="run_tests" description="">
+		<junitreport todir="${rslt}">
+			<fileset dir="${rslt}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${rslt}/html" />
+		</junitreport>
+	</target>
+
+	<target name="releasejar" if="is_ver_set" depends="clean_jar">
+		<jar destfile="${jar}/${jarbasename}-${app_vrsn}${jarextension}" whenmanifestonly="fail">
+			<fileset dir="${bin}" includes="**/*.class" />
+			<fileset dir="${basedir}" includes="info.txt" />
+		</jar>
+	</target>
+
+	<target name="jar" unless="is_ver_set" depends="releasejar" description="">
+		<jar destfile="${jar}/${jarbasename}${jarextension}" whenmanifestonly="fail">
+			<fileset dir="${bin}" includes="**/*.class" />
+			<fileset dir="${basedir}" includes="info.txt" />
+		</jar>
+	</target>
+
+	<target name="javadoc" depends="clean_doc" description="">
+		<javadoc destdir="${doc}" author="true" version="true" use="true" windowtitle="${ant.project.name} Documentation">
+			<fileset dir="${src}" />
+			<doctitle><![CDATA[<h1>${ant.project.name} Javadoc</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2017 CGI Inc. All Rights Reserved.</i>]]></bottom>
+			<link offline="true" href="https://docs.oracle.com/javase/8/docs/api/" packagelistLoc="C:\tmp"/>
+		</javadoc>
+	</target>
+</project>
