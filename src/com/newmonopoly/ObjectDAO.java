@@ -88,7 +88,7 @@ public class ObjectDAO {
 			throw new IllegalArgumentException("In persistPlayer (Player p): player is null");
 		}
 
-		List<Player> queryList = new Vector<Approver>();
+		List<Player> queryList = new Vector<Player>();
 
 		try {
 			CriteriaQuery cq = cb.createQuery();
@@ -136,7 +136,7 @@ public class ObjectDAO {
 			player = queryPlayer(p).get(0);
 
 			if (player == null) {
-				throw new NoSuchElementException("In removePlayer (Player p: could not find approver in system, no delete made");
+				throw new NoSuchElementException("In removePlayer (Player p: could not find Player in system, no delete made");
 			}
 
 			em.remove(player);
