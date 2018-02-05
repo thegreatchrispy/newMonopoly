@@ -1,29 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--	====== New Monopoly Build Script ======
+    Build script to be used with ant to compile and deploy New Monopoly to
+	a Tomcat server. 
+	This script assumes that the source code of the application is organized 
+	such that from the top directory where you will run the ant command to 
+	execute the build script, you should see the following:
+	
+		bld			The location of this build file, along with any other
+					build files that will be used for this project.
+
+		doc			All documentation files that will be copied over to 
+					the "doc" folder in the final distribution.
+
+		rsrc		Static HTML, CSS, JS and any other resources that will
+					be needed for the webpage display for users. This 
+					includes a "WEB-INF" subdirectory and its 
+					configuration files.
+
+		sql			All scripts that will be needed to setup the database
+					on the Tomcat server.
+
+		src			Java source code to be compiled to the "WEB-INF/classes"
+					subdirectory of the web application.
+ 
+		tst			Java Junit test code for testing all of the code in the
+					"src" subdirectory
+-->
+
+<!--The "project" tag describes a set of targets that may be called when
+	Ant is executed. The "default" attribute defines the target executed
+	when no target is specified, and "basedir" defines the directory for
+	Ant to use as the current working directory. Since the build script
+	is in the "bld" subdirectory, "basedir" is set to the directory up
+	one level from "bld".
+	Since the build script is in the "bld" subdirectory, the command
+	to run the script is
+	"ant build -f bld/build.xml"
+	without the quotation marks.
+-->
+
 <project name="New Monopoly" default="build" basedir="..">
+
+<!--	====== Property Definitions ======
+	These properties are used throughout the rest of the build script.
+	Values are set here, and can also be set from the command line by
+	using the command
+	"ant -Dname=value build bld/build.xml"
+	without the quotation marks.
+-->
+
 	<tstamp />
-	<property name="src" value="${basedir}/src" />
-	<property name="lib" value="${basedir}/lib" />
 	<property name="bin" value="${basedir}/bin" />
 	<property name="doc" value="${basedir}/doc" />
 	<property name="jar" value="${basedir}/jar" />
-	<property name="war" value="${basedir}/war" />
-	<property name="tst" value="${basedir}/tst" />
-	<property name="sql" value="${basedir}/sql" />
-	<property name="rsrc" value="${basedir}/rsrc" />
 	<property name="rslt" value="${basedir}/junit_results" />
+	<property name="lib" value="${basedir}/lib" />
+	<property name="rsrc" value="${basedir}/rsrc" />
+	<property name="sql" value="${basedir}/sql" />
+	<property name="src" value="${basedir}/src" />
+	<property name="tst" value="${basedir}/tst" />
+	<property name="war" value="${basedir}/war" />
+
 	<property name="info.txt" value="${basedir}/info.txt" />
 	<property name="jarbasename" value="newMonopoly" />
 	<property name="jarextension" value=".jar" />
-	<property name="warbasename" value="ROOT" />
+	<property name="warbasename" value="newMonopoly" />
 	<property name="warextension" value=".war" />
 
-	<condition property="is_ver_set" >
-		<isset property="app_vrsn" />
+	<property name="catalina.home" value="C:/apache/tomcat" /> <!-- THIS NEEDS TO BE UPDATED TO LOCAL TOMCAT SERVER LOCATION -->
+
+	<condition property="is_ver_set">
+		<isset property="appvrsn" />
 	</condition>
 
 	<path id="classpath">
 		<fileset dir="${lib}">
 			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${catalina.home}/bin">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement location="${catalina.home}/lib" />
+		<fileset dir="${catalina.home}/lib">
+			<include name="*.jar" />
 		</fileset>
 	</path>
 
@@ -59,17 +119,17 @@
 
 	<target name="prep" description="">
 		<delete dir="${bin}" failonerror="false" includeemptydirs="true" />
-		<delete dir="${jar}" failonerror="false" includeemptydirs="true" />
-		<delete dir="${war}" failonerror="false" includeemptydirs="true" />
-		<delete dir="${lib}" failonerror="false" includeemptydirs="true" />
-		<delete dir="${rslt}" failonerror="false" includeemptydirs="true" />
 		<delete dir="${doc}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${jar}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${rslt}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${lib}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${war}" failonerror="false" includeemptydirs="true" />
 		<mkdir dir="${bin}" />
-		<mkdir dir="${jar}" />
-		<mkdir dir="${war}" />
-		<mkdir dir="${lib}" />
-		<mkdir dir="${rslt}" />
 		<mkdir dir="${doc}" />
+		<mkdir dir="${jar}" />
+		<mkdir dir="${rslt}" />
+		<mkdir dir="${lib}" />
+		<mkdir dir="${war}" />
 	</target>
 
 	<target name="update_libs" description="">
@@ -150,7 +210,6 @@
 		</delete>
 	</target>
 
-
 	<target name="clean" depends="clean_log,clean_bin,clean_jar,clean_war,clean_tests,clean_rslt,clean_doc" description=""/>
 
 	<target name="database_setup">
@@ -159,7 +218,7 @@
 			<transaction src="${sql}/database.ddl" />
 		</sql>
 	</target>
-	
+
 	<target name="gen_persist_xml" depends="clean_rsrc" description="">
 		<copy file="${rsrc}/persistence.template" tofile="${rsrc}/persistence.xml" />
 		<replace file="${rsrc}/persistence.xml" token="${db.url}" value="${url}?currentSchema=${schema}" />
@@ -169,13 +228,16 @@
 	</target>
 
 	<target name="set_tst_xml" depends="gen_persist_xml" description="">
-		<copy file="${rsrc}/persistence.xml" tofile="${tst}/META-INF/persistence.xml"/>
+		<copy file="${rsrc}/persistence.xml" tofile="${tst}/META-INF/persistence.xml" />
 	</target>
 
 	<target name="compile" depends="clean_bin,log" description="">
-		<javac srcdir="${src}" includeantruntime="false" destdir="${bin}" includes="**/*.java">
+		<javac srcdir="${src}" includeantruntime="false" destdir="${bin}" includes="**/Player.java">
 			<classpath refid="classpath" />
 		</javac>
+		<copy todir="${bin}/WEB-INF/classes">
+			<fileset dir="${src}" excludes="**/*.java" />
+		</copy>
 	</target>
 
 	<target name="debug" depends="clean_bin" description="">
@@ -199,10 +261,10 @@
 			<classpath>
 				<path refid="classpath" />
 				<pathelement path="${bin}" />
-				<pathelement location="${tst}" />
+				<pathelement path="${lib}" />
 			</classpath>
 			<formatter type="xml" />
-			<test name="com.cgi.bountyboard.TrelloClientTest" todir="${rslt}"/>
+			<test name="com.newmonopoly.PlayerTest" todir="${rslt}" />
 		</junit>
 	</target>
 
@@ -215,13 +277,6 @@
 		</junitreport>
 	</target>
 
-	<target name="releasejar" if="is_ver_set" depends="clean_jar">
-		<jar destfile="${jar}/${jarbasename}-${app_vrsn}${jarextension}" whenmanifestonly="fail">
-			<fileset dir="${bin}" includes="**/*.class" />
-			<fileset dir="${basedir}" includes="info.txt" />
-		</jar>
-	</target>
-
 	<target name="jar" unless="is_ver_set" depends="releasejar" description="">
 		<jar destfile="${jar}/${jarbasename}${jarextension}" whenmanifestonly="fail">
 			<fileset dir="${bin}" includes="**/*.class" />
@@ -229,10 +284,21 @@
 		</jar>
 	</target>
 
+	<target name="releasejar" if="is_ver_set" depends="clean_jar" description="">
+		<jar destfile="${jar}/${jarbasename}-${app_vrsn}${jarextension}" whenmanifestonly="fail">
+			<fileset dir="${bin}" includes="**/*.class" />
+			<fileset dir="${basedir}" includes="info.txt" />
+		</jar>
+	</target>
+
 	<target name="war" depends="clean_war" description="">
-		<war destfile="${war}/${warbasename}${warextension}" webxml="${rsrc}/web.xml" needxmlfile="true" whenmanifestonly="fail" duplicate="fail">
-			<zipfileset dir="${lib}" includes="**/*.jar" excludes="**/tomcat*" prefix="WEB-INF/lib" />
+		<war destfile="${war}/${warbasename}${warextension}" webxml="${rsrc}/WEB-INF/web.xml" needxmlfile="true" whenmanifestonly="fail" duplicate="fail">
+			<zipfileset dir="${lib}" includes="**/*.jar" prefix="WEB-INF/lib" />
 			<zipfileset dir="${jar}" includes="**/*.jar" prefix="WEB-INF/lib" />
+			<zipfileset dir="${rsrc}" includes="**/*.html" />
+			<zipfileset dir="${rsrc}" includes="**/*.css" />
+			<zipfileset dir="${rsrc}" includes="**/*.js" />
+			<zipfileset dir="${rsrc}" includes="**/*.png" />
 			<zipfileset dir="${rsrc}" includes="persistence.xml" prefix="WEB-INF/classes/META-INF" />
 		</war>
 	</target>
@@ -241,12 +307,9 @@
 		<javadoc destdir="${doc}" author="true" version="true" use="true" windowtitle="${ant.project.name} Documentation">
 			<fileset dir="${src}" />
 			<doctitle><![CDATA[<h1>${ant.project.name} Javadoc</h1>]]></doctitle>
-			<bottom><![CDATA[<i>Copyright &#169; 2017 CGI Inc. All Rights Reserved.</i>]]></bottom>
 			<link offline="true" href="https://docs.oracle.com/javase/8/docs/api/" packagelistLoc="C:\tmp"/>
 		</javadoc>
 	</target>
 
-	<target name="build" depends="prep,update_libs,compile" description=""/>
-
-	<target name="build_quick" depends="prep,compile" description=""/>
+	<target name="build" depends="prep,update_libs,gen_persist_xml,compile,war" description="" />
 </project>
