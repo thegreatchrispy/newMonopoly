@@ -1,18 +1,20 @@
-DROP TABLE IF EXISTS player CASCADE;
+CREATE SCHEMA IF NOT EXISTS monopoly;
 
-CREATE TABLE player (
+DROP TABLE IF EXISTS monopoly.player CASCADE;
+
+CREATE TABLE monopoly.player (
 	id SERIAL PRIMARY KEY,
-	username VARCHAR() NOT NULL,
-	password VARCHAR() NOT NULL,
-	email VARCHAR(),
+	username TEXT NOT NULL,
+	password TEXT NOT NULL,
+	email TEXT,
 	icon BYTEA,
-	bio VARCHAR(),
+	bio TEXT,
 	isAdmin BOOLEAN NOT NULL
 );
 
-DROP TABLE IF EXISTS games;
+DROP TABLE IF EXISTS monopoly.games;
 
-CREATE TABLE games (
+CREATE TABLE monopoly.games (
 	number_players INTEGER NOT NULL,
 	in_progress BOOLEAN NOT NULL,
 	turn_number INTEGER NOT NULL
