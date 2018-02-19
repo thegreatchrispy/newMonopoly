@@ -311,5 +311,6 @@
 		</javadoc>
 	</target>
 
-	<target name="build" depends="prep,update_libs,gen_persist_xml,compile,war" description="" />
+	<target name="build" depends="prep,update_libs,gen_persist_xml,compile" description="" />
+	<target name="build_fast" depends="prep,compile" description="" />
 </project>
