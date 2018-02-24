@@ -39,12 +39,12 @@ public class Player {
 	 * Constructor for Player objects
 	 * 
 	 */
-	public Player(String u, String p, String e, String b, boolean a) {
+	public Player(String u, String p, String e, boolean a) {
 		this();
 		username = u;
 		password = p;
 		email = e;
-		bio = b;
+		bio = "";
 		isAdmin = a;
 	}
 
