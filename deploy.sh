@@ -1,8 +1,8 @@
 #!/bin/bash
 
-TOMCAT_DIR=/Library/Tomcat
+TOMCAT_DIR=/path/to/tomcat/directory
 NEW_WAR_BASE_NAME=newMonopoly
-PROJECT_DIR=/Users/isaacperalez/Documents/School/Project/newMonopoly
+PROJECT_DIR=/path/to/project/directory
 
 cd $TOMCAT_DIR
 sh $TOMCAT_DIR/bin/shutdown.sh
@@ -23,5 +23,5 @@ wait
 
 sh $TOMCAT_DIR/bin/startup.sh
 sh $TOMCAT_DIR/bin/shutdown.sh
-#rm newMonopoly/WEB-INF/web.xml
+rm newMonopoly/WEB-INF/web.xml
 cd $PROJECT_DIR
