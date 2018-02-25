@@ -2,3 +2,9 @@
 /doc
 /lib
 /rsrc/persistence.xml
+/war/newMonopoly.war
+build.bat
+deploy.bat
+build.sh
+deploy.sh
+info.txt
