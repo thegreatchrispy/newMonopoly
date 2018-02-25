@@ -1,0 +1,12 @@
+Application:        New Monopoly
+Version:            Developer Build
+Built By:           JuanMarcelo
+Build Date:         20180224
+--------------------------------------------------------------------------------
+Java Vendor:        Oracle Corporation
+Java Version:       9
+Ant Version:        Apache Ant(TM) version 1.10.1 compiled on February 2 2017
+Ant Java Version:   9
+OS Name:            Windows 10
+OS Version:         10.0
+OS Arch:            amd64
