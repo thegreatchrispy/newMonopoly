@@ -6,14 +6,14 @@
 	This script assumes that the source code of the application is organized 
 	such that from the top directory where you will run the ant command to 
 	execute the build script, you should see the following:
-	
+
 		bld			The location of this build file, along with any other
 					build files that will be used for this project.
 
 		doc			All documentation files that will be copied over to 
 					the "doc" folder in the final distribution.
 
-		rsrc		Static HTML, CSS, JS and any other resources that will
+		rsrc			Static HTML, CSS, JS and any other resources that will
 					be needed for the webpage display for users. This 
 					includes a "WEB-INF" subdirectory and its 
 					configuration files.
