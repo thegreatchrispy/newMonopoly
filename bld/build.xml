@@ -68,7 +68,7 @@
 	<property name="warbasename" value="newMonopoly" />
 	<property name="warextension" value=".war" />
 
-	<property name="catalina.home" value="C:/apache/tomcat" /> <!-- THIS NEEDS TO BE UPDATED TO LOCAL TOMCAT SERVER LOCATION -->
+	<property name="catalina.home" value="C:/path/to/tomcat/server" /> <!-- THIS NEEDS TO BE UPDATED TO LOCAL TOMCAT SERVER LOCATION -->
 
 	<condition property="is_ver_set">
 		<isset property="appvrsn" />
@@ -311,6 +311,5 @@
 		</javadoc>
 	</target>
 
-	<target name="build" depends="prep,update_libs,gen_persist_xml,compile" description="" />
-	<target name="build_fast" depends="prep,compile" description="" />
+	<target name="build" depends="prep,update_libs,gen_persist_xml,compile,war" description="" />
 </project>
