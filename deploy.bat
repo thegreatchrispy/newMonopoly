@@ -1,7 +1,7 @@
 @echo off
-SET TOMCAT_DIR=C:\apache\tomcat
+SET TOMCAT_DIR=C:\path\to\tomcat\directory
 SET NEW_WAR_BASE_NAME=newMonopoly
-SET PROJECT_DIR=C:\Users\cwall\Desktop\newMonopoly
+SET PROJECT_DIR=C:\path\to\project\directory
 
 CD %TOMCAT_DIR%
 CALL %TOMCAT_DIR%\bin\shutdown.bat
