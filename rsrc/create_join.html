@@ -27,7 +27,7 @@
                     <li class="rightli"><a href="login.html">LOGIN</a></li>
                 </ul>
             </nav>
-            <div class="content">
+            <div class="content" id="content">
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">CREATE/JOIN
                     <span class="caret"></span></button>
@@ -37,12 +37,54 @@
                     </ul>
                 </div>
 
+                <!-- Create Game -->
                 <div class="box" id="create">
-                    CREATE GAME STUFF
+                    <h2>CREATE GAME</h2>
+                    <form action="">
+                        <!-- Lobby Type Settings -->
+                        <h3>Lobby Type</h3>
+                        <input type="radio" name="lobby_type" value="public" checked> Public
+                        <input type="radio" name="lobby_type" value="private"> Private <br>
+                        <label id="lobby_password_label" style="display:none;">Lobby Password: <input type="password" name="lobby_password" id="lobby_password" style="display:none;"/></label>
+                        <input type="text" id="show_password" style="display: none;" readonly>
+                        <input type="checkbox" name="show_lobby_password" id="show_lobby_password" style="display:none;"> <label id="show_password_label" style="display: none;">Show Pasword</label>
+                    
+                        <!-- Difficulty Settings -->
+                        <h3>Difficulty</h3>
+                        <input type="radio" name="diff_type" value="on"> On
+                        <input type="radio" name="diff_type" value="off"> Off<br>
+                        <label id="difficulty_label" style="display: none;">Select Difficulty: </label>
+                        <select name="difficulty" id="difficulty" style="display:none;">
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                        
+                        <!-- Number of Players Settings -->
+                        <h3>Number of Players</h3>
+                        <label id="num_players_label">Select Number of Players: </label>
+                        <select name="num_players" id="num_players">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+
+                        <!-- Number of Turns Settings -->
+                        <h3>Number of Turns</h3>
+                        <label id="num_turns_label">Enter Number of Turns: </label>
+                        <input type="number" name="turns_quantity" id="turns_quantity" min="120">
+                        <input type="checkbox" name="unlimited_check" id="unlimited_check" value="unlimited"> Unlimited <br>
+
+                        <!-- Submit Game Settings -->
+                        <input type="submit" value="CREATE">
+                    </form>
                 </div>
 
+                <!-- Join Game -->
                 <div class="box" id="join">
-                    JOIN GAME STUFF
+                    <h2>JOIN GAME</h2>
                 </div>
             </div>
         </div>
