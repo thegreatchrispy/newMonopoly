@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" media="screen">
-    <script src="jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="create_join.js"></script>
-	<title>NEW MONOPOLY :: Create/Join Game</title>
+    <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css" media="screen">
+        <script src="jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="create_join.js"></script>
+	    <title>NEW MONOPOLY :: Create/Join Game</title>
     </head>
     <body>
         <div class="wrapper">
@@ -85,7 +85,49 @@
                 <!-- Join Game -->
                 <div class="box" id="join">
                     <h2>JOIN GAME</h2>
-                </div>
+                    <h3>Joinable Games</h3>
+                    <!-- TABLE (PHP) GOES HERE -->
+                    <h5>TABLE</h5>
+                    <!-- Refresh Table -->
+                    <button type="button" id="refresh">Refresh List</button>
+
+                    <!-- Search Filters -->
+                    <h5>Search Filters:</h5>
+                    <form action="">
+                        <!-- Difficulty Filter -->
+                        <label id="filter_diff_label">Difficulty: </label>
+                        <select name="filter_diff" id="filter_diff">
+                            <option value="none">---</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                        <!-- Number of Players Filter -->
+                        <label id="filter_num_players_label">Number of Players: </label>
+                        <select name="filter_num_players" id="filter_num_players">
+                            <option value="none">---</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                        <!-- Number of Turns Filter -->
+                        <label id="filter_num_turns_label">Number of Turns: </label>
+                        <select name="filter_num_turns" id="filter_num_turns">
+                            <option value="none">---</option>
+                            <option value="limit">Limit</option>
+                            <option value="unlimited">Unlimited</option>
+                        </select>
+                        <!-- Submit Filter -->
+                        <button type="button">Refine Search</button>
+                    </form>
+
+                    <!-- Search By ID -->
+                    <form action="" class="search_id">
+                        <input type="number" placeholder="Search By Game ID" name="search_game" id="search_game">
+                        <button type="button">Search</button>
+                    </form>
             </div>
         </div>
     </body>
