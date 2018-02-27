@@ -27,7 +27,7 @@ public class ObjectDAO {
 	 * Object default constructor
 	 */
 	private ObjectDAO() {
-		emf = Persistence.createEntityManagerFactory("");
+		emf = Persistence.createEntityManagerFactory("newMonopoly");
 		em = emf.createEntityManager();
 		cb = em.getCriteriaBuilder();
 	}
