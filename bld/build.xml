@@ -247,7 +247,7 @@
 	</target>
 
 	<target name="compile_tests" depends="clean_tests" description="">
-		<javac srcdir="${tst}" includeantruntime="false" destdir="${tst}" includes="**/*.java">
+		<javac srcdir="${tst}" includeantruntime="false" destdir="${bin}" includes="**/*.java">
 			<classpath>
 				<path refid="classpath" />
 				<pathelement path="${bin}" />
