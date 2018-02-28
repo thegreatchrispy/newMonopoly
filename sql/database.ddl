@@ -16,7 +16,7 @@ CREATE TABLE monopoly.sessions (
 	id SERIAL NOT NULL PRIMARY KEY,
 	board_config JSON NOT NULL,
 	players JSON NOT NULL,
-	currentPlayer INTEGER NOT NULL REFERENCES monopoly.player (id),
+	currentPlayer INTEGER NOT NULL REFERENCES monopoly.players (id),
 	currentSeason TEXT NOT NULL,
 	difficulty TEXT
 );
