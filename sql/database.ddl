@@ -6,7 +6,7 @@ CREATE TABLE monopoly.players (
 	id SERIAL NOT NULL PRIMARY KEY,
 	username TEXT NOT NULL,
 	password TEXT NOT NULL,
-	email TEXT,
+	email TEXT NOT NULL,
 	isAdmin BOOLEAN NOT NULL
 );
 
