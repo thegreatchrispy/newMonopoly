@@ -1,16 +1,20 @@
 package com.newmonopoly.vo;
 
 import java.util.Scanner;
+import java.util.Timer;
 
 public class NewMonopoly {
-	Die die = new Die();
+	Die die_1 = new Die();
+	Die die_2 = new Die();
 	Board board;
 	Timer timer = new Timer();
 	boolean game_card = false;
 	
-	public NewMonopoly(int totalPlayer) {
-		board = new Board(totalPlayer);
-	}
+//	public NewMonopoly(int totalPlayer) {
+//		board = new Board(totalPlayer);
+//	}
+
+	// CONSTRUCTOR FOR CUSTOM GAMES
 	
 	public static void main(String[] args) {
 		// Main method will need to grab information from Create Game.
@@ -29,8 +33,10 @@ public class NewMonopoly {
 				System.err.println("Error: Invalid player count.");
 			}
 		}
-		NewMonopoly session = new NewMonopoly(numPlayers);
-		game.startGame();
+		
+		// Loop to place players in array.
+//		NewMonopoly session = new NewMonopoly(numPlayers);
+//		session.startGame();
 	}
 	
 	public void startGame() {
@@ -39,7 +45,8 @@ public class NewMonopoly {
 		// Continuous loop until the game is over and the board has a winner.
 		while (!gameOver() && !board.hasWinner()) {
 			if(!board.getCurrentPlayer().isBankrupt()) {
-				int die_roll = board.getCurrentPlayer().tossDie(die);
+				int die_roll = die_1.roll() + die_2.roll();
+				// flag for doubles, int count doubles
 				board.movePlayer(board.getCurrentPlayer(), die_roll);
 			}
 			board.nextTurn();
