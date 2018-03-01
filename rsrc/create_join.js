@@ -1,22 +1,27 @@
 $(document).ready(function(){
-	// Dropdown Function
-	$(".dropdown-toggle").dropdown();
-	
-	// Generate either "Create Game" or "Join Game" display. These displays will be hidden by default, and only appear on user command.
-    $('.choice').click(function(){
-    	var id = $(this).attr("rel");
+	// Button Functions
+	$('#create_button').click(function(){
+		$('#option').hide();
+		$('#create').show();
+		$('body').css('background-image', 'url("images/create.jpg")');
+	});
 
-		if($('#join').is(":visible")) {
-			$('#join').hide();
-		}
+	$('#join_button').click(function(){
+		$('#option').hide();
+		$('#join').show();
+		$('body').css('background-image', 'url("images/join.jpg")');
+	});
 
-		if($('#create').is(":visible")) {
-			$('#create').hide();
-		}
+	$('#create_back').click(function(){
+		$('#create').hide();
+		$('body').css('background-image', 'url("images/option.jpg")');
+		$('#option').show();
+	});
 
-		$('#content').height(500);
-		$('#'+id).show();
-		
+	$('#join_back').click(function(){
+		$('#join').hide();
+		$('body').css('background-image', 'url("images/option.jpg")');
+		$('#option').show();
 	});
 
 	// Radio Functions
