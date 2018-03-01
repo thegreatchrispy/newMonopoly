@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
  * Player class.
  */
 @Entity
-@Table(name = "player")
+@Table(name = "players")
 public class Player {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,6 @@ public class Player {
 	private String password;
 	@Column(name = "email")
 	private String email;
-	@Column(name = "bio")
-	private String bio;
 	@Column(name = "isAdmin")
 	private boolean isAdmin;
 
@@ -44,7 +42,6 @@ public class Player {
 		username = u;
 		password = p;
 		email = e;
-		bio = "";
 		isAdmin = a;
 	}
 
@@ -83,14 +80,6 @@ public class Player {
 
 	public void setEmail(String e) {
 		email = e;
-	}
-
-	public String getBio() {
-		return bio;
-	}
-
-	public void setBio(String b) {
-		bio = b;
 	}
 
 	public boolean getIsAdmin() {
