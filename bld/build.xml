@@ -300,6 +300,7 @@
 			<zipfileset dir="${rsrc}" includes="**/*.js" />
 			<zipfileset dir="${rsrc}" includes="**/*.php" />
 			<zipfileset dir="${rsrc}" includes="**/*.png" />
+			<zipfileset dir="${rsrc}" includes="**/*.jpg" />
 			<zipfileset dir="${rsrc}" includes="persistence.xml" prefix="WEB-INF/classes/META-INF" />
 		</war>
 	</target>
