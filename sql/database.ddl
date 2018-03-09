@@ -1,22 +1,20 @@
-CREATE SCHEMA IF NOT EXISTS monopoly;
+DROP TABLE IF EXISTS players CASCADE;
 
-DROP TABLE IF EXISTS monopoly.players CASCADE;
-
-CREATE TABLE monopoly.players (
+CREATE TABLE players (
 	id SERIAL NOT NULL PRIMARY KEY,
 	username TEXT NOT NULL,
 	password TEXT NOT NULL,
 	email TEXT NOT NULL,
-	isAdmin BOOLEAN NOT NULL
+	is_admin BOOLEAN NOT NULL
 );
 
-DROP TABLE IF EXISTS monopoly.sessions;
+DROP TABLE IF EXISTS sessions;
 
-CREATE TABLE monopoly.sessions (
+CREATE TABLE sessions (
 	id SERIAL NOT NULL PRIMARY KEY,
 	board_config JSON NOT NULL,
 	players JSON NOT NULL,
-	currentPlayer INTEGER NOT NULL REFERENCES monopoly.players (id),
-	currentSeason TEXT NOT NULL,
+	current_player INTEGER NOT NULL REFERENCES players (id),
+	current_season TEXT NOT NULL,
 	difficulty TEXT
 );
