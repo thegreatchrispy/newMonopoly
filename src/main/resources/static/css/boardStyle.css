@@ -69,7 +69,12 @@ h1, h2, h3, h4, h5, h6 {
   border: 2px solid #080808;
 }
 
-#center {
+.center {
+  background:url('../images/winter.jpg');
+  background-size:50%;
+  border:1px solid black;
+  height:737px;width:737px;
+
   grid-column: 2 / 11;
   grid-row: 2 / 11;
   display: grid;

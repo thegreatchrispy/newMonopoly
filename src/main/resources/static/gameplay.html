@@ -5,18 +5,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/boardStyle.css">
-        <script type="text/javascript" src="js/jsstyle.js"></script>
+                <script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="jquery/validate.min.js"></script>
 	</head>
 	<body>
 		<div class="table">
 			<div class="board">
-				<div id="center" style="background-image:url('images/winter.jpg');
-                                        background-size:50%;
-                                        border:1px solid black;
-                                        height:737px;width:737px;">
-                                        <script type="text/javascript">
-                                          loopImageFunction();
-                                        </script>
+				<div class="center">
 					<div class="community-chest-deck">
 						<h2 class="label">Community Chest</h2>
 						<div class="deck"></div>
@@ -26,6 +21,19 @@
 						<h2 class="label">Chance</h2>
 						<div class="deck"></div>
 					</div>
+                                        <script type="text/javascript">
+                                          function loopImageFunction(){
+                                              images = ["spring.jpg","summer.jpg","fall.jpg","winter.jpg"];
+                                              i=0;
+                                              setInterval(function(){
+                                                if (i === images.length) i=0;
+                                                $(".center").css("background","url(images/"+images[i]+")");
+                                                $(".center").css("background-size","50%");
+                                                i++;
+                                                }, 3000);
+                                           }
+                                           loopImageFunction();
+                                        </script>
 				</div>
 
 				<div class="space corner go">
