@@ -1,5 +1,5 @@
 .opener {
-    background-image: url("images/opener.jpg");
+    background-image: url("../images/opener.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -102,7 +102,7 @@
 }
 
 .play {
-    background-image: url("images/play.jpg");
+    background-image: url("../images/play.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -174,7 +174,7 @@
 }
 
 .learn {
-    background-image: url("images/learn.jpg");
+    background-image: url("../images/learn.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;

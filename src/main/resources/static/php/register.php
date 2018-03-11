@@ -1,6 +1,6 @@
 <?php
 
-require_once "dbconfig.php";
+require_once "php/dbconfig.php";
 
 if($_POST) {
 	$email = $_POST["email"];

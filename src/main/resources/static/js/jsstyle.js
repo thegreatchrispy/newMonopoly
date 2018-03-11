@@ -11,7 +11,7 @@ function loopImageFunction(){
 
   setInterval(function(){
     if (i === images.length) i=0;
-    c.style.background = "url("+images[i]+")";
+    c.style.background = "url(../images/"+images[i]+")";
     c.style.backgroundSize = "50%";
     i++;
   }, 3000);

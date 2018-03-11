@@ -43,7 +43,7 @@ $("document").ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "register.php",
+			url: "php/register.php",
 			data: data,
 			beforeSend: function() {
 				$("#error").fadeOut();
