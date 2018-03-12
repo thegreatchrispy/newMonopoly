@@ -89,7 +89,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .community-chest-deck {
   font-size: 15px;
-  //font-weight: bold;
+  font-weight: bold;
   grid-column: 2 / 4;
   grid-row: 2 / 4;
   transform: rotate(135deg);
@@ -125,45 +125,124 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .horizontal-row {
-  grid-template-columns: repeat(9, 80px);
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: 125px;
+}
+
+.horizontal-row-center {
+  grid-template-columns: repeat(1, 80px);
   grid-template-rows: 125px;
 }
 
 .vertical-row {
   grid-template-columns: 125px;
-  grid-template-rows: repeat(9, 80px);
+  grid-template-rows: repeat(4, 80px);
 }
+
+.vertical-row-center {
+  grid-template-columns: 125px;
+  grid-template-rows: repeat(1, 80px);
+}
+
 .vertical-row .container {
   top: 50%;
   left: 50%;
 }
 
-.bottom-row {
+.bottom-row-left {
   grid-column: 2 / 11;
   grid-row: 11;
 }
 
-.left-row {
+.bottom-row-center {
+  grid-column: 6;
+  grid-row: 11;
+}
+
+.bottom-row-right {
+  grid-column: 7 / 11;
+  grid-row: 11;
+}
+
+.left-row-bottom {
+  grid-column: 1;
+  grid-row: 7 / 11;
+}
+
+.left-row-center {
+  grid-column: 1;
+  grid-row: 6;
+}
+
+.left-row-top {
   grid-column: 1;
   grid-row: 2 / 11;
 }
-.left-row .container {
+
+.left-row-bottom .container {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.top-row {
+.left-row-center .container {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.left-row-top .container {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.top-row-left {
   grid-column: 2 / 11;
   grid-row: 1;
 }
-.top-row .container {
+
+.top-row-center {
+  grid-column: 6;
+  grid-row: 1;
+}
+
+.top-row-right {
+  grid-column: 7 / 11;
+  grid-row: 1;
+}
+
+.top-row-left .container {
   transform: rotate(180deg);
 }
 
-.right-row {
+.top-row-center .container {
+  transform: rotate(180deg);
+}
+
+.top-row-right .container {
+  transform: rotate(180deg);
+}
+
+.right-row-top {
   grid-column: 11;
   grid-row: 2 / 11;
 }
-.right-row .container {
+
+.right-row-center {
+  grid-column: 11;
+  grid-row: 6;
+}
+
+
+.right-row-bottom {
+  grid-column: 11;
+  grid-row: 7 / 11;
+}
+
+.right-row-top .container {
+  transform: translate(-50%, -50%) rotate(270deg);
+}
+
+.right-row-center .container {
+  transform: translate(-50%, -50%) rotate(270deg);
+}
+
+.right-row-bottom .container {
   transform: translate(-50%, -50%) rotate(270deg);
 }
 
