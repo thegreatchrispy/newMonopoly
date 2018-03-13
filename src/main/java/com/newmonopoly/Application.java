@@ -11,8 +11,6 @@ import com.newmonopoly.ObjectDAO;
 public class Application {
 	@Autowired
     ObjectDAO dao;
-    @Autowired
-    SessionDAO sdao;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
