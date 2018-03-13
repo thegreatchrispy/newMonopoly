@@ -10,9 +10,18 @@
   element_2.className = element_1_class;
 }
 
+var column = 1;
+var row = 7;
+
+function move() {
+  var piece = document.getElementById("piece");
+  piece.style.gridColumn = column;
+  piece.style.gridRow = row;
+}
+
 // window.onload = function() {
-//   var test_1 = "group_1";
-//   var test_2 = "group_2";
+//   var test_1 = "group_3";
+//   var test_2 = "group_7";
 
 //   swap(test_1, test_2);
 // };
