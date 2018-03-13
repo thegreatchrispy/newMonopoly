@@ -69,7 +69,12 @@ h1, h2, h3, h4, h5, h6 {
   border: 2px solid #080808;
 }
 
-#center {
+.center {
+  background:url('../images/winter.jpg');
+  background-size:50%;
+  border:1px solid black;
+  height:737px;width:737px;
+
   grid-column: 2 / 11;
   grid-row: 2 / 11;
   display: grid;
@@ -259,6 +264,34 @@ h1, h2, h3, h4, h5, h6 {
   transform-origin: center;
   height: 125px;
   width: 80px;
+}
+.space .container .popuptext{
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+.space .container .show{
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
 }
 .space .name,
 .space .instructions {
