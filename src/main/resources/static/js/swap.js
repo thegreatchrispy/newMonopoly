@@ -19,9 +19,10 @@ function move() {
   piece.style.gridRow = row;
 }
 
-// window.onload = function() {
-//   var test_1 = "group_3";
-//   var test_2 = "group_7";
+window.onload = function() {
+  // var test_1 = "group_2";
+  // var test_2 = "group_6";
 
 //   swap(test_1, test_2);
-// };
+// }
+}

@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .board {
-  postition: absolute;
+  position: absolute;
   display: grid;
   grid-template-columns: 125px repeat(9, 80px) 125px;
   grid-template-rows: 125px repeat(9, 80px) 125px;
@@ -542,4 +542,5 @@ h1, h2, h3, h4, h5, h6 {
   grid-column: 11;
   grid-row: 11;
   position: relative;
+  /* transform: translate(-50%, -50%) rotate(90deg); */
 }
