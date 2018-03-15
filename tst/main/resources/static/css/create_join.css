@@ -1,0 +1,209 @@
+body {
+    background-image: url("../images/option.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 125%; 
+}
+
+h3 {
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-family: 'Verlag A','Verlag B';
+    color: white;
+}
+
+h5 {
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-family: 'Verlag A','Verlag B';
+    color: white;
+}
+
+span {
+    font-family: 'Verlag A','Verlag B';
+    color: white;
+}
+
+.box {
+    position: fixed;
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 30px;
+    width: 800px;
+    height: 600px;
+    top: 30%;
+    left: 35%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+.box_header {
+    color: white;
+    position: absolute;
+    float: left;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -0%);
+    font-size: 50px;
+}
+
+#create_button {
+    position: absolute;
+    top: 45%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-family: 'Verlag A','Verlag B';
+    background-color: #78a381;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #e0e0e0;
+    font-weight: 700;
+    font-size: 1.3em!important;
+    line-height: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 160px;
+    text-decoration: none;
+}
+
+#join_button {
+    position: absolute;
+    top: 45%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-family: 'Verlag A','Verlag B';
+    background-color: #78a381;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #e0e0e0;
+    font-weight: 700;
+    font-size: 1.3em!important;
+    line-height: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 160px;
+    text-decoration: none;
+}
+
+#create {
+    display: none;
+}
+
+#create_form {
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    transform: translate(-50%, -0%);
+}
+
+#create_game_button {
+    position: absolute;
+    top: 120%;
+    left: 150%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-family: 'Verlag A','Verlag B';
+    background-color: #78a381;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #e0e0e0;
+    font-weight: 700;
+    font-size: 1.3em!important;
+    line-height: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 160px;
+    text-decoration: none;
+}
+
+#join {
+    display: none;
+}
+
+#join_form {
+    position: absolute;
+    top: 20%;
+    left: 60%;
+    width: 100%;
+    transform: translate(-50%, -0%);
+}
+
+#create_back {
+    position: absolute;
+    top: 120%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-family: 'Verlag A','Verlag B';
+    background-color: #fff;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #ae8648;
+    font-weight: 700;
+    font-size: 1.3em!important;
+    line-height: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 160px;
+    text-decoration: none;    
+}
+
+#join_back {
+    position: absolute;
+    top: 120%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-family: 'Verlag A','Verlag B';
+    background-color: #fff;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #ae8648;
+    font-weight: 700;
+    font-size: 1.3em!important;
+    line-height: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 160px;
+    text-decoration: none; 
+}
+
+#join_game_button {
+    position: absolute;
+    top: 120%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-family: 'Verlag A','Verlag B';
+    background-color: #78a381;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #e0e0e0;
+    font-weight: 700;
+    font-size: 1.3em!important;
+    line-height: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 160px;
+    text-decoration: none;
+}
