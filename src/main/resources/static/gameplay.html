@@ -5,7 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/boardStyle.css">
-                <script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>	
+		<script type="text/javascript" src="js/swap.js"></script>
 		<script type="text/javascript" src="jquery/validate.min.js"></script>
 	</head>
 	<body>
@@ -21,21 +22,29 @@
 						<h2 class="label">Chance</h2>
 						<div class="deck"></div>
 					</div>
-                                        <script type="text/javascript">
-                                          function loopImageFunction(){
-                                              images = ["spring.jpg","summer.jpg","fall.jpg","winter.jpg"];
-                                              i=0;
-                                              setInterval(function(){
-                                                if (i === images.length) i=0;
-                                                $(".center").css("background","url(images/"+images[i]+")");
-                                                $(".center").css("background-size","50%");
-                                                i++;
-                                                }, 3000);
-                                           }
-                                           loopImageFunction();
-                                        </script>
 				</div>
+				<script type="text/javascript">
+					function loopImageFunction(){
+						images = ["spring.jpg","summer.jpg","fall.jpg","winter.jpg"];
+						i=0;
+						setInterval(function(){
+							if (i === images.length) i=0;
+								$(".center").css("background","url(images/"+images[i]+")");
+								$(".center").css("background-size","50%");
+								i++;
+						}, 3000);
+					}
+					loopImageFunction();
+				</script>
 
+			<div id="piece_1" class="piece_1"></div>
+			<div id="piece_2" class="piece_2"></div>
+			<div id="piece_3" class="piece_3"></div>
+			<div id="piece_4" class="piece_4"></div>
+			<div id="piece_5" class="piece_5"></div>
+			<div id="piece_6" class="piece_6"></div>
+
+				<!-- GO SPACE -->
 				<div class="space corner go">
 					<div class="container">
 						<div class="instructions">Collect $200.00 salary as you pass</div>
@@ -44,71 +53,87 @@
 					<div class="arrow fa fa-long-arrow-left"></div>
 				</div>
 
-				<div class="row horizontal-row bottom-row">
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar light-blue"></div>
-							<div class="name">Connecticut Avenue</div>
-							<div class="price">PRICE $120</div>
+				<!-- Group #1 -->
+				<div id="group_1" class="row horizontal-row bottom-row-right">
+						<div class="space fee income-tax">
+							<div class="container">
+								<div class="name">Income Tax</div>
+								<div class="diamond"></div>
+								<div class="instructions">Pay 10%<br>or<br>$200</div>
+							</div>
 						</div>
-					</div>
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar light-blue"></div>
-							<div class="name">Vermont Avenue</div>
-							<div class="price">Price $100</div>
+						<div class="space property">
+							<div class="container" onclick="myfunction()">
+							<span class="popuptext" id="myPopup">displays info, kappa</span>
+							<div id="caption"></div>
+								<div class="color-bar dark-purple"></div>
+								<div class="name">Baltic Avenue</div>
+								<div class="price">Price $50</div>
+							</div>
+							<script>
+							function myfunction(){
+								var popup = document.getElementById("myPopup");
+								popup.classList.toggle("show");
+							}
+							</script>
 						</div>
-					</div>
-					<div class="space chance">
-						<div class="container">
-							<div class="name">Chance</div>
-							<i class="drawing fa fa-question"></i>
+						<div class="space community-chest">
+							<div class="container">
+								<div class="name">Community Chest</div>
+								<i class="drawing fa fa-cube"></i>
+								<div class="instructions">Follow instructions on top card</div>
+							</div>
 						</div>
-					</div>
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar light-blue"></div>
-							<div class="name">Oriental Avenue</div>
-							<div class="price">Price $100</div>
+						<div class="space property">
+							<div class="container">
+								<div class="color-bar dark-purple"></div>
+								<div class="name three-line-name">Mediter-<br>ranean<br>Avenue</div>
+								<div class="price">Price $50</div>
+							</div>
 						</div>
-					</div>
-					<div class="space railroad">
+					</div> 
+
+				<!-- Railroad #1 -->
+				<div class="space railroad row horizontal-row-center bottom-row-center">
 						<div class="container">
 							<div class="name">Reading Railroad</div>
 							<i class="drawing fa fa-subway"></i>
 							<div class="price">Price $200</div>
 						</div>
-					</div>
-					<div class="space fee income-tax">
-						<div class="container">
-							<div class="name">Income Tax</div>
-							<div class="diamond"></div>
-							<div class="instructions">Pay 10%<br>or<br>$200</div>
-						</div>
-					</div>
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar dark-purple"></div>
-							<div class="name">Baltic Avenue</div>
-							<div class="price">Price $50</div>
-						</div>
-					</div>
-					<div class="space community-chest">
-						<div class="container">
-							<div class="name">Community Chest</div>
-							<i class="drawing fa fa-cube"></i>
-							<div class="instructions">Follow instructions on top card</div>
-						</div>
-					</div>
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar dark-purple"></div>
-							<div class="name three-line-name">Mediter-<br>ranean<br>Avenue</div>
-							<div class="price">Price $50</div>
-						</div>
-					</div>
 				</div>
 
+				<!-- Group #2 -->
+				<div id="group_2" class="row horizontal-row bottom-row-left">
+						<div class="space property">
+								<div class="container">
+									<div class="color-bar light-blue"></div>
+									<div class="name">Connecticut Avenue</div>
+									<div class="price">PRICE $120</div>
+								</div>
+							</div>
+							<div class="space property">
+								<div class="container">
+									<div class="color-bar light-blue"></div>
+									<div class="name">Vermont Avenue</div>
+									<div class="price">Price $100</div>
+								</div>
+							</div>
+							<div class="space chance">
+								<div class="container">
+									<div class="name">Chance</div>
+									<i class="drawing fa fa-question"></i>
+								</div>
+							</div>
+							<div class="space property">
+								<div class="container">
+									<div class="color-bar light-blue"></div>
+									<div class="name">Oriental Avenue</div>
+									<div class="price">Price $100</div>
+								</div>
+							</div>
+				</div>
+
+				<!-- JAIL SPACE -->
 				<div class="space corner jail">
 					<div class="just">Just</div>
 					<div class="drawing">
@@ -126,81 +151,90 @@
 					<div class="visiting">Visiting</div>
 				</div>
 
-				<div class="row vertical-row left-row">
-					<div class="space property">
+				<!-- GROUP #3 -->
+				<div id="group_3" class="row vertical-row left-row-bottom">
+						<div class="space property">
+								<div class="container">
+									<div class="color-bar purple"></div>
+									<div class="name">Virginia Avenue</div>
+									<div class="price">Price $160</div>
+								</div>
+							</div>
+							<div class="space property">
+								<div class="container">
+									<div class="color-bar purple"></div>
+									<div class="name">States Avenue</div>
+									<div class="price">Price $140</div>
+								</div>
+							</div>
+							<div class="space utility electric-company">
+								<div class="container">
+									<div class="name">Electric Company</div>
+									<i class="drawing fa fa-lightbulb-o"></i>
+									<div class="price">Price $150</div>
+								</div>
+							</div>
+							<div class="space property">
+								<div class="container">
+									<div class="color-bar purple"></div>
+									<div class="name">St. Charles Place</div>
+									<div class="price">Price $140</div>
+								</div>
+							</div>
+				</div>
+
+				<!-- RAILROAD #2 -->
+				<div class="space railroad row vertical-row left-row-center">
 						<div class="container">
-							<div class="color-bar orange"></div>
-							<div class="name">New York Avenue</div>
-							<div class="price">Price $200</div>
-						</div>
-					</div>
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar orange"></div>
-							<div class="name">Tennessee Avenue</div>
-							<div class="price">Price $180</div>
-						</div>
-					</div>
-					<div class="space community-chest">
-						<div class="container">
-							<div class="name">Community Chest</div>
-							<i class="drawing fa fa-cube"></i>
-							<div class="instructions">Follow instructions on top card</div>
-						</div>
-					</div>
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar orange"></div>
-							<div class="name">St. James Avenue</div>
-							<div class="price">Price $180</div>
-						</div>
-					</div>
-					<div class="space railroad">
-						<div class="container">
-							<div class="name long-name">Pennsylvania Railroad</div>
+							<div class="name long name">Pennsylvania Railroad</div>
 							<i class="drawing fa fa-subway"></i>
 							<div class="price">Price $200</div>
 						</div>
-					</div>
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar purple"></div>
-							<div class="name">Virginia Avenue</div>
-							<div class="price">Price $160</div>
-						</div>
-					</div>
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar purple"></div>
-							<div class="name">States Avenue</div>
-							<div class="price">Price $140</div>
-						</div>
-					</div>
-					<div class="space utility electric-company">
-						<div class="container">
-							<div class="name">Electric Company</div>
-							<i class="drawing fa fa-lightbulb-o"></i>
-							<div class="price">Price $150</div>
-						</div>
-					</div>
-					<div class="space property">
-						<div class="container">
-							<div class="color-bar purple"></div>
-							<div class="name">St. Charles Place</div>
-							<div class="price">Price $140</div>
-						</div>
-					</div>
 				</div>
 
+				<!-- GROUP #4 -->
+				<div id="group_4" class="row vertical-row left-row-top">
+						<div class="space property">
+							<div class="container">
+								<div class="color-bar orange"></div>
+								<div class="name">New York Avenue</div>
+								<div class="price">Price $200</div>
+							</div>
+						</div>
+						<div class="space property">
+							<div class="container">
+								<div class="color-bar orange"></div>
+								<div class="name">Tennessee Avenue</div>
+								<div class="price">Price $180</div>
+							</div>
+						</div>
+						<div class="space community-chest">
+							<div class="container">
+								<div class="name">Community Chest</div>
+								<i class="drawing fa fa-cube"></i>
+								<div class="instructions">Follow instructions on top card</div>
+							</div>
+						</div>
+						<div class="space property">
+							<div class="container">
+								<div class="color-bar orange"></div>
+								<div class="name">St. James Avenue</div>
+								<div class="price">Price $180</div>
+							</div>
+						</div>
+				</div>
+
+				<!-- FREE PARKING -->
 				<div class="space corner free-parking">
-					<div class="container">
-						<div class="name">Free</div>
-						<i class="drawing fa fa-car"></i>
-						<div class="name">Parking</div>
-					</div>
+						<div class="container">
+							<div class="name">Free</div>
+							<i class="drawing fa fa-car"></i>
+							<div class="name">Parking</div>
+						</div>
 				</div>
 
-				<div class="row horizontal-row top-row">
+				<!-- GROUP #5 -->
+				<div id="group_5" class="row horizontal-row top-row-left">
 					<div class="space property">
 						<div class="container">
 							<div class="color-bar red"></div>
@@ -228,13 +262,19 @@
 							<div class="price">Price $200</div>
 						</div>
 					</div>
-					<div class="space railroad">
+				</div>
+				
+				<!-- RAILROAD #3 -->
+				<div class="space railroad row horizontal-row top-row-center">
 						<div class="container">
 							<div class="name">B & O Railroad</div>
 							<i class="drawing fa fa-subway"></i>
 							<div class="price">Price $200</div>
 						</div>
-					</div>
+				</div>
+
+				<!-- GROUP #6 -->
+				<div id="group_6" class="row horizontal-row top-row-right">
 					<div class="space property">
 						<div class="container">
 							<div class="color-bar yellow"></div>
@@ -262,18 +302,20 @@
 							<div class="name">Marvin Gardens</div>
 							<div class="price">Price $280</div>
 						</div>
-					</div>
+					</div>					
 				</div>
 
+				<!-- GO TO JAIL -->
 				<div class="space corner go-to-jail">
-					<div class="container">
-						<div class="name">Go To</div>
-						<i class="drawing fa fa-gavel"></i>
-						<div class="name">Jail</div>
+						<div class="container">
+							<div class="name">Go To</div>
+							<i class="drawing fa fa-gavel"></i>
+							<div class="name">Jail</div>
+						</div>
 					</div>
-				</div>
 
-				<div class="row vertical-row right-row">
+				<!-- GROUP #7 -->
+				<div id="group_7" class="row vertical-row right-row-top">
 					<div class="space property">
 						<div class="container">
 							<div class="color-bar green"></div>
@@ -302,13 +344,20 @@
 							<div class="price">Price $320</div>
 						</div>
 					</div>
-					<div class="space railroad">
+				</div>
+
+				<!-- RAILROAD #4 -->
+				<div class="space railroad row vertical-row right-row-center">
 						<div class="container">
 							<div class="name">Short Line</div>
 							<i class="drawing fa fa-subway"></i>
 							<div class="price">Price $200</div>
 						</div>
-					</div>
+				</div>
+
+
+				<!-- GROUP #8 -->
+				<div id="group_8" class="row vertical-row right-row-bottom">
 					<div class="space chance">
 						<div class="container">
 							<div class="name">Chance</div>
