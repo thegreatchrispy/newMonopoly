@@ -131,15 +131,12 @@ public class Board {
 //	
 	// Move player.
 	public void movePlayer(Player player, int value) {
-		System.out.println("Entering movePlayer.");
 		turnOver = false;
 		if ( ((player.getCurrentPosition() + value) % 40) < (player.getCurrentPosition())) {
 			player.setMoney(player.getMoney() + 200);
 		}
-		System.out.println("If statement finished.");
 
 		player.setCurrentPosition((player.getCurrentPosition() + value) % 40);
-		System.out.println(player.getCurrentPosition());
 		transaction(player);
 	}
 
@@ -295,7 +292,6 @@ public class Board {
 //	}
 //	
 	public Player getCurrentPlayer() {
-		System.out.println(players.get(currentTurn % players.size()));
 		return players.get(currentTurn % players.size());
 	}
 //	

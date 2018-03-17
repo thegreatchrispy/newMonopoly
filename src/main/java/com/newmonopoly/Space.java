@@ -3,7 +3,7 @@ package com.newmonopoly;
 public class Space {
   	private String name;
   	private int group;
-		private int position;
+	private int position;
   	private String type;
   	private int price;
   	private int rent;
@@ -17,52 +17,52 @@ public class Space {
   	private int weakSeason;
 
   	public void setName(String name) {
-		  this.name = name;
-		}
+		this.name = name;
+	}
 	
-		public String getName() {
-			return name;
-		}
+	public String getName() {
+		return name;
+	}
 
-		public void setGroup(int group) {
-			this.group = group;
-		}
-
-		public int getGroup() {
-			return group;
-		}
+	public void setGroup(int group) {
+		this.group = group;
+	}
+	
+	public int getGroup() {
+		return group;
+	}
 
   	public void setPosition(int pos) {
-	 		position = pos;
-		}
+	 	position = pos;
+	}
 
   	public int getPosition() {
   		return position;
-		}
+	}
 
-		public void setType(String type) {
-			this.type = type;
-		}
+	public void setType(String type) {
+		this.type = type;
+	}
 	
-		public String getType() {
-			return type;
-		}
+	public String getType() {
+		return type;
+	}
 
-		public void setPrice(int price) {
-	  		this.price = price;
-  		}
+	public void setPrice(int price) {
+		this.price = price;
+  	}
 
   	public int getPrice() {
   		return price;
   	}
 
   	public void setRent(int rent) {
-	 		this.rent = rent;
-		}
+		this.rent = rent;
+	}
 
   	public int getRent() {
-  		return rent;
-		}
+		return rent;
+	}
 
   	public void setMultipliedRent(int[] multipliedRent) {
 	  	this.multipliedRent = multipliedRent;
@@ -89,42 +89,42 @@ public class Space {
   	}
 
   	public void setOwnedBy(int ownedBy) {
-	 		this.ownedBy = ownedBy;
-		}
+		this.ownedBy = ownedBy;
+	}
 
   	public int getOwnedBy() {
   		return ownedBy;
-		}
+	}
 
   	public void setBuildings(int buildings) {
-	 		this.buildings = buildings;
-		}
+		this.buildings = buildings;
+	}
 
   	public int getBuildings() {
   		return buildings;
-		}
+	}
 
   	public void setMortgaged(boolean mortgaged) {
-	 		this.mortgaged = mortgaged;
-		}
+		this.mortgaged = mortgaged;
+	}
 
   	public boolean isMortgaged() {
   		return mortgaged;
   	}
 
   	public void setStrongSeason(int strong) {
-	 		strongSeason = strong;
-		}
+		strongSeason = strong;
+	}
 
   	public int getStrongSeason() {
   		return strongSeason;
   	}
 
   	public void setWeakSeason(int weak) {
-	 		weakSeason = weak;
-		}
+		weakSeason = weak;
+	}
 
   	public int getWeakSeason() {
-  		return weakSeason;
-		}
-  }
+		return weakSeason;
+	}
+}

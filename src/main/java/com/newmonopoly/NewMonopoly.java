@@ -64,28 +64,22 @@ public class NewMonopoly {
 	//}
 
 	public void startGame() {
-		System.out.println("Game Has Begun!!!");
-		System.out.println("Game Has Begun!!!");
 		choosePieces();
 		playerOrder();
-		System.out.println("While loop about to begin.");
 		// Continuous loop until the game is over and the board has a winner.
 		while (!gameOver && !board.hasWinner()) {
-			System.out.println("Begin turn.")
 			if(board.getCurrentPlayer().getMoney()>0) {
 				board.getCurrentPlayer().setDoublesCount(0);
 				do{
 					die_1.roll();
 					die_2.roll();
 					int die_roll = die_1.getValue() + die_2.getValue();
-					System.out.println("Rolled dice.");
 
 					if(die_1.getValue() == die_2.getValue()){
 						board.getCurrentPlayer().incrementDoubles();
 					}
 
 					if(board.getCurrentPlayer().getDoublesCount()<3){
-						System.out.println("About to move player.");
 						board.movePlayer(board.getCurrentPlayer(), die_roll);
 					}else {
 						board.movePlayerToJail(board.getCurrentPlayer());
