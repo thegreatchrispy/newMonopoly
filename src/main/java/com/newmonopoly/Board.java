@@ -199,6 +199,7 @@ public class Board {
 	}
 
 	public void payRent(Player player, Space space) {
+		// Rent will be changed in database in the build() method
 		int rent = space.getRent();
 		int index = space.getOwnedBy();
 		player.setMoney(player.getMoney() - rent);
