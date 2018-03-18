@@ -14,7 +14,7 @@ public class Board {
 	List<Player> players;  // Players are in turn order
 	boolean randomizeSet;
 	int currentTurn; // Current turn number
-	int totalPlayer; // Total number of players allowed to joi
+	int totalPlayer; // Total number of players allowed to join
 	Space[] spaces;
 	String[] seasons;
 	String currentSeason;
@@ -199,7 +199,10 @@ public class Board {
 	}
 
 	public void payRent(Player player, Space space) {
-		
+		int rent = space.getRent();
+		int index = space.getOwnedBy();
+		player.setMoney(player.getMoney() - rent);
+		players.get(index).setMoney(players.get(index).getMoney() + rent);
 	}
 
 	public void payRailroad(Player player, Space space) {
