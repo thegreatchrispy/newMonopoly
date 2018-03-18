@@ -207,7 +207,17 @@ public class Board {
 	}
 
 	public void payRailroad(Player player, Space space) {
-		
+		int payment = 0;
+		int index = space.getOwnedBy();
+
+		for (int i = 0; i < 4; i++) {
+			if (index == spaces[10*i + 5].getOwnedBy()) {
+				payment *= 2;
+			}
+		}
+
+		player.setMoney(player.getMoney() - payment);
+		players.get(index).setMoney(players.get(index).getMoney() + payment);
 	}
 
 	public void payUtility(Player player, Space space) {
