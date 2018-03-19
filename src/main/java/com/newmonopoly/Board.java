@@ -165,7 +165,7 @@ public class Board {
 
 		transaction(player);
 	}
-	public void movePlayerToPosition(Player player, int position) {
+	public void moveToPosition(Player player, int position) {
 		
 	}
 	public void moveToNearest(Player player, String type) {
@@ -317,7 +317,7 @@ public class Board {
 				if(card.getSpaceName() != null){
 					movePlayer(player, card.getSpaceName());
 				} else if(card.getPosition() != 0){
-					movePlayerToPosition(player, card.getPosition());
+					moveToPosition(player, card.getPosition());
 				}
 				break;
 			case "movenearest":
