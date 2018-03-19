@@ -11,16 +11,16 @@ import java.io.FileReader;
 import com.google.gson.Gson;
 
 public class Board {
-	private List<Player> players;  // Players are in turn order
-	private boolean randomizeSet;
-	private int currentTurn; // Current turn number
-	private int totalPlayer; // Total number of players allowed to joi
-	private Space[] spaces;
-	private String[] seasons;
-	private String currentSeason;
-	private Random rand;
-	private Gson gson;
-	private boolean turnOver;
+	List<Player> players;  // Players are in turn order
+	boolean randomizeSet;
+	int currentTurn; // Current turn number
+	int totalPlayer; // Total number of players allowed to join
+	Space[] spaces;
+	String[] seasons;
+	String currentSeason;
+	Random rand;
+	Gson gson;
+	boolean turnOver;
 	
 	// Constructor
 	public Board(List<Player> players, boolean randomizeSet) throws Exception {
@@ -31,8 +31,7 @@ public class Board {
 		totalPlayer = 6;// Set to 6 for testing, will get from constructor in future.
 		turnOver = false;
 		spaces = new Space[40];
-		spaces = retrieveSpaceInfo();
-
+		retrieveSpaceInfo();
 		//rand = new Random(4);
 		//seasons = {"Spring", "Summer", "Fall", "Winter"};
 		//currentSeason = seasons[rand];
@@ -200,11 +199,25 @@ public class Board {
 	}
 
 	public void payRent(Player player, Space space) {
-		
+		// Rent will be changed in database in the build() method
+		int rent = space.getRent();
+		int index = space.getOwnedBy();
+		player.setMoney(player.getMoney() - rent);
+		players.get(index).setMoney(players.get(index).getMoney() + rent);
 	}
 
 	public void payRailroad(Player player, Space space) {
-		
+		int payment = 0;
+		int index = space.getOwnedBy();
+
+		for (int i = 0; i < 4; i++) {
+			if (index == spaces[10*i + 5].getOwnedBy()) {
+				payment *= 2;
+			}
+		}
+
+		player.setMoney(player.getMoney() - payment);
+		players.get(index).setMoney(players.get(index).getMoney() + payment);
 	}
 
 	public void payUtility(Player player, Space space) {
@@ -313,10 +326,8 @@ public class Board {
 //	public int getTotalSquare() {
 //		return spaces.length;
 //	}
-	public Space[] retrieveSpaceInfo() throws Exception {
-    	// Space[] spaces = gson.fromJson(new FileReader("spaces.json"), Space[].class);
-    	return gson.fromJson(new FileReader("spaces.json"), Space[].class);
-
+	public void retrieveSpaceInfo() throws Exception {
+    	Space[] spaces = gson.fromJson(new FileReader("spaces.json"), Space[].class);
 	}
 
 }

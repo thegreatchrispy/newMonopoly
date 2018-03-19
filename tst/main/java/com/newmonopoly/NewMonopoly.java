@@ -64,7 +64,6 @@ public class NewMonopoly {
 	//}
 
 	public void startGame() {
-		System.out.println("Game Has Begun!!!");
 		choosePieces();
 		playerOrder();
 		// Continuous loop until the game is over and the board has a winner.

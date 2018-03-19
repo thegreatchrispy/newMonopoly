@@ -14,7 +14,7 @@ public class Board {
 	List<Player> players;  // Players are in turn order
 	boolean randomizeSet;
 	int currentTurn; // Current turn number
-	int totalPlayer; // Total number of players allowed to joi
+	int totalPlayer; // Total number of players allowed to join
 	Space[] spaces;
 	String[] seasons;
 	String currentSeason;
@@ -199,11 +199,25 @@ public class Board {
 	}
 
 	public void payRent(Player player, Space space) {
-		
+		// Rent will be changed in database in the build() method
+		int rent = space.getRent();
+		int index = space.getOwnedBy();
+		player.setMoney(player.getMoney() - rent);
+		players.get(index).setMoney(players.get(index).getMoney() + rent);
 	}
 
 	public void payRailroad(Player player, Space space) {
-		
+		int payment = 25;
+		int index = space.getOwnedBy();
+
+		for (int i = 0; i < 4; i++) {
+			if (index == spaces[10*i + 5].getOwnedBy()) {
+				payment *= 2;
+			}
+		}
+
+		player.setMoney(player.getMoney() - payment);
+		players.get(index).setMoney(players.get(index).getMoney() + payment);
 	}
 
 	public void payUtility(Player player, Space space) {
