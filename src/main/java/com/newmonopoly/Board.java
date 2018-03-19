@@ -157,7 +157,13 @@ public class Board {
 		transaction(player);
 	}
 	public void movePlayer(Player player, String spaceName) {
-		//blank
+		for (Space space : spaces) {
+			if (space.getName().equals(spaceName)) {
+				player.setCurrentPosition(spaces.indexOf(space));
+			}
+		}
+
+		transaction(player);
 	}
 	public void movePlayerToPosition(Player player, int position) {
 		
