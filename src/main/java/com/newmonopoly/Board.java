@@ -207,7 +207,7 @@ public class Board {
 	}
 
 	public void payRailroad(Player player, Space space) {
-		int payment = 0;
+		int payment = 25;
 		int index = space.getOwnedBy();
 
 		for (int i = 0; i < 4; i++) {
