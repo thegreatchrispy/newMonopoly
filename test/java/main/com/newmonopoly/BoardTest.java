@@ -1,9 +1,9 @@
 package com.newmonopoly;
 
-import com.monopoly.Board;
-import com.monopoly.Card;
-import com.monopoly.Player;
-import com.monopoly.Space;
+import com.newmonopoly.Board;
+import com.newmonopoly.Card;
+import com.newmonopoly.Player;
+import com.newmonopoly.Space;
 
 import org.junit.*;
 import org.junit.runner.*;
@@ -23,7 +23,13 @@ public class BoardTest {
 		players.add(new Player("Ivan"));
 		players.add(new Player("Pepe"));
 		players.add(new Player("Tang"));
-		board = new Board(players, false);
+
+		try {
+			board = new Board(players, false);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
