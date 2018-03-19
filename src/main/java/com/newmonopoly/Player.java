@@ -10,6 +10,7 @@ public class Player {
 	private int doublesCount;
 	private boolean jailCard;
 	private boolean inJail;
+	private int jailTime;
 	private List<String> ownedProperties;
 	
 
@@ -19,6 +20,7 @@ public class Player {
 		currentPosition = 0;
 		ownedProperties = new Vector<String>();
 		jailCard = false;
+		jailTime = 0;
 	}
 
 	public String getName() {
@@ -79,5 +81,13 @@ public class Player {
 
 	public void setInJail(boolean jailStatus) {
 		inJail = jailStatus;
+	}
+	
+	public int getJailTime() {
+		return jailTime;
+	}
+
+	public void setJailTime(int jailTime) {
+		this.jailTime = jailTime;
 	}
 }
