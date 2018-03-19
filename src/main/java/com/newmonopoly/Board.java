@@ -8,6 +8,7 @@ import java.util.Vector;
 import java.util.Random;
 import java.util.Scanner;
 import java.io.FileReader;
+import java.lang.Math;
 
 import com.google.gson.Gson;
 
@@ -22,6 +23,7 @@ public class Board {
 	Random rand;
 	Gson gson;
 	boolean turnOver;
+	int dieValue;
 	
 	// Constructor
 	public Board(List<Player> players, boolean randomizeSet) throws Exception {
@@ -32,6 +34,8 @@ public class Board {
 		totalPlayer = 6;// Set to 6 for testing, will get from constructor in future.
 		turnOver = false;
 		spaces = new Space[40];
+		dieValue=0;
+
 		retrieveSpaceInfo();
 		//rand = new Random(4);
 		//seasons = {"Spring", "Summer", "Fall", "Winter"};
@@ -132,6 +136,7 @@ public class Board {
 //	
 	// Move player.
 	public void movePlayer(Player player, int value) {
+		dieValue = value;
 		turnOver = false;
 		if ( ((player.getCurrentPosition() + value) % 40) < (player.getCurrentPosition())) {
 			player.setMoney(player.getMoney() + 200);
@@ -224,11 +229,24 @@ public class Board {
 	}
 
 	public void payUtility(Player player, Space space) {
-		
+		int initialPayment;
+		List<String> properties = players.get(space.getOwnedBy()).getOwnedProperties();
+
+		if(properties.contains("Water Works")&&properties.contains("Electric Company")){
+			initialPayment=10;
+		}else {
+			initialPayment=4;
+		}
+		player.setMoney(player.getMoney() - (initialPayment*dieValue));
+		players.get(space.getOwnedBy()).setMoney(players.get(space.getOwnedBy()).getMoney() + (initialPayment*dieValue));
 	}
 
 	public void payTax(Player player, Space space) {
-		
+		if(space.getName().equals("Luxury Tax")){
+			player.setMoney(player.getMoney() - space.getPrice());
+		} else {
+			player.setMoney(player.getMoney() - Math.min(200,(player.getMoney()/10)));
+		}
 	}
 
 	public void chooseToBuy(Player player, Space space) {
