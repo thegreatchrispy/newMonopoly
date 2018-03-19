@@ -229,7 +229,23 @@ public class Board {
 	}
 
 	public void chooseToBuy(Player player, Space space) {
-		
+		// Ask player if they want to buy property.
+		boolean player_wants = true;
+		// Take input here.
+
+		// Player wants property.
+		if (player_wants) {
+			player.setMoney(player.getMoney() - space.getPrice()); // Player buys property.
+			player.addOwnedProperties(space.getName()); // Add property to players Owned Properties list.
+		}
+		// Player does not want property.
+		else {
+			auction(players, space); // All players eligible for auction.
+		}
+	}
+
+	public void auction(List<Player> players, Space space) {
+
 	}
 
 	public void drawCard(String type) {

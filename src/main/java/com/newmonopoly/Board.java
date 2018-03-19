@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 import java.util.Random;
+import java.util.Scanner;
 import java.io.FileReader;
 
 import com.google.gson.Gson;
@@ -141,7 +142,9 @@ public class Board {
 	}
 
 	public void movePlayerToJail(Player player) {
-		
+		player.setCurrentPosition(10);
+		player.setInJail(true);
+		player.setJailTime(3);
 	}
 
 	public void transaction(Player player) {
@@ -229,7 +232,22 @@ public class Board {
 	}
 
 	public void chooseToBuy(Player player, Space space) {
+		Scanner input = new Scanner(System.in);
+		System.out.print("Would you like to purchase " + space.getName() + " for $" + space.getPrice() + "? Y/N");
+		String choice = input.nextLine();
 		
+		if (choice.equals("Y") || choice.equals("y")) {
+			player.setMoney(player.getMoney() - space.getPrice()); // Player buys property.
+			player.addOwnedProperties(space.getName()); // Add property to players Owned Properties list.
+		}
+		// Player does not want property.
+		else {
+			auction(players, space); // All players eligible for auction.
+		}
+	}
+
+	public void auction(List<Player> players, Space space) {
+
 	}
 
 	public void drawCard(String type) {
