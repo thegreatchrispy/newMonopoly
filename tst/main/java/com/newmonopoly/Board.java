@@ -6,21 +6,28 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 import java.util.Random;
+import java.util.Scanner;
 import java.io.FileReader;
+import java.lang.Math;
+import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class Board {
-	List<Player> players;  // Players are in turn order
+	private List<Player> players;  // Players are in turn order
 	boolean randomizeSet;
 	int currentTurn; // Current turn number
 	int totalPlayer; // Total number of players allowed to join
-	Space[] spaces;
+	private List<Space> spaces;
+	private List<Card> chance;
+	private List<Card> community;
 	String[] seasons;
 	String currentSeason;
 	Random rand;
 	Gson gson;
 	boolean turnOver;
+	int dieValue;
 	
 	// Constructor
 	public Board(List<Player> players, boolean randomizeSet) throws Exception {
@@ -30,8 +37,17 @@ public class Board {
 		currentTurn = 0;
 		totalPlayer = 6;// Set to 6 for testing, will get from constructor in future.
 		turnOver = false;
-		spaces = new Space[40];
-		retrieveSpaceInfo();
+		spaces = new Vector<Space>();
+		chance = new Vector<Card>();
+		community = new Vector<Card>();
+		dieValue=0;
+
+		spaces = retrieveSpaceInfo();
+		chance = retrieveChanceInfo();
+		community = retrieveCommunityInfo();
+
+		Collections.shuffle(chance);
+		Collections.shuffle(community);
 		//rand = new Random(4);
 		//seasons = {"Spring", "Summer", "Fall", "Winter"};
 		//currentSeason = seasons[rand];
@@ -131,6 +147,7 @@ public class Board {
 //	
 	// Move player.
 	public void movePlayer(Player player, int value) {
+		dieValue = value;
 		turnOver = false;
 		if ( ((player.getCurrentPosition() + value) % 40) < (player.getCurrentPosition())) {
 			player.setMoney(player.getMoney() + 200);
@@ -139,13 +156,39 @@ public class Board {
 		player.setCurrentPosition((player.getCurrentPosition() + value) % 40);
 		transaction(player);
 	}
-
-	public void movePlayerToJail(Player player) {
+	public void movePlayer(Player player, String spaceName) {
+		//blank
+	}
+	public void movePlayerToPosition(Player player, int position) {
+		
+	}
+	public void moveToNearest(Player player, String type) {
+		//blank
+	}
+	public void addFunds(Player player, int payment) {
+		// JUAN
+	}
+	public void removeFunds(Player player, int payment) {
+		// JUAN
+	}
+	public void repairs(Player player, int houses, int hotels) {
+		// JUAN
+	}
+	public void giveToPlayers(Player player, int payment) {
+		
+	}
+	public void takeFromPlayers(Player player, int payment) {
 		
 	}
 
+	public void movePlayerToJail(Player player) {
+		player.setCurrentPosition(10);
+		player.setInJail(true);
+		player.setJailTime(3);
+	}
+
 	public void transaction(Player player) {
-		performSpaceAction(player, spaces[player.getCurrentPosition()]);
+		performSpaceAction(player, spaces.get(player.getCurrentPosition()));
 		if (player.getMoney() <= 0) {
 			turnOver = true;
 			// End turn called here.
@@ -188,13 +231,13 @@ public class Board {
 				payTax(player, space);
 				break;
 			case "comchest":
-				drawCard("comchest");
+				drawCard(player, community);
 				break;
 			case "chance":
-				drawCard("chance");
+				drawCard(player, chance);
 				break;
 			default:
-				break;		
+				break;
 		}
 	}
 
@@ -207,11 +250,11 @@ public class Board {
 	}
 
 	public void payRailroad(Player player, Space space) {
-		int payment = 0;
+		int payment = 25;
 		int index = space.getOwnedBy();
 
 		for (int i = 0; i < 4; i++) {
-			if (index == spaces[10*i + 5].getOwnedBy()) {
+			if (index == spaces.get(10*i + 5).getOwnedBy()) {
 				payment *= 2;
 			}
 		}
@@ -221,20 +264,32 @@ public class Board {
 	}
 
 	public void payUtility(Player player, Space space) {
-		
+		int initialPayment;
+		List<String> properties = players.get(space.getOwnedBy()).getOwnedProperties();
+
+		if(properties.contains("Water Works")&&properties.contains("Electric Company")){
+			initialPayment=10;
+		}else {
+			initialPayment=4;
+		}
+		player.setMoney(player.getMoney() - (initialPayment*dieValue));
+		players.get(space.getOwnedBy()).setMoney(players.get(space.getOwnedBy()).getMoney() + (initialPayment*dieValue));
 	}
 
 	public void payTax(Player player, Space space) {
-		
+		if(space.getName().equals("Luxury Tax")){
+			player.setMoney(player.getMoney() - space.getPrice());
+		} else {
+			player.setMoney(player.getMoney() - Math.min(200,(player.getMoney()/10)));
+		}
 	}
 
 	public void chooseToBuy(Player player, Space space) {
-		// Ask player if they want to buy property.
-		boolean player_wants = true;
-		// Take input here.
-
-		// Player wants property.
-		if (player_wants) {
+		Scanner input = new Scanner(System.in);
+		System.out.print("Would you like to purchase " + space.getName() + " for $" + space.getPrice() + "? Y/N");
+		String choice = input.nextLine();
+		
+		if (choice.equals("Y") || choice.equals("y")) {
 			player.setMoney(player.getMoney() - space.getPrice()); // Player buys property.
 			player.addOwnedProperties(space.getName()); // Add property to players Owned Properties list.
 		}
@@ -248,7 +303,44 @@ public class Board {
 
 	}
 
-	public void drawCard(String type) {
+	public void drawCard(Player player, List<Card> cards) {
+		Card card = cards.get(0);
+		cards.add(cards.remove(0));
+		switch (card.getAction()) {
+			case "move":
+				if(card.getSpaceName() != null){
+					movePlayer(player, card.getSpaceName());
+				} else if(card.getPosition() != 0){
+					movePlayerToPosition(player, card.getPosition());
+				}
+				break;
+			case "movenearest":
+				moveToNearest(player, card.getType());
+				break;
+			case "addfunds":
+				addFunds(player, card.getPayment());
+				break;
+			case "removefunds":
+				removeFunds(player, card.getPayment());
+				break;
+			case "repairs":
+				repairs(player, card.getHouses(), card.getHotels());
+				break;
+			case "givetoplayers":
+				giveToPlayers(player, card.getPayment());
+				break;
+			case "takefromplayers":
+				takeFromPlayers(player, card.getPayment());
+				break;
+			case "gotojail":
+				movePlayerToJail(player);
+				break;
+			case "outjail":
+				player.setJailCard(true);
+				break;
+			default:
+				break;
+		}
 		// Call a new Card object dependent on the type.
 	}
 
@@ -342,8 +434,18 @@ public class Board {
 //	public int getTotalSquare() {
 //		return spaces.length;
 //	}
-	public void retrieveSpaceInfo() throws Exception {
-    	Space[] spaces = gson.fromJson(new FileReader("spaces.json"), Space[].class);
+	public List<Space> retrieveSpaceInfo() throws Exception {
+		List<Space> spaces = gson.fromJson(new FileReader("spaces.json"), new TypeToken<List<Space>>(){}.getType());
+		return spaces;
+	}
+	public List<Card> retrieveChanceInfo() throws Exception {
+		List<Card> chance = gson.fromJson(new FileReader("chance.json"), new TypeToken<List<Card>>(){}.getType());
+		return chance;
+	}
+
+	public List<Card> retrieveCommunityInfo() throws Exception {
+		List<Card> community = gson.fromJson(new FileReader("community.json"), new TypeToken<List<Card>>(){}.getType());
+		return community;
 	}
 
 }
