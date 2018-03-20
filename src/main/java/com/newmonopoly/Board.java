@@ -156,6 +156,7 @@ public class Board {
 		player.setCurrentPosition((player.getCurrentPosition() + value) % 40);
 		transaction(player);
 	}
+
 	public void movePlayer(Player player, String spaceName) {
 		for (Space space : spaces) {
 			if (space.getName().equals(spaceName)) {
@@ -165,11 +166,22 @@ public class Board {
 
 		transaction(player);
 	}
+
 	public void moveToPosition(Player player, int position) {
-		
+		player.setCurrentPosition(position);
+		transaction(player);
 	}
+
 	public void moveToNearest(Player player, String type) {
-		//blank
+		boolean nearestFound = false;
+
+		for (int i = 1; i < 40 && !nearestFound; i++) {
+			if (spaces.get(player.getCurrentPosition() + i).getType() == type) {
+				player.setCurrentPosition(player.getCurrentPosition() + i);
+			}
+		}
+
+		transaction(player);
 	}
 	public void addFunds(Player player, int payment) {
 		// JUAN
