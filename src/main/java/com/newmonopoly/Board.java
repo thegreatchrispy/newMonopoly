@@ -178,6 +178,7 @@ public class Board {
 		for (int i = 1; i < 40 && !nearestFound; i++) {
 			if (spaces.get(player.getCurrentPosition() + i).getType() == type) {
 				player.setCurrentPosition(player.getCurrentPosition() + i);
+				nearestFound = true;
 			}
 		}
 
