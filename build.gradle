@@ -41,7 +41,7 @@ dependencies {
 sourceSets {
 	test {
 		java {
-			srcDirs = ["test/java/main/com/newmonopoly"]
+			srcDirs = ["test/main/java/com/newmonopoly"]
 		}
 	}
 }
