@@ -5,8 +5,8 @@ import java.util.Vector;
 
 public class NewMonopoly {
 	Board board;
-	Die die_1;
-	Die die_2;
+	Die die1;
+	Die die2;
 	List<Player> players;
 	boolean gameOver;
 	int maxTurns;
@@ -52,8 +52,8 @@ public class NewMonopoly {
 			e.printStackTrace();
 		}
 
-		die_1 = new Die();
-		die_2 = new Die();
+		die1 = new Die();
+		die2 = new Die();
 		maxTurns=120;
 		gameOver=false;
 		//timer = new Timer();
@@ -71,21 +71,21 @@ public class NewMonopoly {
 			if(board.getCurrentPlayer().getMoney()>0) {
 				board.getCurrentPlayer().setDoublesCount(0);
 				do{
-					die_1.roll();
-					die_2.roll();
-					int die_roll = die_1.getValue() + die_2.getValue();
+					die1.roll();
+					die2.roll();
+					int dieRoll = die1.getValue() + die2.getValue();
 
-					if(die_1.getValue() == die_2.getValue()){
+					if(die1.getValue() == die2.getValue()){
 						board.getCurrentPlayer().incrementDoubles();
 					}
 
 					if(board.getCurrentPlayer().getDoublesCount()<3){
-						board.movePlayer(board.getCurrentPlayer(), die_roll);
+						board.movePlayer(board.getCurrentPlayer(), dieRoll);
 					}else {
 						board.movePlayerToJail(board.getCurrentPlayer());
 						break;
 					}
-				}while(die_1.getValue() == die_2.getValue());
+				}while(die1.getValue() == die2.getValue());
 			}
 
 			board.nextTurn();
