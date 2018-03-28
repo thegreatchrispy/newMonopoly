@@ -166,13 +166,14 @@ public class Board {
 		//blank
 	}
 	public void addFunds(Player player, int payment) {
-		// JUAN
+		player.setMoney(player.getMoney()+payment);
 	}
 	public void removeFunds(Player player, int payment) {
-		// JUAN
+		player.setMoney(player.getMoney()-payment)
 	}
 	public void repairs(Player player, int houses, int hotels) {
-		// JUAN
+		//encounted problem when it comes to change a house and hotel price
+		transaction(player);
 	}
 	public void giveToPlayers(Player player, int payment) {
 		
