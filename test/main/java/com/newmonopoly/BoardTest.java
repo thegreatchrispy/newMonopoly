@@ -1,5 +1,3 @@
-package com.newmonopoly;
-
 import com.newmonopoly.Board;
 import com.newmonopoly.Card;
 import com.newmonopoly.Player;

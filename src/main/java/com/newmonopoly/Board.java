@@ -164,12 +164,12 @@ public class Board {
 			}
 		}
 
-		transaction(player);
+		performSpaceAction(player, spaces.get(player.getCurrentPosition()));
 	}
 
 	public void moveToPosition(Player player, int position) {
 		player.setCurrentPosition(position);
-		transaction(player);
+		performSpaceAction(player, spaces.get(player.getCurrentPosition()));
 	}
 
 	public void moveToNearest(Player player, String type) {
@@ -182,7 +182,7 @@ public class Board {
 			}
 		}
 
-		transaction(player);
+		performSpaceAction(player, spaces.get(player.getCurrentPosition()));
 	}
 	public void addFunds(Player player, int payment) {
 		// JUAN
