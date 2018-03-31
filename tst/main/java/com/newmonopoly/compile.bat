@@ -1,1 +1,0 @@
-javac -cp "gson-2.6.2.jar" NewMonopoly.java Player.java Board.java Die.java Space.java Card.java NewMonopolyTest.java

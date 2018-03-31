@@ -37,3 +37,11 @@ dependencies {
     compile 'org.postgresql:postgresql'
 	testCompile("junit:junit")
 }
+
+sourceSets {
+	test {
+		java {
+			srcDirs = ["test/main/java/com/newmonopoly"]
+		}
+	}
+}
