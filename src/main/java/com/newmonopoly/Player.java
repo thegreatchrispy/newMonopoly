@@ -5,7 +5,6 @@ import java.util.Vector;
 
 public class Player {
 	private String name;
-	private int id;
 	private int money;
 	private int currentPosition;
 	private int doublesCount;
@@ -13,16 +12,19 @@ public class Player {
 	private boolean inJail;
 	private int jailTime;
 	private List<String> ownedProperties;
+	private int[] monopolyGroup;
 	
 
-	public Player(String name, int id) {
+	public Player(String name) {
 		this.name = name;
-		this.id = id;
 		money = 1500;
 		currentPosition = 0;
-		ownedProperties = new Vector<String>();
+		doublesCount = 0;
 		jailCard = false;
+		inJail = false;
 		jailTime = 0;
+		ownedProperties = new Vector<String>();
+		monopolyGroup = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
 	}
 
 	public String getName() {
@@ -31,14 +33,6 @@ public class Player {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getID() {
-		return id;
-	}
-
-	public void setID(int id) {
-		this.id = id;
 	}
 
 	public int getMoney() {
@@ -99,5 +93,17 @@ public class Player {
 
 	public void setJailTime(int jailTime) {
 		this.jailTime = jailTime;
+	}
+
+	public int[] getMonopolyGroups() {
+		return monopolyGroup;
+	}
+
+	public void addMonopolyGroup(int group) {
+		monopolyGroup[group] = 1;
+	}
+
+	public void removeMonopolyGroup(int group) {
+		monopolyGroup[group] = 0;
 	}
 }

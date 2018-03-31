@@ -1,11 +1,12 @@
 package com.newmonopoly;
 
-public class Space {
+public class Space implements Comparable<Space> {
   	private String name;
   	private int group;
 	private int position;
   	private String type;
   	private int price;
+  private int currentRent;
   	private int rent;
   	private int[] multipliedRent;
   	private int mortgageVal;
@@ -56,6 +57,14 @@ public class Space {
   		return price;
   	}
 
+    public void setCurrentRent(int currentRent) {
+    this.currentRent = currentRent;
+  }
+
+    public int getCurrentRent() {
+    return currentRent;
+  }
+
   	public void setRent(int rent) {
 		this.rent = rent;
 	}
@@ -96,6 +105,16 @@ public class Space {
   		return ownedBy;
 	}
 
+    public void addBuildings(int additions) {
+      buildings += additions;
+      currentRent = multipliedRent[buildings-1];
+    }
+
+    public void removeBuildings(int removals) {
+      buildings -= removals;
+      currentRent = multipliedRent[buildings-1];
+    }
+
   	public void setBuildings(int buildings) {
 		this.buildings = buildings;
 	}
@@ -127,4 +146,10 @@ public class Space {
   	public int getWeakSeason() {
 		return weakSeason;
 	}
+
+  @Override
+  public int compareTo(Space compareSpace) {
+    int compareGroup = ((Space)compareSpace).getGroup();
+    return this.group - compareGroup;
+  }
 }

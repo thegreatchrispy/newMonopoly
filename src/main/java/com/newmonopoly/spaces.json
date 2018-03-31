@@ -12,6 +12,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 60,
+		"currentRent": 2,
 		"rent": 2,
 		"multipliedRent": [
 			10,
@@ -42,6 +43,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 60,
+		"currentRent": 4,
 		"rent": 4,
 		"multipliedRent": [
 			20,
@@ -91,6 +93,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 100,
+		"currentRent": 6,
 		"rent": 6,
 		"multipliedRent": [
 			30,
@@ -121,6 +124,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 100,
+		"currentRent": 6,
 		"rent": 6,
 		"multipliedRent": [
 			30,
@@ -144,6 +148,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 120,
+		"currentRent": 8,
 		"rent": 8,
 		"multipliedRent": [
 			40,
@@ -174,6 +179,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 140,
+		"currentRent": 10,
 		"rent": 10,
 		"multipliedRent": [
 			50,
@@ -205,6 +211,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 140,
+		"currentRent": 10,
 		"rent": 10,
 		"multipliedRent": [
 			50,
@@ -228,6 +235,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 160,
+		"currentRent": 12,
 		"rent": 12,
 		"multipliedRent": [
 			60,
@@ -270,6 +278,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 180,
+		"currentRent": 14,
 		"rent": 14,
 		"multipliedRent": [
 			70,
@@ -300,6 +309,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 180,
+		"currentRent": 14,
 		"rent": 14,
 		"multipliedRent": [
 			70,
@@ -323,6 +333,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 200,
+		"currentRent": 16,
 		"rent": 16,
 		"multipliedRent": [
 			80,
@@ -353,6 +364,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 220,
+		"currentRent": 18,
 		"rent": 18,
 		"multipliedRent": [
 			90,
@@ -383,6 +395,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 220,
+		"currentRent": 18,
 		"rent": 18,
 		"multipliedRent": [
 			90,
@@ -406,6 +419,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 240,
+		"currentRent": 20,
 		"rent": 20,
 		"multipliedRent": [
 			100,
@@ -448,6 +462,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 260,
+		"currentRent": 22,
 		"rent": 22,
 		"multipliedRent": [
 			110,
@@ -471,6 +486,7 @@
 		"position": 2,
 		"type": "property",
 		"price": 260,
+		"currentRent": 22,
 		"rent": 22,
 		"multipliedRent": [
 			110,
@@ -502,6 +518,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 260,
+		"currentRent": 24,
 		"rent": 24,
 		"multipliedRent": [
 			120,
@@ -532,6 +549,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 300,
+		"currentRent": 26,
 		"rent": 26,
 		"multipliedRent": [
 			130,
@@ -555,6 +573,7 @@
 		"position": 2,
 		"type": "property",
 		"price": 300,
+		"currentRent": 26,
 		"rent": 26,
 		"multipliedRent": [
 			130,
@@ -585,6 +604,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 320,
+		"currentRent": 28,
 		"rent": 28,
 		"multipliedRent": [
 			150,
@@ -634,6 +654,7 @@
 		"position": 2,
 		"type": "property",
 		"price": 350,
+		"currentRent": 35,
 		"rent": 35,
 		"multipliedRent": [
 			175,
@@ -665,6 +686,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 400,
+		"currentRent": 50,
 		"rent": 50,
 		"multipliedRent": [
 			200,

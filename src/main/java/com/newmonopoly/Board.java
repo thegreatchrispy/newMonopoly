@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Iterator;
 import java.io.FileReader;
 import java.lang.Math;
 import java.lang.reflect.Type;
@@ -43,114 +44,117 @@ public class Board {
 		dieValue=0;
 
 		spaces = retrieveSpaceInfo();
+		spaces = decideSeasonsAndOrder(spaces, randomizeSet);
 		chance = retrieveChanceInfo();
 		community = retrieveCommunityInfo();
 
 		Collections.shuffle(chance);
 		Collections.shuffle(community);
-		//rand = new Random(4);
-		//seasons = {"Spring", "Summer", "Fall", "Winter"};
-		//currentSeason = seasons[rand];
-
-
-		// for(int i = 0;i < players.length;i++){
-		// 	// Fix constructor.
-		// 	players[i] = new Player(i, "Player " + (i + 1));
-		// }
-
-		// THIS IS WHERE THE RANDOM ALGORITHM WILL GO.
-		// THIS IS WHERE STUFF SHOULD GO.
-
-		//decideSeasons(randomizeSet);
-
-		// Grab JSON file
-		// SET 8 Static Spaces
-//		for (int i = 0; i < 8; i++) {
-//			getGroup(spaces, i);
-//		}
-
-//		for(int i = 0;i < spaces.length;i++){
-//			if(i == 0){
-//				spaces[i] = new SpaceNode("GO");
-//			}else if(i == 10){
-//				spaces[i] = new JailSquare("Prison");
-//			}else if(i == 20){
-//				spaces[i] = new HouseSquare("House");
-//			}else if(i == 30){
-//				spaces[i] = new GoToJailSquare("Locked Up!");
-//			}else{
-//				spaces[i] = new HouseSquare(names[rand.nextInt(names.length)] + " " + names[rand.nextInt(names.length)], 400 + rand.nextInt(300));
-//			}
-//		}
 	}
 
-	public void decideSeasons(boolean randomizeSet) {
+	public List<Space> decideSeasonsAndOrder(List<Space> originalSpaces, boolean randomizeSet) {
 		// Updates all the seasons in the database.
+		List<Space> tempSpaces = new Vector<Space>();
+		List<Space> newSpaces = new Vector<Space>();
 
-		// Lists for flags to ensure that there are two of every strong and weak season.
-		List<Boolean> strongSeasons_flag = new ArrayList<Boolean>(Arrays.asList(new Boolean[4]));
-		Collections.fill(strongSeasons_flag, Boolean.FALSE);
+        // List for seasons.
+        List<Integer> strongSeasons = new ArrayList<Integer>();
+        List<Integer> weakSeasons = new ArrayList<Integer>();
 
-		List<Boolean> weakSeasons_flag = new ArrayList<Boolean>(Arrays.asList(new Boolean[4]));
-		Collections.fill(weakSeasons_flag, Boolean.FALSE);
+        for (int i = 0; i < 4; i++) {
+            strongSeasons.add(i);
+        }
+        for (int i = 0; i < 4; i++) {
+            weakSeasons.add(i);
+        }
+        do {
+            Collections.shuffle(strongSeasons);
+            Collections.shuffle(weakSeasons);
+        } while(strongSeasons.equals(weakSeasons));
 
-		// List for flags to ensure all eight groups of properties are cycled through.
-		List<Boolean> groups_flag = new ArrayList<Boolean>(Arrays.asList(new Boolean[8]));
-		Collections.fill(groups_flag, Boolean.FALSE);
+        // List for groups.
+        List<Integer> groups = new ArrayList<Integer>();
+        for (int i = 1; i < 9; i++) {
+            groups.add(i);
+        }
+        Collections.shuffle(groups);
 
-		// String array to pull seasons from.
-		String[] strong_season = {"Spring", "Summer", "Fall", "Winter"};
-		String[] weak_season = {"Spring", "Summer", "Fall", "Winter"};
+        // Variables
+        int strongRand;
+        int weakRand;
+        int group1;
+        int group2;
 
-		// Initializing Random object and integer variables.
-		rand = new Random();
-		int strong_rand;
-		int weak_rand;
-		int group1;
-		int group2;
-		
-		while (strongSeasons_flag.contains(false) && weakSeasons_flag.contains(false)) {
-			// Generate Random Number to randomly pick seasons.
-			strong_rand = rand.nextInt(4);
-			weak_rand = rand.nextInt(4);
-			// Ensure that the two random numbers are not equal and that the season has not been picked yet. (A strong season cannot be a weak seaon).
-			while ((strong_rand == weak_rand) || (strongSeasons_flag.get(strong_rand) && weakSeasons_flag.get(weak_rand)) ) {
-				strong_rand = rand.nextInt(4);
-				weak_rand = rand.nextInt(4);
-			}
+        int groupsIndex = 0;
+        Space space;
+        Iterator<Space> itr = originalSpaces.iterator();
 
-			// Generate Random Number to randomly pick groups.
-			group1 = rand.nextInt(8);
-			group2 = rand.nextInt(8);
-			// Ensure that the two random numbers are not equal and that the season has not been picked yet. (A strong season cannot be a weak seaon).
-			while ((group1 == group2) || (groups_flag.get(group1) && groups_flag.get(group2)) ) {
-				group1 = rand.nextInt(8);
-				group2 = rand.nextInt(8);
-			}
+        for (int i = 0; i < 4; i++) {
+            // Determining seasons.
+            strongRand = strongSeasons.get(i);
+            weakRand = weakSeasons.get(i);
+            group1 = groups.get(groupsIndex++);
+            group2 = groups.get(groupsIndex++);
 
+            while(itr.hasNext()) {
+                space = (Space)itr.next();
+                    if (space.getGroup() == group1) {
+                        space.setStrongSeason(strongRand);
+                        space.setWeakSeason(weakRand);
+                        if (randomizeSet) {
+                            space.setGroup(group2);
+                            tempSpaces.add(space);
+                            itr.remove();
+                        }
+                    }
+            }
+            itr = originalSpaces.iterator();
 
-
+            while(itr.hasNext()) {
+                space = (Space)itr.next();
+                    if (space.getGroup() == group2) {
+                        space.setStrongSeason(strongRand);
+                        space.setWeakSeason(weakRand);
+                        if (randomizeSet) {
+                            space.setGroup(group1);
+                            tempSpaces.add(space);
+                            itr.remove();
+                        }
+                    }
+            }
+			itr = originalSpaces.iterator();
 		}
-		//while (strongSeasons_flag.contains(false) && weakSeasons_flag)
-		// 	strong rand
-		// 	weak rand
-		//	group1 rand
-		//  group2 rand
-		// 	if (randomizeSet)
-		// 		swap(group1 rand, group2 rand)
-	}
 
-//	public void getGroup(SpaceNode[] spaces, int i) {
-//		// Call Database to get each group and position spaces correctly.
-//		//i*5 + group_pos
-//	}
-//	
+		// Sort tempSpaces by group in ascending order.
+		Collections.sort(tempSpaces);
+
+		if (randomizeSet) {
+			for (int i = 0; i < 40; i++) {
+				// Add Corner.
+				if (i%10 == 0) {
+					newSpaces.add(originalSpaces.remove(0));
+				}
+				// Add Railroad
+				else if (i%5 == 0 && !(i%10 == 0)) {
+					newSpaces.add(originalSpaces.remove(0));
+				}
+				// Add Space
+				else {
+					newSpaces.add(tempSpaces.remove(0));
+				}
+			}
+		} 
+		else {
+			newSpaces = originalSpaces;
+		}
+		return newSpaces;
+	}
 	// Move player.
 	public void movePlayer(Player player, int value) {
 		dieValue = value;
 		turnOver = false;
 		if ( ((player.getCurrentPosition() + value) % 40) < (player.getCurrentPosition())) {
-			player.setMoney(player.getMoney() + 200);
+			addFunds(player, 200);
 		}
 
 		player.setCurrentPosition((player.getCurrentPosition() + value) % 40);
@@ -181,32 +185,40 @@ public class Board {
 				nearestFound = true;
 			}
 		}
-
 		performSpaceAction(player, spaces.get(player.getCurrentPosition()));
 	}
 	public void addFunds(Player player, int payment) {
 		player.setMoney(player.getMoney() + payment);
 	}
 	public void removeFunds(Player player, int payment) {
+		if((player.getMoney() - payment) < 0){
+			mortgage(player, (player.getMoney() - payment));
+		}
 		player.setMoney(player.getMoney() - payment);
 	}
 	public void repairs(Player player, int housePrice, int hotelPrice) {
 		for(Space space : spaces){
-			if(space.getOwnedBy() == player.getID()){
+			if(space.getOwnedBy() == players.indexOf(player)){
 				if(space.getBuildings() == 5){
-					player.setMoney(player.getMoney() - (housePrice * 4) - hotelPrice);
+					removeFunds(player, ((housePrice * 4) - hotelPrice));
 				}
 				else {
-					player.setMoney(player.getMoney() - (housePrice * space.getBuildings()));
+					removeFunds(player, (housePrice * space.getBuildings()));
 				}
 			}
 		}
 	}
 	public void giveToPlayers(Player player, int payment) {
-		
+		for (Player otherPlayer : players) {
+			removeFunds(player, payment);
+			addFunds(otherPlayer, payment);
+		}
 	}
 	public void takeFromPlayers(Player player, int payment) {
-		
+		for (Player otherPlayer : players) {
+			removeFunds(otherPlayer, payment);
+			addFunds(player, payment);
+		}
 	}
 
 	public void movePlayerToJail(Player player) {
@@ -221,9 +233,10 @@ public class Board {
 			turnOver = true;
 			// End turn called here.
 		}
-		while (!turnOver) {
+		do {
 			playerDecision(player);
-		}
+
+		} while (!turnOver);
 	}
 
 	public void performSpaceAction(Player player, Space space) {
@@ -271,10 +284,10 @@ public class Board {
 
 	public void payRent(Player player, Space space) {
 		// Rent will be changed in database in the build() method
-		int rent = space.getRent();
+		int rent = space.getCurrentRent();
 		int index = space.getOwnedBy();
-		player.setMoney(player.getMoney() - rent);
-		players.get(index).setMoney(players.get(index).getMoney() + rent);
+		removeFunds(player, rent);
+		addFunds(players.get(index), rent);
 	}
 
 	public void payRailroad(Player player, Space space) {
@@ -287,8 +300,8 @@ public class Board {
 			}
 		}
 
-		player.setMoney(player.getMoney() - payment);
-		players.get(index).setMoney(players.get(index).getMoney() + payment);
+		removeFunds(player, payment);
+		addFunds(players.get(index), payment);
 	}
 
 	public void payUtility(Player player, Space space) {
@@ -300,15 +313,15 @@ public class Board {
 		}else {
 			initialPayment=4;
 		}
-		player.setMoney(player.getMoney() - (initialPayment*dieValue));
-		players.get(space.getOwnedBy()).setMoney(players.get(space.getOwnedBy()).getMoney() + (initialPayment*dieValue));
+		removeFunds(player, (initialPayment*dieValue));
+		addFunds(players.get(space.getOwnedBy()), (initialPayment*dieValue));
 	}
 
 	public void payTax(Player player, Space space) {
 		if(space.getName().equals("Luxury Tax")){
-			player.setMoney(player.getMoney() - space.getPrice());
+			addFunds(player, space.getPrice());
 		} else {
-			player.setMoney(player.getMoney() - Math.min(200,(player.getMoney()/10)));
+			removeFunds(player, Math.min(200,(player.getMoney()/10)));
 		}
 	}
 
@@ -318,8 +331,10 @@ public class Board {
 		String choice = input.nextLine();
 		
 		if (choice.equals("Y") || choice.equals("y")) {
-			player.setMoney(player.getMoney() - space.getPrice()); // Player buys property.
+			removeFunds(player, space.getPrice()); // Player buys property.
 			player.addOwnedProperties(space.getName()); // Add property to players Owned Properties list.
+			space.setOwnedBy(players.indexOf(player));
+			addMonopoly(player, space);
 		}
 		// Player does not want property.
 		else {
@@ -374,41 +389,141 @@ public class Board {
 
 	public void playerDecision(Player player) {
 		// Build improvements, trade, or end turn.
-		// If end turn: turnOver = true;
+		System.out.print("Your turn is almost to an end. Would you like to build improvements, trade, or end your turn? B/T/E ");
+		Scanner input = new Scanner(System.in);
+		String ans = input.nextLine().toUpperCase();
+		if(ans.equals("B")) { // Build Improvements
+			findMonopolies(player);
+			System.out.print("What property from the above list would you like to improve? ");
+			ans = input.nextLine();
+			int index = 0;
+			for (Space space : spaces) {
+				if (space.getName().equals(ans)) {
+					index = spaces.indexOf(space);
+					break;
+				}
+			}
+			if (spaces.get(index).getBuildings() < 5) {
+				build(player, spaces.get(index));
+			} else {
+				System.out.println("You cannot build anymore on this property!");
+			}
+		}
+		else if(ans.equals("T")) {	// Trade
+			for (Player other_player : players) {
+				System.out.println(other_player.getName());
+			}
+			System.out.print("What player from the above list would you like to trade with? ");
+			ans = input.nextLine();
+			int index = 0;
+			for (Player otherPlayer : players) {
+				if (otherPlayer.getName().equals(ans)) {
+					index = players.indexOf(otherPlayer);
+				}
+			}
+			trade(player, players.get(index));
+		}
+		else {	// End turn.
+			turnOver = true;
+		}
 	}
 
-	public void build(Player player, Space space) {
+	public void mortgage(Player player, int debt) {
+		// Scanner input = new Scanner(System.in);
+		// displayOwnedProperties(player);
+		// while (debt <= 0) {
+		// 	System.out.println("Which properties would you like to sell? ");
+		// }
+	}
 
+	public void displayOwnedProperties(Player player) {
+
+	} 
+
+	public void build(Player player, Space space) {
+		System.out.println(space.getName() + " currently has " + space.getBuildings() + " houses.");
+		Scanner input = new Scanner(System.in);
+		boolean valid = true;
+		do {
+			System.out.print("How many more houses would you like to add? ");
+			int additions = input.nextInt();
+			if (additions + space.getBuildings() > 5) {
+				valid = false;
+				System.out.println("You entered an invalid amount of houses! Please try again.");
+			}
+			else {
+				removeFunds(player, additions*space.getHouseCost());
+				space.setBuildings(space.getBuildings() + additions);
+			}
+		}while(!valid);
 	}
 
 	public void trade(Player playerSending, Player playerReceiving) {
-		
+		Scanner input = new Scanner(System.in);
+		System.out.print("Trade or sell? T/S ");
+		char ans = Character.toUpperCase(input.next().charAt(0));
+		switch (ans) {
+			case 'T':
+				//trade
+				System.out.println("you can't yet.. :/");
+				System.out.println("Have you tried playing Resident Evil 4?");
+				// don't forget addMonopoly() boi
+				break;
+			case 'S':
+				//sell
+				System.out.println("you can't yet.. :/");
+				System.out.println("Have you tried playing Resident Evil 4?");
+				break;
+			default:
+				System.out.println("incorrect input");
+				break;
+		}
 	}
 
 	public void endTurn() {
 		turnOver = true;
-	}  
+	}
 
-//	
-//	public Square movePlayer(Player player, int face, boolean count) {
-//		if(player.isBrokeOut()){ return spaces[player.getCurrentPosition()]; }
-//		int newPosition = normalizePosition(player.getCurrentPosition() + face);
-//		player.setPosition(newPosition);
-//		Util.print(player, player.getName() + " goes to " + spaces[player.getCurrentPosition()].getName());
-//		
-//		// Space Action - Transaction Start
-//		spaces[newPosition].doAction(player, this);
-//		if(player.getMoney().isBrokeOut()){
-//			Util.print(player, player.getName() + " has been broke out!");
-//			player.setBrokeOut(true);
-//		}else{
-//			if(count){
-//				player.nextTurn();
-//			}
-//		}
-//		return spaces[newPosition];
-//	}
-	
+	// Checks if player has new monopolies.
+	public void addMonopoly(Player player, Space space) {
+		boolean newMonopoly = true;
+		for (Space s : spaces) {
+			if (s.getGroup() == space.getGroup()) {
+				if(s.getType().equals("property")) {
+					if (s.getOwnedBy() != players.indexOf(player)) {
+						newMonopoly = false;
+						break;
+					}
+				}
+			}
+		}
+		if (newMonopoly) {
+			player.addMonopolyGroup(space.getGroup()-1);
+			for (Space s : spaces) {
+				if (s.getGroup() == space.getGroup()) {
+					if (s.getType().equals("property")) {
+						s.setCurrentRent(s.getRent() * 2);
+					}
+				}
+			}
+		}
+	}
+
+	// Finds and prints the list of player's monopolies.
+	// This will print the group and each space in that group.
+	public void findMonopolies(Player player) {
+		for(int i = 0; i < 8; i++) {
+			if(player.getMonopolyGroups()[i] == 1) {
+				System.out.println("Group " + (i+1) + ":");
+				for(Space space : spaces) {
+					if(space.getGroup() == (i+1)) {
+						System.out.println(space.getName());
+					}
+				}
+				System.out.println();
+			}
+		}
+	}
 	// Return a boolean if the game has ended.
 	// If there is only one player that is not bankrupt, then the game will terminate.
 	public boolean hasWinner() {
