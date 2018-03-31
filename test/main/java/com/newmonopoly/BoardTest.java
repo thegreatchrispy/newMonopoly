@@ -51,6 +51,11 @@ public class BoardTest {
 	}
 
 	@Test
+	public void testDecideSeasonsAndOrder() {
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testConstructor() {
 		Assert.assertTrue(true);
 	}
@@ -174,6 +179,16 @@ public class BoardTest {
 
 	@Test
 	public void testEndTurn() {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testAddMonopoly() {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testFindMonopolies() {
 		Assert.assertTrue(true);
 	}
 
