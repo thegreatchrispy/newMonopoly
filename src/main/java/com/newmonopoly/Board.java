@@ -185,14 +185,22 @@ public class Board {
 		performSpaceAction(player, spaces.get(player.getCurrentPosition()));
 	}
 	public void addFunds(Player player, int payment) {
-		player.setMoney(player.getMoney()+payment);
+		player.setMoney(player.getMoney() + payment);
 	}
 	public void removeFunds(Player player, int payment) {
-		player.setMoney(player.getMoney()-payment)
+		player.setMoney(player.getMoney() - payment);
 	}
-	public void repairs(Player player, int houses, int hotels) {
-		//encounted problem when it comes to change a house and hotel price
-		transaction(player);
+	public void repairs(Player player, int housePrice, int hotelPrice) {
+		for(Space space : spaces){
+			if(space.getOwnedBy() == player.getID()){
+				if(space.getBuildings() == 5){
+					player.setMoney(player.getMoney() - (housePrice * 4) - hotelPrice);
+				}
+				else {
+					player.setMoney(player.getMoney() - (housePrice * space.getBuildings()));
+				}
+			}
+		}
 	}
 	public void giveToPlayers(Player player, int payment) {
 		

@@ -5,6 +5,7 @@ import java.util.Vector;
 
 public class Player {
 	private String name;
+	private int id;
 	private int money;
 	private int currentPosition;
 	private int doublesCount;
@@ -14,8 +15,9 @@ public class Player {
 	private List<String> ownedProperties;
 	
 
-	public Player(String name) {
+	public Player(String name, int id) {
 		this.name = name;
+		this.id = id;
 		money = 1500;
 		currentPosition = 0;
 		ownedProperties = new Vector<String>();
@@ -29,6 +31,14 @@ public class Player {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getID() {
+		return id;
+	}
+
+	public void setID(int id) {
+		this.id = id;
 	}
 
 	public int getMoney() {
