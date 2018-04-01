@@ -4,15 +4,13 @@ import com.newmonopoly.Player;
 import com.newmonopoly.Space;
 
 import org.junit.*;
-import org.junit.runner.*;
-import static org.junit.Assert.*;
 
 import java.util.List;
 import java.util.Vector;
 
 public class BoardTest {
 	private Board board;
-	List<Player> players;
+	private List<Player> players;
 
 	public BoardTest() {
 		players = new Vector<Player>();
@@ -47,6 +45,11 @@ public class BoardTest {
 
 	@Test
 	public void testRetrieveCommunityInfo() {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testDecideSeasonsAndOrder() {
 		Assert.assertTrue(true);
 	}
 
@@ -174,6 +177,16 @@ public class BoardTest {
 
 	@Test
 	public void testEndTurn() {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testAddMonopoly() {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testFindMonopolies() {
 		Assert.assertTrue(true);
 	}
 
