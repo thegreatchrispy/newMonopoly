@@ -16,12 +16,12 @@ public class BoardTest {
 
 	public BoardTest() {
 		players = new Vector<Player>();
-		players.add(new Player("Isaac"));
-		players.add(new Player("Juan"));
-		players.add(new Player("Chris"));
-		players.add(new Player("Ivan"));
-		players.add(new Player("Pepe"));
-		players.add(new Player("Tang"));
+		players.add(0, new Player("Isaac"));
+		players.add(1, new Player("Juan"));
+		players.add(2, new Player("Chris"));
+		players.add(3, new Player("Ivan"));
+		players.add(4, new Player("Pepe"));
+		players.add(5, new Player("Tang"));
 
 		try {
 			board = new Board(players, false);
