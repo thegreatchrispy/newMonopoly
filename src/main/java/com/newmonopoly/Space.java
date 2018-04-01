@@ -6,7 +6,7 @@ public class Space implements Comparable<Space> {
 	private int position;
   	private String type;
   	private int price;
-  private int currentRent;
+	private int currentRent;
   	private int rent;
   	private int[] multipliedRent;
   	private int mortgageVal;
@@ -58,12 +58,12 @@ public class Space implements Comparable<Space> {
   	}
 
     public void setCurrentRent(int currentRent) {
-    this.currentRent = currentRent;
-  }
+		this.currentRent = currentRent;
+	}
 
     public int getCurrentRent() {
-    return currentRent;
-  }
+		return currentRent;
+	}
 
   	public void setRent(int rent) {
 		this.rent = rent;
@@ -147,9 +147,9 @@ public class Space implements Comparable<Space> {
 		return weakSeason;
 	}
 
-  @Override
-  public int compareTo(Space compareSpace) {
-    int compareGroup = ((Space)compareSpace).getGroup();
-    return this.group - compareGroup;
-  }
+	@Override
+	public int compareTo(Space compareSpace) {
+		int compareGroup = ((Space)compareSpace).getGroup();
+		return this.group - compareGroup;
+	}
 }
