@@ -4,15 +4,13 @@ import com.newmonopoly.Player;
 import com.newmonopoly.Space;
 
 import org.junit.*;
-import org.junit.runner.*;
-import static org.junit.Assert.*;
 
 import java.util.List;
 import java.util.Vector;
 
 public class BoardTest {
 	private Board board;
-	List<Player> players;
+	private List<Player> players;
 
 	public BoardTest() {
 		players = new Vector<Player>();
