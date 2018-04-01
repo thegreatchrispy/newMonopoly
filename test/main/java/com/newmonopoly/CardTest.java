@@ -1,17 +1,17 @@
 import com.newmonopoly.Card;
 
 import org.junit.*;
-import org.junit.runner.*;
-import static org.junit.Assert.*;
-
-import java.util.List;
-import java.util.Vector;
 
 public class CardTest {
 	private Card card;
 
 	public CardTest() {
-		card = new Card();
+		try {
+			card = new Card();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
