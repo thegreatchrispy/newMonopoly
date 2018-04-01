@@ -1,5 +1,6 @@
 import com.newmonopoly.Die;
 import com.newmonopoly.Player;
+import com.newmonopoly.NewMonopoly;
 
 import org.junit.*;
 
@@ -20,7 +21,7 @@ public class NewMonopolyTest {
 		players.add(5, new Player("Tang"));
 
 		try {
-			newMonopoly = new NewMonopoly();
+			newMonopoly = new NewMonopoly(players);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -46,3 +47,4 @@ public class NewMonopolyTest {
 	public void testPlayerOrder() {
 		Assert.assertTrue(true);
 	}
+}
