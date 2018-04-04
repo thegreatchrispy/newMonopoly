@@ -4,19 +4,35 @@ import java.util.List;
 import java.util.Vector;
 
 public class Player {
+	private String name;
 	private int money;
 	private int currentPosition;
 	private int doublesCount;
 	private boolean jailCard;
 	private boolean inJail;
+	private int jailTime;
 	private List<String> ownedProperties;
+	private int[] monopolyGroup;
 	
 
-	public Player() {
-		money = 500;
+	public Player(String name) {
+		this.name = name;
+		money = 1500;
 		currentPosition = 0;
-		ownedProperties = new Vector<String>();
+		doublesCount = 0;
 		jailCard = false;
+		inJail = false;
+		jailTime = 0;
+		ownedProperties = new Vector<String>();
+		monopolyGroup = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getMoney() {
@@ -43,6 +59,10 @@ public class Player {
 		doublesCount = count;
 	}
 
+	public void incrementDoubles() {
+		doublesCount++;
+	}
+
 	public List<String> getOwnedProperties() {
 		return ownedProperties;
 	}
@@ -65,5 +85,25 @@ public class Player {
 
 	public void setInJail(boolean jailStatus) {
 		inJail = jailStatus;
+	}
+	
+	public int getJailTime() {
+		return jailTime;
+	}
+
+	public void setJailTime(int jailTime) {
+		this.jailTime = jailTime;
+	}
+
+	public int[] getMonopolyGroups() {
+		return monopolyGroup;
+	}
+
+	public void addMonopolyGroup(int group) {
+		monopolyGroup[group] = 1;
+	}
+
+	public void removeMonopolyGroup(int group) {
+		monopolyGroup[group] = 0;
 	}
 }

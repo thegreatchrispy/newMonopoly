@@ -30,6 +30,8 @@
 2. [Edit Files](#2-edit-files)
 3. [Building the Project](#3-building-the-project)
 4. [Deploying the Project](#4-deploying-the-project)
+5. [Current Project Files](#5-current-project-files)
+6. [Needs Completion](#6-needs-completion)
 
 # 1. Setup
 In order to build and deploy this project, you need to have the latest version of Gradle, and PostgreSQL.
@@ -178,7 +180,7 @@ If you get any errors here, go back and ensure the files were changed correctly 
 Now to deploy the project, we simply need to run the `.jar` file that was produced in the previous step. To do this, run the command:
 
 ```
-java -jar build/libs/newMonopolySpring.jar
+java -jar build/libs/newMonopoly.jar
 ```
 
 After some more information is displayed, the last few lines should look like this:
@@ -194,3 +196,46 @@ After some more information is displayed, the last few lines should look like th
 
 Notice that the second line from the bottom gives the port number, and the bottom line gives the time it took to start the application.
 The project is now deployed and can be accessed from http://localhost:8080/.
+
+# 5. Current Project Files
+Here is the current file structure of the project:
+```
+sql
+  |*.ddl
+src
+  |main
+    |java
+    | |com
+    |   |newmonopoly
+    |     |*.java
+    |resources
+      |static
+      | |css
+      | |images
+      | |jquery
+      | |js
+      | |*.html
+      |application.properties
+test
+  |main
+    |java
+      |com
+        |newmonopoly
+          |*Test.java
+build.gradle
+gradlew
+gradlew.bat
+README.md
+*.json
+```
+
+In the last update, we have completed enough Java files to be able to play the text based version of the Monopoly game in the terminal. We also included all of the JUnit test case files that we will need for the project. After building, the results from these tests can be viewed in HTML format by going to ```build\reports\tests\test``` and opening ```index.html``` in a web browser.
+
+# 6. Needs Completion
+The following is the list of things that still need to be completed:
+* Create account system through webpage
+* Log in system through webpage
+* Finish the mortgage(), trade() and nextTurn() methods in Board.java
+* Write out all of the test cases
+* Connect the GUI webpage interface with the Java backend game files
+* Add the support for multiple players on webpage
