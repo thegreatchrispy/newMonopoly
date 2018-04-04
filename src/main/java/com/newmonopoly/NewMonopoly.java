@@ -2,6 +2,7 @@ package com.newmonopoly;
 
 import java.util.List;
 import java.util.Vector;
+import java.util.Scanner;
 
 public class NewMonopoly {
 	Board board;
@@ -69,23 +70,58 @@ public class NewMonopoly {
 		// Continuous loop until the game is over and the board has a winner.
 		while (!gameOver && !board.hasWinner()) {
 			if(board.getCurrentPlayer().getMoney()>0) {
-				board.getCurrentPlayer().setDoublesCount(0);
-				do{
-					die1.roll();
-					die2.roll();
-					int dieRoll = die1.getValue() + die2.getValue();
-
-					if(die1.getValue() == die2.getValue()){
-						board.getCurrentPlayer().incrementDoubles();
+				if(board.getCurrentPlayer().getInJail()) { 	// If player starts turn in jail.
+					while(true) {
+						Scanner input = new Scanner(System.in);
+						String ans = "";
+						if(board.getCurrentPlayer().getJailCard()) { // If player wants to use jailCard.
+							System.out.print("You have a \"Get Out of Jail Free\" card! Would you like to use it? Y/N ");
+							ans = input.nextLine().toUpperCase();
+							if(ans.equals("Y")) {
+								board.getCurrentPlayer().setJailCard(false);
+								board.getCurrentPlayer().setInJail(false);
+								beginTurn();
+								break;
+							}
+						}
+						if(board.getCurrentPlayer().getJailTime() > 1) { // If player has more than one turn left in jail.
+							System.out.print("Would you like to pay $50 to be released? Y/N ");
+							ans = input.nextLine().toUpperCase();
+							if(ans.equals("Y")) {	// If player wants to pay to get out of jail.
+								board.getCurrentPlayer().setMoney(board.getCurrentPlayer().getMoney() - 50);
+								board.getCurrentPlayer().setInJail(false);
+								beginTurn();
+								break;
+							} else {	// If player wants to roll, then roll dice.
+								die1.roll();
+								die2.roll();
+								int die_roll = die1.getValue() + die2.getValue();
+								if (die1.getValue() == die2.getValue()) {	// If player rolls doubles, then they will be free.
+									board.getCurrentPlayer().setInJail(false);
+									board.movePlayer(board.getCurrentPlayer(), die_roll);
+									break;
+								}
+								else {	// If player fails, then decrement jailTime by one.
+									board.getCurrentPlayer().setJailTime(board.getCurrentPlayer().getJailTime() - 1);
+									board.playerDecision(board.getCurrentPlayer());
+									break;
+								}
+							}
+						}
+						else {	// If player has no more turns left in jail.
+							board.getCurrentPlayer().setMoney(board.getCurrentPlayer().getMoney() - 50);
+							board.getCurrentPlayer().setInJail(false);
+							die1.roll();
+							die2.roll();
+							int die_roll = die1.getValue() + die2.getValue();
+							board.movePlayer(board.getCurrentPlayer(), die_roll);
+							break;
+						}
 					}
-
-					if(board.getCurrentPlayer().getDoublesCount()<3){
-						board.movePlayer(board.getCurrentPlayer(), dieRoll);
-					}else {
-						board.movePlayerToJail(board.getCurrentPlayer());
-						break;
-					}
-				}while(die1.getValue() == die2.getValue());
+				}
+				else{	// If player does not start turn in jail.
+					beginTurn();
+				}
 			}
 
 			board.nextTurn();
@@ -108,5 +144,25 @@ public class NewMonopoly {
 
 	public void playerOrder() {
 		
+	}
+
+	public void beginTurn() {	// Function to begin player's turn.
+		board.getCurrentPlayer().setDoublesCount(0);
+			do{
+				die1.roll();
+				die2.roll();
+				int die_roll = die1.getValue() + die2.getValue();
+
+				if(die1.getValue() == die2.getValue()){
+					board.getCurrentPlayer().incrementDoubles();
+				}
+
+				if(board.getCurrentPlayer().getDoublesCount()<3){
+					board.movePlayer(board.getCurrentPlayer(), die_roll);
+				}else {
+					board.movePlayerToJail(board.getCurrentPlayer());
+					break;
+				}
+			}while(die1.getValue() == die2.getValue());
 	}
 }

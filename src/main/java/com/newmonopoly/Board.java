@@ -1,7 +1,6 @@
 package com.newmonopoly;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
@@ -10,7 +9,6 @@ import java.util.Scanner;
 import java.util.Iterator;
 import java.io.FileReader;
 import java.lang.Math;
-import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -187,15 +185,18 @@ public class Board {
 		}
 		performSpaceAction(player, spaces.get(player.getCurrentPosition()));
 	}
+
 	public void addFunds(Player player, int payment) {
 		player.setMoney(player.getMoney() + payment);
 	}
+
 	public void removeFunds(Player player, int payment) {
 		if((player.getMoney() - payment) < 0){
 			mortgage(player, (player.getMoney() - payment));
 		}
 		player.setMoney(player.getMoney() - payment);
 	}
+
 	public void repairs(Player player, int housePrice, int hotelPrice) {
 		for(Space space : spaces){
 			if(space.getOwnedBy() == players.indexOf(player)){
@@ -208,12 +209,14 @@ public class Board {
 			}
 		}
 	}
+
 	public void giveToPlayers(Player player, int payment) {
 		for (Player otherPlayer : players) {
 			removeFunds(player, payment);
 			addFunds(otherPlayer, payment);
 		}
 	}
+
 	public void takeFromPlayers(Player player, int payment) {
 		for (Player otherPlayer : players) {
 			removeFunds(otherPlayer, payment);
@@ -233,10 +236,9 @@ public class Board {
 			turnOver = true;
 			// End turn called here.
 		}
-		do {
+		while (!turnOver) {
 			playerDecision(player);
-
-		} while (!turnOver);
+		}
 	}
 
 	public void performSpaceAction(Player player, Space space) {
@@ -455,7 +457,7 @@ public class Board {
 				removeFunds(player, additions*space.getHouseCost());
 				space.setBuildings(space.getBuildings() + additions);
 			}
-		}while(!valid);
+		} while (!valid);
 	}
 
 	public void trade(Player playerSending, Player playerReceiving) {
