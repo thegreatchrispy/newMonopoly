@@ -11,7 +11,7 @@ public class Player {
 	private boolean jailCard;
 	private boolean inJail;
 	private int jailTime;
-	private List<String> ownedProperties;
+	private List<Space> ownedProperties;
 	private int[] monopolyGroup;
 	
 
@@ -23,7 +23,7 @@ public class Player {
 		jailCard = false;
 		inJail = false;
 		jailTime = 0;
-		ownedProperties = new Vector<String>();
+		ownedProperties = new Vector<Space>();
 		monopolyGroup = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
 	}
 
@@ -63,12 +63,12 @@ public class Player {
 		doublesCount++;
 	}
 
-	public List<String> getOwnedProperties() {
+	public List<Space> getOwnedProperties() {
 		return ownedProperties;
 	}
 
-	public void addOwnedProperties(String newProperty) {
-		ownedProperties.add(newProperty);
+	public void addOwnedProperties(Space property) {
+		ownedProperties.add(property);
 	}
 
 	public boolean getJailCard() {
