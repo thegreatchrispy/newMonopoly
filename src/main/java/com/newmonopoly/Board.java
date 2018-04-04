@@ -27,6 +27,7 @@ public class Board {
 	Gson gson;
 	boolean turnOver;
 	int dieValue;
+	int playerIndex;
 	int housesAvailable;
 	int hotelsAvailable;
 	
@@ -42,6 +43,7 @@ public class Board {
 		chance = new Vector<Card>();
 		community = new Vector<Card>();
 		dieValue=0;
+		playerIndex = 0;
 		housesAvailable = 32;
 		hotelsAvailable = 12;
 
@@ -312,9 +314,22 @@ public class Board {
 
 	public void payUtility(Player player, Space space) {
 		int initialPayment;
-		List<String> properties = players.get(space.getOwnedBy()).getOwnedProperties();
+		boolean waterWorks = false;
+		boolean electricCompany = false;
+		List<Space> properties = players.get(space.getOwnedBy()).getOwnedProperties();
 
-		if(properties.contains("Water Works")&&properties.contains("Electric Company")){
+		for (Space utility : spaces) {
+			if (utility.getName().equals("Water Works")) {
+				if(properties.contains(utility))
+					waterWorks = true;
+			}
+			if (utility.getName().equals("Electric Company")) {
+				if(properties.contains(utility))
+					electricCompany = true;
+			}
+		}
+
+		if(waterWorks && electricCompany){
 			initialPayment=10;
 		}else {
 			initialPayment=4;
@@ -505,6 +520,10 @@ public class Board {
 				valid = false;
 				System.out.println("You entered an invalid amount of houses! Please try again.");
 			}
+			else if (player.getMoney() - additions*space.getHouseCost() < 0) {
+				valid = false;
+				System.out.println("You cannot afford to purchase these houses! Please try again.");
+			}
 			else {
 				removeFunds(player, additions*space.getHouseCost());
 				space.setBuildings(space.getBuildings() + additions);
@@ -568,11 +587,23 @@ public class Board {
 	// Finds and prints the list of player's monopolies.
 	// This will print the group and each space in that group.
 	public void findMonopolies(Player player) {
+		// for(int i = 0; i < 8; i++) {
+		// 	if(player.getMonopolyGroups()[i] == 1) {
+		// 		System.out.println("Group " + (i+1) + ":");
+		// 		for(Space space : spaces) {
+		// 			if(space.getGroup() == (i+1)) {
+		// 				System.out.println(space.getName());
+		// 			}
+		// 		}
+		// 		System.out.println();
+		// 	}
+		// }
+		Collections.sort(player.getOwnedProperties());
 		for(int i = 0; i < 8; i++) {
 			if(player.getMonopolyGroups()[i] == 1) {
 				System.out.println("Group " + (i+1) + ":");
-				for(Space space : spaces) {
-					if(space.getGroup() == (i+1)) {
+				for (Space space : player.getOwnedProperties()) {
+					if (space.getGroup() == (i+1)) {
 						System.out.println(space.getName());
 					}
 				}
@@ -613,7 +644,7 @@ public class Board {
 //	}
 //	
 	public Player getCurrentPlayer() {
-		return players.get(currentTurn % players.size());
+		return players.get(playerIndex);
 	}
 //	
 //	public Player[] getPlayers() {
@@ -621,9 +652,12 @@ public class Board {
 //	}
 //	
 	public void nextTurn() {
-		// if(++currentTurn >= players.length){
-		// 	currentTurn = 0;
-		// }
+		do {
+			playerIndex++;
+			if (playerIndex == players.size()) { // If playerIndex has reached the end of the list, set playerIndex back to zero.
+				playerIndex = 0;
+			}
+		} while(players.get(playerIndex) == null);
 	}
 //	
 //	public Player getPlayer(int id) {
