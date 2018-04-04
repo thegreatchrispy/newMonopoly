@@ -27,6 +27,7 @@ public class Board {
 	Gson gson;
 	boolean turnOver;
 	int dieValue;
+	int playerIndex;
 	
 	// Constructor
 	public Board(List<Player> players, boolean randomizeSet) throws Exception {
@@ -40,6 +41,7 @@ public class Board {
 		chance = new Vector<Card>();
 		community = new Vector<Card>();
 		dieValue=0;
+		playerIndex = 0;
 
 		spaces = retrieveSpaceInfo();
 		spaces = decideSeasonsAndOrder(spaces, randomizeSet);
@@ -572,7 +574,7 @@ public class Board {
 //	}
 //	
 	public Player getCurrentPlayer() {
-		return players.get(currentTurn % players.size());
+		return players.get(playerIndex);
 	}
 //	
 //	public Player[] getPlayers() {
@@ -580,9 +582,12 @@ public class Board {
 //	}
 //	
 	public void nextTurn() {
-		// if(++currentTurn >= players.length){
-		// 	currentTurn = 0;
-		// }
+		do {
+			playerIndex++;
+			if (playerIndex == players.size()) { // If playerIndex has reached the end of the list, set playerIndex back to zero.
+				playerIndex = 0;
+			}
+		} while(players.get(playerIndex) == null);
 	}
 //	
 //	public Player getPlayer(int id) {
