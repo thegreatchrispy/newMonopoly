@@ -308,9 +308,22 @@ public class Board {
 
 	public void payUtility(Player player, Space space) {
 		int initialPayment;
-		List<String> properties = players.get(space.getOwnedBy()).getOwnedProperties();
+		boolean waterWorks = false;
+		boolean electricCompany = false;
+		List<Space> properties = players.get(space.getOwnedBy()).getOwnedProperties();
 
-		if(properties.contains("Water Works")&&properties.contains("Electric Company")){
+		for (Space utility : spaces) {
+			if (utility.getName().equals("Water Works")) {
+				if(properties.contains(utility))
+					waterWorks = true;
+			}
+			if (utility.getName().equals("Electric Company")) {
+				if(properties.contains(utility))
+					electricCompany = true;
+			}
+		}
+
+		if(waterWorks && electricCompany){
 			initialPayment=10;
 		}else {
 			initialPayment=4;
@@ -334,7 +347,7 @@ public class Board {
 		
 		if (choice.equals("Y") || choice.equals("y")) {
 			removeFunds(player, space.getPrice()); // Player buys property.
-			player.addOwnedProperties(space.getName()); // Add property to players Owned Properties list.
+			player.addOwnedProperties(space); // Add property to players Owned Properties list.
 			space.setOwnedBy(players.indexOf(player));
 			addMonopoly(player, space);
 		}
