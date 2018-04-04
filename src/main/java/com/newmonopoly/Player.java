@@ -13,6 +13,7 @@ public class Player {
 	private int jailTime;
 	private List<Space> ownedProperties;
 	private int[] monopolyGroup;
+	private int tokenNumber;
 	
 
 	public Player(String name) {
@@ -25,6 +26,7 @@ public class Player {
 		jailTime = 0;
 		ownedProperties = new Vector<Space>();
 		monopolyGroup = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
+		tokenNumber = 0;
 	}
 
 	public String getName() {
@@ -105,5 +107,13 @@ public class Player {
 
 	public void removeMonopolyGroup(int group) {
 		monopolyGroup[group] = 0;
+	}
+
+	public int getTokenNumber() {
+		return tokenNumber;
+	}
+
+	public void setTokenNumber(int tokenN) {
+		tokenNumber = tokenN;
 	}
 }

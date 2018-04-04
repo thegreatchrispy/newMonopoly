@@ -334,7 +334,7 @@ public class Board {
 		
 		if (choice.equals("Y") || choice.equals("y")) {
 			removeFunds(player, space.getPrice()); // Player buys property.
-			player.addOwnedProperties(space.getName()); // Add property to players Owned Properties list.
+			player.addOwnedProperties(space); // Add property to players Owned Properties list.
 			space.setOwnedBy(players.indexOf(player));
 			addMonopoly(player, space);
 		}
