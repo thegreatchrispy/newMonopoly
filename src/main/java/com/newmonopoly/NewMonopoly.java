@@ -138,18 +138,20 @@ public class NewMonopoly {
 		System.out.println("Game over!");
 	}
 	
-	public void playerOrder() {
-		int [] dieResult = new int[players.size];
-
-		for(int i=0; i<players.size(); i++){
+	public List<Player> playerOrder(List<Player> originalPlayers) {
+		for(player : originalPlayers){
 			die1.roll();
 			die2.roll();
 			int die_roll = die1.getValue() + die2.getValue();
+			player.setTurnOrder(die_roll);
 		}
+		Collections.sort(originalPlayers);
+		return originalPlayers;
+		
 	}//me
 
 	public void choosePieces(List<Player> players) {
-		for (players : player) {
+		for (player : players) {
 			displayAvailablePieces();
 			int choice = getUserInput();
 			player.setTokenNumber();

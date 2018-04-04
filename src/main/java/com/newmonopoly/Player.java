@@ -5,6 +5,7 @@ import java.util.Vector;
 
 public class Player {
 	private String name;
+	private int turnOrder;
 	private int money;
 	private int currentPosition;
 	private int doublesCount;
@@ -18,6 +19,7 @@ public class Player {
 
 	public Player(String name) {
 		this.name = name;
+		turnOrder = 0;
 		money = 1500;
 		currentPosition = 0;
 		doublesCount = 0;
@@ -35,6 +37,14 @@ public class Player {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getTurnOrder() {
+		return turnOrder;
+	}
+
+	public void setTurnOrder(int newTurn) {
+		turnOrder = newTurn;
 	}
 
 	public int getMoney() {
@@ -115,5 +125,11 @@ public class Player {
 
 	public void setTokenNumber(int tokenN) {
 		tokenNumber = tokenN;
+	}
+
+	@Override
+	public int compareTo(Player comparePlayer) {
+		int compareOrder = ((Player)comparePlayer).getTurnOrder();
+		return this.turnOrder + compareOrder;
 	}
 }
