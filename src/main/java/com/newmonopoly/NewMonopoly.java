@@ -147,8 +147,7 @@ public class NewMonopoly {
 		}
 		Collections.sort(originalPlayers);
 		return originalPlayers;
-		
-	}//me
+	}
 
 	public void choosePieces(List<Player> players) {
 		for (player : players) {
@@ -156,7 +155,7 @@ public class NewMonopoly {
 			int choice = getUserInput();
 			player.setTokenNumber();
 		}
-	}//me
+	}
 
 	public void displayAvailablePieces() {
 		
