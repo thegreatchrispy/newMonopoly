@@ -27,6 +27,8 @@ public class Board {
 	Gson gson;
 	boolean turnOver;
 	int dieValue;
+	int housesAvailable;
+	int hotelsAvailable;
 	
 	// Constructor
 	public Board(List<Player> players, boolean randomizeSet) throws Exception {
@@ -40,6 +42,8 @@ public class Board {
 		chance = new Vector<Card>();
 		community = new Vector<Card>();
 		dieValue=0;
+		housesAvailable = 32;
+		hotelsAvailable = 12;
 
 		spaces = retrieveSpaceInfo();
 		spaces = decideSeasonsAndOrder(spaces, randomizeSet);
@@ -334,7 +338,7 @@ public class Board {
 		
 		if (choice.equals("Y") || choice.equals("y")) {
 			removeFunds(player, space.getPrice()); // Player buys property.
-			player.addOwnedProperties(space.getName()); // Add property to players Owned Properties list.
+			player.addOwnedProperties(space); // Add property to players Owned Properties list.
 			space.setOwnedBy(players.indexOf(player));
 			addMonopoly(player, space);
 		}
@@ -412,18 +416,7 @@ public class Board {
 			}
 		}
 		else if(ans.equals("T")) {	// Trade
-			for (Player other_player : players) {
-				System.out.println(other_player.getName());
-			}
-			System.out.print("What player from the above list would you like to trade with? ");
-			ans = input.nextLine();
-			int index = 0;
-			for (Player otherPlayer : players) {
-				if (otherPlayer.getName().equals(ans)) {
-					index = players.indexOf(otherPlayer);
-				}
-			}
-			trade(player, players.get(index));
+			trade(player);
 		}
 		else {	// End turn.
 			turnOver = true;
@@ -431,16 +424,58 @@ public class Board {
 	}
 
 	public void mortgage(Player player, int debt) {
-		// Scanner input = new Scanner(System.in);
-		// displayOwnedProperties(player);
-		// while (debt <= 0) {
-		// 	System.out.println("Which properties would you like to sell? ");
-		// }
+		// Currently, selling a property includes selling all of the 
+		// houses and hotels on that property. This will need to be
+		// fixed in the future.
+		Space property;
+		int choice = -1;
+		Scanner input = new Scanner(System.in);
+
+		while (debt <= 0) {
+			displayOwnedProperties(player);
+			System.out.println("Which property would you like to sell?");
+
+			try {
+				choice = getUserInput();
+			}
+			catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+
+			if (choice > 0) {
+				property = player.getOwnedProperties().get(choice-1);
+				player.setMoney(debt + (property.getPrice() / 2) + (property.getBuildings() * property.getHouseCost() / 2));
+
+				if (property.getBuildings() == 5) {
+					hotelsAvailable += 1;
+				}
+				else {
+					housesAvailable += property.getBuildings();
+				}
+
+				player.removeOwnedProperties(choice-1);
+			}
+		}
 	}
 
 	public void displayOwnedProperties(Player player) {
+		int total;
+		int i = 0;
+		System.out.println(player.getName() + " owns these properties:");
+		System.out.println("#\tProperty Name\tBuildings\tBuilding Value\tMortgage Value\tTotal");
 
-	} 
+		for (Space space : player.getOwnedProperties()) {
+			i++;
+			total = (space.getPrice() / 2) + (space.getBuildings() * space.getHouseCost() / 2);
+			System.out.printf("%d %.20s\t%d\t$%d\t$%d\t$%d",i ,space.getName(), space.getBuildings(), (space.getHouseCost() / 2), (space.getPrice() / 2), total);
+		}
+	}
+
+	public int getUserInput() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the value of your choice: ");
+		return sc.nextInt();
+	}
 
 	public void build(Player player, Space space) {
 		System.out.println(space.getName() + " currently has " + space.getBuildings() + " houses.");
@@ -460,25 +495,35 @@ public class Board {
 		} while (!valid);
 	}
 
-	public void trade(Player playerSending, Player playerReceiving) {
-		Scanner input = new Scanner(System.in);
-		System.out.print("Trade or sell? T/S ");
-		char ans = Character.toUpperCase(input.next().charAt(0));
-		switch (ans) {
-			case 'T':
-				//trade
-				System.out.println("you can't yet.. :/");
-				System.out.println("Have you tried playing Resident Evil 4?");
-				// don't forget addMonopoly() boi
-				break;
-			case 'S':
-				//sell
-				System.out.println("you can't yet.. :/");
-				System.out.println("Have you tried playing Resident Evil 4?");
-				break;
-			default:
-				System.out.println("incorrect input");
-				break;
+	public void trade(Player player) {
+		// Scanner input = new Scanner(System.in);
+		// System.out.print("Trade or sell? T/S ");
+		// char ans = Character.toUpperCase(input.next().charAt(0));
+		// switch (ans) {
+		// 	case 'T':
+		// 		//trade
+		// 		System.out.println("you can't yet.. :/");
+		// 		System.out.println("Have you tried playing Resident Evil 4?");
+		// 		// don't forget addMonopoly() boi
+		// 		break;
+		// 	case 'S':
+		// 		//sell
+		// 		System.out.println("you can't yet.. :/");
+		// 		System.out.println("Have you tried playing Resident Evil 4?");
+		// 		break;
+		// 	default:
+		// 		System.out.println("incorrect input");
+		// 		break;
+		// }
+		// Currently a player may only trade one property for one other property
+		displayPlayersWithProperties();
+		int choice = getUserInput();
+		Player tradePlayer = players.get(choice);
+		boolean approved = false;
+		displayOwnedProperties(player);
+		displayOwnedProperties(tradePlayer);
+		while (!approved) {
+			
 		}
 	}
 
