@@ -21,7 +21,6 @@
 		  	160,
 		  	250
 		],
-		"mortgageVal": 30,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -52,7 +51,6 @@
 			320,
 			450
 		],
-		"mortgageVal": 30,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -80,7 +78,6 @@
 			100,
 			200
 		],
-		"mortgageVal": 100,
 		"ownedBy": -1,
 		"mortgaged": false,
 		"strongSeason": 0,
@@ -102,7 +99,6 @@
 			400,
 			550
 		],
-		"mortgageVal": 50,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -133,7 +129,6 @@
 			400,
 			550
 		],
-		"mortgageVal": 50,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -157,7 +152,6 @@
 			450,
 			600
 		],
-		"mortgageVal": 60,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -188,7 +182,6 @@
 			625,
 			750
 		],
-		"mortgageVal": 70,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -220,7 +213,6 @@
 			625,
 			750
 		],
-		"mortgageVal": 70,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -244,7 +236,6 @@
 			700,
 			900
 		],
-		"mortgageVal": 80,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -265,7 +256,6 @@
 			100,
 			200
 		],
-		"mortgageVal": 100,
 		"ownedBy": -1,
 		"mortgaged": false,
 		"strongSeason": 0,
@@ -287,7 +277,6 @@
 			750,
 			950
 		],
-		"mortgageVal": 90,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -318,7 +307,6 @@
 			750,
 			950
 		],
-		"mortgageVal": 90,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -342,7 +330,6 @@
 			800,
 			1000
 		],
-		"mortgageVal": 100,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -373,7 +360,6 @@
 			875,
 			1050
 		],
-		"mortgageVal": 110,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -404,7 +390,6 @@
 			875,
 			1050
 		],
-		"mortgageVal": 110,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -428,7 +413,6 @@
 			925,
 			1100
 		],
-		"mortgageVal": 120,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -449,7 +433,6 @@
 			100,
 			200
 		],
-		"mortgageVal": 100,
 		"ownedBy": -1,
 		"mortgaged": false,
 		"strongSeason": 0,
@@ -471,7 +454,6 @@
 			975,
 			1150
 		],
-		"mortgageVal": 130,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -495,7 +477,6 @@
 			975,
 			1150
 		],
-		"mortgageVal": 130,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -527,7 +508,6 @@
 			1025,
 			1200
 		],
-		"mortgageVal": 140,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -558,7 +538,6 @@
 			1100,
 			1275
 		],
-		"mortgageVal": 150,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -582,7 +561,6 @@
 			1100,
 			1275
 		],
-		"mortgageVal": 150,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -613,7 +591,6 @@
 			1200,
 			1400
 		],
-		"mortgageVal": 160,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -634,7 +611,6 @@
 			100,
 			200
 		],
-		"mortgageVal": 100,
 		"ownedBy": -1,
 		"mortgaged": false,
 		"strongSeason": 0,
@@ -663,7 +639,6 @@
 			1300,
 			1500
 		],
-		"mortgageVal": 175,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -695,7 +670,6 @@
 			1700,
 			2000
 		],
-		"mortgageVal": 200,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,
