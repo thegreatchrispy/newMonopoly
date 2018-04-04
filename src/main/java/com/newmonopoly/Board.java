@@ -496,10 +496,22 @@ public class Board {
 		System.out.println(space.getName() + " currently has " + space.getBuildings() + " houses.");
 		Scanner input = new Scanner(System.in);
 		boolean valid = true;
+		int maxHouses = 0;
+		for (Space otherSpace : player.getOwnedProperties()) {
+			if (otherSpace.getGroup() == space.getGroup()) {
+				if (otherSpace.getBuildings() > maxHouses) {
+					maxHouses = otherSpace.getBuildings();
+				}
+			}
+		}
 		do {
 			System.out.print("How many more houses would you like to add? ");
 			int additions = input.nextInt();
-			if (additions + space.getBuildings() > 5) {
+			if (additions + space.getBuildings() > maxHouses + 1) {
+				valid = false;
+				System.out.println("You need to even build! Please try again.");
+			}
+			else if (additions + space.getBuildings() > 5) {
 				valid = false;
 				System.out.println("You entered an invalid amount of houses! Please try again.");
 			}
@@ -510,6 +522,13 @@ public class Board {
 			else {
 				removeFunds(player, additions*space.getHouseCost());
 				space.setBuildings(space.getBuildings() + additions);
+				if (space.getBuildings() == 5) {
+					housesAvailable += 4;
+					hotelsAvailable--;
+				}
+				else {
+					housesAvailable -= additions;
+				}
 			}
 		} while (!valid);
 	}
