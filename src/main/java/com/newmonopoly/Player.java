@@ -83,6 +83,10 @@ public class Player {
 		ownedProperties.add(property);
 	}
 
+	public void removeOwnedProperties(int index) {
+		ownedProperties.remove(index);
+	}
+
 	public boolean getJailCard() {
 		return jailCard;
 	}

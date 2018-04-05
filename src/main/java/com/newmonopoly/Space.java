@@ -9,7 +9,6 @@ public class Space implements Comparable<Space> {
     private int currentRent;
   	private int rent;
   	private int[] multipliedRent;
-  	private int mortgageVal;
   	private int houseCost;
   	private int ownedBy;
   	private int buildings;
@@ -79,14 +78,6 @@ public class Space implements Comparable<Space> {
 
   	public int[] getMultipliedRent() {
   		return multipliedRent;
-  	}
-
-  	public void setMortgageVal(int mortgage) {
-	  	mortgageVal = mortgage;
-  	}
-
-  	public int getMortgageVal() {
-  		return mortgageVal;
   	}
 
    	public void setHouseCost(int houseCost) {
