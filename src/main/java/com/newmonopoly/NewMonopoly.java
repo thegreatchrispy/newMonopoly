@@ -5,12 +5,12 @@ import java.util.Vector;
 import java.util.Scanner;
 
 public class NewMonopoly {
-	Board board;
-	Die die1;
-	Die die2;
-	List<Player> players;
-	boolean gameOver;
-	int maxTurns;
+	private Board board;
+	private Die die1;
+	private Die die2;
+	private List<Player> players;
+	private boolean gameOver;
+	private int maxTurns;
 	//Timer timer;
 
 	
@@ -45,7 +45,10 @@ public class NewMonopoly {
 //		session.startGame();
 
 	/*default*/
-	public NewMonopoly(List<Player> players) {
+	public NewMonopoly() {
+		playerOrder();
+		//choosePieces();
+		
 		try {
 			board = new Board(players, false);
 		}
@@ -65,8 +68,8 @@ public class NewMonopoly {
 	//}
 
 	public void startGame() {
-		choosePieces();
-		playerOrder();
+		choosePieces(players);
+		
 		// Continuous loop until the game is over and the board has a winner.
 		while (!gameOver && !board.hasWinner()) {
 			if(board.getCurrentPlayer().getMoney()>0) {
@@ -138,32 +141,26 @@ public class NewMonopoly {
 		System.out.println("Game over!");
 	}
 	
-	public List<Player> playerOrder(List<Player> originalPlayers) {
-		for(Player player : originalPlayers){
+	public void playerOrder() {
+		for(Player player : players){
 			die1.roll();
 			die2.roll();
-			int die_roll = die1.getValue() + die2.getValue();
-			player.setTurnOrder(die_roll);
+			int dieRoll = die1.getValue() + die2.getValue();
+			player.setTurnOrder(dieRoll);
 		}
-		Collections.sort(originalPlayers);
-		return originalPlayers;
+
+		Collections.sort(players);
 	}
 
-	public void choosePieces(List<Player> players) {
+	public void choosePieces() {
 		for (Player player : players) {
 			displayAvailablePieces();
-			int choice = getUserInput();
-			player.setTokenNumber();
+			int choice = board.getUserInput();
+			player.setTokenNumber(choice);
 		}
 	}
 
 	public void displayAvailablePieces() {
-		
-	}
-	public void getUserInput() {
-		
-	}
-	public void setTokenNumber(){
 		
 	}
 
