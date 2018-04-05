@@ -139,7 +139,7 @@ public class NewMonopoly {
 	}
 	
 	public List<Player> playerOrder(List<Player> originalPlayers) {
-		for(player : originalPlayers){
+		for(Player player : originalPlayers){
 			die1.roll();
 			die2.roll();
 			int die_roll = die1.getValue() + die2.getValue();
@@ -150,7 +150,7 @@ public class NewMonopoly {
 	}
 
 	public void choosePieces(List<Player> players) {
-		for (player : players) {
+		for (Player player : players) {
 			displayAvailablePieces();
 			int choice = getUserInput();
 			player.setTokenNumber();
