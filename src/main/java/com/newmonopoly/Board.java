@@ -359,12 +359,41 @@ public class Board {
 		}
 		// Player does not want property.
 		else {
-			auction(players, space); // All players eligible for auction.
+			auction(space); // All players eligible for auction.
 		}
 	}
 
-	public void auction(List<Player> players, Space space) {
+	public void auction(Space space) {
+		List<Integer> offers = new Vector<Integer>();
+		boolean sold = false;
+		int offer = 0;
+		int count = 0;
+		int max = 0;
+		int index = -1;
 
+		while (!sold && count < 3) {
+			for (int i = 0; i < players.size(); i++) {
+				if (offers.get(i) != -1) {
+					while (players.get(i).getMoney() - offer > 0 && !offers.contains(offer)) {
+						System.out.println(players.get(i).getName() + ", enter your bid or -1 to give up:");
+						offer = getUserInput();
+					}
+
+					offers.set(i, offer);
+				}
+
+				offer = 0;
+			}
+
+			count++;
+		}
+
+		max = Collections.max(offers);
+		index = offers.indexOf(max);
+		removeFunds(players.get(index), max); // Player buys property.
+		players.get(index).addOwnedProperties(space); // Add property to players Owned Properties list.
+		space.setOwnedBy(index);
+		addMonopoly(players.get(index), space);
 	}
 
 	public void drawCard(Player player, List<Card> cards) {
@@ -538,25 +567,35 @@ public class Board {
 		int myChoice;    // Represents which property to give away
 		int tradeChoice; // Represents which property to take
 		Player tradePlayer = players.get(choice);
+		char approvalChoice;
 		boolean approved = false;
+		boolean ended = false;
 
-		while (!approved) {
+		while (!approved && !ended) {
 			displayOwnedProperties(player);
 			System.out.println("Select your property to offer:");
 			myChoice = getUserInput();
 			displayOwnedProperties(tradePlayer);
 			System.out.println("Select the property you want:");
 			tradeChoice = getUserInput();
+			System.out.println("Does other player approve? Y/N, X to exit");
+			approvalChoice = getCharInput();
 
-			System.out.println("Does tradePlayer approve? Y/N");
-			if (getCharInput() == 'Y' || get) {
-
+			if (approvalChoice == 'Y' || approvalChoice == 'y') {
+				player.addOwnedProperties(tradePlayer.getOwnedProperties().get(tradeChoice));
+				tradePlayer.addOwnedProperties(player.getOwnedProperties().get(myChoice));
+				player.removeOwnedProperties(myChoice);
+				tradePlayer.removeOwnedProperties(tradeChoice);
+				player.getOwnedProperties().get(player.getOwnedProperties().size()-1).setOwnedBy(players.indexOf(player));
+				tradePlayer.getOwnedProperties().get(tradePlayer.getOwnedProperties().size()-1).setOwnedBy(players.indexOf(tradePlayer));
+				addMonopoly(player, player.getOwnedProperties().get(player.getOwnedProperties().size()-1));
+				addMonopoly(tradePlayer, tradePlayer.getOwnedProperties().get(tradePlayer.getOwnedProperties().size()-1));
+				approved = true;
+			}
+			else if (approvalChoice == 'X' || approvalChoice == 'x') {
+				ended = true;
 			}
 		}
-	}
-
-	public void endTurn() {
-		turnOver = true;
 	}
 
 	// Checks if player has new monopolies.
