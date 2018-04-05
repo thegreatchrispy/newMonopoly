@@ -3,7 +3,7 @@ package com.newmonopoly;
 import java.util.List;
 import java.util.Vector;
 
-public class Player {
+public class Player implements Comparable<Player> {
 	private String name;
 	private int turnOrder;
 	private int money;
