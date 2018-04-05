@@ -3,10 +3,10 @@ package com.newmonopoly;
 public class Space implements Comparable<Space> {
   	private String name;
   	private int group;
-	private int position;
+    private int position;
   	private String type;
   	private int price;
-	private int currentRent;
+    private int currentRent;
   	private int rent;
   	private int[] multipliedRent;
   	private int mortgageVal;
