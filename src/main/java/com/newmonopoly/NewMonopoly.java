@@ -3,6 +3,7 @@ package com.newmonopoly;
 import java.util.List;
 import java.util.Vector;
 import java.util.Scanner;
+import java.util.Collections;
 
 public class NewMonopoly {
 	private Board board;
@@ -67,9 +68,7 @@ public class NewMonopoly {
 		//something
 	//}
 
-	public void startGame() {
-		choosePieces(players);
-		
+	public void startGame() {		
 		// Continuous loop until the game is over and the board has a winner.
 		while (!gameOver && !board.hasWinner()) {
 			if(board.getCurrentPlayer().getMoney()>0) {
