@@ -46,7 +46,8 @@ public class NewMonopoly {
 //		session.startGame();
 
 	/*default*/
-	public NewMonopoly() {
+	public NewMonopoly(List<Player> players) {
+		this.players = players;
 		playerOrder();
 		//choosePieces();
 		
