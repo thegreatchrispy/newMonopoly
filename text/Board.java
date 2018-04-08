@@ -784,30 +784,11 @@ public class Board {
 	public Player getWinner() {
 		return getCurrentPlayer();
 	}
-//	
-//	// Return top player for statistics.
-//	public Player getTopPlayer() {
-//		Player maxplayer = null;
-//		for(Player player:players){
-//			if(maxplayer == null || maxplayer.getMoney().getMoney() < player.getMoney().getMoney()){
-//				maxplayer = player;
-//			}
-//		}
-//		return maxplayer;
-//	}
-//	
-//	public int normalizePosition(int position) {
-//		return position % spaces.length;
-//	}
-//	
+
 	public Player getCurrentPlayer() {
 		return players.get(playerIndex);
 	}
-//	
-//	public Player[] getPlayers() {
-//		return players;
-//	}
-//	
+
 	public void nextTurn() {
 		do {
 			playerIndex++;
@@ -816,14 +797,7 @@ public class Board {
 			}
 		} while(players.get(playerIndex) == null);
 	}
-//	
-//	public Player getPlayer(int id) {
-//		return players[id];
-//	}
-//	
-//	public int getTotalSquare() {
-//		return spaces.length;
-//	}
+
 	public List<Space> retrieveSpaceInfo() throws Exception {
 		List<Space> spaces = gson.fromJson(new FileReader("spaces.json"), new TypeToken<List<Space>>(){}.getType());
 		return spaces;
