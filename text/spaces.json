@@ -195,7 +195,8 @@
 		"group": 3,
 		"position": 2,
 		"type": "utility",
-		"price": 150
+		"price": 150,
+		"ownedBy": -1
 	},
 
 	{
@@ -490,7 +491,8 @@
 		"group": 6,
 		"position": 3,
 		"type": "utility",
-		"price": 150
+		"price": 150,
+		"ownedBy": -1
 	},
 	
 	{
@@ -520,7 +522,7 @@
 		"name": "Go To Jail",
 		"group": 0,
 		"position": 4,
-		"type": "corner"
+		"type": "gotojail"
 	},
 
 	{

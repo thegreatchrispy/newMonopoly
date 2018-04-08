@@ -70,6 +70,7 @@ public class NewMonopoly {
 	public void startGame() {
 		// Continuous loop until the game is over and the board has a winner.
 		while (!gameOver && !board.hasWinner()) {
+			System.out.println("Beginning " + board.getCurrentPlayer().getName() + "'s turn with $" + board.getCurrentPlayer().getMoney());
 			if(board.getCurrentPlayer().getMoney()>0) {
 				if(board.getCurrentPlayer().getInJail()) { 	// If player starts turn in jail.
 					System.out.println(board.getCurrentPlayer().getName() + " has " + board.getCurrentPlayer().getJailTime() + " more turn(s) in jail.");
@@ -178,7 +179,7 @@ public class NewMonopoly {
 
 		int i = 0;
 		for (Player player : players) {
-			System.out.println(i++ + ". " + player.getName());
+			System.out.println(++i + ". " + player.getName());
 		}
 
 		System.out.println("Ending playerOrder()...");
@@ -207,6 +208,7 @@ public class NewMonopoly {
 			System.out.println("Value: " + dieRoll);
 
 			if(die1.getValue() == die2.getValue()){
+				System.out.println(board.getCurrentPlayer().getName() + " rolled doubles!?");
 				board.getCurrentPlayer().incrementDoubles();
 			}
 
