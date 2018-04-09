@@ -52,6 +52,8 @@ public class Board {
 
 		Collections.shuffle(chance);
 		Collections.shuffle(community);
+		// Create Board table
+		// Table include: board_id, newMonopoly_id, player list, currentTurn, totalPlayer, turnOver, spaces lists, chance list, community list, playerIndex, housesAvailable, hotelsAvailable, dieValue
 	}
 
 	public List<Space> decideSeasonsAndOrder(List<Space> originalSpaces, boolean randomizeSet) {
@@ -169,6 +171,7 @@ public class Board {
 		}
 
 		player.setCurrentPosition((player.getCurrentPosition() + value) % 40);
+		// Update player
 		System.out.println(player.getName() + " landed on " + spaces.get(player.getCurrentPosition()).getName());
 		transaction(player);
 	}
@@ -186,6 +189,7 @@ public class Board {
 				}
 
 				player.setCurrentPosition(spaces.indexOf(space));
+				// Update: player
 				System.out.println(player.getName() + " moved to " + space.getName());
 			}
 		}
@@ -209,7 +213,7 @@ public class Board {
 
 			player.setCurrentPosition(position);
 		}
-
+		// Update player
 		System.out.println(player.getName() + " moved to " + spaces.get(player.getCurrentPosition()).getName());
 		performSpaceAction(player, spaces.get(player.getCurrentPosition()));
 	}
@@ -233,6 +237,7 @@ public class Board {
 				}
 
 				player.setCurrentPosition((player.getCurrentPosition() + i) % 40);
+				// Update player
 				System.out.println(player.getName() + " landed on " + spaces.get(player.getCurrentPosition()).getName());
 				nearestFound = true;
 			}
@@ -247,6 +252,7 @@ public class Board {
 		}
 
 		player.setMoney(player.getMoney() + payment);
+		// Update player
 		System.out.println(player.getName() + "'s new money total: " + player.getMoney() + "\n");
 	}
 
@@ -260,6 +266,7 @@ public class Board {
 		}
 
 		player.setMoney(player.getMoney() - payment);
+		// Update player
 		System.out.println(player.getName() + "'s new money total: " + player.getMoney() + "\n");
 	}
 
@@ -314,6 +321,7 @@ public class Board {
 		player.setCurrentPosition(10);
 		player.setInJail(true);
 		player.setJailTime(3);
+		// Update player
 		System.out.println(player.getName() + " has been moved to jail.");
 	}
 
@@ -325,6 +333,7 @@ public class Board {
 		performSpaceAction(player, spaces.get(player.getCurrentPosition()));
 		if (player.getMoney() <= 0) {
 			turnOver = true;
+			// Update turnOver
 			// End turn called here.
 		}
 		while (!turnOver) {
@@ -340,15 +349,19 @@ public class Board {
 		if (space == null) {
 			throw new IllegalArgumentException("In performSpaceAction: Space space is null.");
 		}
-
-		// CHECK IF PROPERTY, RAILROAD, UTILITY MORGATE
+		
 		switch (space.getType()) {
 			case "gotojail":
 				movePlayerToJail(player);
 				break;
 			case "property":
 				if ((space.getOwnedBy() != (playerIndex)) && space.getOwnedBy() > -1) {
-					payRent(player, space);
+					if (!space.isMortgaged()) {
+						payRent(player, space);					
+					}
+					else {
+						System.out.println(space.getName() + " is currently mortgaged.");
+					}
 				}
 				else if (space.getOwnedBy() == playerIndex) {
 					break;
@@ -365,7 +378,12 @@ public class Board {
 				break;
 			case "railroad":
 				if ((space.getOwnedBy() != (playerIndex)) && space.getOwnedBy() > -1) {
-					payRailroad(player, space);
+					if (!space.isMortgaged()) {
+						payRailroad(player, space);
+					}
+					else {
+						System.out.println(space.getName() + " is currently mortgaged.");
+					}
 				}
 				else if (space.getOwnedBy() == playerIndex) {
 					break;
@@ -376,7 +394,12 @@ public class Board {
 				break;
 			case "utility":
 				if ((space.getOwnedBy() != (playerIndex)) && space.getOwnedBy() > -1) {
-					payUtility(player, space);
+					if(!space.isMortgaged()) {	
+						payUtility(player, space);
+					}
+					else {
+						System.out.println(space.getName() + " is currently mortgaged.");
+					}
 				}
 				else if (space.getOwnedBy() == playerIndex) {
 					break;
@@ -397,6 +420,8 @@ public class Board {
 			default:
 				break;
 		}
+
+		// Update: player, space, chance, community
 	}
 
 	public void payRent(Player player, Space space) {
@@ -521,7 +546,7 @@ public class Board {
 		if (space == null) {
 			throw new IllegalArgumentException("In payUtility: Space space is null.");
 		}
-
+		System.out.println(space.getName() + " original sale price is $" + space.getPrice());
 		List<Integer> offers = new Vector<Integer>(Collections.nCopies(players.size(), 0));
 		List<Boolean> stillInAuction = new Vector<Boolean>(Collections.nCopies(players.size(), true));
 		int offer = 0;
@@ -536,9 +561,10 @@ public class Board {
 					offer = getUserInput();
 				}
 				else {
+					offer = -1;
 					continue;
 				}
-			} while (players.get(i).getMoney() - offer <= 0 || offers.contains(offer));
+			} while (players.get(i).getMoney() - offer <= 0 || offers.contains(offer) || (offer <= Collections.max(offers) && offer > -1));
 
 			if (offer == -1) {
 				stillInAuction.set(i, false);
@@ -554,7 +580,7 @@ public class Board {
 						System.out.println(players.get(i).getName() + ", enter your bid or -1 to give up:");
 						offer = getUserInput();
 
-					} while (players.get(i).getMoney() - offer <= 0 || offers.contains(offer));
+					} while (players.get(i).getMoney() - offer <= 0 || offers.contains(offer) || (offer <= Collections.max(offers) && offer > -1));
 
 					if (offer == -1) {
 						stillInAuction.set(i, false);
@@ -576,6 +602,7 @@ public class Board {
 		space.setOwnedBy(index);
 		System.out.println(players.get(index).getName() + " has won the auction.");
 		addMonopoly(players.get(index), space);
+		// Update: player who won auction
 	}
 
 	public void drawCard(Player player, List<Card> cards) {
@@ -634,22 +661,21 @@ public class Board {
 		}
 
 		// Build improvements, trade, or end turn.
-		System.out.println("\n/------------------------------------\\");
-		System.out.println("| Commands:                          |");
-		System.out.println("| B: Build    T: Trade    D: Display |");
-		System.out.println("| Q: Quit     E: End Turn            |");
-		System.out.println("\\------------------------------------/");
-		System.out.print("\nEnter your choice: ");
-		Scanner input = new Scanner(System.in);
-		String ans = input.nextLine().toUpperCase();
+		System.out.println("\n/---------------------------------------\\");
+		System.out.println("| Commands:                               |");
+		System.out.println("| B: Build        T: Trade    D: Display  |");
+		System.out.println("| P: Pay Mortgage Q: Quit     E: End Turn |");
+		System.out.println("\\-----------------------------------------/\n");
+		char ans = getCharInput();
+		boolean hasMortgaged = false;
 
-		if(ans.charAt(0) == 'B') { // Build Improvements
+		if(ans == 'B') { // Build Improvements
 			if (player.getMonopolyGroups().contains(1)) {
 				findMonopolies(player);
 				System.out.print("What property from the above list would you like to improve? ");
 				int choice = getUserInput();
 
-				if (player.getMonopolyProperties().get(choice - 1).getBuildings() < 5) {
+				if (player.getMonopolyProperties().get(choice - 1).getBuildings() < 5 && !player.getMonopolyProperties().get(choice -1).isMortgaged()) {
 					build(player, player.getMonopolyProperties().get(choice - 1));
 				} 
 				else {
@@ -660,7 +686,7 @@ public class Board {
 				System.out.println("You have no monopolies to build on.");
 			}
 		}
-		else if(ans.charAt(0) == 'T') {	// Trade
+		else if(ans == 'T') {	// Trade
 			if (player.getOwnedProperties().size() > 0) {
 				trade(player);
 			}
@@ -668,15 +694,30 @@ public class Board {
 				System.out.println("You have no properties to trade.");
 			}
 		}
-		else if (ans.charAt(0) == 'D') {
+		else if (ans == 'D') {
 			System.out.println(player.toString());
 			displayOwnedProperties(player);
 		}
-		else if (ans.charAt(0) == 'Q') {
+		else if (ans == 'P') {
+			for (Space space : player.getOwnedProperties()) {
+				if (space.isMortgaged()) {
+					hasMortgaged = true;
+					unmortgage(player);
+					break;
+				}
+			}
+			if (!hasMortgaged) {
+				System.out.println("You have no mortgaged properties..");
+			}
+		}
+		else if (ans == 'Q') {
 			bankrupt(player);
+			turnOver = true;
+			// update turn over
 		}
 		else {	// End turn.
 			turnOver = true;
+			// update turn over
 		}
 	}
 
@@ -692,7 +733,6 @@ public class Board {
 		Space property;
 		boolean allMortgage = false;
 		int choice = -1;
-		Scanner input = new Scanner(System.in);
 
 		while (debt <= 0 && !allMortgage) {
 			for (Space space : player.getOwnedProperties()) {
@@ -714,7 +754,9 @@ public class Board {
 			System.out.println("Which property would you like to sell?");
 
 			try {
-				choice = getUserInput();
+				do {
+					choice = getUserInput();
+				} while(player.getOwnedProperties().get(choice -1 ).isMortgaged());
 			}
 			catch (IllegalArgumentException e) {
 				e.printStackTrace();
@@ -733,12 +775,41 @@ public class Board {
 				}
 
 				player.getOwnedProperties().get(choice-1).setMortgaged(false);
+				// Updates spaces, player, hotelsAvailable, housesAvailable
 			}
 		}
 
 		if (allMortgage && debt <= 0) {
 			bankrupt(player);
 		}
+	}
+
+	public void unmortgage(Player player) {
+		if (player == null) {
+			throw new IllegalArgumentException("In unmortgage: Player player is null.");
+		}
+
+		displayOwnedProperties(player);
+		System.out.println("Which property would you like to pay off?");
+		int choice = 0;
+		Space property;
+
+			try {
+				do {
+					choice = getUserInput();
+				} while(!player.getOwnedProperties().get(choice -1 ).isMortgaged());
+			}
+			catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+
+			if (choice > 0) {
+				property = player.getOwnedProperties().get(choice-1);
+				removeFunds(player, (int) ((property.getPrice() / 2) * 1.1));
+				player.getOwnedProperties().get(choice-1).setMortgaged(true);
+				System.out.println(property.getName() + " is now paid off!");
+				// Update player, space
+			}
 	}
 
 	public void bankrupt(Player player) {
@@ -750,12 +821,16 @@ public class Board {
 		System.out.println(player.getName() + " declared bankruptcy. Their owned properties will be auctioned.");
 		displayOwnedProperties(player);
 		System.out.println("Beginning auctions...");
-
+		player.setMoney(0);
+		// Update player
 		for (Space space : player.getOwnedProperties()) {
+			space.setMortgaged(false);
+			// Update space
 			auction(space);
 		}
 
 		players.set(playerIndex, null);
+		// Update players
 		System.out.println("\nPlayers remaining:");
 
 		for (Player p : players) {
@@ -765,6 +840,7 @@ public class Board {
 		}
 	}
 
+	// Display only
 	public void displayOwnedProperties(Player player) {
 		if (player == null) {
 			throw new IllegalArgumentException("In displayOwnedProperties: Player player is null.");
@@ -776,11 +852,11 @@ public class Board {
 		if (player.getOwnedProperties().size() > 0) {
 			Collections.sort(player.getOwnedProperties());
 			System.out.println(player.getName() + " owns these properties:");
-			System.out.println("#    Property Name           Group    Bldg No.    Bldg Val    Mortgage    Total");
+			System.out.println("#    Property Name           Group    Bldg No.    Bldg Val    Mortgage    Total    isMortgaged");
 
 			for (Space space : player.getOwnedProperties()) {
 				total = (space.getPrice() / 2) + (space.getBuildings() * space.getHouseCost() / 2);
-				System.out.printf("%d    %-20s      %d         %d         $%-5d      $%-5d     $%-5d\n",++i ,space.getName(), space.getGroup(), space.getBuildings(), (space.getHouseCost() / 2), (space.getPrice() / 2), total);
+				System.out.printf("%d    %-20s      %d         %d         $%-5d      $%-5d     $%-5d        %b\n",++i ,space.getName(), space.getGroup(), space.getBuildings(), (space.getHouseCost() / 2), (space.getPrice() / 2), total, space.isMortgaged());
 			}
 		}
 		else {
@@ -788,6 +864,7 @@ public class Board {
 		}
 	}
 
+	// Display only
 	public void displayPlayersWithProperties() {
 		int i = 0;
 		System.out.println("The following players own properties:");
@@ -795,9 +872,11 @@ public class Board {
 
 		for (Player player : players) {
 			i++;
-
 			if (player != null) {
-				if (player.getOwnedProperties().size() > 0) {
+				if (player == getCurrentPlayer()) {
+					continue;
+				}
+				else if (player.getOwnedProperties().size() > 0) {
 					System.out.printf("%d    %-16s            %d\n", i, player.getName(), player.getOwnedProperties().size());
 				}
 			}
@@ -807,11 +886,13 @@ public class Board {
 	public int getUserInput() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter the value of your choice: ");
+		// retrieve int input
 		return sc.nextInt();
 	}
 
 	public char getCharInput() {
 		Scanner sc = new Scanner(System.in);
+		// retrieve char input
 		return sc.next().charAt(0);
 	}
 
@@ -825,7 +906,6 @@ public class Board {
 		}
 
 		System.out.println(space.getName() + " currently has " + space.getBuildings() + " houses.");
-		Scanner input = new Scanner(System.in);
 		boolean valid = true;
 		int maxHouses = 0;
 
@@ -838,7 +918,7 @@ public class Board {
 		}
 		do {
 			System.out.print("How many more houses would you like to add? ");
-			int additions = input.nextInt();
+			int additions = getUserInput();
 			if (additions + space.getBuildings() > maxHouses + 1) {
 				valid = false;
 				System.out.println("You need to even build! Please try again.");
@@ -867,6 +947,8 @@ public class Board {
 				}
 			}
 		} while (!valid);
+
+		// Update player, space, housesAvailable, hotelsAvailable
 	}
 
 	public void trade(Player player) {
@@ -886,17 +968,25 @@ public class Board {
 
 		do {
 			choice = getUserInput();
-		} while (choice == playerIndex);
+		} while (choice == playerIndex + 1 || players.get(choice - 1) == null);
 
 		tradePlayer = players.get(choice  - 1);
 
 		while (!approved && !ended) {
 			displayOwnedProperties(player);
 			System.out.println("Select your property to offer:");
-			myChoice = getUserInput();
+			
+			do {
+				myChoice = getUserInput();				
+			} while (player.getOwnedProperties().get(myChoice -1).isMortgaged());
+			 
 			displayOwnedProperties(tradePlayer);
 			System.out.println("Select the property you want:");
-			tradeChoice = getUserInput();
+
+			do {
+				tradeChoice = getUserInput();			
+			} while (tradePlayer.getOwnedProperties().get(tradeChoice -1).isMortgaged());
+
 			System.out.println("Does other player approve? Y/N, X to exit ");
 			approvalChoice = getCharInput();
 
@@ -910,6 +1000,7 @@ public class Board {
 				addMonopoly(player, player.getOwnedProperties().get(player.getOwnedProperties().size()-1));
 				addMonopoly(tradePlayer, tradePlayer.getOwnedProperties().get(tradePlayer.getOwnedProperties().size()-1));
 				approved = true;
+				// Update player, space
 			}
 			else if (approvalChoice == 'X' || approvalChoice == 'x') {
 				ended = true;
@@ -961,6 +1052,7 @@ public class Board {
 	}
 
 	// Finds and prints the list of player's monopolies.
+	// Display only
 	public void findMonopolies(Player player) {
 		if (player == null) {
 			throw new IllegalArgumentException("In findMonopolies: Player player is null.");
@@ -969,11 +1061,11 @@ public class Board {
 		int total = 0;
 		int i = 0;
 		Collections.sort(player.getMonopolyProperties());
-		System.out.println("#    Property Name           Group    Bldg No.    Bldg Val    Mortgage    Total");
+		System.out.println("#    Property Name           Group    Bldg No.    Bldg Val    Mortgage    Total    isMortgaged");
 
 		for (Space space : player.getMonopolyProperties()) {
 			total = (space.getPrice() / 2) + (space.getBuildings() * space.getHouseCost() / 2);
-			System.out.printf("%d    %-20s      %d         %d         $%-5d      $%-5d     $%-5d\n",++i ,space.getName(), space.getGroup(), space.getBuildings(), (space.getHouseCost() / 2), (space.getPrice() / 2), total);
+			System.out.printf("%d    %-20s      %d         %d         $%-5d      $%-5d     $%-5d        %b\n",++i ,space.getName(), space.getGroup(), space.getBuildings(), (space.getHouseCost() / 2), (space.getPrice() / 2), total, space.isMortgaged());
 		}
 	}
 

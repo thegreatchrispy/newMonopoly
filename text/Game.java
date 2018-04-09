@@ -8,6 +8,7 @@ public class Game {
 		List<Player> players = new Vector<Player>();
 		Scanner sc = new Scanner(System.in);
 		int numPlayers = 0;
+		boolean randomize = false;
 
 		do {
 			System.out.print("Enter the number of players: ");
@@ -28,8 +29,15 @@ public class Game {
 			System.out.println("Player added!\n");
 		}
 
+		System.out.print("Would you like to randomize the spaces? Y/N");
+		char answer = sc.next().charAt(0);
+
+		if (answer == 'Y' || answer == 'y') {
+			randomize = true;
+		}
+
 		// Start the game
-		NewMonopoly newMonopoly = new NewMonopoly(players);
+		NewMonopoly newMonopoly = new NewMonopoly(players, randomize);
 		newMonopoly.startGame();
 	}
 }

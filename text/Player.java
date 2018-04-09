@@ -20,7 +20,7 @@ public class Player implements Comparable<Player> {
 	public Player(String name) {
 		this.name = name;
 		turnOrder = 0;
-		money = 150;
+		money = 1500;
 		currentPosition = 0;
 		doublesCount = 0;
 		jailCard = false;
