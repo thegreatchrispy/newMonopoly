@@ -1,6 +1,17 @@
 # FILE				LINE		DESCRIPTION
-1 Board.java		725			Trade allows a user to trade with themselves. Should not display yourself
-								when displaying players with properties.
+1 BoardModel.java   
+2 NewMonopolyModel.java
+3 BoardController.java
+4 NewMonopolyController.java
+5 Rename ObjectDAO -> AccountDAO
+6 BoardDAO.java
+7 NewMonopolyDAO.java
+8 BoardService.java
+9 NewMonopolyService.java
+A In Application.java call BoardDAO and NewMonopolyDAO
 
-2 Board.java		421			Better way to auction, keep track of highest bid. Prevent players from bidding
-								lower than the previous bid.
+Board.java -> BoardService.java -> BoardController.java -> Application.java
+								   (BoardDAO.java)
+
+NewMonopoly.java -> NewMonopolyService.java -> NewMonopolyController.java -> Application.java
+								               (NewMonopolyDAO.java)
