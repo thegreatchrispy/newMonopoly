@@ -2,17 +2,17 @@
 	  {
 			"title": "Advance to Go (Collect $200)",
 			"action": "move",
-			"spacename": "GO"
+			"spaceName": "GO"
 	  },
 	  {
 			"title": "Advance to Illinois Avenue - If you pass Go, collect $200",
 			"action": "move",
-			"spacename": "Illinois Avenue"
+			"spaceName": "Illinois Avenue"
 	  },
 	  {
 			"title": "Advance to St. Charles Place - If you pass Go, collect $200",
 			"action": "move",
-			"spacename": "St. Charles Place"
+			"spaceName": "St. Charles Place"
 	  },
 	  {
 			"title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
@@ -57,12 +57,12 @@
 	  {
 			"title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
 			"action": "move",
-			"spacename": "Reading Railroad"
+			"spaceName": "Reading Railroad"
 	  },
 	  {
 			"title": "Take a walk on the Boardwalk - Advance token to Boardwalk",
 			"action": "move",
-			"spacename": "Boardwalk"
+			"spaceName": "Boardwalk"
 	  },
 	  {
 			"title": "You have been elected Chairman of the Board - Pay each player $50",

@@ -65,5 +65,4 @@ public class Card{
 	public void setHotels(int hotels){
 		this.hotels = hotels;
 	}
-	
 }
