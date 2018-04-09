@@ -1,2 +1,6 @@
-FILE				LINE		DESCRIPTION
-no current bugs :)
+# FILE				LINE		DESCRIPTION
+1 Board.java		725			Trade allows a user to trade with themselves. Should not display yourself
+								when displaying players with properties.
+
+2 Board.java		421			Better way to auction, keep track of highest bid. Prevent players from bidding
+								lower than the previous bid.

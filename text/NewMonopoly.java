@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Vector;
+
 import java.util.Scanner;
 import java.util.Collections;
 
@@ -45,6 +46,10 @@ public class NewMonopoly {
 
 	/*default*/
 	public NewMonopoly(List<Player> players) {
+		if (players.isEmpty()) {
+			throw new IllegalArgumentException("In NewMonopoly constructor: List<Player> players is empty.");
+		}
+
 		this.players = players;
 		die1 = new Die();
 		die2 = new Die();
@@ -70,7 +75,7 @@ public class NewMonopoly {
 	public void startGame() {
 		// Continuous loop until the game is over and the board has a winner.
 		while (!gameOver && !board.hasWinner()) {
-			System.out.println("Beginning " + board.getCurrentPlayer().getName() + "'s turn with $" + board.getCurrentPlayer().getMoney());
+			System.out.println("\nBeginning " + board.getCurrentPlayer().getName() + "'s turn with $" + board.getCurrentPlayer().getMoney());
 			if(board.getCurrentPlayer().getMoney()>0) {
 				if(board.getCurrentPlayer().getInJail()) { 	// If player starts turn in jail.
 					System.out.println(board.getCurrentPlayer().getName() + " has " + board.getCurrentPlayer().getJailTime() + " more turn(s) in jail.");
@@ -106,11 +111,11 @@ public class NewMonopoly {
 								break;
 							}
 							else {	// If player wants to roll, then roll dice.
-								System.out.println("Rolling dice...");
+								System.out.println("\nRolling dice...");
 								die1.roll();
 								die2.roll();
 								int dieRoll = die1.getValue() + die2.getValue();
-								System.out.println("Value: " + dieRoll);
+								System.out.println("Value: " + dieRoll + "\n");
 
 								if (die1.getValue() == die2.getValue()) {	// If player rolls doubles, then they will be free.
 									System.out.println(board.getCurrentPlayer().getName() + " rolled doubles.");
@@ -132,11 +137,11 @@ public class NewMonopoly {
 							System.out.println(board.getCurrentPlayer().getName() + " paid $50 to get out of jail.");
 							board.getCurrentPlayer().setInJail(false);
 							System.out.println(board.getCurrentPlayer().getName() + " was released from jail.");
-							System.out.println("Rolling dice...");
+							System.out.println("\nRolling dice...");
 							die1.roll();
 							die2.roll();
 							int dieRoll = die1.getValue() + die2.getValue();
-							System.out.println("Value: " + dieRoll);
+							System.out.println("Value: " + dieRoll + "\n");
 							board.movePlayer(board.getCurrentPlayer(), dieRoll);
 							break;
 						}
@@ -163,14 +168,14 @@ public class NewMonopoly {
 	}
 	
 	public void playerOrder() {
-		System.out.println("Beginning playerOrder()...");
+		System.out.println("Beginning playerOrder()...\n");
 		
 		for (Player player : players){
-			System.out.println("Rolling dice...");
+			System.out.println("\nRolling dice...");
 			die1.roll();
 			die2.roll();
 			int dieRoll = die1.getValue() + die2.getValue();
-			System.out.println("Value: " + dieRoll);
+			System.out.println("Value: " + dieRoll + "\n");
 			player.setTurnOrder(dieRoll);
 		}
 
@@ -179,10 +184,10 @@ public class NewMonopoly {
 
 		int i = 0;
 		for (Player player : players) {
-			System.out.println(++i + ". " + player.getName());
+			System.out.println("\t" + ++i + ". " + player.getName());
 		}
 
-		System.out.println("Ending playerOrder()...");
+		System.out.println("\nEnding playerOrder()...");
 	}
 
 	public void choosePieces() {
@@ -201,11 +206,11 @@ public class NewMonopoly {
 		board.getCurrentPlayer().setDoublesCount(0);
 
 		do{
-			System.out.println("Rolling dice...");
+			System.out.println("\nRolling dice...");
 			die1.roll();
 			die2.roll();
 			int dieRoll = die1.getValue() + die2.getValue();
-			System.out.println("Value: " + dieRoll);
+			System.out.println("Value: " + dieRoll + "\n");
 
 			if(die1.getValue() == die2.getValue()){
 				System.out.println(board.getCurrentPlayer().getName() + " rolled doubles!?");
