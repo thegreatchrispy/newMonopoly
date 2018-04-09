@@ -12,6 +12,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 60,
+		"currentRent": 2,
 		"rent": 2,
 		"multipliedRent": [
 			10,
@@ -20,7 +21,6 @@
 		  	160,
 		  	250
 		],
-		"mortgageVal": 30,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -42,6 +42,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 60,
+		"currentRent": 4,
 		"rent": 4,
 		"multipliedRent": [
 			20,
@@ -50,7 +51,6 @@
 			320,
 			450
 		],
-		"mortgageVal": 30,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -78,7 +78,6 @@
 			100,
 			200
 		],
-		"mortgageVal": 100,
 		"ownedBy": -1,
 		"mortgaged": false,
 		"strongSeason": 0,
@@ -91,6 +90,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 100,
+		"currentRent": 6,
 		"rent": 6,
 		"multipliedRent": [
 			30,
@@ -99,7 +99,6 @@
 			400,
 			550
 		],
-		"mortgageVal": 50,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -121,6 +120,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 100,
+		"currentRent": 6,
 		"rent": 6,
 		"multipliedRent": [
 			30,
@@ -129,7 +129,6 @@
 			400,
 			550
 		],
-		"mortgageVal": 50,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -144,6 +143,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 120,
+		"currentRent": 8,
 		"rent": 8,
 		"multipliedRent": [
 			40,
@@ -152,7 +152,6 @@
 			450,
 			600
 		],
-		"mortgageVal": 60,
 		"houseCost": 50,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -174,6 +173,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 140,
+		"currentRent": 10,
 		"rent": 10,
 		"multipliedRent": [
 			50,
@@ -182,7 +182,6 @@
 			625,
 			750
 		],
-		"mortgageVal": 70,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -196,7 +195,8 @@
 		"group": 3,
 		"position": 2,
 		"type": "utility",
-		"price": 150
+		"price": 150,
+		"ownedBy": -1
 	},
 
 	{
@@ -205,6 +205,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 140,
+		"currentRent": 10,
 		"rent": 10,
 		"multipliedRent": [
 			50,
@@ -213,7 +214,6 @@
 			625,
 			750
 		],
-		"mortgageVal": 70,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -228,6 +228,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 160,
+		"currentRent": 12,
 		"rent": 12,
 		"multipliedRent": [
 			60,
@@ -236,7 +237,6 @@
 			700,
 			900
 		],
-		"mortgageVal": 80,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -257,7 +257,6 @@
 			100,
 			200
 		],
-		"mortgageVal": 100,
 		"ownedBy": -1,
 		"mortgaged": false,
 		"strongSeason": 0,
@@ -270,6 +269,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 180,
+		"currentRent": 14,
 		"rent": 14,
 		"multipliedRent": [
 			70,
@@ -278,7 +278,6 @@
 			750,
 			950
 		],
-		"mortgageVal": 90,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -300,6 +299,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 180,
+		"currentRent": 14,
 		"rent": 14,
 		"multipliedRent": [
 			70,
@@ -308,7 +308,6 @@
 			750,
 			950
 		],
-		"mortgageVal": 90,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -323,6 +322,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 200,
+		"currentRent": 16,
 		"rent": 16,
 		"multipliedRent": [
 			80,
@@ -331,7 +331,6 @@
 			800,
 			1000
 		],
-		"mortgageVal": 100,
 		"houseCost": 100,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -353,6 +352,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 220,
+		"currentRent": 18,
 		"rent": 18,
 		"multipliedRent": [
 			90,
@@ -361,7 +361,6 @@
 			875,
 			1050
 		],
-		"mortgageVal": 110,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -383,6 +382,7 @@
 		"position": 3,
 		"type": "property",
 		"price": 220,
+		"currentRent": 18,
 		"rent": 18,
 		"multipliedRent": [
 			90,
@@ -391,7 +391,6 @@
 			875,
 			1050
 		],
-		"mortgageVal": 110,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -406,6 +405,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 240,
+		"currentRent": 20,
 		"rent": 20,
 		"multipliedRent": [
 			100,
@@ -414,7 +414,6 @@
 			925,
 			1100
 		],
-		"mortgageVal": 120,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -435,7 +434,6 @@
 			100,
 			200
 		],
-		"mortgageVal": 100,
 		"ownedBy": -1,
 		"mortgaged": false,
 		"strongSeason": 0,
@@ -448,6 +446,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 260,
+		"currentRent": 22,
 		"rent": 22,
 		"multipliedRent": [
 			110,
@@ -456,7 +455,6 @@
 			975,
 			1150
 		],
-		"mortgageVal": 130,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -471,6 +469,7 @@
 		"position": 2,
 		"type": "property",
 		"price": 260,
+		"currentRent": 22,
 		"rent": 22,
 		"multipliedRent": [
 			110,
@@ -479,7 +478,6 @@
 			975,
 			1150
 		],
-		"mortgageVal": 130,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -493,7 +491,8 @@
 		"group": 6,
 		"position": 3,
 		"type": "utility",
-		"price": 150
+		"price": 150,
+		"ownedBy": -1
 	},
 	
 	{
@@ -502,6 +501,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 260,
+		"currentRent": 24,
 		"rent": 24,
 		"multipliedRent": [
 			120,
@@ -510,7 +510,6 @@
 			1025,
 			1200
 		],
-		"mortgageVal": 140,
 		"houseCost": 150,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -523,7 +522,7 @@
 		"name": "Go To Jail",
 		"group": 0,
 		"position": 4,
-		"type": "corner"
+		"type": "gotojail"
 	},
 
 	{
@@ -532,6 +531,7 @@
 		"position": 1,
 		"type": "property",
 		"price": 300,
+		"currentRent": 26,
 		"rent": 26,
 		"multipliedRent": [
 			130,
@@ -540,7 +540,6 @@
 			1100,
 			1275
 		],
-		"mortgageVal": 150,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -555,6 +554,7 @@
 		"position": 2,
 		"type": "property",
 		"price": 300,
+		"currentRent": 26,
 		"rent": 26,
 		"multipliedRent": [
 			130,
@@ -563,7 +563,6 @@
 			1100,
 			1275
 		],
-		"mortgageVal": 150,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -585,6 +584,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 320,
+		"currentRent": 28,
 		"rent": 28,
 		"multipliedRent": [
 			150,
@@ -593,7 +593,6 @@
 			1200,
 			1400
 		],
-		"mortgageVal": 160,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -614,7 +613,6 @@
 			100,
 			200
 		],
-		"mortgageVal": 100,
 		"ownedBy": -1,
 		"mortgaged": false,
 		"strongSeason": 0,
@@ -634,6 +632,7 @@
 		"position": 2,
 		"type": "property",
 		"price": 350,
+		"currentRent": 35,
 		"rent": 35,
 		"multipliedRent": [
 			175,
@@ -642,7 +641,6 @@
 			1300,
 			1500
 		],
-		"mortgageVal": 175,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,
@@ -665,6 +663,7 @@
 		"position": 4,
 		"type": "property",
 		"price": 400,
+		"currentRent": 50,
 		"rent": 50,
 		"multipliedRent": [
 			200,
@@ -673,7 +672,6 @@
 			1700,
 			2000
 		],
-		"mortgageVal": 200,
 		"houseCost": 200,
 		"ownedBy": -1,
 		"buildings": 0,

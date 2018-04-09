@@ -21,7 +21,7 @@ public class NewMonopolyTest {
 		players.add(5, new Player("Tang"));
 
 		try {
-			newMonopoly = new NewMonopoly(players);
+			newMonopoly = new NewMonopoly(players, false);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

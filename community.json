@@ -2,7 +2,7 @@
 	  {
 			"title": "Advance to Go (Collect $200)",
 			"action": "move",
-			"spacename": "GO"
+			"spaceName": "GO"
 	  },
 	  {
 			"title": "Bank error in your favor - Collect $200 ",

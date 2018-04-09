@@ -2,6 +2,7 @@ package com.newmonopoly;
 
 import java.util.List;
 import java.util.Vector;
+import java.util.Collections;
 
 public class Player implements Comparable<Player> {
 	private String name;
@@ -13,7 +14,8 @@ public class Player implements Comparable<Player> {
 	private boolean inJail;
 	private int jailTime;
 	private List<Space> ownedProperties;
-	private int[] monopolyGroup;
+	private List<Integer> monopolyGroup;
+	private List<Space> monopolyProperties;
 	private int tokenNumber;
 	
 
@@ -27,7 +29,8 @@ public class Player implements Comparable<Player> {
 		inJail = false;
 		jailTime = 0;
 		ownedProperties = new Vector<Space>();
-		monopolyGroup = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
+		monopolyGroup = new Vector<Integer>(Collections.nCopies(8, 0));
+		monopolyProperties = new Vector<Space>();
 		tokenNumber = 0;
 	}
 
@@ -111,16 +114,28 @@ public class Player implements Comparable<Player> {
 		this.jailTime = jailTime;
 	}
 
-	public int[] getMonopolyGroups() {
+	public List<Integer> getMonopolyGroups() {
 		return monopolyGroup;
 	}
 
 	public void addMonopolyGroup(int group) {
-		monopolyGroup[group] = 1;
+		monopolyGroup.set(group, 1);
 	}
 
 	public void removeMonopolyGroup(int group) {
-		monopolyGroup[group] = 0;
+		monopolyGroup.set(group, 0);
+	}
+
+	public List<Space> getMonopolyProperties() {
+		return monopolyProperties;
+	}
+
+	public void addMonopolyProperties(Space property) {
+		monopolyProperties.add(property);
+	}
+
+	public void removeMonopolyProperties(int index) {
+		monopolyProperties.remove(index);
 	}
 
 	public int getTokenNumber() {
@@ -134,6 +149,17 @@ public class Player implements Comparable<Player> {
 	@Override
 	public int compareTo(Player comparePlayer) {
 		int compareOrder = ((Player)comparePlayer).getTurnOrder();
-		return this.turnOrder + compareOrder;
+		return compareOrder - this.turnOrder;
+	}
+
+	@Override
+	public String toString() {
+		String result = "Player:\n{\n";
+		result += "\tname: " + this.name + ",\n";
+		result += "\tturnOrder: " + this.turnOrder + ",\n";
+		result += "\tmoney: " + this.money + ",\n";
+		result += "\tcurrentPosition: " + this.currentPosition + ",\n";
+		result += "\tinJail: " + this.inJail + ",\n}";
+		return result;
 	}
 }

@@ -2,6 +2,7 @@ package com.newmonopoly;
 
 import java.util.List;
 import java.util.Vector;
+
 import java.util.Scanner;
 import java.util.Collections;
 
@@ -46,92 +47,128 @@ public class NewMonopoly {
 //		session.startGame();
 
 	/*default*/
-	public NewMonopoly(List<Player> players) {
+	public NewMonopoly(List<Player> players, boolean randomize) {
+		if (players.isEmpty()) {
+			throw new IllegalArgumentException("In NewMonopoly constructor: List<Player> players is empty.");
+		}
+
 		this.players = players;
+		die1 = new Die();
+		die2 = new Die();
 		playerOrder();
 		//choosePieces();
 		
 		try {
-			board = new Board(players, false);
+			board = new Board(players, randomize);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 
-		die1 = new Die();
-		die2 = new Die();
 		maxTurns=120;
 		gameOver=false;
 		//timer = new Timer();
+		// Create newMonopoly table
+		// Table: newMonopoly_id, players, die1, die2, board_id, maxTurns, gameOver
 	}
 	/*custom game*/
 	//public NewMonopoly(){
 		//something
 	//}
 
-	public void startGame() {		
+	public void startGame() {
 		// Continuous loop until the game is over and the board has a winner.
 		while (!gameOver && !board.hasWinner()) {
+			System.out.println("\nBeginning " + board.getCurrentPlayer().getName() + "'s turn with $" + board.getCurrentPlayer().getMoney());
 			if(board.getCurrentPlayer().getMoney()>0) {
 				if(board.getCurrentPlayer().getInJail()) { 	// If player starts turn in jail.
+					System.out.println(board.getCurrentPlayer().getName() + " has " + board.getCurrentPlayer().getJailTime() + " more turn(s) in jail.");
+
 					while(true) {
-						Scanner input = new Scanner(System.in);
-						String ans = "";
+						char ans;
+
 						if(board.getCurrentPlayer().getJailCard()) { // If player wants to use jailCard.
-							System.out.print("You have a \"Get Out of Jail Free\" card! Would you like to use it? Y/N ");
-							ans = input.nextLine().toUpperCase();
-							if(ans.equals("Y")) {
+							System.out.print("\nYou have a \"Get Out of Jail Free\" card! Would you like to use it? Y/N ");
+							ans = getCharInput();
+
+							if(ans == 'Y') {
 								board.getCurrentPlayer().setJailCard(false);
+								System.out.println(board.getCurrentPlayer().getName() + " used the Get Out of Jail Free card.");
 								board.getCurrentPlayer().setInJail(false);
+								System.out.println(board.getCurrentPlayer().getName() + " was released from jail.");
+								// update board
 								beginTurn();
 								break;
 							}
 						}
+
 						if(board.getCurrentPlayer().getJailTime() > 1) { // If player has more than one turn left in jail.
 							System.out.print("Would you like to pay $50 to be released? Y/N ");
-							ans = input.nextLine().toUpperCase();
-							if(ans.equals("Y")) {	// If player wants to pay to get out of jail.
-								board.getCurrentPlayer().setMoney(board.getCurrentPlayer().getMoney() - 50);
+							ans = getCharInput();
+
+							if(ans == 'Y') {	// If player wants to pay to get out of jail.
+								board.removeFunds(board.getCurrentPlayer(), 50);
+								System.out.println(board.getCurrentPlayer().getName() + " paid $50 to get out of jail.");
 								board.getCurrentPlayer().setInJail(false);
+								System.out.println(board.getCurrentPlayer().getName() + " was released from jail.");
+								// Update board
 								beginTurn();
 								break;
-							} else {	// If player wants to roll, then roll dice.
+							}
+							else {	// If player wants to roll, then roll dice.
+								System.out.println("\nRolling dice...");
 								die1.roll();
 								die2.roll();
-								int die_roll = die1.getValue() + die2.getValue();
+								int dieRoll = die1.getValue() + die2.getValue();
+								// Updates die1, die2
+								System.out.println("Value: " + dieRoll + "\n");
+
 								if (die1.getValue() == die2.getValue()) {	// If player rolls doubles, then they will be free.
+									System.out.println(board.getCurrentPlayer().getName() + " rolled doubles.");
 									board.getCurrentPlayer().setInJail(false);
-									board.movePlayer(board.getCurrentPlayer(), die_roll);
+									System.out.println(board.getCurrentPlayer().getName() + " was released from jail.");
+									// update board
+									board.movePlayer(board.getCurrentPlayer(), dieRoll);
 									break;
 								}
 								else {	// If player fails, then decrement jailTime by one.
 									board.getCurrentPlayer().setJailTime(board.getCurrentPlayer().getJailTime() - 1);
+									System.out.println(board.getCurrentPlayer().getName() + " has " + board.getCurrentPlayer().getJailTime() + " turn(s) left in jail.");
+									// Update board
 									board.playerDecision(board.getCurrentPlayer());
 									break;
 								}
 							}
 						}
 						else {	// If player has no more turns left in jail.
-							board.getCurrentPlayer().setMoney(board.getCurrentPlayer().getMoney() - 50);
+							board.removeFunds(board.getCurrentPlayer(), 50);
+							System.out.println(board.getCurrentPlayer().getName() + " paid $50 to get out of jail.");
 							board.getCurrentPlayer().setInJail(false);
+							System.out.println(board.getCurrentPlayer().getName() + " was released from jail.");
+							// update board
+							System.out.println("\nRolling dice...");
 							die1.roll();
 							die2.roll();
-							int die_roll = die1.getValue() + die2.getValue();
-							board.movePlayer(board.getCurrentPlayer(), die_roll);
+							int dieRoll = die1.getValue() + die2.getValue();
+							// update die1, die2
+							System.out.println("Value: " + dieRoll + "\n");
+							board.movePlayer(board.getCurrentPlayer(), dieRoll);
 							break;
 						}
 					}
 				}
-				else{	// If player does not start turn in jail.
+				else {	// If player does not start turn in jail.
 					beginTurn();
 				}
 			}
 
 			board.nextTurn();
+			// update board
 		}
 
 		if(board.hasWinner()) {
 			// Display winner to view.
+			System.out.print("THE WINNER IS:\t");
 			System.out.println(board.getWinner().getName());
 		}
 		else {
@@ -142,14 +179,28 @@ public class NewMonopoly {
 	}
 	
 	public void playerOrder() {
-		for(Player player : players){
+		System.out.println("Beginning playerOrder()...\n");
+		
+		for (Player player : players){
+			System.out.println("\nRolling dice...");
 			die1.roll();
 			die2.roll();
 			int dieRoll = die1.getValue() + die2.getValue();
+			// update die1, die2
+			System.out.println("Value: " + dieRoll + "\n");
 			player.setTurnOrder(dieRoll);
+			// update player
 		}
 
 		Collections.sort(players);
+		System.out.println("Player order:");
+
+		int i = 0;
+		for (Player player : players) {
+			System.out.println("\t" + ++i + ". " + player.getName());
+		}
+
+		System.out.println("\nEnding playerOrder()...");
 	}
 
 	public void choosePieces() {
@@ -166,21 +217,35 @@ public class NewMonopoly {
 
 	public void beginTurn() {	// Function to begin player's turn.
 		board.getCurrentPlayer().setDoublesCount(0);
-			do{
-				die1.roll();
-				die2.roll();
-				int die_roll = die1.getValue() + die2.getValue();
 
-				if(die1.getValue() == die2.getValue()){
-					board.getCurrentPlayer().incrementDoubles();
-				}
+		do{
+			System.out.println("\nRolling dice...");
+			die1.roll();
+			die2.roll();
+			int dieRoll = die1.getValue() + die2.getValue();
+			// update die1, die2
+			System.out.println("Value: " + dieRoll + "\n");
 
-				if(board.getCurrentPlayer().getDoublesCount()<3){
-					board.movePlayer(board.getCurrentPlayer(), die_roll);
-				}else {
-					board.movePlayerToJail(board.getCurrentPlayer());
-					break;
-				}
-			}while(die1.getValue() == die2.getValue());
+			if(die1.getValue() == die2.getValue()){
+				System.out.println(board.getCurrentPlayer().getName() + " rolled doubles!?");
+				board.getCurrentPlayer().incrementDoubles();
+				// update board
+			}
+
+			if(board.getCurrentPlayer().getDoublesCount()<3){
+				board.movePlayer(board.getCurrentPlayer(), dieRoll);
+			}
+			else {
+				board.movePlayerToJail(board.getCurrentPlayer());
+				break;
+			}
+		} while (die1.getValue() == die2.getValue());
 	}
+
+	public char getCharInput() {
+		Scanner sc = new Scanner(System.in);
+		// retrieve char input
+		return sc.next().charAt(0);
+	}
+
 }
