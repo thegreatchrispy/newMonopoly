@@ -87,9 +87,12 @@ public class NewMonopoly {
 
 						if(board.getCurrentPlayer().getJailCard()) { // If player wants to use jailCard.
 							System.out.print("\nYou have a \"Get Out of Jail Free\" card! Would you like to use it? Y/N ");
-							ans = getCharInput();
 
-							if(ans == 'Y') {
+							do {
+								ans = getCharInput();
+							} while (ans != 'Y' && ans != 'y' && ans != 'N' && ans != 'n');
+
+							if(ans == 'Y' || ans == 'y') {
 								board.getCurrentPlayer().setJailCard(false);
 								System.out.println(board.getCurrentPlayer().getName() + " used the Get Out of Jail Free card.");
 								board.getCurrentPlayer().setInJail(false);
@@ -102,9 +105,12 @@ public class NewMonopoly {
 
 						if(board.getCurrentPlayer().getJailTime() > 1) { // If player has more than one turn left in jail.
 							System.out.print("Would you like to pay $50 to be released? Y/N ");
-							ans = getCharInput();
 
-							if(ans == 'Y') {	// If player wants to pay to get out of jail.
+							do {
+								ans = getCharInput();
+							} while (ans != 'Y' && ans != 'y' && ans != 'N' && ans != 'n');
+
+							if(ans == 'Y' || ans == 'y') {	// If player wants to pay to get out of jail.
 								board.removeFunds(board.getCurrentPlayer(), 50);
 								System.out.println(board.getCurrentPlayer().getName() + " paid $50 to get out of jail.");
 								board.getCurrentPlayer().setInJail(false);

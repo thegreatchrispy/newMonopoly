@@ -521,8 +521,12 @@ public class Board {
 			throw new IllegalArgumentException("In chooseToBuy: Space space is null.");
 		}
 
-		System.out.print("Would you like to purchase " + space.getName() + " for $" + space.getPrice() + "? Y/N ");
-		char choice = getCharInput();
+		System.out.println("Would you like to purchase " + space.getName() + " for $" + space.getPrice() + "? Y/N ");
+		char choice;
+
+		do {
+			choice = getCharInput();
+		} while (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n');
 		
 		if (choice == 'Y' || choice == 'y') {
 			if (player.getMoney() - space.getPrice() > 0) {
@@ -661,7 +665,7 @@ public class Board {
 		}
 
 		// Build improvements, trade, or end turn.
-		System.out.println("\n/---------------------------------------\\");
+		System.out.println("\n/-----------------------------------------\\");
 		System.out.println("| Commands:                               |");
 		System.out.println("| B: Build        T: Trade    D: Display  |");
 		System.out.println("| P: Pay Mortgage Q: Quit     E: End Turn |");
@@ -669,11 +673,14 @@ public class Board {
 		char ans = getCharInput();
 		boolean hasMortgaged = false;
 
-		if(ans == 'B') { // Build Improvements
+		if(ans == 'B' || ans == 'b') { // Build Improvements
 			if (player.getMonopolyGroups().contains(1)) {
 				findMonopolies(player);
 				System.out.print("What property from the above list would you like to improve? ");
-				int choice = getUserInput();
+				int choice;
+				do {
+					choice = getUserInput();
+				} while (choice < 1 || choice > player.getMonopolyProperties().size());
 
 				if (player.getMonopolyProperties().get(choice - 1).getBuildings() < 5 && !player.getMonopolyProperties().get(choice -1).isMortgaged()) {
 					build(player, player.getMonopolyProperties().get(choice - 1));
@@ -686,7 +693,7 @@ public class Board {
 				System.out.println("You have no monopolies to build on.");
 			}
 		}
-		else if(ans == 'T') {	// Trade
+		else if(ans == 'T' || ans == 't') {	// Trade
 			if (player.getOwnedProperties().size() > 0) {
 				trade(player);
 			}
@@ -694,11 +701,11 @@ public class Board {
 				System.out.println("You have no properties to trade.");
 			}
 		}
-		else if (ans == 'D') {
+		else if (ans == 'D' || ans == 'd') {
 			System.out.println(player.toString());
 			displayOwnedProperties(player);
 		}
-		else if (ans == 'P') {
+		else if (ans == 'P' || ans == 'p') {
 			for (Space space : player.getOwnedProperties()) {
 				if (space.isMortgaged()) {
 					hasMortgaged = true;
@@ -710,14 +717,17 @@ public class Board {
 				System.out.println("You have no mortgaged properties..");
 			}
 		}
-		else if (ans == 'Q') {
+		else if (ans == 'Q' || ans == 'q') {
 			bankrupt(player);
 			turnOver = true;
 			// update turn over
 		}
-		else {	// End turn.
+		else if (ans == 'E' || ans == 'e') {
 			turnOver = true;
 			// update turn over
+		}
+		else {
+			System.out.println("Invalid input.\n");
 		}
 	}
 
@@ -885,15 +895,43 @@ public class Board {
 
 	public int getUserInput() {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Enter the value of your choice: ");
-		// retrieve int input
-		return sc.nextInt();
+		int result;
+		System.out.print("Enter your choice: ");
+
+		while(!sc.hasNextInt()) {
+			sc.next();
+			System.out.print("Enter a number: ");
+		}
+
+		result = sc.nextInt();
+		
+		return result;
 	}
 
 	public char getCharInput() {
 		Scanner sc = new Scanner(System.in);
-		// retrieve char input
-		return sc.next().charAt(0);
+		String result = "";
+		System.out.print("Enter your choice: ");
+
+		do {
+			if (sc.hasNext()) {
+				result = sc.next();
+			}
+		} while (isNumber(result));
+
+		return result.charAt(0);
+	}
+
+	public boolean isNumber(String s) {
+		boolean result = true;
+
+        for (int i = 0; i < s.length(); i++) {
+        	if (Character.isDigit(s.charAt(i)) == false) {
+				result =  false;
+			}
+		}
+
+        return result;
 	}
 
 	public void build(Player player, Space space) {
@@ -919,6 +957,7 @@ public class Board {
 		do {
 			System.out.print("How many more houses would you like to add? ");
 			int additions = getUserInput();
+
 			if (additions + space.getBuildings() > maxHouses + 1) {
 				valid = false;
 				System.out.println("You need to even build! Please try again.");
@@ -968,27 +1007,30 @@ public class Board {
 
 		do {
 			choice = getUserInput();
-		} while (choice == playerIndex + 1 || players.get(choice - 1) == null);
+		} while (choice != 0 && choice < 1 || choice > 6 || choice == playerIndex + 1 || players.get(choice - 1) == null || choice > 6);
 
-		tradePlayer = players.get(choice  - 1);
+		tradePlayer = players.get(choice - 1);
 
 		while (!approved && !ended) {
 			displayOwnedProperties(player);
 			System.out.println("Select your property to offer:");
 			
 			do {
-				myChoice = getUserInput();				
-			} while (player.getOwnedProperties().get(myChoice -1).isMortgaged());
+				myChoice = getUserInput();
+			} while (myChoice < 1 || myChoice > player.getOwnedProperties().size() || player.getOwnedProperties().get(myChoice -1).isMortgaged());
 			 
 			displayOwnedProperties(tradePlayer);
 			System.out.println("Select the property you want:");
 
 			do {
 				tradeChoice = getUserInput();			
-			} while (tradePlayer.getOwnedProperties().get(tradeChoice -1).isMortgaged());
+			} while (tradeChoice < 1 || tradeChoice > tradePlayer.getOwnedProperties().size() || tradePlayer.getOwnedProperties().get(tradeChoice -1).isMortgaged());
 
 			System.out.println("Does other player approve? Y/N, X to exit ");
-			approvalChoice = getCharInput();
+		
+			do {
+				approvalChoice = getCharInput();
+			} while (approvalChoice != 'Y' && approvalChoice != 'y' && approvalChoice != 'N' && approvalChoice != 'n' && approvalChoice != 'X' && approvalChoice != 'x');
 
 			if (approvalChoice == 'Y' || approvalChoice == 'y') {
 				player.addOwnedProperties(tradePlayer.getOwnedProperties().get(tradeChoice - 1));

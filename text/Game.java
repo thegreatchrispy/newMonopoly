@@ -3,12 +3,26 @@ import java.util.Vector;
 import java.util.Scanner;
 
 public class Game {
+	public static boolean isNumber(String s) {
+		boolean result = true;
+
+        for (int i = 0; i < s.length(); i++) {
+        	if (Character.isDigit(s.charAt(i)) == false) {
+				result =  false;
+			}
+		}
+
+        return result;
+	}
+	
 	public static void main(String[] args) {
 		// Prepare the game
 		List<Player> players = new Vector<Player>();
 		Scanner sc = new Scanner(System.in);
 		int numPlayers = 0;
 		boolean randomize = false;
+		char answer;
+		String playerName;
 
 		do {
 			System.out.print("Enter the number of players: ");
@@ -23,14 +37,19 @@ public class Game {
 		} while (numPlayers < 2 || numPlayers > 6);
 
 		for (int i = 0; i < numPlayers; i++) {
-			System.out.println("Enter player #" + (i+1) + "'s name: ");
-			String playerName = sc.next();
+			do {
+				System.out.println("Enter player #" + (i+1) + "'s name: ");
+				playerName = sc.next();
+			} while ((playerName.length() < 4 || playerName.length() > 15) || isNumber(playerName) || !Character.isLetter(playerName.charAt(0)));
+
 			players.add(new Player(playerName));
 			System.out.println("Player added!\n");
 		}
-
-		System.out.print("Would you like to randomize the spaces? Y/N");
-		char answer = sc.next().charAt(0);
+		
+		do {
+			System.out.print("Would you like to randomize the spaces? Y/N ");
+			answer = sc.next().charAt(0);
+		} while (answer != 'Y' && answer != 'y' && answer != 'N' && answer != 'n');
 
 		if (answer == 'Y' || answer == 'y') {
 			randomize = true;
