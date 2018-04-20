@@ -506,7 +506,7 @@ public class Board {
 		}
 
 		if(space.getName().equals("Luxury Tax")){
-			addFunds(player, space.getPrice());
+			removeFunds(player, space.getPrice());
 		} else {
 			removeFunds(player, Math.min(200,(player.getMoney()/10)));
 		}

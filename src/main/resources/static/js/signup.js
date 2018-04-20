@@ -1,6 +1,6 @@
-$("document").ready(function() {
+$(function() {
 	/* validation */
-	$("#register-form").validate({
+	$("form[name ='register']").validate({
 		rules: {
 			username: {
 				required: true,
@@ -17,17 +17,28 @@ $("document").ready(function() {
 				equalTo: "#password"
 			},
 			email: {
-				required: true,
-				email: true
+				required: true
+// 			    remote: {
+// 			    	url: '/checkEmail',
+// 			        data: { email: $('#email').val()},
+// 			        dataFilter: function(data) {
+// //			        	var json = JSON.parse(data);
+// 			            console.log(data);
+// 			        }
+// 			    }
 			},
 		},
+
 		messages: {
 			username: "please enter user name",
 			password: {
 				required: "please provide a password",
 				minlength: "password must have at least 6 characters"
 			},
-			email: "please enter a valid email address",
+			email: {
+				required: "please enter a valid email address",
+				// remote: "Email address already in use. Please enter a different email."
+			},
 			cpassword: {
 				required: "please retype your password",
 				equalTo: "password doesn't match"
@@ -39,36 +50,22 @@ $("document").ready(function() {
 
 	/* form submission */
 	function submitForm() {
-		var data = $("#register-form").serialize();
+		var data = $("form[name ='register']").find('input[name!=cpassword]').serialize();
+
+		console.log(data);
+		var urlString = "http://localhost:8080/registration?" + data;
 
 		$.ajax({
-			type: "POST",
-			url: "php/register.php",
-			data: data,
-			beforeSend: function() {
-				$("#error").fadeOut();
-				$("#btn-submit").html("<span></span> &nbsp; sending ...");
-			},
-			success: function(data) {
-				if(data==1) {
-					$("#error").fadeIn(1000, function() {
-						$("#error").html("<div class='alert alert-danger'> <span></span> &nbsp; Sorry email already taken</div>");
-						$("#btn-submit").html("<span></span> &nbsp; Create Account");
-					});
-				}
-				else if(data=="registered") {
-					$("#btn-submit").html("<img src='btn-ajax-loader.gif' /> &nbsp; Signing Up ...");
-					setTimeout("$('.form-signin').fadeOut(500, function() { $('.signin-form').load('index.html'); });", 5000);
-				}
-				else {
-					$("#error").fadeIn(1000, function() {
-						$("#error").html("<div class='alert alert-danger'> <span></span> &nbsp; "+data+" </div>");
-						$("#btn-submit").html("<span></span> &nbsp; Create Account");
-					});
-				}
+			url: `${urlString}`,
+			method: "POST",
+			dataType: "json",
+			contentType: "text/plain;charset=UTF-8",
+			success: function() {
+				alert("account created");
 			}
 		});
-		return false;
+		$("form[name ='register']").trigger("reset");
+		$("#success-msg").css("display", "block");
 	}
 	/* end form submission */
 });

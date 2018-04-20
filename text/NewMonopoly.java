@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.Vector;
 
+import com.newmonopoly.Board;
+
 import java.util.Scanner;
 import java.util.Collections;
 
@@ -243,7 +245,7 @@ public class NewMonopoly {
 				board.movePlayerToJail(board.getCurrentPlayer());
 				break;
 			}
-		} while (die1.getValue() == die2.getValue());
+		} while (die1.getValue() == die2.getValue() && board.getCurrentPlayer().getInJail());
 	}
 
 	public char getCharInput() {
