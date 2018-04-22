@@ -28,6 +28,11 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
+	public Account findUserByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	@Override
 	public void saveAccount(Account account) {
 		account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
         account.setActive(1);

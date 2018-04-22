@@ -11,6 +11,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/signup.js}"></script>
+
 </head>
 <body>
 	<!-- <form th:action="@{/}" method="get">
@@ -20,7 +21,7 @@
         <div class="wrapper">
 				<nav>
 					<a href="index.html">
-						<img th:href="@{/images/rich_uncle.png}" id="logo">
+						<img th:src="@{/images/rich_uncle.png}" id="logo">
 					</a>
 					<ul>
 						<li><a class="active" href="index.html">HOME</a></li>
@@ -33,7 +34,7 @@
 		</div>
 	
 	<div class="container" id="sign_up">
-			<form class="form-signin" method="post" name="register" >
+			<form id="form" class="form-signin" method="post" name="register" >
 					<h2 class="form-signin-heading">Sign Up</h2><hr />
 <!-- 					<div id="error">
 						error will be shown here
@@ -61,6 +62,7 @@
 						</button>
 					</div>
 				</form>
+				<div id="ack"></div>
 				<p id="success-msg">Account successfully created.</p>
 		<!-- <div class="row">
 			<div class="col-md-6 col-md-offset-3">

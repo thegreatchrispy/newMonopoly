@@ -23,7 +23,7 @@ public class LoginController {
 	@Autowired
 	private AccountService accountService;
 
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+	@RequestMapping("/login")
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
@@ -40,17 +40,6 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/check")
-	public String getName(@RequestParam(value = "email", defaultValue = "test") String email){
-//		Account accountExists = accountService.findUserByEmail(email);
-//		if (accountExists != null) {
-//			return "Test";
-//		} else {
-//			return "Test else";
-//		}// method return boolean if user exist or non in database.
-		return "Test";
-	}
-	
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public ModelAndView createNewAccount(@RequestParam("email") String email, @RequestParam("username") String username, @RequestParam("password") String password) {
 		Account account = new Account(email, username, password);
@@ -62,6 +51,26 @@ public class LoginController {
 		modelAndView.setViewName("registration");
 		return modelAndView;
 		
+	}
+
+	@RequestMapping(value="/checkEmail")
+	public String getEmail(@RequestParam("email") String email){
+		Account accountExists = accountService.findUserByEmail(email);
+		if (accountExists != null) {
+			return "false";
+		} else {
+			return "true";
+		}// method return boolean if user exist or non in database.
+	}
+
+	@RequestMapping(value="/checkUsername")
+	public String getUsername(@RequestParam("username") String username){
+		Account accountExists = accountService.findUserByUsername(username);
+		if (accountExists != null) {
+			return "false";
+		} else {
+			return "true";
+		}// method return boolean if user exist or non in database.
 	}
 //	public ModelAndView createNewAccount(@Valid Account account, BindingResult bindingResult) {
 //		ModelAndView modelAndView = new ModelAndView();

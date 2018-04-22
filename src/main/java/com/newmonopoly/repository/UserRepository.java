@@ -8,4 +8,5 @@ import com.newmonopoly.model.Account;
 @Repository("accountRepository")
 public interface UserRepository extends JpaRepository<Account, Long> {
 	 Account findByEmail(String email);
+	 Account findByUsername(String username);
 }
