@@ -68,7 +68,11 @@ $(function() {
 		});
 
 		$("#success-msg").css("display", "block");
-		location.reload(true);
+		window.setTimeout(function(){
+			// Move to a new location or you can do something else
+			window.location.href = "http://localhost:8080/login";
+	
+		}, 2000);
 	}
 	/* end form submission */
 });

@@ -25,9 +25,17 @@ public class LoginController {
 
 	// ModelAndView
 	@RequestMapping("/")
-	public ModelAndView home(){
+	public ModelAndView home_loggedOut(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("index");
+		return modelAndView;
+	}
+
+	// ModelAndView
+	@RequestMapping("/home")
+	public ModelAndView home(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("admin/index");
 		return modelAndView;
 	}
 
@@ -35,13 +43,29 @@ public class LoginController {
 	@RequestMapping("/create_join")
 	public ModelAndView create_join(){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/admin/create_join");
+		modelAndView.setViewName("admin/create_join");
+		return modelAndView;
+	}
+
+	// ModelAndView
+	@RequestMapping("/help")
+	public ModelAndView help(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("admin/help");
+		return modelAndView;
+	}
+
+	// ModelAndView
+	@RequestMapping("/edit_profile")
+	public ModelAndView edit_profile(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("admin/edit_profile");
 		return modelAndView;
 	}
 
 	// ModelAndView
 	@RequestMapping("/learn")
-	public ModelAndView help(){
+	public ModelAndView help_loggedOut(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("help");
 		return modelAndView;
@@ -115,16 +139,16 @@ public class LoginController {
 //		return modelAndView;
 //	}
 	
-	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
-	public ModelAndView test(){
-		ModelAndView modelAndView = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Account account = accountService.findUserByEmail(auth.getName());
-		modelAndView.addObject("userName", "Welcome " + account.getUsername() + " (" + account.getEmail() + ")");
-		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-		modelAndView.setViewName("admin/home");
-		return modelAndView;
-	}
+	// @RequestMapping(value="/admin/home", method = RequestMethod.GET)
+	// public ModelAndView test(){
+	// 	ModelAndView modelAndView = new ModelAndView();
+	// 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	// 	Account account = accountService.findUserByEmail(auth.getName());
+	// 	modelAndView.addObject("userName", "Welcome " + account.getUsername() + " (" + account.getEmail() + ")");
+	// 	modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+	// 	modelAndView.setViewName("admin/home");
+	// 	return modelAndView;
+	// }
 	
 
 }

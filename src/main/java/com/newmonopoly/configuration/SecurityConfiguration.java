@@ -45,16 +45,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		http.
 			authorizeRequests()
+				// Permits.
 				.antMatchers("/").permitAll()
 				.antMatchers("/checkEmail").permitAll()
 				.antMatchers("/checkUsername").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/registration").permitAll()
 				.antMatchers("/learn").permitAll()
+				// Authorities.
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+				// Login and Logout
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true")
-				.loginPage("/login").defaultSuccessUrl("/admin/home")
+				.loginPage("/login").defaultSuccessUrl("/home")
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.and().logout()

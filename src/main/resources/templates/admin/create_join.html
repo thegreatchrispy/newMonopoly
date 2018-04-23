@@ -2,24 +2,24 @@
 <html>
     <head>
     <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/navigation.css">
-        <link rel="stylesheet" href="css/create_join.css">
+        <link rel="stylesheet" th:href="@{/css/navigation.css}">
+        <link rel="stylesheet" th:href="@{/css/create_join.css}">
         <script src="jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/create_join.js"></script>
+        <script th:src="@{/js/create_join.js}"></script>
 	    <title>NEW MONOPOLY :: Create/Join Game</title>
     </head>
     <body>
             <div class="wrapper">
                 <nav>
-                    <a href="index.html">
+                    <a th:href="@{/home}">
                         <img src="images/rich_uncle.png" id="logo">
                     </a>
                     <ul>
-                        <li><a href="index.html">HOME</a></li>
-                        <li><a class="active" href="create_join.html">CREATE/JOIN GAME</a></li>
-                        <li><a href="help.html">HELP/ABOUT</a></li>
-                        <li><a href="edit_profile.html">EDIT PROFILE</a></li>
-                        <li class="rightli"><a href="login.html">LOGIN</a></li>
+                        <li><a th:href="@{/home}">HOME</a></li>
+                        <li><a class="active" th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
+                        <li><a th:href="@{/help}">HELP/ABOUT</a></li>
+                        <li><a th:href="@{/edit_profile}">EDIT PROFILE</a></li>
+                        <li class="rightli"><a th:href="@{/logout}">LOGOUT</a></li>
                     </ul>
                 </nav>
             </div>

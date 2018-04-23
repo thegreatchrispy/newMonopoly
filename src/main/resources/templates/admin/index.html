@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+		<title>NEW MONOPOLY :: Home</title>
+		<script></script>
+        <link type="text/css" rel="stylesheet" th:href="@{/css/navigation.css}">
+        <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}">
+    </head>
+    <body>
+        <!-- NAVIGATION BAR -->
+        <div class="wrapper">
+            <nav>
+                <a th:href="@{/home}">
+                    <img src="images/rich_uncle.png" id="logo">
+                </a>
+                <ul>
+                    <li><a class="active" th:href="@{/home}">HOME</a></li>
+                    <li><a th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
+                    <li><a th:href="@{/help}">HELP/ABOUT</a></li>
+                    <li><a th:href="@{/edit_profile}">EDIT PROFILE</a></li>
+                    <li class="rightli"><a th:href="@{/logout}">LOGOUT</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- OPENER -->
+        <div class="opener">
+            <div id="name">NEW MONOPOLY</div>
+                <div id="slogan">The Modernized Monopoly</div>
+        </div>
+        <!-- STATEMENT -->
+        <div class="statement">
+            <div id="statement_sent">OWN IT ALL.</div>
+        </div>
+        <!-- PLAY GAME -->
+        <div class="play">
+            <div id="play_sent">Winners never quit and quitters never win.</div>
+            <div id="play_buttons">
+                <a id="play_button" th:href="@{/create_join}">PLAY NOW</a>
+            </div>
+        </div>
+        <!-- QUOTE -->
+        <div class="quote">
+            <div id="quote_sent">The best way to predict the future is to create it.</div>
+        </div>
+        <!-- LEARN MORE -->
+        <div class="learn">
+            <div id="learn_sent">At the end of the day, it is still a game of dice.</div>
+            <div id="learn_buttons">
+                <a id="learn_button" th:href="@{/help}">LEARN MORE</a>
+            </div>
+        </div>
+    </body>
+</html>
