@@ -1,7 +1,7 @@
-import com.newmonopoly.Board;
-import com.newmonopoly.Card;
-import com.newmonopoly.Player;
-import com.newmonopoly.Space;
+import com.newmonopoly.model.Board;
+import com.newmonopoly.model.Card;
+import com.newmonopoly.model.Player;
+import com.newmonopoly.model.Space;
 
 import org.junit.*;
 
@@ -13,20 +13,20 @@ public class BoardTest {
 	private List<Player> players;
 
 	public BoardTest() {
-		players = new Vector<Player>();
-		players.add(0, new Player("Isaac"));
-		players.add(1, new Player("Juan"));
-		players.add(2, new Player("Chris"));
-		players.add(3, new Player("Ivan"));
-		players.add(4, new Player("Pepe"));
-		players.add(5, new Player("Tang"));
+		// players = new Vector<Player>();
+		// players.add(0, new Player("Isaac"));
+		// players.add(1, new Player("Juan"));
+		// players.add(2, new Player("Chris"));
+		// players.add(3, new Player("Ivan"));
+		// players.add(4, new Player("Pepe"));
+		// players.add(5, new Player("Tang"));
 
-		try {
-			board = new Board(players, false);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		// try {
+		// 	board = new Board(players, false);
+		// }
+		// catch (Exception e) {
+		// 	e.printStackTrace();
+		// }
 	}
 
 	/*

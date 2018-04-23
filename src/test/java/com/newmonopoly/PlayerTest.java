@@ -1,4 +1,4 @@
-import com.newmonopoly.Player;
+import com.newmonopoly.model.Player;
 
 import org.junit.*;
 

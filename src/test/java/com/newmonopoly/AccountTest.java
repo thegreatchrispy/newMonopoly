@@ -1,4 +1,4 @@
-import com.newmonopoly.Account;
+import com.newmonopoly.model.Account;
 
 import org.junit.*;
 
@@ -7,16 +7,14 @@ public class AccountTest {
 	private String email;
 	private String username;
 	private String password;
-	private boolean isAdmin;
 
 	public AccountTest() {
 		email = "test@email.com";
 		username = "testUser";
 		password = "testPass";
-		isAdmin = true;
 
 		try {
-			account = new Account(email, username, password, isAdmin);
+			account = new Account(email, username, password);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -75,16 +73,6 @@ public class AccountTest {
 
 	@Test
 	public void testSetPassword() {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testGetIsAdmin() {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testSetIsAdmin() {
 		Assert.assertTrue(true);
 	}
 }

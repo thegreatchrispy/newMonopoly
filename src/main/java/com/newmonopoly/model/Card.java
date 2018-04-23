@@ -1,3 +1,5 @@
+package com.newmonopoly.model;
+
 public class Card{
 	private String title;
 	private String action;

@@ -1,3 +1,5 @@
+package com.newmonopoly.model;
+
 public class Space implements Comparable<Space> {
   	private String name;
   	private int group;

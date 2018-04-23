@@ -1,3 +1,5 @@
+package com.newmonopoly.model;
+
 import java.util.List;
 import java.util.Vector;
 import java.util.Collections;

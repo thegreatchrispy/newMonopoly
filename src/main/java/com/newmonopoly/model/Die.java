@@ -1,3 +1,5 @@
+package com.newmonopoly.model;
+
 import java.util.Random;
 
 public class Die {

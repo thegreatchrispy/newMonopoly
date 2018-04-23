@@ -1,4 +1,4 @@
-import com.newmonopoly.Die;
+import com.newmonopoly.model.Die;
 
 import org.junit.*;
 

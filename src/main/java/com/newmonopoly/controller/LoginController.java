@@ -30,7 +30,6 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView registration(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -61,27 +60,7 @@ public class LoginController {
 		modelAndView.addObject("account", account);
 		modelAndView.setViewName("registration");
 		return modelAndView;
-		
 	}
-//	public ModelAndView createNewAccount(@Valid Account account, BindingResult bindingResult) {
-//		ModelAndView modelAndView = new ModelAndView();
-//		Account accountExists = accountService.findUserByEmail(account.getEmail());
-//		if (accountExists != null) {
-//			bindingResult
-//					.rejectValue("email", "error.account",
-//							"There is already a account registered with the email provided");
-//		}
-//		if (bindingResult.hasErrors()) {
-//			modelAndView.setViewName("registration");
-//		} else {
-//			accountService.saveAccount(account);
-//			modelAndView.addObject("successMessage", "account has been registered successfully");
-//			modelAndView.addObject("account", new Account());
-//			modelAndView.setViewName("registration");
-//			
-//		}
-//		return modelAndView;
-//	}
 	
 	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
 	public ModelAndView home(){
@@ -93,6 +72,4 @@ public class LoginController {
 		modelAndView.setViewName("admin/home");
 		return modelAndView;
 	}
-	
-
 }

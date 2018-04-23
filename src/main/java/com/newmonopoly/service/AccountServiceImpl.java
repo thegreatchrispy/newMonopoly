@@ -10,21 +10,21 @@ import org.springframework.stereotype.Service;
 import com.newmonopoly.model.Role;
 import com.newmonopoly.model.Account;
 import com.newmonopoly.repository.RoleRepository;
-import com.newmonopoly.repository.UserRepository;
+import com.newmonopoly.repository.AccountRepository;
 
 @Service("accountService")
 public class AccountServiceImpl implements AccountService{
 
 	@Autowired
-	private UserRepository userRepository;
+	private AccountRepository accountRepository;
 	@Autowired
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Override
-	public Account findUserByEmail(String email) {
-		return userRepository.findByEmail(email);
+	public Account findAccountByEmail(String email) {
+		return accountRepository.findByEmail(email);
 	}
 
 	@Override
@@ -33,7 +33,6 @@ public class AccountServiceImpl implements AccountService{
         account.setActive(1);
         Role accountRole = roleRepository.findByRole("ADMIN");
         account.setRoles(new HashSet<Role>(Arrays.asList(accountRole)));
-		userRepository.save(account);
+		accountRepository.save(account);
 	}
-
 }

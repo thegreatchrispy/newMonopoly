@@ -1,4 +1,4 @@
-import com.newmonopoly.Space;
+import com.newmonopoly.model.Space;
 
 import org.junit.*;
 

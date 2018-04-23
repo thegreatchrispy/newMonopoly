@@ -1,4 +1,4 @@
-import com.newmonopoly.Card;
+import com.newmonopoly.model.Card;
 
 import org.junit.*;
 
