@@ -11,6 +11,10 @@ public class Card{
 	private int houses;
 	private int hotels;
 
+	public Card() {
+
+	}
+
 	public String getTitle(){
 		return title;
 	}

@@ -3,10 +3,10 @@ package com.newmonopoly.model;
 public class Space implements Comparable<Space> {
   	private String name;
   	private int group;
-    private int position;
+	private int position;
   	private String type;
   	private int price;
-    private int currentRent;
+	private int currentRent;
   	private int rent;
   	private int[] multipliedRent;
   	private int houseCost;
@@ -14,7 +14,11 @@ public class Space implements Comparable<Space> {
   	private int buildings;
   	private boolean mortgaged;
   	private int strongSeason;
-  	private int weakSeason;
+	private int weakSeason;
+
+	public Space() {
+
+	}
 
   	public void setName(String name) {
 		this.name = name;
@@ -56,11 +60,11 @@ public class Space implements Comparable<Space> {
   		return price;
   	}
 
-    public void setCurrentRent(int currentRent) {
+	public void setCurrentRent(int currentRent) {
 		this.currentRent = currentRent;
 	}
 
-    public int getCurrentRent() {
+	public int getCurrentRent() {
 		return currentRent;
 	}
 
@@ -96,15 +100,15 @@ public class Space implements Comparable<Space> {
   		return ownedBy;
 	}
 
-    public void addBuildings(int additions) {
-      buildings += additions;
-      currentRent = multipliedRent[buildings-1];
-    }
+	public void addBuildings(int additions) {
+	  buildings += additions;
+	  currentRent = multipliedRent[buildings-1];
+	}
 
-    public void removeBuildings(int removals) {
-      buildings -= removals;
-      currentRent = multipliedRent[buildings-1];
-    }
+	public void removeBuildings(int removals) {
+	  buildings -= removals;
+	  currentRent = multipliedRent[buildings-1];
+	}
 
   	public void setBuildings(int buildings) {
 		this.buildings = buildings;

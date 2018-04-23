@@ -18,6 +18,9 @@ public class Player implements Comparable<Player> {
 	private List<Space> monopolyProperties;
 	private int tokenNumber;
 	
+	public Player() {
+
+	}
 
 	public Player(String name) {
 		this.name = name;

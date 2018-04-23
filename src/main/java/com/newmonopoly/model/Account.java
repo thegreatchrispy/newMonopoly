@@ -47,8 +47,8 @@ public class Account {
 	@JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 	
-	protected Account() {
-		
+	public Account() {
+
 	}
 	
 	public Account (String email, String username, String password) {

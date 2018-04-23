@@ -9,7 +9,7 @@ import com.newmonopoly.model.Space;
 
 public interface BoardService {
 	// Initial functions - need to be run at start of game
-	public List<Space> decideSeasonsAndOrder(Board board, List<Space> originalSpaces, boolean randomizeSet);
+	public List<Space> decideSeasonsAndOrder(Board board, boolean randomizeSet);
 
 	// User input functions
 	public int getUserInput(Board board);
@@ -61,4 +61,9 @@ public interface BoardService {
 	public void payRent(Board board, Player player, Space space);
 	public void payTax(Board board, Player player, Space space);
 	public void payUtility(Board board, Player player, Space space);
+
+	// Repository functions
+	public Board saveBoard(Board board);
+	public Board findByGameId(int id);
+	public void deleteBoard(Board board);
 }

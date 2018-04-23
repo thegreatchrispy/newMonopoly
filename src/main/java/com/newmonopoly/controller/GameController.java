@@ -35,6 +35,7 @@ public class GameController {
 	public String save(@RequestParam("players") String jsonPlayers, @RequestParam("randomize") boolean randomize) {
 		Gson gson = new Gson();
 		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
 		Board board;
 
 		try {
@@ -44,9 +45,10 @@ public class GameController {
 				throw new RuntimeException("save(): List of players is empty.");
 			}
 
-			board.setSpaces(decideSeasonsAndOrder(spaces, randomizeSet));
-
-			bdao.save(new Board(players, randomize));
+			board = new Board(players, randomize);
+			spaces = boardService.decideSeasonsAndOrder(board, randomize);
+			board.setSpaces(spaces);
+			boardService.saveBoard(board);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -55,21 +57,75 @@ public class GameController {
 		return gson.toJson(players);
 	}
 
-	// @RequestMapping("/retrievegame")
+	@RequestMapping("/joingame")
+	public String join(@RequestParam("player") String jsonPlayer, @RequestParam("gameid") int id) {
+		Gson gson = new Gson();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		Board board = new Board();
 
-	// @RequestMapping("/updategame")
+		try {
+			player = gson.fromJson(jsonPlayer, Player.class);
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
 
-	// @RequestMapping("/deletegame")
+			for (Player p : players) {
+				if (p == null) {
+					p = player;
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "Joining game."
+	}
+
+	@RequestMapping("/retrievegame")
+	public String retrieve(@RequestParam("gameid") int id) {
+		Gson gson = new Gson();
+		Board board = new Board();
+
+		try {
+			board = boardService.findByGameId(id);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return gson.toJson(board);
+	}
+
+	@RequestMapping("/updategame")
+	public void update(@RequestParam("gameid") int id) {
+		// Function not currently used
+	}
+
+	@RequestMapping("/deletegame")
+	public String delete(@RequestParam("gameid") int id) {
+		Board board = new Board();
+
+		try {
+			board = boardService.findByGameId(id);
+			boardService.deleteBoard(board);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "Game " + id + " deleted.";
+	}
 
 	@RequestMapping("/haswinner")
-	public String hasWinner(@RequestParam("gameid") long id) {
+	public String hasWinner(@RequestParam("gameid") int id) {
 		Gson gson = new Gson();
-		BoardLogic bl = null;
+		Board board = new Board();
 		boolean winner = false;
 
 		try {
-			bl = new BoardLogic(bdao.findById(id).get());
-			winner = bl.hasWinner();
+			board = boardService.findByGameId(id);
+			winner = boardService.hasWinner(board);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -79,38 +135,107 @@ public class GameController {
 	}
 
 	@RequestMapping("/getcurrentplayer")
-	public String getCurrentPlayer(@RequestParam("gameid") long id) {
+	public String getCurrentPlayer(@RequestParam("gameid") int id) {
 		Gson gson = new Gson();
-		return new String();
+		Board board = new Board();
+		Player currentPlayer = new Player();
+
+		try {
+			board = boardService.findByGameId(id);
+			currentPlayer = boardService.getCurrentPlayer(board);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return gson.toJson(currentPlayer);
 	}
 
 	@RequestMapping("/removefunds")
-	public String removeFunds(@RequestParam("gameid") long id, @RequestParam("player") String jsonPlayer, @RequestParam("payment") int payment) {
+	public String removeFunds(@RequestParam("gameid") int id, @RequestParam("player") String jsonPlayer, @RequestParam("payment") int payment) {
 		Gson gson = new Gson();
-		return new String();
+		Board board = new Board();
+		Player player = new Player();
+
+		try {
+			board = boardService.findByGameId(id);
+			player = gson.fromJson(jsonPlayer, Player.class);
+			boardService.removeFunds(board, player, payment);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "Funds removed from " + player.getName() + ".";
 	}
 
 	@RequestMapping("/addfunds")
-	public String addFunds(@RequestParam("gameid") long id, @RequestParam("player") String jsonPlayer, @RequestParam("payment") int payment) {
+	public String addFunds(@RequestParam("gameid") int id, @RequestParam("player") String jsonPlayer, @RequestParam("payment") int payment) {
 		Gson gson = new Gson();
-		return new String();
+		Board board = new Board();
+		Player player = new Player();
+
+		try {
+			board = boardService.findByGameId(id);
+			player = gson.fromJson(jsonPlayer, Player.class);
+			boardService.addFunds(board, player, payment);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "Funds received by " + player.getName() + ".";
 	}
 
 	@RequestMapping("/moveplayer")
-	public String movePlayer(@RequestParam("gameid") long id, @RequestParam("player") String jsonPlayer, @RequestParam("value") int value) {
+	public String movePlayer(@RequestParam("gameid") int id, @RequestParam("player") String jsonPlayer, @RequestParam("value") int value) {
 		Gson gson = new Gson();
-		return new String();
+		Board board = new Board();
+		Player player = new Player();
+
+		try {
+			board = boardService.findByGameId(id);
+			player = gson.fromJson(jsonPlayer, Player.class);
+			boardService.movePlayer(board, player, value);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return player.getName() + " moved " + value + " spaces.";
 	}
 
 	@RequestMapping("/moveplayertojail")
-	public String movePlayerToJail(@RequestParam("gameid") long id) {
+	public String movePlayerToJail(@RequestParam("gameid") int id, @RequestParam("player") String jsonPlayer) {
 		Gson gson = new Gson();
-		return new String();
+		Board board = new Board();
+		Player player = new Player();
+
+		try {
+			board = boardService.findByGameId(id);
+			player = gson.fromJson(jsonPlayer, Player.class);
+			boardService.movePlayerToJail(board, player);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return player.getName() + " was moved to jail.";
 	}
 
 	@RequestMapping("/nextturn")
-	public String nextTurn(@RequestParam("gameid") long id) {
+	public String nextTurn(@RequestParam("gameid") int id) {
 		Gson gson = new Gson();
-		return new String();
+		Board board = new Board();
+
+		try {
+			board = boardService.findByGameId(id);
+			boardService.nextTurn(board);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return boardService.getCurrentPlayer(board) + "'s turn is beginning.";
 	}
 }

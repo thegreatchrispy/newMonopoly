@@ -57,11 +57,11 @@ public class Board {
 	@Column(name = "trade_choice_char")
 	private char tradeChoiceChar;
 
-	protected Board() {
+	public Board() {
 
 	}
 
-	public Board(List<Player> players, boolean randomizeSet) throws Exception {
+	public Board(List<Player> players, boolean randomizeSet) {
 		this.players = players;
 		currentTurn = 0;
 		totalPlayer = 6;// Set to 6 for testing, will get from constructor in future.
@@ -73,7 +73,6 @@ public class Board {
 		playerIndex = 0;
 		housesAvailable = 32;
 		hotelsAvailable = 12;
-		spaces = decideSeasonsAndOrder(spaces, randomizeSet);
 		Collections.shuffle(chance);
 		Collections.shuffle(community);
 	}

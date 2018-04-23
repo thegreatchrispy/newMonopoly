@@ -23,12 +23,13 @@ public class LoginController {
 	@Autowired
 	private AccountService accountService;
 
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+	@RequestMapping("/login")
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
+	
 	
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView registration(){
@@ -37,17 +38,6 @@ public class LoginController {
 //		modelAndView.addObject("account", account);
 		modelAndView.setViewName("registration");
 		return modelAndView;
-	}
-	
-	@RequestMapping(value="/check")
-	public String getName(@RequestParam(value = "email", defaultValue = "test") String email){
-//		Account accountExists = accountService.findUserByEmail(email);
-//		if (accountExists != null) {
-//			return "Test";
-//		} else {
-//			return "Test else";
-//		}// method return boolean if user exist or non in database.
-		return "Test";
 	}
 	
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -60,13 +50,53 @@ public class LoginController {
 		modelAndView.addObject("account", account);
 		modelAndView.setViewName("registration");
 		return modelAndView;
+		
 	}
+
+	@RequestMapping(value="/checkEmail")
+	public String getEmail(@RequestParam("email") String email){
+		Account accountExists = accountService.findAccountByEmail(email);
+		if (accountExists != null) {
+			return "false";
+		} else {
+			return "true";
+		}// method return boolean if user exist or non in database.
+	}
+
+	@RequestMapping(value="/checkUsername")
+	public String getUsername(@RequestParam("username") String username){
+		Account accountExists = accountService.findAccountByUsername(username);
+		if (accountExists != null) {
+			return "false";
+		} else {
+			return "true";
+		}// method return boolean if user exist or non in database.
+	}
+//	public ModelAndView createNewAccount(@Valid Account account, BindingResult bindingResult) {
+//		ModelAndView modelAndView = new ModelAndView();
+//		Account accountExists = accountService.findUserByEmail(account.getEmail());
+//		if (accountExists != null) {
+//			bindingResult
+//					.rejectValue("email", "error.account",
+//							"There is already a account registered with the email provided");
+//		}
+//		if (bindingResult.hasErrors()) {
+//			modelAndView.setViewName("registration");
+//		} else {
+//			accountService.saveAccount(account);
+//			modelAndView.addObject("successMessage", "account has been registered successfully");
+//			modelAndView.addObject("account", new Account());
+//			modelAndView.setViewName("registration");
+//			
+//		}
+//		return modelAndView;
+//	}
 	
 	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
 	public ModelAndView home(){
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Account account = accountService.findUserByEmail(auth.getName());
+		Account account = accountService.findAccountByEmail(auth.getName());
 		modelAndView.addObject("userName", "Welcome " + account.getUsername() + " (" + account.getEmail() + ")");
 		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
 		modelAndView.setViewName("admin/home");

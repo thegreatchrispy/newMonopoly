@@ -3,6 +3,7 @@ package com.newmonopoly.service;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -30,17 +31,20 @@ public class BoardServiceImpl implements BoardService {
 	private BoardRepository boardRepository;
 
 	@Override
-	public List<Space> decideSeasonsAndOrder(Board board, List<Space> originalSpaces, boolean randomizeSet) {
-		if (originalSpaces.isEmpty()) {
-			throw new IllegalArgumentException("In decideSeasonsAndOrder: List<Space> originalSpaces is empty.");
-		}
-
+	public List<Space> decideSeasonsAndOrder(Board board, boolean randomizeSet) {
 		Gson gson = new Gson();
+		List<Space> originalSpaces = new Vector<Space>();
+		List<Card> chance = new Vector<Card>();
+		List<Card> community = new Vector<Card>();
 
 		try {
-			board.setSpaces(gson.fromJson(new FileReader("../../../../resources/static/js/spaces.json"), new TypeToken<List<Space>>(){}.getType()));
-			board.setChance(gson.fromJson(new FileReader("../../../../resources/static/js/chance.json"), new TypeToken<List<Space>>(){}.getType()));
-			board.setCommunity(gson.fromJson(new FileReader("../../../../resources/static/js/community.json"), new TypeToken<List<Space>>(){}.getType()));
+			originalSpaces = gson.fromJson(new FileReader("../../../../resources/static/js/spaces.json"), new TypeToken<List<Space>>(){}.getType());
+			chance = gson.fromJson(new FileReader("../../../../resources/static/js/chance.json"), new TypeToken<List<Space>>(){}.getType());
+			community = gson.fromJson(new FileReader("../../../../resources/static/js/community.json"), new TypeToken<List<Space>>(){}.getType());
+			Collections.shuffle(chance);
+			Collections.shuffle(community);
+			board.setChance(chance);
+			board.setCommunity(community);
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -1021,7 +1025,6 @@ public class BoardServiceImpl implements BoardService {
 		return playersInGame <= 1;
 	}
 	
-	
 	// Return the winner of the game.
 	@Override
 	public Player getWinner(Board board) {
@@ -1129,5 +1132,21 @@ public class BoardServiceImpl implements BoardService {
 		}
 		removeFunds(board, player, (initialPayment * board.getDieValue()));
 		addFunds(board, board.getPlayers().get(space.getOwnedBy()), (initialPayment * board.getDieValue()));
+	}
+
+	@Override
+	public Board saveBoard(Board board) {
+		boardRepository.save(board);
+		return board;
+	}
+
+	@Override
+	public Board findByGameId(int id) {
+		return boardRepository.findById(id);
+	}
+
+	@Override
+	public void deleteBoard(Board board) {
+		boardRepository.delete(board);
 	}
 }
