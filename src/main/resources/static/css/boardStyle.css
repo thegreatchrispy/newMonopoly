@@ -93,7 +93,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .board {
-  postition: absolute;
   display: grid;
   grid-template-columns: 125px repeat(9, 80px) 125px;
   grid-template-rows: 125px repeat(9, 80px) 125px;
@@ -644,13 +643,93 @@ h1, h2, h3, h4, h5, h6 {
   top: 5px;
 }
 
-.space-box {
+.piece_1 {
   background: #000000;
   text-align: center;
   height: 25px;
   width: 25px;
-  top: 5%;
-  left: 5%;
+  top: 3%;
+  left: 0%;
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(1, 80px);
+  grid-template-rows: 125px;
+  grid-column: 11;
+  grid-row: 11;
+  position: relative;
+}
+
+.piece_2 {
+  background: blue;
+  text-align: center;
+  height: 25px;
+  width: 25px;
+  top: 6%;
+  left: 0%;
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(1, 80px);
+  grid-template-rows: 125px;
+  grid-column: 11;
+  grid-row: 11;
+  position: relative;
+}
+
+.piece_3 {
+  background: red;
+  text-align: center;
+  height: 25px;
+  width: 25px;
+  top: 9%;
+  left: 0%;
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(1, 80px);
+  grid-template-rows: 125px;
+  grid-column: 11;
+  grid-row: 11;
+  position: relative;
+}
+
+.piece_4 {
+  background: green;
+  text-align: center;
+  height: 25px;
+  width: 25px;
+  top: 3%;
+  left: 3%;
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(1, 80px);
+  grid-template-rows: 125px;
+  grid-column: 11;
+  grid-row: 11;
+  position: relative;
+}
+
+.piece_5 {
+  background: orange;
+  text-align: center;
+  height: 25px;
+  width: 25px;
+  top: 6%;
+  left: 3%;
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(1, 80px);
+  grid-template-rows: 125px;
+  grid-column: 11;
+  grid-row: 11;
+  position: relative;
+}
+
+.piece_6 {
+  background: plum;
+  text-align: center;
+  height: 25px;
+  width: 25px;
+  top: 9%;
+  left: 3%;
   display: grid;
   grid-gap: 2px;
   grid-template-columns: repeat(1, 80px);
