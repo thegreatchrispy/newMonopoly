@@ -1,9 +1,9 @@
-.wrapper {    
-	margin-top: 80px;
-	margin-bottom: 20px;
+#login {
+  padding-top: 150px;
 }
 
 .form-signin {
+  padding-top: 100px;
   max-width: 420px;
   padding: 30px 38px 66px;
   margin: 0 auto;

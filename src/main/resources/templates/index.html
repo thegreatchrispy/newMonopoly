@@ -3,23 +3,21 @@
     <head>
 		<title>NEW MONOPOLY :: Home</title>
 		<script></script>
-        <link type="text/css" rel="stylesheet" href="css/navigation.css">
-        <link type="text/css" rel="stylesheet" href="css/index.css">
-		<meta charset="UTF-8" name="wsurl" content="http://localhost:8080/" link="newMonopoly/home">
+        <link type="text/css" rel="stylesheet" th:href="@{/css/navigation.css}">
+        <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}">
     </head>
     <body>
         <!-- NAVIGATION BAR -->
         <div class="wrapper">
             <nav>
-                <a href="index.html">
+                <a th:href="@{/}">
                     <img src="images/rich_uncle.png" id="logo">
                 </a>
                 <ul>
-                    <li><a class="active" href="index.html">HOME</a></li>
-                    <li><a href="create_join.html">CREATE/JOIN GAME</a></li>
-                    <li><a href="help.html">HELP/ABOUT</a></li>
-                    <li><a href="edit_profile.html">EDIT PROFILE</a></li>
-                    <li class="rightli"><a href="login.html">LOGIN</a></li>
+                    <li><a class="active" th:href="@{/}">HOME</a></li>
+                    <li><a th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
+                    <li><a th:href="@{/learn}">HELP/ABOUT</a></li>
+                    <li class="rightli"><a th:href="@{/login}">LOGIN</a></li>
                 </ul>
             </nav>
         </div>
@@ -27,8 +25,8 @@
         <div class="opener">
             <div id="name">NEW MONOPOLY</div>
                 <div id="opener_buttons">
-                    <a id="login_button" href="login.html">LOGIN</a>
-                    <a id="signup_button" href="create_account.html">SIGN UP</a>
+                    <a id="login_button" th:href="@{/login}">LOGIN</a>
+                    <a id="signup_button" th:href="@{/registration}">SIGN UP</a>
                 </div>
                 <div id="slogan">The Modernized Monopoly</div>
         </div>
@@ -40,7 +38,7 @@
         <div class="play">
             <div id="play_sent">Winners never quit and quitters never win.</div>
             <div id="play_buttons">
-                <a id="play_button" href="create_join.html">PLAY NOW</a>
+                <a id="play_button" th:href="@{/create_join}">PLAY NOW</a>
             </div>
         </div>
         <!-- QUOTE -->
@@ -51,7 +49,7 @@
         <div class="learn">
             <div id="learn_sent">At the end of the day, it is still a game of dice.</div>
             <div id="learn_buttons">
-                <a id="learn_button" href="help.html">LEARN MORE</a>
+                <a id="learn_button" th:href="@{/learn}">LEARN MORE</a>
             </div>
         </div>
     </body>

@@ -10,15 +10,14 @@
     <body>
             <div class="wrapper">
                     <nav>
-                        <a href="index.html">
+                        <a th:href="@{/}">
                             <img src="images/rich_uncle.png" id="logo">
                         </a>
                         <ul>
-                            <li><a href="index.html">HOME</a></li>
-                            <li><a href="create_join.html">CREATE/JOIN GAME</a></li>
-                            <li><a class="active" href="help.html">HELP/ABOUT</a></li>
-                            <li><a href="edit_profile.html">EDIT PROFILE</a></li>
-                            <li class="rightli"><a href="login.html">LOGIN</a></li>
+                            <li><a th:href="@{/}">HOME</a></li>
+                            <li><a th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
+                            <li><a class="active" th:href="@{/learn}">HELP/ABOUT</a></li>
+                            <li class="rightli"><a th:href="@{/login}">LOGIN</a></li>
                         </ul>
                     </nav>
                 </div>

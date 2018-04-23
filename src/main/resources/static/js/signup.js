@@ -67,9 +67,8 @@ $(function() {
 			}
 		});
 
-		/* NOTE: REDIRECT USER TO HOME PAGE LOGGED IN. */
-		$("form[name ='register']").trigger("reset");
 		$("#success-msg").css("display", "block");
+		location.reload(true);
 	}
 	/* end form submission */
 });

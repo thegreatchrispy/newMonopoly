@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
 	<title>Spring Security Tutorial</title>
@@ -12,12 +11,22 @@
 </head>
 
 <body>
-	<!-- <form th:action="@{/registration}" method="get">
-		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button>
-	</form>	 -->
+	<!-- NAVIGATION BAR -->
+	<div class="wrapper">
+		<nav>
+			<a th:href="@{/}">
+				<img src="images/rich_uncle.png" id="logo">
+			</a>
+			<ul>
+				<li><a th:href="@{/}">HOME</a></li>
+				<li><a th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
+				<li><a th:href="@{/learn}">HELP/ABOUT</a></li>
+				<li class="rightli"><a class="active" th:href="@{/login}">LOGIN</a></li>
+		    </ul>
+        </nav>
+	</div>
 	
-	<div class="container">
-		<img th:src="@{/images/login.jpg}" class="img-responsive center-block" width="300" height="300" alt="Logo" />
+	<div class="container" id="login">
 		<form th:action="@{/login}" method="POST" class="form-signin">
 			<h3 class="form-signin-heading" th:text="Welcome"></h3>
 			<br/>

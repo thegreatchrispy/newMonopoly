@@ -23,6 +23,31 @@ public class LoginController {
 	@Autowired
 	private AccountService accountService;
 
+	// ModelAndView
+	@RequestMapping("/")
+	public ModelAndView home(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("index");
+		return modelAndView;
+	}
+
+	// ModelAndView
+	@RequestMapping("/create_join")
+	public ModelAndView create_join(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/admin/create_join");
+		return modelAndView;
+	}
+
+	// ModelAndView
+	@RequestMapping("/learn")
+	public ModelAndView help(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("help");
+		return modelAndView;
+	}
+
+	// ModelAndView
 	@RequestMapping("/login")
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -30,29 +55,26 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	
+	// ModelAndView
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView registration(){
 		ModelAndView modelAndView = new ModelAndView();
-//		Account account = new Account();
-//		modelAndView.addObject("account", account);
 		modelAndView.setViewName("registration");
 		return modelAndView;
 	}
 	
+	// Create Account
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public ModelAndView createNewAccount(@RequestParam("email") String email, @RequestParam("username") String username, @RequestParam("password") String password) {
+	public String createNewAccount(@RequestParam("email") String email, @RequestParam("username") String username, @RequestParam("password") String password) {
 		Account account = new Account(email, username, password);
-		ModelAndView modelAndView = new ModelAndView();
-//		Account accountExists = accountService.findUserByEmail(account.getEmail());
+		//ModelAndView modelAndView = new ModelAndView();
 		accountService.saveAccount(account);
-		modelAndView.addObject("successMessage", "account has been registered successfully");
-		modelAndView.addObject("account", account);
-		modelAndView.setViewName("registration");
-		return modelAndView;
+		//modelAndView.setViewName("registration");
+		return "Success!";
 		
 	}
 
+	// Validation for Email.
 	@RequestMapping(value="/checkEmail")
 	public String getEmail(@RequestParam("email") String email){
 		Account accountExists = accountService.findUserByEmail(email);
@@ -63,6 +85,7 @@ public class LoginController {
 		}// method return boolean if user exist or non in database.
 	}
 
+	// Validation for Username
 	@RequestMapping(value="/checkUsername")
 	public String getUsername(@RequestParam("username") String username){
 		Account accountExists = accountService.findUserByUsername(username);
@@ -70,7 +93,7 @@ public class LoginController {
 			return "false";
 		} else {
 			return "true";
-		}// method return boolean if user exist or non in database.
+		}
 	}
 //	public ModelAndView createNewAccount(@Valid Account account, BindingResult bindingResult) {
 //		ModelAndView modelAndView = new ModelAndView();
@@ -93,7 +116,7 @@ public class LoginController {
 //	}
 	
 	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
-	public ModelAndView home(){
+	public ModelAndView test(){
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Account account = accountService.findUserByEmail(auth.getName());
