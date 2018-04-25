@@ -20,6 +20,16 @@
     font-size: 50px;
 }
 
+.box_sub_header {
+    color: white;
+    position: absolute;
+    float: left;
+    top: 13%;
+    left: 50%;
+    transform: translate(-50%, -0%);
+    font-size: 30px;
+}
+
 .box_text {
     color: white;
     position: absolute;
@@ -29,10 +39,82 @@
     font-size: 20px;
 }
 
-#about_button {
+.forward_choice {
     position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-family: 'Verlag A','Verlag B';
+    background-color: white;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: black;
+    font-weight: 700;
+    font-size: 1.3em!important;
+    line-height: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 160px;
+    text-decoration: none;
+}
+
+#about_button {
     top: 45%;
     left: 30%;
+}
+
+.back_button {
+    position: absolute;
+    top: 90%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-family: 'Verlag A','Verlag B';
+    background-color: #ae8648;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: white;
+    font-weight: 700;
+    font-size: 1.3em!important;
+    line-height: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 160px;
+    text-decoration: none;   
+}
+
+.page_back_button {
+    position: absolute;
+    top: 90%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    letter-spacing: 5px;
+    font-family: 'Verlag A','Verlag B';
+    background-color: white;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: black;
+    font-weight: 700;
+    font-size: 1.3em!important;
+    line-height: 1em;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 160px;
+    text-decoration: none;   
+}
+
+.forward_button {
+    position: absolute;
+    top: 90%;
+    right: 0%;
     transform: translate(-50%, -50%);
     font-size: 40px;
     letter-spacing: 5px;
@@ -49,32 +131,46 @@
     padding: 14px 25px;
     text-align: center;
     min-width: 160px;
-    text-decoration: none;
+    text-decoration: none;  
 }
 
 #rules_button {
-    position: absolute;
     top: 45%;
     left: 70%;
-    transform: translate(-50%, -50%);
-    font-size: 40px;
-    letter-spacing: 5px;
-    font-family: 'Verlag A','Verlag B';
-    background-color: black;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
-    box-sizing: border-box;
-    color: white;
-    font-weight: 700;
-    font-size: 1.3em!important;
-    line-height: 1em;
-    padding: 14px 25px;
-    text-align: center;
-    min-width: 160px;
-    text-decoration: none;
+}
+
+#back {
+    display: none;
+}
+
+#page_back {
+    display: none;
+}
+
+#forward {
+    display: none;
 }
 
 #about {
+    display: none;
+}
+
+#rules_1 {
+    display: none;
+}
+
+#rules_2 {
+    display: none;
+}
+
+#rules_3 {
+    display: none;
+}
+
+#rules_4 {
+    display: none;
+}
+
+#rules_5 {
     display: none;
 }

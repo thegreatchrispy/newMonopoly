@@ -207,3 +207,8 @@ span {
     min-width: 160px;
     text-decoration: none;
 }
+
+#num_players {
+    background: white;
+    color: black;
+}

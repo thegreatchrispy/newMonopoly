@@ -18,7 +18,7 @@ import com.newmonopoly.model.Account;
 import com.newmonopoly.service.AccountService;
 
 @RestController
-public class LoginController {
+public class WebpageController {
 	
 	@Autowired
 	private AccountService accountService;
