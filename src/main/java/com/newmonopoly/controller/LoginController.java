@@ -103,5 +103,11 @@ public class LoginController {
 		return modelAndView;
 	}
 	
+	@RequestMapping("/gameplay")
+	public ModelAndView gameplay(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("gameplay");
+		return modelAndView;
+	}
 
 }
