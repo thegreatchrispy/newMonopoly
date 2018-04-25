@@ -1,3 +1,5 @@
+package com.newmonopoly.model;
+
 import com.newmonopoly.model.Die;
 
 import org.junit.*;

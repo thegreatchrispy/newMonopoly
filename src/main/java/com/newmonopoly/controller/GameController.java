@@ -3,25 +3,15 @@ package com.newmonopoly.controller;
 import java.util.List;
 import java.util.Vector;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import com.newmonopoly.model.Board;
-import com.newmonopoly.model.Card;
 import com.newmonopoly.model.Player;
 import com.newmonopoly.model.Space;
 import com.newmonopoly.service.BoardService;

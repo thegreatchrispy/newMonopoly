@@ -1,3 +1,5 @@
+package com.newmonopoly.model;
+
 import com.newmonopoly.model.Account;
 
 import org.junit.*;

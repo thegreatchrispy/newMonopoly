@@ -1,3 +1,5 @@
+package com.newmonopoly.model;
+
 import com.newmonopoly.model.Space;
 
 import org.junit.*;
