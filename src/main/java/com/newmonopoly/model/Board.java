@@ -16,6 +16,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 // Change the columns involving objects into json strings.
 @Entity
 @Table(name = "boards")
@@ -25,7 +28,7 @@ public class Board {
 	@Column(name = "board_id")
 	private int id;
 	@Column(name = "players")
-	private List<Player> players;
+	private String players;
 	@Column(name = "current_turn")
 	private int currentTurn;
 	@Column(name = "total_player")
@@ -33,11 +36,11 @@ public class Board {
 	@Column(name = "turn_over")
 	private boolean turnOver;
 	@Column(name = "spaces")
-	private List<Space> spaces;
+	private String spaces;
 	@Column(name = "chance")
-	private List<Card> chance;
+	private String chance;
 	@Column(name = "community")
-	private List<Card> community;
+	private String community;
 	@Column(name = "player_index")
 	private int playerIndex;
 	@Column(name = "houses_available")
@@ -58,19 +61,18 @@ public class Board {
 	}
 
 	public Board(List<Player> players, boolean randomizeSet) {
-		this.players = players;
+		Gson gson = new Gson();
+		this.players = gson.toJson(players);
 		currentTurn = 0;
 		totalPlayer = 6;// Set to 6 for testing, will get from constructor in future.
 		turnOver = false;
-		spaces = new Vector<Space>();
-		//chance = new Vector<Card>();
-		// community = new Vector<Card>();
+		spaces = "";
+		chance = "";
+		community = "";
 		dieValue = 0;
 		playerIndex = 0;
 		housesAvailable = 32;
 		hotelsAvailable = 12;
-		//Collections.shuffle(chance);
-		// Collections.shuffle(community);
 	}
 
 	public long getId() {
@@ -82,19 +84,27 @@ public class Board {
 	}
 
 	public List<Player> getPlayers() {
-		return players;
+		Gson gson = new Gson();
+		return gson.fromJson(this.players, new TypeToken<List<Player>>(){}.getType());
 	}
 
 	public void setPlayers(List<Player> players) {
-		this.players = players;
+		Gson gson = new Gson();
+		this.players = gson.toJson(players);
 	}
 
 	public void addPlayer(Player player) {
-		this.players.add(player);
+		Gson gson = new Gson();
+		List<Player> currentPlayers = gson.fromJson(this.players, new TypeToken<List<Player>>(){}.getType());
+		currentPlayers.add(player);
+		this.players = gson.toJson(currentPlayers);
 	}
 
 	public void removePlayer(Player player) {
-		this.players.remove(player);
+		Gson gson = new Gson();
+		List<Player> currentPlayers = gson.fromJson(this.players, new TypeToken<List<Player>>(){}.getType());
+		currentPlayers.remove(player);
+		this.players = gson.toJson(currentPlayers);
 	}
 
 	public int getCurrentTurn() {
@@ -122,28 +132,34 @@ public class Board {
 	} 
 
 	public List<Space> getSpaces() {
-		return spaces;
+		Gson gson = new Gson();
+		return gson.fromJson(this.spaces, new TypeToken<List<Space>>(){}.getType());
 	}
 
 	public void setSpaces(List<Space> spaces) {
-		this.spaces = spaces;
+		Gson gson = new Gson();
+		this.spaces = gson.toJson(spaces);
 	}
 
-	// public List<Card> getChance() {
-	// 	return chance;
-	// }
+	public List<Card> getChance() {
+		Gson gson = new Gson();
+		return gson.fromJson(this.chance, new TypeToken<List<Card>>(){}.getType());
+	}
 
-	// public void setChance(List<Card> chance) {
-	// 	this.chance = chance;
-	// }
+	public void setChance(List<Card> chance) {
+		Gson gson = new Gson();
+		this.chance = gson.toJson(chance);
+	}
 
-	// public List<Card> getCommunity() {
-	// 	return community;
-	// }
+	public List<Card> getCommunity() {
+		Gson gson = new Gson();
+		return gson.fromJson(this.community, new TypeToken<List<Card>>(){}.getType());
+	}
 
-	// public void setCommunity(List<Card> community) {
-	// 	this.community = community;
-	// }
+	public void setCommunity(List<Card> community) {
+		Gson gson = new Gson();
+		this.community = gson.toJson(community);
+	}
 
 	public int getPlayerIndex() {
 		return playerIndex;

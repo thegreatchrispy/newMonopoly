@@ -63,7 +63,7 @@ public interface BoardService {
 	public void payUtility(Board board, Player player, Space space);
 
 	// Repository functions
-	public Board saveBoard(Board board);
+	public void saveBoard(Board board);
 	public Board findByGameId(int id);
 	public void deleteBoard(Board board);
 }

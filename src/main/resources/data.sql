@@ -52,19 +52,20 @@ INSERT INTO `role` VALUES (1,'ADMIN');
 
 DROP TABLE IF EXISTS `boards`;
 CREATE TABLE `boards` (
-	`id` NOT NULL AUTO_INCREMENT,
+	`board_id` INT NOT NULL AUTO_INCREMENT,
 	`players` JSON NOT NULL,
 	`current_turn` INT NOT NULL,
 	`total_player` INT NOT NULL,
 	`turn_over` BOOLEAN NOT NULL,
 	`spaces` JSON NOT NULL,
-	-- `chance` JSON NOT NULL,
-	-- `community` JSON NOT NULL,
+	`chance` JSON NOT NULL,
+	`community` JSON NOT NULL,
 	`player_index` INT NOT NULL,
 	`houses_available` INT NOT NULL,
 	`hotels_available` INT NOT NULL,
 	`die_value` INT NOT NULL,
 	`player_choice_char` CHAR(1),
 	`player_choice_int` INT,
-	`trade_choice_char` CHAR(1)
+	`trade_choice_char` CHAR(1),
+	PRIMARY KEY (`board_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

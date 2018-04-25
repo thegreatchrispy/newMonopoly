@@ -38,13 +38,13 @@ public class BoardServiceImpl implements BoardService {
 		List<Card> community = new Vector<Card>();
 
 		try {
-			originalSpaces = gson.fromJson(new FileReader("../../../../resources/static/js/spaces.json"), new TypeToken<List<Space>>(){}.getType());
-			chance = gson.fromJson(new FileReader("../../../../resources/static/js/chance.json"), new TypeToken<List<Space>>(){}.getType());
-			community = gson.fromJson(new FileReader("../../../../resources/static/js/community.json"), new TypeToken<List<Space>>(){}.getType());
+			originalSpaces = gson.fromJson(new FileReader("spaces.json"), new TypeToken<List<Space>>(){}.getType());
+			chance = gson.fromJson(new FileReader("chance.json"), new TypeToken<List<Space>>(){}.getType());
+			community = gson.fromJson(new FileReader("community.json"), new TypeToken<List<Space>>(){}.getType());
 			Collections.shuffle(chance);
 			Collections.shuffle(community);
-			//board.setChance(chance);
-			//board.setCommunity(community);
+			board.setChance(chance);
+			board.setCommunity(community);
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -1135,9 +1135,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board saveBoard(Board board) {
+	public void saveBoard(Board board) {
 		boardRepository.save(board);
-		return board;
 	}
 
 	@Override
