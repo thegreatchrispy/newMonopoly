@@ -13,16 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
-
+// Change the columns involving objects into json strings.
 @Entity
-@Table(name = "board")
+@Table(name = "boards")
 public class Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,14 +63,14 @@ public class Board {
 		totalPlayer = 6;// Set to 6 for testing, will get from constructor in future.
 		turnOver = false;
 		spaces = new Vector<Space>();
-		chance = new Vector<Card>();
-		community = new Vector<Card>();
+		//chance = new Vector<Card>();
+		// community = new Vector<Card>();
 		dieValue = 0;
 		playerIndex = 0;
 		housesAvailable = 32;
 		hotelsAvailable = 12;
-		Collections.shuffle(chance);
-		Collections.shuffle(community);
+		//Collections.shuffle(chance);
+		// Collections.shuffle(community);
 	}
 
 	public long getId() {
@@ -133,21 +129,21 @@ public class Board {
 		this.spaces = spaces;
 	}
 
-	public List<Card> getChance() {
-		return chance;
-	}
+	// public List<Card> getChance() {
+	// 	return chance;
+	// }
 
-	public void setChance(List<Card> chance) {
-		this.chance = chance;
-	}
+	// public void setChance(List<Card> chance) {
+	// 	this.chance = chance;
+	// }
 
-	public List<Card> getCommunity() {
-		return community;
-	}
+	// public List<Card> getCommunity() {
+	// 	return community;
+	// }
 
-	public void setCommunity(List<Card> community) {
-		this.community = community;
-	}
+	// public void setCommunity(List<Card> community) {
+	// 	this.community = community;
+	// }
 
 	public int getPlayerIndex() {
 		return playerIndex;

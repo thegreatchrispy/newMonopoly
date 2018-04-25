@@ -79,7 +79,7 @@ public class GameController {
 			e.printStackTrace();
 		}
 
-		return "Joining game."
+		return "Joining game.";
 	}
 
 	@RequestMapping("/retrievegame")

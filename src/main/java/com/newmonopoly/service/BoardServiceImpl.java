@@ -43,8 +43,8 @@ public class BoardServiceImpl implements BoardService {
 			community = gson.fromJson(new FileReader("../../../../resources/static/js/community.json"), new TypeToken<List<Space>>(){}.getType());
 			Collections.shuffle(chance);
 			Collections.shuffle(community);
-			board.setChance(chance);
-			board.setCommunity(community);
+			//board.setChance(chance);
+			//board.setCommunity(community);
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -435,10 +435,10 @@ public class BoardServiceImpl implements BoardService {
 				payTax(board, player, space);
 				break;
 			case "comchest":
-				drawCard(board, player, board.getCommunity());
+				// drawCard(board, player, board.getCommunity());
 				break;
 			case "chance":
-				drawCard(board, player, board.getChance());
+				//drawCard(board, player, board.getChance());
 				break;
 			default:
 				break;
