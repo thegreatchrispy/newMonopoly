@@ -30,8 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private String rolesQuery;
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth)
-			throws Exception {
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.
 			jdbcAuthentication()
 				.usersByUsernameQuery(usersQuery)
@@ -42,14 +41,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
 		http.
 			authorizeRequests()
+				// Permits.
 				.antMatchers("/").permitAll()
 				.antMatchers("/checkEmail").permitAll()
 				.antMatchers("/checkUsername").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/registration").permitAll()
+				.antMatchers("/learn").permitAll()
 				.antMatchers("/creategame").permitAll()
 				.antMatchers("/joingame").permitAll()
 				.antMatchers("/retrievegame").permitAll()
@@ -61,10 +61,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/moveplayer").permitAll()
 				.antMatchers("/moveplayertojail").permitAll()
 				.antMatchers("/nextturn").permitAll()
+				// Authorities.
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+				// Login and Logout
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/admin/home")
+				.loginPage("/login").defaultSuccessUrl("/home")
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.and().logout()
@@ -77,7 +79,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 	    web
 	       .ignoring()
-	       .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/php/**");
+	       .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/jquery/**");
 	}
-
 }

@@ -5,7 +5,10 @@ $(function() {
 			username: {
 				required: true,
 				minlength: 4,
-				maxlength: 15
+				maxlength: 15,
+				remote: {
+					url: "http://localhost:8080/checkUsername?" + $("form[name ='register']").find('input[username]').serialize()
+				}
 			},
 			password: {
 				required: true,
@@ -17,27 +20,26 @@ $(function() {
 				equalTo: "#password"
 			},
 			email: {
-				required: true
-// 			    remote: {
-// 			    	url: '/checkEmail',
-// 			        data: { email: $('#email').val()},
-// 			        dataFilter: function(data) {
-// //			        	var json = JSON.parse(data);
-// 			            console.log(data);
-// 			        }
-// 			    }
+				required: true,
+				email: true,
+				remote: {
+					url: "http://localhost:8080/checkEmail?" + $("form[name ='register']").find('input[email]').serialize()
+				}
 			},
 		},
 
 		messages: {
-			username: "please enter user name",
+			username: {
+				required: "please enter user name",
+				remote: "Username already taken. Please enter a different username."
+			},
 			password: {
 				required: "please provide a password",
 				minlength: "password must have at least 6 characters"
 			},
 			email: {
 				required: "please enter a valid email address",
-				// remote: "Email address already in use. Please enter a different email."
+				remote: "Email address already in use. Please enter a different email."
 			},
 			cpassword: {
 				required: "please retype your password",
@@ -64,8 +66,13 @@ $(function() {
 				alert("account created");
 			}
 		});
-		$("form[name ='register']").trigger("reset");
+
 		$("#success-msg").css("display", "block");
+		window.setTimeout(function(){
+			// Move to a new location or you can do something else
+			window.location.href = "http://localhost:8080/login";
+	
+		}, 2000);
 	}
 	/* end form submission */
 });

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+        <link rel="stylesheet" th:href="@{/css/navigation.css}">
+        <link rel="stylesheet" th:href="@{/css/create_join.css}">
+        <script src="jquery/3.3.1/jquery.min.js"></script>
+        <script th:src="@{/js/create_join.js}"></script>
+	    <title>NEW MONOPOLY :: Create/Join Game</title>
+    </head>
+    <body>
+            <div class="wrapper">
+                <nav>
+                    <a th:href="@{/home}">
+                        <img src="images/rich_uncle.png" id="logo">
+                    </a>
+                    <ul>
+                        <li><a th:href="@{/home}">HOME</a></li>
+                        <li><a class="active" th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
+                        <li><a th:href="@{/help}">HELP/ABOUT</a></li>
+                        <li><a th:href="@{/edit_profile}">EDIT PROFILE</a></li>
+                        <li class="rightli"><a th:href="@{/logout}">LOGOUT</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="box">
+                <div id="option">
+                    <div class="box_header">SELECT OPTION</div>
+                    <a id="create_button" class="choice">CREATE GAME</a> <a id="join_button" class="choice">JOIN GAME</a>
+                </div>
+                <div id="create">
+                    <div class="box_header">CREATE GAME</div>
+                    <div id="create_form">
+                            <form action="">
+                                <!-- Lobby Type Settings -->
+                                <h3>Lobby Type</h3>
+                                <input type="radio" name="lobby_type" value="public" checked><span> Public</span>
+                                <input type="radio" name="lobby_type" value="private"> <span> Private</span><br>
+                                <label id="lobby_password_label" style="display:none;"><span>Lobby Password: </span><input type="password" name="lobby_password" id="lobby_password" style="display:none;"/></label>
+                                <input type="text" id="show_password" style="display: none;" readonly>
+                                <input type="checkbox" name="show_lobby_password" id="show_lobby_password" style="display:none;"> <label id="show_password_label" style="display: none;"><span>Show Password</span></label>
+                            
+                                <!-- Difficulty Settings -->
+                                <h3>Difficulty</h3>
+                                <input type="radio" name="diff_type" value="on"><span> On</span>
+                                <input type="radio" name="diff_type" value="off"><span> Off</span><br>
+                                <label id="difficulty_label" style="display: none;"><span>Select Difficulty: </span></label>
+                                <select name="difficulty" id="difficulty" style="display:none;">
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                                    
+                                <!-- Number of Players Settings -->
+                                <h3>Number of Players</h3>
+                                <label id="num_players_label"><span>Select Number of Players: </span></label>
+                                <select name="num_players" id="num_players">
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+            
+                                <!-- Number of Turns Settings -->
+                                <h3>Number of Turns</h3>
+                                <label id="num_turns_label"><span>Enter Number of Turns: </span></label>
+                                <input type="number" name="turns_quantity" id="turns_quantity" min="120">
+                                <input type="checkbox" name="unlimited_check" id="unlimited_check" value="unlimited"><span> Unlimited</span><br>
+            
+                                <!-- Submit Game Settings -->
+                                <input id="create_game_button" type="submit" value="CREATE">
+                            </form>
+                            <a id="create_back"> &lt; BACK</a>
+                    </div>
+                </div>
+                <div id="join">
+                    <div class="box_header">JOIN GAME</div>
+                    <div id="join_form">
+                            <h3>Joinable Games</h3>
+                            <!-- TABLE (PHP) GOES HERE -->
+                            <h5>TABLE</h5>
+                            <!-- Refresh Table -->
+                            <button type="button" id="refresh">Refresh List</button>
+        
+                            <!-- Search Filters -->
+                            <h5>Search Filters:</h5>
+                            <form action="">
+                                <!-- Difficulty Filter -->
+                                <label id="filter_diff_label"><span>Difficulty: </span></label>
+                                <select name="filter_diff" id="filter_diff">
+                                    <option value="none">---</option>
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                                <!-- Number of Players Filter -->
+                                <label id="filter_num_players_label"><span>Number of Players</span></label>
+                                <select name="filter_num_players" id="filter_num_players">
+                                    <option value="none">---</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                                <!-- Number of Turns Filter -->
+                                <label id="filter_num_turns_label"><span>Number of Turns: </span></label>
+                                <select name="filter_num_turns" id="filter_num_turns">
+                                    <option value="none">---</option>
+                                    <option value="limit">Limit</option>
+                                    <option value="unlimited">Unlimited</option>
+                                </select>
+                                <!-- Submit Filter -->
+                                <input id="join_game_button" type="submit" value="JOIN">
+                                <button type="button">Refine Search</button>
+                            </form>
+        
+                            <!-- Search By ID -->
+                            <form action="" class="search_id">
+                                <input type="number" placeholder="Search By Game ID" name="search_game" id="search_game">
+                                <button type="button">Search</button>
+                            </form>
+                        <a id="join_back"> &lt; BACK</a>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>

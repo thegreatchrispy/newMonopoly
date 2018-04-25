@@ -1,39 +1,34 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 	<title>Registration Form</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/navigation.css}" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css" media="screen">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/signup.js}"></script>
+
 </head>
 <body>
-	<!-- <form th:action="@{/}" method="get">
-		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
-	</form>	 -->
 	<!-- NAVIGATION BAR -->
         <div class="wrapper">
-				<nav>
-					<a href="index.html">
-						<img th:href="@{/images/rich_uncle.png}" id="logo">
-					</a>
-					<ul>
-						<li><a class="active" href="index.html">HOME</a></li>
-						<li><a href="create_join.html">CREATE/JOIN GAME</a></li>
-						<li><a href="help.html">HELP/ABOUT</a></li>
-						<li><a href="edit_profile.html">EDIT PROFILE</a></li>
-						<li class="rightli"><a href="login.html">LOGIN</a></li>
-					</ul>
-				</nav>
+			<nav>
+				<a th:href="@{/}">
+					<img src="images/rich_uncle.png" id="logo">
+				</a>
+				<ul>
+					<li><a th:href="@{/}">HOME</a></li>
+					<li><a th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
+					<li><a th:href="@{/learn}">HELP/ABOUT</a></li>
+					<li class="rightli"><a th:href="@{/login}">LOGIN</a></li>
+				</ul>
+			</nav>
 		</div>
 	
 	<div class="container" id="sign_up">
-			<form class="form-signin" method="post" name="register" >
+			<form id="form" class="form-signin" method="post" name="register" >
 					<h2 class="form-signin-heading">Sign Up</h2><hr />
 <!-- 					<div id="error">
 						error will be shown here
@@ -61,51 +56,8 @@
 						</button>
 					</div>
 				</form>
-				<p id="success-msg">Account successfully created.</p>
-		<!-- <div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<form autocomplete="off" action="#" th:action="@{/registration}"
-					th:object="${account}" method="post" class="form-horizontal"
-					role="form">
-					<h2>Registration Form</h2>
-					<div class="form-group">
-						<div class="col-sm-9">
-						<label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-								class="validation-message"></label>
-						<input type="text" th:field="*{username}" placeholder="Username"
-								class="form-control" /> 
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="text" th:field="*{email}" placeholder="Email"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-								class="validation-message"></label>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="password" th:field="*{password}"
-								placeholder="Password" class="form-control" /> <label
-								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-								class="validation-message"></label>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="col-sm-9">
-							<button type="submit" class="btn btn-primary btn-block">Register User</button>
-						</div>
-					</div>
-					
-					<span th:utext="${successMessage}"></span>
-					
-					
-				</form>
-			</div>
-		</div> -->
+				<div id="ack"></div>
+				<p id="success-msg">Account successfully created. Redirecting to Login Page...</p>
 	</div>
 
 </body>

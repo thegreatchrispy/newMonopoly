@@ -40,5 +40,4 @@ public class AccountServiceImpl implements AccountService{
         account.setRoles(new HashSet<Role>(Arrays.asList(accountRole)));
 		accountRepository.save(account);
 	}
-
 }

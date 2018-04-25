@@ -27,7 +27,7 @@ span {
 
 .box {
     position: fixed;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0);
     border-radius: 30px;
     width: 800px;
     height: 600px;
@@ -206,4 +206,9 @@ span {
     text-align: center;
     min-width: 160px;
     text-decoration: none;
+}
+
+#num_players {
+    background: white;
+    color: black;
 }

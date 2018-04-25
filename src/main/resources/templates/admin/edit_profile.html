@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/navigation.css">
+        <script src="jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/create_join.js"></script>
+	    <title>NEW MONOPOLY :: EDIT PROFILE</title>
+    </head>
+    <body>
+            <div class="wrapper">
+                <nav>
+                    <a th:href="@{/home}">
+                        <img src="images/rich_uncle.png" id="logo">
+                    </a>
+                    <ul>
+                        <li><a th:href="@{/home}">HOME</a></li>
+                        <li><a th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
+                        <li><a th:href="@{/help}">HELP/ABOUT</a></li>
+                        <li><a class="active" th:href="@{/edit_profile}">EDIT PROFILE</a></li>
+                        <li class="rightli"><a th:href="@{/logout}">LOGOUT</a></li>
+                    </ul>
+                </nav>
+            </div>
+    </body>
+</html>
