@@ -1,25 +1,17 @@
 package com.newmonopoly.model;
 
-import java.util.Set;
 import java.util.List;
-import java.util.Vector;
-import java.util.Collections;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-// Change the columns involving objects into json strings.
 @Entity
 @Table(name = "boards")
 public class Board {

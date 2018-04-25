@@ -13,34 +13,22 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
 
 @Entity
 @Table(name = "account")
 public class Account {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "account_id")
 	private int id;
 	@Column(name = "email")
-//	@Email(message = "*Please provide a valid Email")
-//	@NotEmpty(message = "*Please provide an email")
 	private String email;
 	@Column(name = "username")
-//	@NotEmpty(message = "*Please provide your username")
 	private String username;
 	@Column(name = "password")
-//	@Length(min = 5, message = "*Your password must have at least 5 characters")
-//	@NotEmpty(message = "*Please provide your password")
 	@Transient
 	private String password;
-//	@Column(name = "last_name")
-//	@NotEmpty(message = "*Please provide your last name")
-//	private String lastName;
 	@Column(name = "active")
 	private int active;
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -81,14 +69,6 @@ public class Account {
 		this.username = username;
 	}
 
-//	public String getLastName() {
-//		return lastName;
-//	}
-//
-//	public void setLastName(String lastName) {
-//		this.lastName = lastName;
-//	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -112,5 +92,4 @@ public class Account {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
 }
