@@ -1,4 +1,4 @@
 mvn clean
 mvn clean install
 cd target/
-java -jar demo-0.0.1-SNAPSHOT.jar
+java -jar newMonopoly-0.0.1-SNAPSHOT.jar
