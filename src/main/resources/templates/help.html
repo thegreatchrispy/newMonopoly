@@ -2,9 +2,10 @@
 <html>
     <head>
     <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/navigation.css">
-        <script src="jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/create_join.js"></script>
+        <link rel="stylesheet" th:href="@{/css/navigation.css}">
+        <link rel="stylesheet" th:href="@{/css/help.css}">
+        <script th:src="@{/jquery/3.3.1/jquery.min.js}"></script>
+        <script th:src="@{/js/help.js}"></script>
 	    <title>NEW MONOPOLY :: HELP/ABOUT</title>
     </head>
     <body>
@@ -21,5 +22,28 @@
                         </ul>
                     </nav>
                 </div>
+                <div class="box">
+                    <div id="option">
+                        <div class="box_header">SELECT OPTION</div>
+                            <a id="about_button" class="choice">ABOUT</a> <a id="rules_button" class="choice">RULES</a>
+                        </div>
+                    <div id="about">
+                        <div class="box_header">ABOUT</div>
+                        <div class="box_text">Similar in gameplay and structure to the great classic board game, New Monopoly®
+                                connects players all over the world in a live, multiplayer game experience. Hasbro currently does
+                                not have a free virtual board game, nor do they offer a balanced board game experience. Often
+                                players at a strategic advantage dominate the game. This online game model will allow players to
+                                experience a more difficult, but balanced gameplay with the following added features: <br><br>
+                                 Seasons that change the Luck and Charity cards, the board graphics, and the property
+                                values.<br><br>
+                                 Options that allow randomized board spaces, or other game board styles.<br><br>
+                                 House rules that turn a boring old board game into a personalized experience.<br><br>
+                                Everyone plays the game a little differently; however, with the help of New Monopoly®, the
+                                style of the traditional board game will change forever. Each experience with New Monopoly®
+                                will give players a unique sense of familiarity, yet the challenges are far greater. Sign up now,
+                                and help us launch New Monopoly® into the future of gaming!</div>
+                    </div>
+                        
+                </div> 
     </body>
 </html>

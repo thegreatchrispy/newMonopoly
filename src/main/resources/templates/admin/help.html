@@ -2,25 +2,31 @@
 <html>
     <head>
     <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/navigation.css">
-        <script src="jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/create_join.js"></script>
+        <link rel="stylesheet" th:href="@{css/navigation.css}">
+        <link rel="stylesheet" th:href="@{css/help.css}">
+        <script th:src="@{/jquery/3.3.1/jquery.min.js}"></script>
+        <script th:src="@{/js/create_join.js}"></script>
 	    <title>NEW MONOPOLY :: HELP/ABOUT</title>
     </head>
     <body>
             <div class="wrapper">
-                    <nav>
-                        <a th:href="@{/home}">
-                            <img src="images/rich_uncle.png" id="logo">
-                        </a>
-                        <ul>
-                            <li><a th:href="@{/home}">HOME</a></li>
-                            <li><a th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
-                            <li><a class="active" th:href="@{/help}">HELP/ABOUT</a></li>
-                            <li><a th:href="@{/edit_profile}">EDIT PROFILE</a></li>
-                            <li class="rightli"><a th:href="@{/logout}">LOGOUT</a></li>
-                        </ul>
-                    </nav>
+                <nav>
+                    <a th:href="@{/home}">
+                        <img src="images/rich_uncle.png" id="logo">
+                    </a>
+                    <ul>
+                        <li><a th:href="@{/home}">HOME</a></li>
+                        <li><a th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
+                        <li><a class="active" th:href="@{/help}">HELP/ABOUT</a></li>
+                        <li><a th:href="@{/edit_profile}">EDIT PROFILE</a></li>
+                        <li class="rightli"><a th:href="@{/logout}">LOGOUT</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="box" id="about">
+                <div class="box_header">ABOUT
+                    <p>TEST</p>
                 </div>
+            </div>          
     </body>
 </html>
