@@ -1,0 +1,29 @@
+.box {
+    position: fixed;
+    background-color: white;
+    border-radius: 30px;
+    width: 800px;
+    height: 600px;
+    top: 30%;
+    left: 35%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+.box_header {
+    color: black;
+    position: absolute;
+    float: left;
+    top: 5%;
+    width: fit-content;
+    left: 50%;
+    transform: translate(-50%, -0%);
+    font-size: 50px;
+}
+
+#create_form {
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    transform: translate(-50%, -0%);
+}
