@@ -119,6 +119,13 @@ public class WebpageController {
 			return "true";
 		}
 	}
+
+	@RequestMapping("/gameplay")
+	public ModelAndView gameplay(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("gameplay");
+		return modelAndView;
+	}
 //	public ModelAndView createNewAccount(@Valid Account account, BindingResult bindingResult) {
 //		ModelAndView modelAndView = new ModelAndView();
 //		Account accountExists = accountService.findUserByEmail(account.getEmail());

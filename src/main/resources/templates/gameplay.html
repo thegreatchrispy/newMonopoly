@@ -1,14 +1,83 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 	<head>
+
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="css/boardStyle.css">
-		<script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>	
-		<script type="text/javascript" src="js/swap.js"></script>
-		<script type="text/javascript" src="jquery/validate.min.js"></script>
+		<link rel="stylesheet" th:href="@{/css/boardStyle.css}">
+		<script type="text/javascript" th:src="@{/js/swap.js}"></script>
+		<script type="text/javascript" th:src="@{/js/popup-details.js}"></script>
+		<script type="text/javascript" th:src="@{/js/player-info.js}"></script>
+
+		<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/jquery/validate.min.js}"></script>
 	</head>
+
+	<aside class="side-space">
+		<div id="myModal" class="popup">
+		<!-- Modal content -->
+			<div class="popup-content"></div>
+			<span class="close" id="close1">&times;</span>
+			<div id="PlayerInfo"></div>
+		</div>
+
+		<div class="side-block">
+			<p class="side-block-content">Player 1</p>
+			<p>Current money amount: 3 coins</p>
+			<p><button class="player-btn" id="FirstBtn">More info</button></p>
+		</div>
+  
+		<script>
+		player_info('FirstBtn','This is player 1','0,0,0');
+		</script>
+
+		<div class="side-block">
+			<p class="side-block-content">Player 2</p>
+			<p>Current money amount: 3 coins</p>
+			<p><button class="player-btn" id="SecondBtn">More info</button></p>
+		</div>
+		<script>
+		player_info('SecondBtn','This is player 2','0,0,255');
+		</script>
+
+		<div class="side-block">
+			<p class="side-block-content">Player 3</p>
+			<p>Current money amount: 5 coins</p>
+			<p><button class="player-btn" id="ThirdBtn">More info</button></p>
+		</div>
+		<script>
+		player_info('ThirdBtn','This is player 3','255,0,0');
+		</script>
+
+		<div class="side-block">
+			<p class="side-block-content">Player 4</p>
+			<p>Current money amount: 5 coins</p>
+			<p><button class="player-btn" id="FourthBtn">More info</button></p>
+		</div>
+		<script>
+		player_info('FourthBtn','This is player 4','0,128,0');
+		</script>
+
+		<div class="side-block">
+			<p class="side-block-content">Player 5</p>
+			<p>Current money amount: 5 coins</p>
+			<p><button class="player-btn" id="FifthBtn">More info</button></p>
+		</div>
+		<script>
+		player_info('FifthBtn','This is player 5','255,165,0');
+		</script>
+
+		<div class="side-block">
+			<p class="side-block-content">Player 6</p>
+			<p>Current money amount: 5 coins</p>
+			<p><button class="player-btn" id="SixthBtn">More info</button></p>
+		</div>
+		<script>
+		player_info('SixthBtn','This is player 6','221,160,221');
+		</script>
+	</aside>
+
 	<body>
 		<div class="table">
 			<div class="board">
@@ -29,13 +98,19 @@
 						i=0;
 						setInterval(function(){
 							if (i === images.length) i=0;
-								$(".center").css("background","url(images/"+images[i]+")");
-								$(".center").css("background-size","50%");
-								i++;
+							$(".center").css("background","url(images/"+images[i]+")");
+							$(".center").css("background-size","50%");
+							i++;
 						}, 3000);
 					}
 					loopImageFunction();
 				</script>
+
+			<div id="modalInfo" class="modal">
+				<div class="modal-content" id="boxInfo"></div>
+				<span class="close" id="close2">&times;</span>
+				<div id="caption"></div>
+			</div>
 
 			<div id="piece_1" class="piece_1"></div>
 			<div id="piece_2" class="piece_2"></div>
@@ -46,11 +121,11 @@
 
 				<!-- GO SPACE -->
 				<div class="space corner go">
-					<div class="container">
+					<div class="container-corner">
 						<div class="instructions">Collect $200.00 salary as you pass</div>
 						<div class="go-word">go</div>
 					</div>
-					<div class="arrow fa fa-long-arrow-left"></div>
+					<!-- <div class="arrow fa fa-long-arrow-left"></div> -->
 				</div>
 
 				<!-- Group #1 -->
@@ -63,19 +138,16 @@
 							</div>
 						</div>
 						<div class="space property">
-							<div class="container" onclick="myfunction()">
-							<span class="popuptext" id="myPopup">displays info, kappa</span>
-							<div id="caption"></div>
+							<div class="container" id="Baltic Avenue">
 								<div class="color-bar dark-purple"></div>
 								<div class="name">Baltic Avenue</div>
 								<div class="price">Price $50</div>
 							</div>
+
 							<script>
-							function myfunction(){
-								var popup = document.getElementById("myPopup");
-								popup.classList.toggle("show");
-							}
+							popup_details("Baltic Avenue");
 							</script>
+
 						</div>
 						<div class="space community-chest">
 							<div class="container">
@@ -85,38 +157,50 @@
 							</div>
 						</div>
 						<div class="space property">
-							<div class="container">
+							<div class="container" id="Mediterranean Avenue">
 								<div class="color-bar dark-purple"></div>
 								<div class="name three-line-name">Mediter-<br>ranean<br>Avenue</div>
 								<div class="price">Price $50</div>
 							</div>
+							<script>
+							popup_details('Mediterranean Avenue');
+							</script>
 						</div>
 					</div> 
 
 				<!-- Railroad #1 -->
 				<div class="space railroad row horizontal-row-center bottom-row-center">
-						<div class="container">
+						<div class="container" id="readingR">
 							<div class="name">Reading Railroad</div>
 							<i class="drawing fa fa-subway"></i>
 							<div class="price">Price $200</div>
 						</div>
+						<script>
+							popup_specialBoxes_details('readingR','<p> Reading Railroad <br> Group 9 <br> Price: 200 <br> Rent: 25 <br> Multiplied Rent per Railroad: 50, 100, 200</p>');
+							</script>
 				</div>
 
 				<!-- Group #2 -->
 				<div id="group_2" class="row horizontal-row bottom-row-left">
 						<div class="space property">
-								<div class="container">
+								<div class="container" id="Connecticut Avenue">
 									<div class="color-bar light-blue"></div>
 									<div class="name">Connecticut Avenue</div>
 									<div class="price">PRICE $120</div>
 								</div>
+								<script>
+								popup_details('Connecticut Avenue');
+								</script>
 							</div>
 							<div class="space property">
-								<div class="container">
+								<div class="container" id="Vermont Avenue">
 									<div class="color-bar light-blue"></div>
 									<div class="name">Vermont Avenue</div>
 									<div class="price">Price $100</div>
 								</div>
+								<script>
+								popup_details('Vermont Avenue');
+								</script>
 							</div>
 							<div class="space chance">
 								<div class="container">
@@ -125,11 +209,14 @@
 								</div>
 							</div>
 							<div class="space property">
-								<div class="container">
+								<div class="container" id="Oriental Avenue">
 									<div class="color-bar light-blue"></div>
 									<div class="name">Oriental Avenue</div>
 									<div class="price">Price $100</div>
 								</div>
+								<script>
+								popup_details('Oriental Avenue');
+								</script>
 							</div>
 				</div>
 
@@ -137,7 +224,7 @@
 				<div class="space corner jail">
 					<div class="just">Just</div>
 					<div class="drawing">
-						<div class="container">
+						<div class="container-corner">
 							<div class="name">In</div>
 							<div class="window">
 								<div class="bar"></div>
@@ -154,59 +241,80 @@
 				<!-- GROUP #3 -->
 				<div id="group_3" class="row vertical-row left-row-bottom">
 						<div class="space property">
-								<div class="container">
+								<div class="container" id="Virginia Avenue">
 									<div class="color-bar purple"></div>
 									<div class="name">Virginia Avenue</div>
 									<div class="price">Price $160</div>
 								</div>
+								<script>
+								popup_details('Virginia Avenue');
+								</script>
 							</div>
 							<div class="space property">
-								<div class="container">
+								<div class="container" id="States Avenue">
 									<div class="color-bar purple"></div>
 									<div class="name">States Avenue</div>
 									<div class="price">Price $140</div>
 								</div>
+								<script>
+								popup_details('States Avenue');
+								</script>
 							</div>
 							<div class="space utility electric-company">
-								<div class="container">
+								<div class="container" id="Electric Company">
 									<div class="name">Electric Company</div>
 									<i class="drawing fa fa-lightbulb-o"></i>
 									<div class="price">Price $150</div>
 								</div>
+								<script>
+								popup_details('Electric Company');
+								</script>
 							</div>
 							<div class="space property">
-								<div class="container">
+								<div class="container" id="St. Charles Place">
 									<div class="color-bar purple"></div>
 									<div class="name">St. Charles Place</div>
 									<div class="price">Price $140</div>
 								</div>
+								<script>
+								popup_details('St. Charles Place');
+								</script>
 							</div>
 				</div>
 
 				<!-- RAILROAD #2 -->
 				<div class="space railroad row vertical-row left-row-center">
-						<div class="container">
+						<div class="container" id="pennsylvaniaR">
 							<div class="name long name">Pennsylvania Railroad</div>
 							<i class="drawing fa fa-subway"></i>
 							<div class="price">Price $200</div>
 						</div>
+						<script>
+						popup_specialBoxes_details('pennsylvaniaR','<p> Pennsylvania Railroad <br> Group 9 <br> Price: 200 <br> Rent: 25 <br> Multiplied Rent per Railroad: 50, 100, 200</p>');
+						</script>
 				</div>
 
 				<!-- GROUP #4 -->
 				<div id="group_4" class="row vertical-row left-row-top">
 						<div class="space property">
-							<div class="container">
+							<div class="container" id="New York Avenue">
 								<div class="color-bar orange"></div>
 								<div class="name">New York Avenue</div>
 								<div class="price">Price $200</div>
 							</div>
+							<script>
+							popup_details('New York Avenue');
+							</script>
 						</div>
 						<div class="space property">
-							<div class="container">
+							<div class="container" id="Tennessee Avenue">
 								<div class="color-bar orange"></div>
 								<div class="name">Tennessee Avenue</div>
 								<div class="price">Price $180</div>
 							</div>
+							<script>
+							popup_details('Tennessee Avenue');
+							</script>
 						</div>
 						<div class="space community-chest">
 							<div class="container">
@@ -216,31 +324,38 @@
 							</div>
 						</div>
 						<div class="space property">
-							<div class="container">
+							<div class="container" id="St. James Place">
 								<div class="color-bar orange"></div>
 								<div class="name">St. James Avenue</div>
 								<div class="price">Price $180</div>
 							</div>
+							<script>
+							popup_details('St. James Place');
+							</script>
 						</div>
 				</div>
 
 				<!-- FREE PARKING -->
 				<div class="space corner free-parking">
-						<div class="container">
+						<div class="container-corner">
 							<div class="name">Free</div>
 							<i class="drawing fa fa-car"></i>
 							<div class="name">Parking</div>
 						</div>
+
 				</div>
 
 				<!-- GROUP #5 -->
 				<div id="group_5" class="row horizontal-row top-row-left">
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Kentucky Avenue">
 							<div class="color-bar red"></div>
 							<div class="name">Kentucky Avenue</div>
 							<div class="price">Price $220</div>
 						</div>
+						<script>
+						popup_details('Kentucky Avenue');
+						</script>
 					</div>
 					<div class="space chance">
 						<div class="container">
@@ -249,86 +364,116 @@
 						</div>
 					</div>
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Indiana Avenue">
 							<div class="color-bar red"></div>
 							<div class="name">Indiana Avenue</div>
 							<div class="price">Price $220</div>
 						</div>
+						<script>
+						popup_details('Indiana Avenue');
+						</script>
 					</div>
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Illinois Avenue">
 							<div class="color-bar red"></div>
 							<div class="name">Illinois Avenue</div>
 							<div class="price">Price $200</div>
 						</div>
+						<script>
+						popup_details('Illinois Avenue');
+						</script>
 					</div>
 				</div>
 				
 				<!-- RAILROAD #3 -->
 				<div class="space railroad row horizontal-row top-row-center">
-						<div class="container">
+						<div class="container" id="b&oR">
 							<div class="name">B & O Railroad</div>
 							<i class="drawing fa fa-subway"></i>
 							<div class="price">Price $200</div>
 						</div>
+						<script>
+						popup_specialBoxes_details('b&oR','<p> b&o Railroad <br> Group 9 <br> Price: 200 <br> Rent: 25 <br> Multiplied Rent per Railroad: 50, 100, 200</p>');
+						</script>
 				</div>
 
 				<!-- GROUP #6 -->
 				<div id="group_6" class="row horizontal-row top-row-right">
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Atlantic Avenue">
 							<div class="color-bar yellow"></div>
 							<div class="name">Atlantic Avenue</div>
 							<div class="price">Price $260</div>
 						</div>
+						<script>
+						popup_details('Atlantic Avenue');
+						</script>
 					</div>
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Ventnor Avenue">
 							<div class="color-bar yellow"></div>
 							<div class="name">Ventnor Avenue</div>
 							<div class="price">Price $260</div>
 						</div>
+						<script>
+						popup_details('Ventnor Avenue');
+						</script>
 					</div>
 					<div class="space utility waterworks">
-						<div class="container">
-							<div class="name">Waterworks</div>
+						<div class="container" id="Water Works">
+							<div class="name">Water Works</div>
 							<i class="drawing fa fa-tint"></i>
 							<div class="price">Price $120</div>
 						</div>
+						<script>
+						popup_details('Water Works');
+						</script>
 					</div>
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Marvin Gardens">
 							<div class="color-bar yellow"></div>
 							<div class="name">Marvin Gardens</div>
 							<div class="price">Price $280</div>
 						</div>
+						<script>
+						popup_details('Marvin Gardens');
+						</script>
 					</div>					
 				</div>
 
 				<!-- GO TO JAIL -->
 				<div class="space corner go-to-jail">
-						<div class="container">
-							<div class="name">Go To</div>
-							<i class="drawing fa fa-gavel"></i>
-							<div class="name">Jail</div>
-						</div>
+					<div class="container-corner" id="goToJail">
+						<div class="name">Go To</div>
+						<i class="drawing fa fa-gavel"></i>
+						<div class="name">Jail</div>
 					</div>
+					<script>
+					popup_specialBoxes_details('goToJail','<p> Go To Jail <br> You are going to jail now <br> ¯\_(ツ)_/¯ </p>');
+					</script>
+				</div>
 
 				<!-- GROUP #7 -->
 				<div id="group_7" class="row vertical-row right-row-top">
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Pacific Avenue">
 							<div class="color-bar green"></div>
 							<div class="name">Pacific Avenue</div>
 							<div class="price">Price $300</div>
 						</div>
+						<script>
+						popup_details('Pacific Avenue');
+						</script>
 					</div>
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="North Carolina Avenue">
 							<div class="color-bar green"></div>
 							<div class="name three-line-name">North Carolina Avenue</div>
 							<div class="price">Price $300</div>
 						</div>
+						<script>
+						popup_details('North Carolina Avenue');
+						</script>
 					</div>
 					<div class="space community-chest">
 						<div class="container">
@@ -338,21 +483,27 @@
 						</div>
 					</div>
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Pennsylvania Avenue">
 							<div class="color-bar green"></div>
 							<div class="name long-name">Pennsylvania Avenue</div>
 							<div class="price">Price $320</div>
 						</div>
+						<script>
+						popup_details('Pennsylvania Avenue');
+						</script>
 					</div>
 				</div>
 
 				<!-- RAILROAD #4 -->
 				<div class="space railroad row vertical-row right-row-center">
-						<div class="container">
+						<div class="container" id="shortLine">
 							<div class="name">Short Line</div>
 							<i class="drawing fa fa-subway"></i>
 							<div class="price">Price $200</div>
 						</div>
+						<script>
+						popup_specialBoxes_details('shortLine','<p> Short Line <br> Group 9 <br> Price: 200 <br> Rent: 25 <br> Multiplied Rent per Railroad: 50, 100, 200</p>');
+						</script>
 				</div>
 
 
@@ -365,11 +516,14 @@
 						</div>
 					</div>
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Park Place">
 							<div class="color-bar dark-blue"></div>
 							<div class="name">Park Place</div>
 							<div class="price">Price $350</div>
 						</div>
+						<script>
+						popup_details('Park Place');
+						</script>
 					</div>
 					<div class="space fee luxury-tax">
 						<div class="container">
@@ -379,11 +533,14 @@
 						</div>
 					</div>
 					<div class="space property">
-						<div class="container">
+						<div class="container" id="Boardwalk">
 							<div class="color-bar dark-blue"></div>
 							<div class="name">Boardwalk</div>
 							<div class="price">Price $400</div>
 						</div>
+						<script>
+						popup_details('Boardwalk');
+						</script>
 					</div>
 				</div>
 			</div>
