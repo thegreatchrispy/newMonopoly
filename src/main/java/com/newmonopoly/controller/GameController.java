@@ -228,4 +228,42 @@ public class GameController {
 
 		return boardService.getCurrentPlayer(board) + "'s turn is beginning.";
 	}
+
+	@RequestMapping("/getnumberofplayers")
+	public int getNumberOfPlayers(@RequestParam("gameid") int id) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		List<Player> players = new Vector<Player>();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return players.size();
+	}
+
+	@RequestMapping("/getnamesofplayers")
+	public String getNamesOfPlayers(@RequestParam("gameid") int id) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		List<Player> players = new Vector<Player>();
+		String names = "";
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			for (Player player : players) {
+				names += player.getName() + " ";
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return names;
+	}
 }

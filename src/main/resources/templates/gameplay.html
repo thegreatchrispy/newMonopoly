@@ -6,13 +6,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" th:href="@{/css/boardStyle.css}">
+		<script th:src="@{/jquery/3.3.1/jquery.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/swap.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popup-details.js}"></script>
 		<script type="text/javascript" th:src="@{/js/player-info.js}"></script>
-
-		<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
-		<script type="text/javascript" th:src="@{/jquery/validate.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/playerSetup.js}"></script>
 	</head>
+
 
 	<aside class="side-space">
 		<div id="myModal" class="popup">
@@ -22,8 +22,10 @@
 			<div id="PlayerInfo"></div>
 		</div>
 
-		<div class="side-block">
-			<p class="side-block-content">Player 1</p>
+
+
+		<div class="side-block" id="player1">
+			<p class="side-block-content" id="player1-name"></p>
 			<p>Current money amount: 3 coins</p>
 			<p><button class="player-btn" id="FirstBtn">More info</button></p>
 		</div>
@@ -32,8 +34,8 @@
 		player_info('FirstBtn','This is player 1','0,0,0');
 		</script>
 
-		<div class="side-block">
-			<p class="side-block-content">Player 2</p>
+		<div class="side-block" id="player2">
+			<p class="side-block-content" id="player2-name"></p>
 			<p>Current money amount: 3 coins</p>
 			<p><button class="player-btn" id="SecondBtn">More info</button></p>
 		</div>
@@ -41,8 +43,8 @@
 		player_info('SecondBtn','This is player 2','0,0,255');
 		</script>
 
-		<div class="side-block">
-			<p class="side-block-content">Player 3</p>
+		<div class="side-block" id="player3">
+			<p class="side-block-content" id="player3-name"></p>
 			<p>Current money amount: 5 coins</p>
 			<p><button class="player-btn" id="ThirdBtn">More info</button></p>
 		</div>
@@ -50,8 +52,8 @@
 		player_info('ThirdBtn','This is player 3','255,0,0');
 		</script>
 
-		<div class="side-block">
-			<p class="side-block-content">Player 4</p>
+		<div class="side-block" id="player4">
+			<p class="side-block-content" id="player4-name"></p>
 			<p>Current money amount: 5 coins</p>
 			<p><button class="player-btn" id="FourthBtn">More info</button></p>
 		</div>
@@ -59,8 +61,8 @@
 		player_info('FourthBtn','This is player 4','0,128,0');
 		</script>
 
-		<div class="side-block">
-			<p class="side-block-content">Player 5</p>
+		<div class="side-block" id="player5">
+			<p class="side-block-content" id="player5-name"></p>
 			<p>Current money amount: 5 coins</p>
 			<p><button class="player-btn" id="FifthBtn">More info</button></p>
 		</div>
@@ -68,8 +70,8 @@
 		player_info('FifthBtn','This is player 5','255,165,0');
 		</script>
 
-		<div class="side-block">
-			<p class="side-block-content">Player 6</p>
+		<div class="side-block" id="player6">
+			<p class="side-block-content" id="player6-name"></p>
 			<p>Current money amount: 5 coins</p>
 			<p><button class="player-btn" id="SixthBtn">More info</button></p>
 		</div>

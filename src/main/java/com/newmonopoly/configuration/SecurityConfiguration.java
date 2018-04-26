@@ -53,6 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/creategame").permitAll()
 				.antMatchers("/joingame").permitAll()
 				.antMatchers("/gameplay").permitAll()
+				.antMatchers("/lobby").permitAll()
 				.antMatchers("/retrievegame").permitAll()
 				.antMatchers("/deletegame").permitAll()
 				.antMatchers("/haswinner").permitAll()
@@ -62,6 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/moveplayer").permitAll()
 				.antMatchers("/moveplayertojail").permitAll()
 				.antMatchers("/nextturn").permitAll()
+				.antMatchers("/getnumberofplayers").permitAll()
+				.antMatchers("/getnamesofplayers").permitAll()
 				// Authorities.
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
 				// Login and Logout

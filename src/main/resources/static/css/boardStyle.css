@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 550px;
     border-left: 1px dotted #6d6d6d;
 }
-.side-block {
+.side-block{
     width: 90%;
     margin: auto;
     margin-top: 10px;
@@ -33,6 +33,26 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 10px;
     background-color: #e5eff3;
 }
+
+#player1{
+  display:none;
+}
+#player2{
+  display:none;
+}
+#player3{
+  display:none;
+}
+#player4{
+  display:none;
+}
+#player5{
+  display:none;
+}
+#player6{
+  display:none;
+}
+
 .side-block-content {
     color: grey;
     font-size: 18px;
@@ -737,4 +757,23 @@ h1, h2, h3, h4, h5, h6 {
   grid-column: 11;
   grid-row: 11;
   position: relative;
+}
+
+#piece_1{
+  display:none;
+}
+#piece_2{
+  display:none;
+}
+#piece_3{
+  display:none;
+}
+#piece_4{
+  display:none;
+}
+#piece_5{
+  display:none;
+}
+#piece_6{
+  display:none;
 }

@@ -126,6 +126,13 @@ public class WebpageController {
 		modelAndView.setViewName("gameplay");
 		return modelAndView;
 	}
+
+	@RequestMapping("/lobby")
+	public ModelAndView lobby(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("lobby");
+		return modelAndView;
+	}
 //	public ModelAndView createNewAccount(@Valid Account account, BindingResult bindingResult) {
 //		ModelAndView modelAndView = new ModelAndView();
 //		Account accountExists = accountService.findUserByEmail(account.getEmail());
