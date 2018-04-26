@@ -10,6 +10,7 @@
 		<script type="text/javascript" th:src="@{/js/swap.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popup-details.js}"></script>
 		<script type="text/javascript" th:src="@{/js/player-info.js}"></script>
+		<script type="text/javascript" th:src="@{/js/roll-die.js}"></script>
 		<script type="text/javascript" th:src="@{/js/playerSetup.js}"></script>
 	</head>
 
@@ -548,4 +549,14 @@
 			</div>
 		</div>
 	</body>
+
+	<div class="topright">
+		<div class="dieholder" id="dice1"></div>
+		<div class="dieholder" id="dice2"></div>
+		<button class="die-button" id="dieButton">Roll Die</button>
+		<script>
+			rollDie();
+		</script>
+	</div>
+	
 </html>
