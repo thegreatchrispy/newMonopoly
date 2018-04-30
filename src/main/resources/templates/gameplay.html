@@ -10,8 +10,8 @@
 		<script type="text/javascript" th:src="@{/js/swap.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popup-details.js}"></script>
 		<script type="text/javascript" th:src="@{/js/player-info.js}"></script>
-		<script type="text/javascript" th:src="@{/js/roll-die.js}"></script>
-		<script type="text/javascript" th:src="@{/js/playerSetup.js}"></script>
+		<script type="text/javascript" th:src="@{/js/new-monopoly.js}"></script>
+
 	</head>
 
 
@@ -554,9 +554,53 @@
 		<div class="dieholder" id="dice1"></div>
 		<div class="dieholder" id="dice2"></div>
 		<button class="die-button" id="dieButton">Roll Die</button>
-		<script>
-			rollDie();
-		</script>
+	</div>
+
+		<div id="control">
+		<table>
+			<tr>
+				<td style="text-align: left; vertical-align: top; border: none;">
+					<div id="menu">
+						<table id="menutable" cellspacing="0">
+							<tr>
+								<td type="button" id="buy-menu-item">
+
+									<a href="javascript:void(0);" title="View alerts and buy the property you landed on.">Buy</a>
+								</td>
+								<td type="button" id="manage-menu-item">
+
+									<a href="javascript:void(0);" title="View, mortgage, and improve your property. ">Manage</a>
+								</td>
+								<td type="button" id="trade-menu-item">
+
+									<a href="javascript:void(0);" title="Exchange property with other players.">Trade</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<div id="buy">
+						<div id="alert"></div>
+						<div id="landed"></div>
+					</div>
+
+					<div id="manage">
+						<div id="option">
+							<div id="buildings" title="Available buildings"></div>
+							<input type="button" value="Buy house" id="buyhousebutton"/>
+							<input type="button" value="Mortgage" id="mortgagebutton" />
+							<input type="button" value="Sell house" id="sellhousebutton"/>
+						</div>
+						<div id="owned"></div>
+					</div>
+				</td>
+			</tr><tr>
+				<td colspan="2" style="border: none">
+					<div style="padding-top: 8px;">
+					</div>
+				</td>
+			</tr>
+		</table>
 	</div>
 	
 </html>
