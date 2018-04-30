@@ -434,15 +434,14 @@ public class BoardServiceImpl implements BoardService {
 				payTax(board, player, space);
 				break;
 			case "comchest":
-				// drawCard(board, player, board.getCommunity());
+				drawCard(board, player, board.getCommunity());
 				break;
 			case "chance":
-				//drawCard(board, player, board.getChance());
+				drawCard(board, player, board.getChance());
 				break;
 			default:
 				break;
 		}
-		// Update: player, space, chance, community
 	}
 
 	@Override
