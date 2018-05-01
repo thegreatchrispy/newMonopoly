@@ -1,16 +1,9 @@
 package com.newmonopoly.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -119,34 +112,4 @@ public class WebpageController {
 			return "true";
 		}
 	}
-//	public ModelAndView createNewAccount(@Valid Account account, BindingResult bindingResult) {
-//		ModelAndView modelAndView = new ModelAndView();
-//		Account accountExists = accountService.findUserByEmail(account.getEmail());
-//		if (accountExists != null) {
-//			bindingResult
-//					.rejectValue("email", "error.account",
-//							"There is already a account registered with the email provided");
-//		}
-//		if (bindingResult.hasErrors()) {
-//			modelAndView.setViewName("registration");
-//		} else {
-//			accountService.saveAccount(account);
-//			modelAndView.addObject("successMessage", "account has been registered successfully");
-//			modelAndView.addObject("account", new Account());
-//			modelAndView.setViewName("registration");
-//			
-//		}
-//		return modelAndView;
-//	}
-	
-	// @RequestMapping(value="/admin/home", method = RequestMethod.GET)
-	// public ModelAndView test(){
-	// 	ModelAndView modelAndView = new ModelAndView();
-	// 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	// 	Account account = accountService.findUserByEmail(auth.getName());
-	// 	modelAndView.addObject("userName", "Welcome " + account.getUsername() + " (" + account.getEmail() + ")");
-	// 	modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-	// 	modelAndView.setViewName("admin/home");
-	// 	return modelAndView;
-	// }
 }
