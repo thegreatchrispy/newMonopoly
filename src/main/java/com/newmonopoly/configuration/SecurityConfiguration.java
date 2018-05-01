@@ -52,6 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/learn").permitAll()
 				.antMatchers("/creategame").permitAll()
 				.antMatchers("/joingame").permitAll()
+				.antMatchers("/gameplay").permitAll()
 				.antMatchers("/retrievegame").permitAll()
 				.antMatchers("/deletegame").permitAll()
 				.antMatchers("/haswinner").permitAll()

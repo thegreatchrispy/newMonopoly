@@ -112,4 +112,11 @@ public class WebpageController {
 			return "true";
 		}
 	}
+
+	@RequestMapping("/gameplay")
+	public ModelAndView gameplay(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("gameplay");
+		return modelAndView;
+	}
 }
