@@ -56,7 +56,7 @@ function startTurn() {
 		total = (playersPosition[index] + total) % 40;
 		playersPosition[index] = total;
 		move(pieces[index], row[total], column[total], false);
-		movePlayer(1, names[index], 9);
+		movePlayer(1, names[index], value);
 		setTimeout(function() {
 			// Check Space Action and Type
 			checkSpaceActionAndType(1, names[index]);

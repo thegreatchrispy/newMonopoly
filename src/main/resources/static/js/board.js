@@ -22,9 +22,9 @@ function endTurn(id, playerName) {
 }
 
 function playerDecision(id, playerName) {
-    updateMoney(id, playerName);
     $('#acceptButton').hide();
     $('#declineButton').hide();
+    $('#continueButton').hide();
     addAlert("Your turn is about to come to an end, " + playerName + ".");
     addAlert("Please make a decision.");
     
@@ -44,7 +44,13 @@ function playerDecision(id, playerName) {
 
 function updateMoney(id, playerName) {
     var money = getMoney(id, playerName).responseText;
-    var moneyPosition = index + 1;
+    var moneyPosition = -1;
+    for(i = 0; i < numPlayers; i++) {
+        moneyPosition++;
+        if (names[moneyPosition] == playerName)
+            break;
+    }
+    moneyPosition++;
     var moneyID = "#money-" + moneyPosition;
     $(moneyID).html("$" + money);
 }
@@ -57,6 +63,7 @@ function chooseToBuy(id, playerName) {
     accept.onclick = function() {
         acceptPurchase(id, playerName);
         setTimeout(function() {
+            updateMoney(id, playerName);
             playerDecision(id, playerName);
         }, 500);
     };
@@ -69,7 +76,19 @@ function chooseToBuy(id, playerName) {
 
 function payProperty(id, playerName, ownerName) {
     $('#continueButton').show();
+    var continueButton = document.getElementById("continueButton");
+
     payRent(id, playerName, ownerName);
+    setTimeout(function() {
+        updateMoney(id, playerName);
+    }, 500);
+    setTimeout(function() {
+        updateMoney(id, ownerName);
+    }, 1000);
+
+    continueButton.onclick = function() {
+        playerDecision(id, playerName);
+    }
 }
 
 function movingToJail(id, playerName) {
