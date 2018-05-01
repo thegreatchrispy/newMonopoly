@@ -827,3 +827,28 @@ h1, h2, h3, h4, h5, h6 {
 #piece_6{
   display:none;
 }
+
+#dieButton {
+  display:none;
+}
+#acceptButton {
+  display:none;
+}
+#declineButton {
+  display:none;
+}
+#continueButton {
+  display:none;
+}
+#buildButton {
+  display:none;
+}
+#tradeButton {
+  display:none;
+}
+#mortgageButton {
+  display:none;
+}
+#endButton {
+  display:none;
+}

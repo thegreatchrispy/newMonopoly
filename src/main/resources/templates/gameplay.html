@@ -7,9 +7,28 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" th:href="@{/css/boardStyle.css}">
 		<script th:src="@{/jquery/3.3.1/jquery.min.js}"></script>
-		<script type="text/javascript" th:src="@{/js/swap.js}"></script>
+		<script type="text/javascript"> 
+			var index = 0; 
+			var numPlayers = 0;
+			var names = [];
+			var row = [11,11,11,11,11,11,11,11,11,11,11,
+		   				10, 9, 8, 7, 6, 5, 4, 3, 2, 1,
+		    			1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+		    			2, 3, 4, 5, 6, 7, 8, 9, 10];
+			var column = [11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1,
+		       			1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+		       			2, 3, 4, 5, 6, 7, 8, 9, 10,11,
+		       			11,11,11,11,11,11,11,11,11];
+			var playersPosition = [];
+			var pieces = ["piece_1", "piece_2", "piece_3", "piece_4", "piece_5", "piece_6"];
+			var doublesRolled = false;
+		</script>
+		<script type="text/javascript" th:src="@{/js/alert.js}"></script>
+		<script type="text/javascript" th:src="@{/js/move.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popup-details.js}"></script>
 		<script type="text/javascript" th:src="@{/js/player-info.js}"></script>
+		<script type="text/javascript" th:src="@{/js/ajax-calls.js}"></script>
+		<script type="text/javascript" th:src="@{/js/board.js}"></script>
 		<script type="text/javascript" th:src="@{/js/new-monopoly.js}"></script>
 
 	</head>
@@ -27,7 +46,8 @@
 
 		<div class="side-block" id="player1">
 			<p class="side-block-content" id="player1-name"></p>
-			<p>Current money amount: 3 coins</p>
+			<p>Current money amount:</p>
+			<p id="money-1">$1500</p>
 			<p><button class="player-btn" id="FirstBtn">More info</button></p>
 		</div>
   
@@ -37,7 +57,8 @@
 
 		<div class="side-block" id="player2">
 			<p class="side-block-content" id="player2-name"></p>
-			<p>Current money amount: 3 coins</p>
+			<p>Current money amount:</p>
+			<p id="money-2">$1500</p>
 			<p><button class="player-btn" id="SecondBtn">More info</button></p>
 		</div>
 		<script>
@@ -46,7 +67,8 @@
 
 		<div class="side-block" id="player3">
 			<p class="side-block-content" id="player3-name"></p>
-			<p>Current money amount: 5 coins</p>
+			<p>Current money amount:</p>
+			<p id="money-3">$1500</p>
 			<p><button class="player-btn" id="ThirdBtn">More info</button></p>
 		</div>
 		<script>
@@ -55,7 +77,8 @@
 
 		<div class="side-block" id="player4">
 			<p class="side-block-content" id="player4-name"></p>
-			<p>Current money amount: 5 coins</p>
+			<p>Current money amount:</p>
+			<p id="money-4">$1500</p>
 			<p><button class="player-btn" id="FourthBtn">More info</button></p>
 		</div>
 		<script>
@@ -64,7 +87,8 @@
 
 		<div class="side-block" id="player5">
 			<p class="side-block-content" id="player5-name"></p>
-			<p>Current money amount: 5 coins</p>
+			<p>Current money amount:</p>
+			<p id="money-5">$1500</p>
 			<p><button class="player-btn" id="FifthBtn">More info</button></p>
 		</div>
 		<script>
@@ -73,7 +97,8 @@
 
 		<div class="side-block" id="player6">
 			<p class="side-block-content" id="player6-name"></p>
-			<p>Current money amount: 5 coins</p>
+			<p>Current money amount:</p>
+			<p id="money-6">$1500</p>
 			<p><button class="player-btn" id="SixthBtn">More info</button></p>
 		</div>
 		<script>
@@ -553,51 +578,24 @@
 	<div class="topright">
 		<div class="dieholder" id="dice1"></div>
 		<div class="dieholder" id="dice2"></div>
-		<button class="die-button" id="dieButton">Roll Die</button>
+		<!-- <button class="die-button" id="dieButton">Roll Die</button> -->
 	</div>
 
-		<div id="control">
+	<div id="control">
 		<table>
 			<tr>
 				<td style="text-align: left; vertical-align: top; border: none;">
 					<div id="menu">
-						<table id="menutable" cellspacing="0">
-							<tr>
-								<td type="button" id="buy-menu-item">
-
-									<a href="javascript:void(0);" title="View alerts and buy the property you landed on.">Buy</a>
-								</td>
-								<td type="button" id="manage-menu-item">
-
-									<a href="javascript:void(0);" title="View, mortgage, and improve your property. ">Manage</a>
-								</td>
-								<td type="button" id="trade-menu-item">
-
-									<a href="javascript:void(0);" title="Exchange property with other players.">Trade</a>
-								</td>
-							</tr>
-						</table>
-					</div>
-
-					<div id="buy">
 						<div id="alert"></div>
-						<div id="landed"></div>
 					</div>
-
-					<div id="manage">
-						<div id="option">
-							<div id="buildings" title="Available buildings"></div>
-							<input type="button" value="Buy house" id="buyhousebutton"/>
-							<input type="button" value="Mortgage" id="mortgagebutton" />
-							<input type="button" value="Sell house" id="sellhousebutton"/>
-						</div>
-						<div id="owned"></div>
-					</div>
-				</td>
-			</tr><tr>
-				<td colspan="2" style="border: none">
-					<div style="padding-top: 8px;">
-					</div>
+					<button id="dieButton">Roll Die</button>
+					<button id="acceptButton">Accept</button>
+					<button id="declineButton">Decline</button>
+					<button id="continueButton">Continue</button>
+					<button id="buildButton">Build</button>
+					<button id="tradeButton">Trade</button>
+					<button id="mortgageButton">Mortgage</button>
+					<button id="endButton">End Turn</button>
 				</td>
 			</tr>
 		</table>

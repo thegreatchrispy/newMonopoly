@@ -18,7 +18,7 @@ public interface BoardService {
 	// Player movement functions
 	public void movePlayer(Board board, Player player, int value);
 	public void movePlayer(Board board, Player player, String spaceName);
-	public void movePlayerToJail(Board board, Player player);
+	public String movePlayerToJail(Board board, Player player);
 	public void moveToNearest(Board board, Player player, String type);
 	public void moveToPosition(Board board, Player player, int position);
 
@@ -32,16 +32,20 @@ public interface BoardService {
 	public void giveToPlayers(Board board, Player player, int payment);
 	
 	// Monopoly logic functions - DO NOT require user input
+	public String getSpaceActionAndType(Board board, Player player);
 	public void transaction(Board board, Player player);
-	public void performSpaceAction(Board board, Player player, Space space);
+	//public void performSpaceAction(Board board, Player player, Space space);
 	public void drawCard(Board board, Player player, List<Card> cards);
 	public void build(Board board, Player player, Space space);
 	public void trade(Board board, Player player);
 	public void addMonopoly(Board board, Player player, Space space);
 	public void findMonopolies(Board board, Player player);
 	public void bankrupt(Board board, Player player);
+	public int getPlayerIndex(Board boared, Player player);
 
 	// Monopoly logic functions - DO require user input
+	public String askToBuy(Board board, Player player);
+	public String buy(Board board, Player player, Space space);
 	public void chooseToBuy(Board board, Player player, Space space);
 	public void auction(Board board, Space space);
 	public void mortgage(Board board, Player player, int debt);
@@ -58,7 +62,7 @@ public interface BoardService {
 
 	// Space payment functions
 	public void payRailroad(Board board, Player player, Space space);
-	public void payRent(Board board, Player player, Space space);
+	public String payRent(Board board, Player player, Player owner);
 	public void payTax(Board board, Player player, Space space);
 	public void payUtility(Board board, Player player, Space space);
 

@@ -44,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.
 			authorizeRequests()
 				// Permits.
+				// Webpages.
 				.antMatchers("/").permitAll()
 				.antMatchers("/checkEmail").permitAll()
 				.antMatchers("/checkUsername").permitAll()
@@ -54,6 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/joingame").permitAll()
 				.antMatchers("/gameplay").permitAll()
 				.antMatchers("/lobby").permitAll()
+				// Game Controller.
 				.antMatchers("/retrievegame").permitAll()
 				.antMatchers("/deletegame").permitAll()
 				.antMatchers("/haswinner").permitAll()
@@ -61,10 +63,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/removefunds").permitAll()
 				.antMatchers("/addfunds").permitAll()
 				.antMatchers("/moveplayer").permitAll()
+				.antMatchers("/incrementdoubles").permitAll()
 				.antMatchers("/moveplayertojail").permitAll()
 				.antMatchers("/nextturn").permitAll()
 				.antMatchers("/getnumberofplayers").permitAll()
 				.antMatchers("/getnamesofplayers").permitAll()
+				.antMatchers("/getspaceactionandtype").permitAll()
+				.antMatchers("/getdoublescount").permitAll()
+				.antMatchers("/getmoney").permitAll()
+				.antMatchers("/asktobuy").permitAll()
+				.antMatchers("/acceptpurchase").permitAll()
+				.antMatchers("/payrent").permitAll()
 				// Authorities.
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
 				// Login and Logout

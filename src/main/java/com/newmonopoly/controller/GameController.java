@@ -253,6 +253,7 @@ public class GameController {
 		Board board = new Board();
 		Player player = new Player();
 		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
 
 		try {
 			board = boardService.findByGameId(id);
@@ -264,13 +265,276 @@ public class GameController {
 				}
 			} 
 			boardService.movePlayer(board, player, value);
-			boardService.saveBoard(board);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return player.getName() + " moved " + value + " spaces.";
+		board.setPlayers(players);
+		boardService.saveBoard(board);
+		return player.getName() + " landed on " + board.getSpaces().get(player.getCurrentPosition()).getName() + ".";
+	}
+
+	@RequestMapping("/moveplayertojail")
+	public String movePlayerToJail(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+		String string = "";
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			} 
+			string = boardService.movePlayerToJail(board, player);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		board.setPlayers(players);
+		boardService.saveBoard(board);
+		return string;
+	}
+
+	@RequestMapping("/incrementdoubles")
+	public String incrementDoubles(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			} 
+			player.setDoublesCount(player.getDoublesCount() + 1);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		board.setPlayers(players);
+		boardService.saveBoard(board);
+		return player.getName() + " rolled doubles!";
+	}
+
+	@RequestMapping("/setdoubles")
+	public String setDoubles(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			} 
+			player.setDoublesCount(0);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		board.setPlayers(players);
+		boardService.saveBoard(board);
+		return player.getName() + " rolled doubles!";
+	}
+
+	@RequestMapping("/getspaceactionandtype")
+	public String getSpaceActionAndType(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		String string = "";
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+			string = boardService.getSpaceActionAndType(board, player);
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return string;
+	}
+
+	@RequestMapping("/getdoublescount")
+	public int getDoubles(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		int count = 0;
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+			count = player.getDoublesCount();
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return count;
+	}
+
+	@RequestMapping("/getmoney")
+	public int getMoney(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		int money = 0;
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+			money = player.getMoney();
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return money;
+	}
+
+	@RequestMapping("/asktobuy")
+	public String askToBuy(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+		String string = "";
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			} 
+			string = boardService.askToBuy(board, player);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return string;
+	}
+
+	@RequestMapping("/acceptpurchase")
+	public String buy(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		Space space = new Space();
+		List<Space> spaces = new Vector<Space>();
+		String string = "";
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			spaces = board.getSpaces();
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					space = spaces.get(player.getCurrentPosition());
+					break;
+				}
+			}
+			string = boardService.buy(board, player, space);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		board.setSpaces(spaces);
+		board.setPlayers(players);
+		boardService.saveBoard(board);
+		return string;
+	}
+
+	@RequestMapping("/payrent")
+	public String payRent(@RequestParam("gameid") int id, @RequestParam("player") String playerName, @RequestParam("owner") String ownerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		Player owner = new Player();
+		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+		String string = "";
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+				}
+				if (p.getName().equals(ownerName)) {
+					owner = p;
+				}
+			} 
+			string = boardService.payRent(board, player, owner);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		board.setPlayers(players);
+		boardService.saveBoard(board);
+		return string;
 	}
 
 	/*
