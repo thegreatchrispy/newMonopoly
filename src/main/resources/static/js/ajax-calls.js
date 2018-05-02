@@ -79,7 +79,7 @@ function setInJail(id, playerName) {
     	url:`${urlString}`,
     	async: false,
     	success:function(data) {
-            alert(data);
+            addAlert(data);
 		}
 	});
 }
@@ -187,4 +187,16 @@ function acceptPurchase(id, name) {
                 addAlert(data);
 			}
 		});
+}
+
+// Check if a player has a new monopoly.
+function addMonopoly(id, playerName) {
+    var urlString = "http://localhost:8080/addmonopoly?gameid=" + id + "&player=" + playerName;
+	$.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            addAlert(data);
+		}
+	});
 }

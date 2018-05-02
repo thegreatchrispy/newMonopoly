@@ -1,77 +1,77 @@
 [
-	  {
-			"title": "Advance to Go (Collect $200)",
-			"action": "move",
-			"spaceName": "GO"
-	  },
-	  {
-			"title": "Advance to Illinois Avenue - If you pass Go, collect $200",
-			"action": "move",
-			"spaceName": "Illinois Avenue"
-	  },
-	  {
-			"title": "Advance to St. Charles Place - If you pass Go, collect $200",
-			"action": "move",
-			"spaceName": "St. Charles Place"
-	  },
-	  {
-			"title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
-			"action": "movenearest",
-			"type": "utility"
-	  },
-	  {
-			"title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
-			"action": "movenearest",
-			"type": "railroad",
-			"rentmultiplier": 2
-	  },
-	  {
-			"title": "Bank pays you dividend of $50",
-			"action": "addfunds",
-			"payment": 50
-	  },
-	  {
-			"title": "Get out of Jail Free - This card may be kept until needed, or traded/sold",
-			"action": "outjail"
-	  },
-	  {
-			"title": "Go Back 3 Spaces",
-			"action": "move",
-			"position": -3
-	  },
-	  {
-			"title": "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200",
-			"action": "gotojail"
-	  },
-	  {
-			"title": "Make general repairs on all your property - For each house pay $25 - For each hotel $100",
-			"action": "repairs",
-			"houses": 25,
-			"hotels": 100
-	  },
-	  {
-			"title": "Pay poor tax of $15",
-			"action": "removefunds",
-			"payment": 15
-	  },
-	  {
-			"title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
-			"action": "move",
-			"spaceName": "Reading Railroad"
-	  },
-	  {
-			"title": "Take a walk on the Boardwalk - Advance token to Boardwalk",
-			"action": "move",
-			"spaceName": "Boardwalk"
-	  },
-	  {
-			"title": "You have been elected Chairman of the Board - Pay each player $50",
-			"action": "givetoplayers",
-			"payment": 50
-	  },
-	  {
-			"title": "Your building loan matures - Collect $150",
-			"action": "addfunds",
-			"payment": 150
-	  }
+	{
+		  "title": "Advance to Go (Collect $200)",
+		  "action": "move",
+		  "spaceName": "GO"
+	},
+	{
+		  "title": "Advance to Illinois Avenue - If you pass Go, collect $200",
+		  "action": "move",
+		  "spaceName": "Illinois Avenue"
+	},
+	{
+		  "title": "Advance to St. Charles Place - If you pass Go, collect $200",
+		  "action": "move",
+		  "spaceName": "St. Charles Place"
+	},
+	{
+		  "title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
+		  "action": "movenearest",
+		  "type": "utility"
+	},
+	{
+		  "title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
+		  "action": "movenearest",
+		  "type": "railroad",
+		  "rentmultiplier": 2
+	},
+	{
+		  "title": "Bank pays you dividend of $50",
+		  "action": "addfunds",
+		  "payment": 50
+	},
+	{
+		  "title": "Get out of Jail Free - This card may be kept until needed, or traded/sold",
+		  "action": "outjail"
+	},
+	{
+		  "title": "Go Back 3 Spaces",
+		  "action": "move",
+		  "position": -3
+	},
+	{
+		  "title": "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200",
+		  "action": "gotojail"
+	},
+	{
+		  "title": "Make general repairs on all your property - For each house pay $25 - For each hotel $100",
+		  "action": "repairs",
+		  "houses": 25,
+		  "hotels": 100
+	},
+	{
+		  "title": "Pay poor tax of $15",
+		  "action": "removefunds",
+		  "payment": 15
+	},
+	{
+		  "title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
+		  "action": "move",
+		  "spaceName": "Reading Railroad"
+	},
+	{
+		  "title": "Take a walk on the Boardwalk - Advance token to Boardwalk",
+		  "action": "move",
+		  "spaceName": "Boardwalk"
+	},
+	{
+		  "title": "You have been elected Chairman of the Board - Pay each player $50",
+		  "action": "givetoplayers",
+		  "payment": 50
+	},
+	{
+		  "title": "Your building loan matures - Collect $150",
+		  "action": "addfunds",
+		  "payment": 150
+	}
 ]

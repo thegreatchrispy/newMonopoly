@@ -8,11 +8,11 @@
 		$(playerBlocks[i]).show();
 		$(playerTokens[i]).show();
 		$(playerNames[i]).html(names[i]);
-		playersPosition[i] = 0;
 	}
 }
 
 function rollDie(){
+	console.log("Rolling Dice.");
 	var button = document.getElementById('dieButton');
 	var content1 = document.getElementById('dice1');
 	var content2 = document.getElementById('dice2');
@@ -29,11 +29,14 @@ function rollDie(){
 	var result2 = dice.roll();
 	content1.innerHTML = result1;
 	content2.innerHTML = result2;
+	$('#dieButton').hide();
 }
 
 function startTurn() {
+	console.log("Starting Turn.");
 	var playerName = names[index];
 	var id = 1;
+	console.log("Current Position: " + getPosition(id, playerName).responseText);
 	var string = getInJail(1, playerName).responseText.split(";");
 
 	if (string[0] == "true") {
@@ -46,6 +49,7 @@ function startTurn() {
 }
 
 function inJail(id, playerName, string) {
+	console.log("inJail Function.");
 	$('#dieButton').hide();
 
 	var useCard = document.getElementById("jailCardButton");
@@ -84,6 +88,7 @@ function inJail(id, playerName, string) {
 			var die_2 = $('#dice2').html();
 			var value = Number(die_1) + Number(die_2);
 			if (Number(die_1) == Number(die_2)) {
+				addAlert(playerName + " rolled doubles!");
 				doublesRolled = true;
 				getOutOfJailFree(id, playerName);
 				setTimeout(function() {
@@ -93,6 +98,7 @@ function inJail(id, playerName, string) {
 					executeTurn(id, playerName);
 				}, 500);
 			} else {
+				addAlert(playerName + " did not roll doubles.");
 				$('#jailCardButton').hide();
 				$('#jailRollButton').hide();
 				$('#jailPayButton').hide();
@@ -116,6 +122,7 @@ function inJail(id, playerName, string) {
 			var die_2 = $('#dice2').html();
 			var value = Number(die_1) + Number(die_2);
 			if (Number(die_1) == Number(die_2)) {
+				addAlert(playerName + " rolled doubles!");
 				doublesRolled = true;
 				getOutOfJailFree(id, playerName);
 				setTimeout(function() {
@@ -125,6 +132,7 @@ function inJail(id, playerName, string) {
 					executeTurn(id, playerName);
 				}, 500);
 			} else {
+				addAlert(playerName + " did not roll doubles.");
 				getOutOfJail(id, playerName);
 				setTimeout(function() {
 					$('#jailCardButton').hide();
@@ -140,12 +148,14 @@ function inJail(id, playerName, string) {
 }
 
 function executeTurn(id, playerName) {
+	console.log("Executing a free man's turn.");
 	rollDie();
 	var die_1 = $('#dice1').html();
 	var die_2 = $('#dice2').html();
-	var value = Number(die_1) + Number(die_2);
+	//var value = Number(die_1) + Number(die_2);
+	var value = 39;
 	if (Number(die_1) == Number(die_2)) {
-		incrementDoublesCount(1, playerName);
+		incrementDoublesCount(id, playerName);
 		doublesRolled = true;
 	}
 	var doublesCount = getDoublesCount(id, playerName).responseText;
@@ -156,19 +166,20 @@ function executeTurn(id, playerName) {
 		addAlert(playerName + " rolled " + value + ".");
 		setTimeout(function() {
 			// Move Player
-			var position = (playersPosition[index] + value) % 40;
-			playersPosition[index] = position;
-			move(pieces[index], row[position], column[position], false);
-			movePlayer(1, playerName, value);
+			movePlayer(id, playerName, value);
 			setTimeout(function() {
+				var position = getPosition(id, playerName).responseText;
+				move(pieces[index], row[position], column[position]);
+				console.log("Current Position: " + position);
 				updateMoneyAfterMove(id, playerName); // In case the player passes GO.
-				spaceAction(1, playerName);
+				spaceAction(id, playerName);
 			}, 500);
 		}, 500);
 	}
 }
 
 function executeTurnWithoutDoubles(id, playerName) {
+	console.log("Executing a FeelsBadMan's turn.");
 	rollDie();
 	var die_1 = $('#dice1').html();
 	var die_2 = $('#dice2').html();
@@ -177,12 +188,11 @@ function executeTurnWithoutDoubles(id, playerName) {
 
 	setTimeout(function() {
 		// Move Player
-		var position = (playersPosition[index] + value) % 40;
-		playersPosition[index] = position;
-		move(pieces[index], row[position], column[position], false);
-		//movePlayer(1, playerName, value);
-		movePlayer(1, playerName, 30);
+		movePlayer(id, playerName, value);
 		setTimeout(function() {
+			var position = getPosition(id, playerName).responseText;
+			move(pieces[index], row[position], column[position]);
+			console.log("Current Position: " + position);
 			updateMoneyAfterMove(id, playerName); // In case the player passes GO.
 			spaceAction(1, playerName);
 		}, 500);

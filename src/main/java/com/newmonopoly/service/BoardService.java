@@ -16,7 +16,7 @@ public interface BoardService {
 	public char getCharInput(Board board);
 
 	// Player movement functions
-	public void movePlayer(Board board, Player player, int value);
+	public String movePlayer(Board board, Player player, int value);
 	public String movePlayer(Board board, Player player, String spaceName);
 	public String movePlayerToJail(Board board, Player player);
 	public String moveToNearest(Board board, Player player, String type);
@@ -38,7 +38,7 @@ public interface BoardService {
 	public String drawCard(Board board, Player player, String type);
 	public void build(Board board, Player player, Space space);
 	public void trade(Board board, Player player);
-	public String addMonopoly(Board board, Player player, Space space);
+	public String addMonopoly(Board board, Player player);
 	public void findMonopolies(Board board, Player player);
 	public void bankrupt(Board board, Player player);
 	public int getPlayerIndex(Board boared, Player player);
@@ -64,7 +64,7 @@ public interface BoardService {
 	public String payRailroad(Board board, Player player, Player owner);
 	public String payRent(Board board, Player player, Player owner);
 	public String payTax(Board board, Player player, Space space);
-	public void payUtility(Board board, Player player, Space space);
+	public String payUtility(Board board, Player player, Player owner);
 
 	// Repository functions
 	public void saveBoard(Board board);

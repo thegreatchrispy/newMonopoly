@@ -10,18 +10,12 @@
   element_2.className = element_1_class;
 }
 
-function move(piece_id, row, column, in_jail) {
+function move(piece_id, row, column) {
   var piece = document.getElementById(piece_id);
   
   switch(piece_id) {
     //PIECE_1
     case "piece_1":
-      // IN-JAIL
-      if (in_jail) {
-        piece.style.top = "0%";
-        piece.style.left = "4%";
-        break;
-      }
       // GO SPACE
       if (row == 11 && column == 11) {
         piece.style.top = "3%";
@@ -74,12 +68,6 @@ function move(piece_id, row, column, in_jail) {
       break;
 
     case "piece_2":
-      // IN-JAIL
-      if (in_jail) {
-        piece.style.top = "3%";
-        piece.style.left = "4%";
-        break;
-      }
       // GO SPACE
       if (row == 11 && column == 11) {
         piece.style.top = "6%";
@@ -132,12 +120,6 @@ function move(piece_id, row, column, in_jail) {
       break;
 
     case "piece_3":
-      // IN-JAIL
-      if (in_jail) {
-        piece.style.top = "6%";
-        piece.style.left = "4%";
-        break;
-      }
       // GO SPACE
       if (row == 11 && column == 11) {
         piece.style.top = "9%";
@@ -190,12 +172,6 @@ function move(piece_id, row, column, in_jail) {
       break;
 
     case "piece_4":
-      // IN-JAIL
-      if (in_jail) {
-        piece.style.top = "0%";
-        piece.style.left = "7%";
-        break;
-      }
       // GO SPACE
       if (row == 11 && column == 11) {
         piece.style.top = "3%";
@@ -248,12 +224,6 @@ function move(piece_id, row, column, in_jail) {
       break;
       
     case "piece_5":
-      // IN-JAIL
-      if (in_jail) {
-        piece.style.top = "3%";
-        piece.style.left = "7%";
-        break;
-      }
       // GO SPACE
       if (row == 11 && column == 11) {
         piece.style.top = "6%";
@@ -306,12 +276,6 @@ function move(piece_id, row, column, in_jail) {
       break;
 
     case "piece_6":
-      // IN-JAIL
-      if (in_jail) {
-        piece.style.top = "6%";
-        piece.style.left = "7%";
-        break;
-      }
       // GO SPACE
       if (row == 11 && column == 11) {
         piece.style.top = "9%";
@@ -365,6 +329,45 @@ function move(piece_id, row, column, in_jail) {
   }
   piece.style.gridColumn = column;
   piece.style.gridRow = row;
+}
+
+function moveJail(piece_id) {
+  var piece = document.getElementById(piece_id);
+  piece.style.gridColumn = 1;
+  piece.style.gridRow = 11;
+
+  switch (piece_id) {
+    // Piece 1
+    case "piece_1":
+      piece.style.top = "0%";
+      piece.style.left = "4%";
+      break;
+    // Piece 2
+    case "piece_2":
+      piece.style.top = "3%";
+      piece.style.left = "4%";
+      break;
+    // Piece 3
+    case "piece_3":
+      piece.style.top = "6%";
+      piece.style.left = "4%";
+      break;
+    // Piece 4
+    case "piece_4":
+      piece.style.top = "0%";
+      piece.style.left = "7%";
+      break;
+    // Piece 5
+    case "piece_5":
+      piece.style.top = "3%";
+      piece.style.left = "7%";
+      break;
+    // Piece 6
+    case "piece_6":
+      piece.style.top = "6%";
+      piece.style.left = "7%";
+      break;
+  }
 }
 
 // window.onload = function() {

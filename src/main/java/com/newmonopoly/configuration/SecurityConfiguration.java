@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.
 			authorizeRequests()
-				// Permits.
+				/* Permits. */
 				// Webpages.
 				.antMatchers("/").permitAll()
 				.antMatchers("/checkEmail").permitAll()
@@ -51,35 +51,39 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/login").permitAll()
 				.antMatchers("/registration").permitAll()
 				.antMatchers("/learn").permitAll()
-				.antMatchers("/creategame").permitAll()
-				.antMatchers("/joingame").permitAll()
 				.antMatchers("/gameplay").permitAll()
 				.antMatchers("/lobby").permitAll()
-				// Game Controller.
+				
+				/* Game Controller. */
+				/* Creating, join, retrieve, update, and delete game. */
+				.antMatchers("/creategame").permitAll()
+				.antMatchers("/joingame").permitAll()
 				.antMatchers("/retrievegame").permitAll()
+				.antMatchers("/updategame").permitAll()
 				.antMatchers("/deletegame").permitAll()
-				.antMatchers("/haswinner").permitAll()
-				.antMatchers("/getcurrentplayer").permitAll()
-				.antMatchers("/removefunds").permitAll()
-				.antMatchers("/addfunds").permitAll()
-				.antMatchers("/moveplayer").permitAll()
-				.antMatchers("/incrementdoubles").permitAll()
-				.antMatchers("/moveplayertojail").permitAll()
-				.antMatchers("/nextturn").permitAll()
+
+				/* Accessor Methods. */
 				.antMatchers("/getnumberofplayers").permitAll()
 				.antMatchers("/getnamesofplayers").permitAll()
-				.antMatchers("/getposition").permitAll()
-				.antMatchers("/getinjail").permitAll()
-				.antMatchers("/getoutofjailfree").permitAll()
-				.antMatchers("/getoutofjail").permitAll()
-				.antMatchers("/decrementjailtime").permitAll()
-				.antMatchers("/performspaceaction").permitAll()
 				.antMatchers("/getdoublescount").permitAll()
 				.antMatchers("/getmoney").permitAll()
-				.antMatchers("/asktobuy").permitAll()
+				.antMatchers("/getposition").permitAll()
+				.antMatchers("/getinjail").permitAll()
+
+				/* Mutator Methods. */
+				.antMatchers("/moveplayertojail").permitAll()
+				.antMatchers("/incrementdoubles").permitAll()
+				.antMatchers("/decrementjailtime").permitAll()
+				.antMatchers("/setdoubles").permitAll()
+				.antMatchers("/getoutofjailfree").permitAll()
+				.antMatchers("/getoutofjail").permitAll()
+
+				/* Logical Methods. */
+				.antMatchers("/performspaceaction").permitAll()
+				.antMatchers("/moveplayer").permitAll()
 				.antMatchers("/acceptpurchase").permitAll()
-				.antMatchers("/payrent").permitAll()
-				.antMatchers("/drawcard").permitAll()
+				.antMatchers("/addmonopoly").permitAll()
+
 				// Authorities.
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
 				// Login and Logout

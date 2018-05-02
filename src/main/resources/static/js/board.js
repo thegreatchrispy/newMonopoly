@@ -1,4 +1,6 @@
 function endTurn(id, playerName) {
+    console.log("Ending players turn.");  
+    console.log("");
     if (doublesRolled) {
         addAlert("It is " + names[index] + "'s turn again!");
         doublesRolled = false;
@@ -23,6 +25,7 @@ function endTurn(id, playerName) {
 }
 
 function playerDecision(id, playerName) {
+    console.log("Player's Turn is about to end..");  
     $('#acceptButton').hide();
     $('#declineButton').hide();
     $('#continueButton').hide();
@@ -44,6 +47,8 @@ function playerDecision(id, playerName) {
 }
 
 function waitContinue(id, playerName) {
+    addMonopoly(id, playerName);
+    console.log("Waiting for player to continue..");  
     $('#continueButton').show();
     var continueButton = document.getElementById("continueButton");
     continueButton.onclick = function() {
@@ -52,6 +57,7 @@ function waitContinue(id, playerName) {
 }
 
 function updateMoney(id, playerName) {
+    console.log("Updating Money Overall.");  
     var name = "";
     for (i = 0; i < numPlayers; i++) {
         name = names[i];
@@ -70,6 +76,7 @@ function updateMoney(id, playerName) {
 }
 
 function updateMoneyAfterMove(id, playerName) {
+    console.log("Updating money after specified move.");  
     var money = getMoney(id, playerName).responseText;
     var moneyPosition = -1;
     for(i = 0; i < numPlayers; i++) {
@@ -83,7 +90,7 @@ function updateMoneyAfterMove(id, playerName) {
 }
 
 function chooseToBuy(id, playerName) {
-
+    console.log("Choosing to Buy Property.");    
     $('#acceptButton').show();
     var accept = document.getElementById("acceptButton");
     accept.onclick = function() {
@@ -102,23 +109,24 @@ function chooseToBuy(id, playerName) {
 }
 
 function movePlayerToJail(id, playerName) {
-    playersPosition[index] = 10;
-    move(pieces[index], 11, 1, true);
+    console.log("Moving Player to Jail.");
+    moveJail(pieces[index]);
     doublesRolled = false;
     endTurn(id, playerName);
 }
 
 function movePlayerToNewSpace(id, playerName) {
+    console.log("Moving Player To New Space.");
     //movePlayerToJail(id, playerName);
     var newPosition = getPosition(id, playerName).responseText;
-    playersPosition[index] = newPosition;
-    move(pieces[index], row[newPosition], column[newPosition], false);
+    console.log("New Position: " + newPosition);
+    move(pieces[index], row[newPosition], column[newPosition]);
     updateMoneyAfterMove(id, playerName);
     spaceAction(id, playerName);
 }
 
 function spaceAction(id, playerName) {
-    $('#dieButton').hide();
+    console.log("Performing SpaceAction.");
    var string = performSpaceAction(id, playerName).responseText.split(";");
    switch (string[string.length - 1]) {
         case "movingToJail":
