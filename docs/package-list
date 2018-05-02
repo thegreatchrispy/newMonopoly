@@ -1,0 +1,6 @@
+com.newmonopoly
+com.newmonopoly.configuration
+com.newmonopoly.controller
+com.newmonopoly.model
+com.newmonopoly.repository
+com.newmonopoly.service

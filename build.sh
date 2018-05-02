@@ -21,6 +21,7 @@ while [ "$1" != "" ]; do
 		-h | --help)
 			echo "DESCRIPTION:"
 			echo "    build script for NewMonopoly project"
+			echo " "
 			usage
 			echo " "
 			echo "OPTIONS:"
@@ -66,7 +67,7 @@ while [ "$1" != "" ]; do
 		-l | --launch)
 			echo "[BUILD AND LAUNCH]"
 			mvn clean install
-			java -jar target/NewMonopoly-0.0.1-SNAPSHOT
+			java -jar target/NewMonopoly-0.0.1-SNAPSHOT.jar
 			;;
 		*)
 			usage
