@@ -17,10 +17,10 @@ public interface BoardService {
 
 	// Player movement functions
 	public void movePlayer(Board board, Player player, int value);
-	public void movePlayer(Board board, Player player, String spaceName);
+	public String movePlayer(Board board, Player player, String spaceName);
 	public String movePlayerToJail(Board board, Player player);
-	public void moveToNearest(Board board, Player player, String type);
-	public void moveToPosition(Board board, Player player, int position);
+	public String moveToNearest(Board board, Player player, String type);
+	public String moveToPosition(Board board, Player player, int position);
 
 	// Player funds increase functions
 	public void addFunds(Board board, Player player, int payment);
@@ -32,13 +32,13 @@ public interface BoardService {
 	public void giveToPlayers(Board board, Player player, int payment);
 	
 	// Monopoly logic functions - DO NOT require user input
-	public String getSpaceActionAndType(Board board, Player player);
+	public String performSpaceAction(Board board, Player player);
 	public void transaction(Board board, Player player);
 	//public void performSpaceAction(Board board, Player player, Space space);
-	public void drawCard(Board board, Player player, List<Card> cards);
+	public String drawCard(Board board, Player player, String type);
 	public void build(Board board, Player player, Space space);
 	public void trade(Board board, Player player);
-	public void addMonopoly(Board board, Player player, Space space);
+	public String addMonopoly(Board board, Player player, Space space);
 	public void findMonopolies(Board board, Player player);
 	public void bankrupt(Board board, Player player);
 	public int getPlayerIndex(Board boared, Player player);
@@ -61,9 +61,9 @@ public interface BoardService {
 	public void nextTurn(Board board);
 
 	// Space payment functions
-	public void payRailroad(Board board, Player player, Space space);
+	public String payRailroad(Board board, Player player, Player owner);
 	public String payRent(Board board, Player player, Player owner);
-	public void payTax(Board board, Player player, Space space);
+	public String payTax(Board board, Player player, Space space);
 	public void payUtility(Board board, Player player, Space space);
 
 	// Repository functions

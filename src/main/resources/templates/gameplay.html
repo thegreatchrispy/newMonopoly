@@ -20,6 +20,9 @@
 		       			2, 3, 4, 5, 6, 7, 8, 9, 10,11,
 		       			11,11,11,11,11,11,11,11,11];
 			var playersPosition = [];
+			var playerBlocks = ['#player1', '#player2', '#player3', '#player4', '#player5', '#player6'];
+			var playerTokens = ['#piece_1', '#piece_2', '#piece_3', '#piece_4', '#piece_5', '#piece_6'];
+			var playerNames = ['#player1-name', '#player2-name', '#player3-name', '#player4-name', '#player5-name', '#player6-name'];
 			var pieces = ["piece_1", "piece_2", "piece_3", "piece_4", "piece_5", "piece_6"];
 			var doublesRolled = false;
 		</script>
@@ -140,12 +143,12 @@
 				<div id="caption"></div>
 			</div>
 
-			<div id="piece_1" class="piece_1"></div>
-			<div id="piece_2" class="piece_2"></div>
-			<div id="piece_3" class="piece_3"></div>
-			<div id="piece_4" class="piece_4"></div>
-			<div id="piece_5" class="piece_5"></div>
-			<div id="piece_6" class="piece_6"></div>
+			<div id="piece_1" style="display: none"></div>
+			<div id="piece_2" style="display: none"></div>
+			<div id="piece_3" style="display: none"></div>
+			<div id="piece_4" style="display: none"></div>
+			<div id="piece_5" style="display: none"></div>
+			<div id="piece_6" style="display: none"></div>
 
 				<!-- GO SPACE -->
 				<div class="space corner go">
@@ -596,6 +599,9 @@
 					<button id="tradeButton">Trade</button>
 					<button id="mortgageButton">Mortgage</button>
 					<button id="endButton">End Turn</button>
+					<button id="jailCardButton">Use Card</button>
+					<button id="jailRollButton">Test My Luck</button>
+					<button id="jailPayButton">Bail Me Out</button>
 				</td>
 			</tr>
 		</table>

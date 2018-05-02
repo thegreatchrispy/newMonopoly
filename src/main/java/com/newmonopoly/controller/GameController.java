@@ -43,6 +43,8 @@ public class GameController {
 		Gson gson = new Gson();
 		List<Player> players = new Vector<Player>();
 		List<Space> spaces = new Vector<Space>();
+		List<Card> community = new Vector<Card>();
+		List<Card> chance = new Vector<Card>();
 		Board board;
 
 		try {
@@ -54,7 +56,13 @@ public class GameController {
 
 			board = new Board(players, randomize);
 			spaces = boardService.decideSeasonsAndOrder(board, randomize);
+			community = board.getCommunity();
+			chance = board.getChance();
+
 			board.setSpaces(spaces);
+			// board.setCommunity(community);
+			//board.setChance(chance);
+
 			boardService.saveBoard(board);
 		}
 		catch (Exception e) {
@@ -154,6 +162,7 @@ public class GameController {
 			}
 
 			boardService.removeFunds(board, player, payment);
+			board.setPlayers(players);
 			boardService.saveBoard(board);
 		}
 		catch (Exception e) {
@@ -223,6 +232,33 @@ public class GameController {
 		}
 
 		return players.size();
+	}
+
+	@RequestMapping("/getposition")
+	public int getPosition(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+
+		int position = -1;
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+			position = player.getCurrentPosition(); 
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return position;
 	}
 
 	@RequestMapping("/getnamesofplayers")
@@ -360,17 +396,23 @@ public class GameController {
 		return player.getName() + " rolled doubles!";
 	}
 
-	@RequestMapping("/getspaceactionandtype")
-	public String getSpaceActionAndType(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+	@RequestMapping("/performspaceaction")
+	public String performSpaceAction(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
 		Gson gson = new Gson();
 		Board board = new Board();
 		Player player = new Player();
 		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+		List<Card> community = new Vector<Card>();
+		List<Card> chance = new Vector<Card>();
 		String string = "";
 
 		try {
 			board = boardService.findByGameId(id);
 			players = board.getPlayers();
+			spaces = board.getSpaces();
+			community = board.getCommunity();
+			chance = board.getChance();
 
 			for (Player p : players) {
 				if (p.getName().equals(playerName)) {
@@ -379,12 +421,15 @@ public class GameController {
 				}
 			}
 
-			string = boardService.getSpaceActionAndType(board, player);
+			string = boardService.performSpaceAction(board, player);
 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		board.setPlayers(players);
+		board.setSpaces(spaces);
+		boardService.saveBoard(board);
 
 		return string;
 	}
@@ -445,6 +490,148 @@ public class GameController {
 		}
 
 		return money;
+	}
+
+	@RequestMapping("/getinjail")
+	public String getInJail(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return player.getInJail() + ";" + player.getJailCard() + ";" + player.getJailTime();
+	}
+
+	@RequestMapping("/setinjail")
+	public String setInJail(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return player.getInJail() + ";" + player.getJailCard() + ";" + player.getJailTime();
+	}
+
+	@RequestMapping("/getoutofjailfree")
+	public String getOutOfJailFree(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		player.setInJail(false);
+		player.setJailCard(false);
+		player.setJailTime(0);
+		board.setPlayers(players);
+		boardService.saveBoard(board);
+
+		return player.getName() + " has been busted out of jail!";
+	}
+
+	@RequestMapping("/getoutofjail")
+	public String getOutOfJail(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+			boardService.removeFunds(board, player, 50);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		player.setInJail(false);
+		player.setJailCard(false);
+		player.setJailTime(0);
+		board.setPlayers(players);
+		boardService.saveBoard(board);
+
+		return player.getName() + " has been busted out of jail for $50!";
+	}
+
+	@RequestMapping("/decrementjailtime")
+	public String decrementJailTime(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		player.setJailTime(player.getJailTime() - 1);
+		board.setPlayers(players);
+		boardService.saveBoard(board);
+
+		return player.getName() + " has " + player.getJailTime() + " more turn(s) left in jail.";
 	}
 
 	@RequestMapping("/asktobuy")
@@ -536,6 +723,45 @@ public class GameController {
 		boardService.saveBoard(board);
 		return string;
 	}
+
+	// @RequestMapping("/drawcard")
+	// public String drawCard(@RequestParam("gameid") int id, @RequestParam("player") String playerName, @RequestParam("card") String card) {
+	// 	Gson gson = new Gson();
+	// 	Board board = new Board();
+	// 	Player player = new Player();
+	// 	List<Player> players = new Vector<Player>();
+	// 	List<Card> cards = new Vector<Card>();
+	// 	String string = "";
+
+	// 	try {
+	// 		board = boardService.findByGameId(id);
+	// 		if (card.equals("comchest")) {
+	// 			cards = board.getCommunity();
+	// 		} else {
+	// 			cards = board.getChance();
+	// 		}
+	// 		players = board.getPlayers();
+	// 		for (Player p : players) {
+	// 			if (p.getName().equals(playerName)) {
+	// 				player = p;
+	// 				break;
+	// 			}
+	// 		} 
+	// 		string = boardService.drawCard(board, player, cards);
+	// 	}
+	// 	catch (Exception e) {
+	// 		e.printStackTrace();
+	// 	}
+
+	// 	if (card.equals("comchest")) {
+	// 		board.setCommunity(cards);
+	// 	} else {
+	// 		board.setChance(cards);
+	// 	}
+	// 	board.setPlayers(players);
+	// 	boardService.saveBoard(board);
+	// 	return string;
+	// }
 
 	/*
 	 * NEEDS TO BE REWRITTEN

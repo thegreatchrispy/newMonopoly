@@ -106,7 +106,7 @@ function move(piece_id, row, column, in_jail) {
       }
       // BOTTOM ROW
       if (row == 11 && column != 11) {
-        piece.style.top = "0%";
+        piece.style.top = "6%";
         piece.style.left = "0%";
         break;
       }
