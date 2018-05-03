@@ -12,6 +12,12 @@ import javax.persistence.Table;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * Board model object.
+ * 
+ * <p>Model for the columns stored in the <tt>boards</tt> table.
+ * See {@link #Board(List<Space>, boolean)} for more information.
+ */
 @Entity
 @Table(name = "boards")
 public class Board {
@@ -48,15 +54,24 @@ public class Board {
 	@Column(name = "trade_choice_char")
 	private char tradeChoiceChar;
 
+	/**
+	 * Default constructor.
+	 */
 	public Board() {
 
 	}
 
+	/**
+	 * Constructor given parameters.
+	 * 
+	 * @param players The list of players that the game is starting with.
+	 * @param randomizeSet The option to either randomize the set of spaces, or leave them in original order.
+	 */
 	public Board(List<Player> players, boolean randomizeSet) {
 		Gson gson = new Gson();
 		this.players = gson.toJson(players);
 		currentTurn = 0;
-		totalPlayer = 6;// Set to 6 for testing, will get from constructor in future.
+		totalPlayer = 6;
 		turnOver = false;
 		spaces = "";
 		chance = "";
@@ -67,6 +82,11 @@ public class Board {
 		hotelsAvailable = 12;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public long getId() {
 		return id;
 	}
@@ -75,6 +95,11 @@ public class Board {
 		this.id = id;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public List<Player> getPlayers() {
 		Gson gson = new Gson();
 		return gson.fromJson(this.players, new TypeToken<List<Player>>(){}.getType());
@@ -99,6 +124,12 @@ public class Board {
 		this.players = gson.toJson(currentPlayers);
 	}
 
+	/**
+	 * Returns an integer indicating how many turns have passed in the <tt>Board</tt> object from the database.
+	 * This is used to end the game if the player that creates the game decides to set a turn limit.
+	 * 
+	 * @return the current turn for the <tt>Board</tt> in the database
+	 */
 	public int getCurrentTurn() {
 		return currentTurn;
 	}
@@ -107,6 +138,11 @@ public class Board {
 		this.currentTurn = currentTurn;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public int getTotalPlayer() {
 		return totalPlayer;
 	}
@@ -115,6 +151,11 @@ public class Board {
 		this.totalPlayer = totalPlayer;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public boolean getTurnOver() {
 		return turnOver;
 	}
@@ -123,6 +164,11 @@ public class Board {
 		this.turnOver = turnOver;
 	} 
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public List<Space> getSpaces() {
 		Gson gson = new Gson();
 		return gson.fromJson(this.spaces, new TypeToken<List<Space>>(){}.getType());
@@ -133,6 +179,11 @@ public class Board {
 		this.spaces = gson.toJson(spaces);
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public List<Card> getChance() {
 		Gson gson = new Gson();
 		return gson.fromJson(this.chance, new TypeToken<List<Card>>(){}.getType());
@@ -143,6 +194,11 @@ public class Board {
 		this.chance = gson.toJson(chance);
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public List<Card> getCommunity() {
 		Gson gson = new Gson();
 		return gson.fromJson(this.community, new TypeToken<List<Card>>(){}.getType());
@@ -153,6 +209,11 @@ public class Board {
 		this.community = gson.toJson(community);
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public int getPlayerIndex() {
 		return playerIndex;
 	}
@@ -161,6 +222,11 @@ public class Board {
 		this.playerIndex = playerIndex;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public int getHousesAvailable() {
 		return housesAvailable;
 	}
@@ -169,6 +235,11 @@ public class Board {
 		this.housesAvailable = housesAvailable;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public int getHotelsAvailable() {
 		return hotelsAvailable;
 	}
@@ -177,6 +248,11 @@ public class Board {
 		this.hotelsAvailable = hotelsAvailable;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public int getDieValue() {
 		return dieValue;
 	}
@@ -185,6 +261,11 @@ public class Board {
 		this.dieValue = dieValue;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public char getPlayerChoiceChar() {
 		return playerChoiceChar;
 	}
@@ -193,6 +274,11 @@ public class Board {
 		this.playerChoiceChar = playerChoiceChar;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public int getPlayerChoiceInt() {
 		return playerChoiceInt;
 	}
@@ -201,6 +287,11 @@ public class Board {
 		this.playerChoiceInt = playerChoiceInt;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with the <tt>Board</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Board</tt> in the database
+	 */
 	public char getTradeChoiceChar() {
 		return tradeChoiceChar;
 	}

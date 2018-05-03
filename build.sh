@@ -3,7 +3,8 @@
 #### Functions
 
 usage() {
-	echo "Usage: $0 [OPTIONS]"
+	echo "USAGE:"
+	echo "    $0 [OPTIONS]"
 }
 
 #### Main
@@ -11,8 +12,9 @@ if [ $# -eq 0 ]; then
 	echo "[TEXT VERSION BUILD]"
 	cd src/text/
 	javac -cp META-INF/lib/gson-2.8.2.jar com/newmonopoly/*.java -d META-INF/classes/
-	jar cvfm NewMonopoly.jar META-INF/MANIFEST.MF META-INF/classes/* META-INF/lib/gson-2.8.2.jar
-	java -cp NewMonopoly.jar com.newmonopoly.Game
+	# jar cvfm NewMonopoly.jar META-INF/MANIFEST.MF META-INF/classes/* META-INF/lib/gson-2.8.2.jar
+	# java -cp NewMonopoly.jar com.newmonopoly.Game
+	# java -cp .:META-INF/classes/Game.class:META-INF/lib/gson-2.8.2.jar com/newmonopoly/Game
 	exit 0
 fi
 
