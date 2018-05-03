@@ -71,6 +71,8 @@ function inJail(id, playerName, string) {
 			$('#jailCardButton').hide();
 			$('#jailRollButton').hide();
 			$('#jailPayButton').hide();
+			var lockup = 'in-jail' + (index + 1);
+    		popup_bars(lockup,'nei');
 			executeTurnWithoutDoubles(id, playerName);
 		}, 500);
 	}
@@ -95,6 +97,8 @@ function inJail(id, playerName, string) {
 					$('#jailCardButton').hide();
 					$('#jailRollButton').hide();
 					$('#jailPayButton').hide();
+					var lockup = 'in-jail' + (index + 1);
+    				popup_bars(lockup,'nei');
 					executeTurn(id, playerName);
 				}, 500);
 			} else {
@@ -129,6 +133,8 @@ function inJail(id, playerName, string) {
 					$('#jailCardButton').hide();
 					$('#jailRollButton').hide();
 					$('#jailPayButton').hide();
+					var lockup = 'in-jail' + (index + 1);
+    				popup_bars(lockup,'nei');
 					executeTurn(id, playerName);
 				}, 500);
 			} else {
@@ -138,6 +144,8 @@ function inJail(id, playerName, string) {
 					$('#jailCardButton').hide();
 					$('#jailRollButton').hide();
 					$('#jailPayButton').hide();
+					var lockup = 'in-jail' + (index + 1);
+    				popup_bars(lockup,'nei');
 					executeTurnWithoutDoubles(id, playerName);
 				}, 500);
 			}
@@ -153,7 +161,7 @@ function executeTurn(id, playerName) {
 	var die_1 = $('#dice1').html();
 	var die_2 = $('#dice2').html();
 	//var value = Number(die_1) + Number(die_2);
-	var value = 39;
+	var value = 30;
 	if (Number(die_1) == Number(die_2)) {
 		incrementDoublesCount(id, playerName);
 		doublesRolled = true;

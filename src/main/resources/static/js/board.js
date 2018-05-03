@@ -232,6 +232,8 @@ function movePlayerToJail(id, playerName) {
     console.log("Moving Player to Jail.");
     moveJail(pieces[index]);
     doublesRolled = false;
+    var lockup = 'in-jail' + (index + 1);
+    popup_bars(lockup,'yei');
     waitContinueAfterLockedUp(id, playerName);
 }
 
