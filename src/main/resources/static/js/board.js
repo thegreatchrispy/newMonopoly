@@ -109,7 +109,7 @@ function playerDecision(id, playerName) {
     }
 
     $('#accountsButton').show();
-    var mortgage = document.getElementById("accountsButton");
+    var accounts = document.getElementById("accountsButton");
     accounts.onclick = function() {
         var canMortgage = getMortgageStatus(id, playerName).responseText;
         if (canMortgage == "true") {
