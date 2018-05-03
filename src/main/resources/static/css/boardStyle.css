@@ -187,7 +187,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #control {
   position: absolute;
-  z-index: 9;
+  z-index: 2;
   bottom: 10px;
   right: 25px;
   border: 2px solid black;
@@ -197,6 +197,26 @@ h1, h2, h3, h4, h5, h6 {
 #alert {
   width: 250px;
   height: 300px;
+  margin: 0px;
+  padding-left: 1px;
+  border: 1px solid gray;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+  background-color: #FFFFFF;
+  overflow-y: scroll;
+}
+#control_auction {
+  position: absolute;
+  z-index: 2;
+  left:110px;
+  top:200px;
+  border: 2px solid black;
+  padding: 10px;
+  background-color: white;
+}
+#alert_auction {
+  width: 350px;
+  height: 250px;
   margin: 0px;
   padding-left: 1px;
   border: 1px solid gray;
