@@ -155,9 +155,11 @@ README.md
 *.json
 ```
 
-**Update: 05/03/18**</br>In the last update, we have completely implemented the login system. We also added almost all of the functionality of playing the game with multiple users playing on a single screen.
+**Update: 04/01/18**</br>We have completed enough Java files to be able to play the text based version of the Monopoly game in the terminal. We also included all of the JUnit test case files that we will need for the project. After building, the results from these tests can be viewed in HTML format by going to ```build\reports\tests\test``` and opening ```index.html``` in a web browser.
 
-**Update: 04/20/18**</br>In the last update, we have completed enough Java files to be able to play the text based version of the Monopoly game in the terminal. We also included all of the JUnit test case files that we will need for the project. After building, the results from these tests can be viewed in HTML format by going to ```build\reports\tests\test``` and opening ```index.html``` in a web browser.
+**Update: 04/20/18**</br>We have switched the project over to building using Maven instead of Gradle. We have also switched to using MySQL instead of PostgreSQL. These decisions were so that we could finish implementing the Account Creation functionality.
+
+**Update: 05/03/18**</br>In the last update, we have completely implemented the login system. We also added almost all of the functionality of playing the game with multiple users playing on a single screen.
 
 # 6. Needs Completion
 The following is the list of things that still need to be completed:
