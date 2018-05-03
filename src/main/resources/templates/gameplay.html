@@ -33,6 +33,7 @@
 		<script type="text/javascript" th:src="@{/js/ajax-calls.js}"></script>
 		<script type="text/javascript" th:src="@{/js/board.js}"></script>
 		<script type="text/javascript" th:src="@{/js/new-monopoly.js}"></script>
+		<script type="text/javascript" th:src="@{/js/popup-bars.js}"></script>
 
 	</head>
 
@@ -48,10 +49,23 @@
 
 
 		<div class="side-block" id="player1">
-			<p class="side-block-content" id="player1-name"></p>
-			<p>Current money amount:</p>
-			<p id="money-1">$1500</p>
-			<p><button class="player-btn" id="FirstBtn">More info</button></p>
+			<div class="player-block">
+				<p class="side-block-content" id="player1-name"></p>
+				<p>Current money amount:</p>
+				<p id="money-1">$1500</p>
+				<p><button class="player-btn" id="FirstBtn">More info</button></p>
+			</div>
+			<div id="in-jail1">
+	  			<div class="jail-window">
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+				</div>
+			</div>
 		</div>
   
 		<script>
@@ -59,55 +73,124 @@
 		</script>
 
 		<div class="side-block" id="player2">
-			<p class="side-block-content" id="player2-name"></p>
-			<p>Current money amount:</p>
-			<p id="money-2">$1500</p>
-			<p><button class="player-btn" id="SecondBtn">More info</button></p>
+			<div class="player-block">
+				<p class="side-block-content" id="player2-name"></p>
+				<p>Current money amount:</p>
+				<p id="money-2">$1500</p>
+				<p><button class="player-btn" id="SecondBtn">More info</button></p>
+			</div>
+			<div id="in-jail2">
+				<div class="jail-window" >
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+				</div>
+			</div>
 		</div>
 		<script>
 		player_info('SecondBtn','This is player 2','0,0,255');
 		</script>
 
 		<div class="side-block" id="player3">
-			<p class="side-block-content" id="player3-name"></p>
-			<p>Current money amount:</p>
-			<p id="money-3">$1500</p>
-			<p><button class="player-btn" id="ThirdBtn">More info</button></p>
+			<div class="player-block">
+				<p class="side-block-content" id="player3-name"></p>
+				<p>Current money amount:</p>
+				<p id="money-3">$1500</p>
+				<p><button class="player-btn" id="ThirdBtn">More info</button></p>
+			</div>
+			<div id="in-jail3">
+	  			<div class="jail-window" >
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+				</div>
+			</div>
 		</div>
 		<script>
 		player_info('ThirdBtn','This is player 3','255,0,0');
 		</script>
 
 		<div class="side-block" id="player4">
-			<p class="side-block-content" id="player4-name"></p>
-			<p>Current money amount:</p>
-			<p id="money-4">$1500</p>
-			<p><button class="player-btn" id="FourthBtn">More info</button></p>
+			<div class="player-block">
+				<p class="side-block-content" id="player4-name"></p>
+				<p>Current money amount:</p>
+				<p id="money-4">$1500</p>
+				<p><button class="player-btn" id="FourthBtn">More info</button></p>.
+			</div>
+			<div id="in-jail4">
+	  			<div class="jail-window" >
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+				</div>
+			</div>
 		</div>
 		<script>
 		player_info('FourthBtn','This is player 4','0,128,0');
 		</script>
 
 		<div class="side-block" id="player5">
-			<p class="side-block-content" id="player5-name"></p>
-			<p>Current money amount:</p>
-			<p id="money-5">$1500</p>
-			<p><button class="player-btn" id="FifthBtn">More info</button></p>
+			<div class="player-block">
+				<p class="side-block-content" id="player5-name"></p>
+				<p>Current money amount:</p>
+				<p id="money-5">$1500</p>
+				<p><button class="player-btn" id="FifthBtn">More info</button></p>
+			</div>
+			<div id="in-jail5">
+	  			<div class="jail-window" >
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+				</div>
+			</div>
 		</div>
 		<script>
 		player_info('FifthBtn','This is player 5','255,165,0');
 		</script>
 
 		<div class="side-block" id="player6">
-			<p class="side-block-content" id="player6-name"></p>
-			<p>Current money amount:</p>
-			<p id="money-6">$1500</p>
-			<p><button class="player-btn" id="SixthBtn">More info</button></p>
+			<div class="player-block">
+				<p class="side-block-content" id="player6-name"></p>
+				<p>Current money amount:</p>
+				<p id="money-6">$1500</p>
+				<p><button class="player-btn" id="SixthBtn">More info</button></p>
+			</div>
+			<div id="in-jail6">
+	  			<div class="jail-window" >
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+					<div class="player-bar"></div>
+				</div>
+			</div>
 		</div>
 		<script>
 		player_info('SixthBtn','This is player 6','221,160,221');
 		</script>
 	</aside>
+	<script>
+		popup_bars('in-jail2','yei');
+		setTimeout(function(){ popup_bars('in-jail2','nei'); }, 3000);
+		</script>
 
 	<body>
 		<div class="table">
