@@ -401,7 +401,7 @@ public class BoardServiceImpl implements BoardService {
 					}
 					else {
 						//System.out.println(space.getName() + " is currently mortgaged.");
-						string = "mortgaged";
+						string = "Property is currently mortgaged!;mortgaged";
 					}
 				}
 				else if (space.getOwnedBy() == getPlayerIndex(board, player)) {
@@ -428,7 +428,7 @@ public class BoardServiceImpl implements BoardService {
 					}
 					else {
 						//System.out.println(space.getName() + " is currently mortgaged.");
-						string = "mortgaged";
+						string = "Property is currently mortgaged!;mortgaged";
 					}
 				}
 				else if (space.getOwnedBy() == getPlayerIndex(board, player)) {
@@ -454,7 +454,7 @@ public class BoardServiceImpl implements BoardService {
 						string = payUtility(board, player, board.getPlayers().get(space.getOwnedBy())) + ";moneyChange";
 					}
 					else {
-						string = "mortgaged";
+						string = "Property is currently mortgaged!;mortgaged";
 						//System.out.println(space.getName() + " is currently mortgaged.");
 					}
 				}
@@ -682,7 +682,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// Checks if player has new monopolies.
 	@Override
-	public String addMonopoly(Board board, Player player) {
+	public String addMonopolyAfterPurchase(Board board, Player player) {
 		System.out.println("In addMonopoly");
 		if (player == null) {
 			throw new IllegalArgumentException("In addMonopoly: Player player is null.");
@@ -701,10 +701,8 @@ public class BoardServiceImpl implements BoardService {
 			newMonopoly = false;
 		}
 		else {
-			System.out.println(board.getSpaces().get(39).getOwnedBy());
 			for (Space s : board.getSpaces()) {
 				if (s.getGroup() == space.getGroup()) {
-					System.out.println(s.getGroup());
 					if(s.getType().equals("property")) {
 						if (s.getOwnedBy() != getPlayerIndex(board, player)) {
 							newMonopoly = false;
@@ -724,6 +722,7 @@ public class BoardServiceImpl implements BoardService {
 					if (s.getType().equals("property")) {
 						s.setCurrentRent(s.getRent() * 2);
 						player.addMonopolyProperties(s);
+						player.updateOwnedProperties(s);
 					}
 				}
 			}
@@ -1186,9 +1185,12 @@ public class BoardServiceImpl implements BoardService {
 		if (player == null) {
 			throw new IllegalArgumentException("In payRent: Player player is null.");
 		}
-		Space space = board.getSpaces().get(player.getCurrentPosition());
-		if (space == null) {
-			throw new IllegalArgumentException("In payRent: Space space is null.");
+		Space space = new Space();
+		for (Space s : owner.getOwnedProperties()) {
+			if (s.getName().equals(board.getSpaces().get(player.getCurrentPosition()).getName())) {
+				space = s;
+				break;
+			}
 		}
 
 		// Rent will be changed in database in the build() method

@@ -297,6 +297,88 @@ public class GameController {
 		return player.getInJail() + ";" + player.getJailCard() + ";" + player.getJailTime();
 	}
 
+	@RequestMapping("/getbuildstatus")
+	public boolean getBuildStatus(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return player.getMonopolyGroups().contains(1);
+	}
+
+	@RequestMapping("/gettradestatus")
+	public boolean getTradeStatus(@RequestParam("gameid") int id) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		boolean status = false;
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getOwnedProperties().size() > 0) {
+					status = true;
+					break;
+				}
+			}
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status;
+	}
+
+	@RequestMapping("/getmortgagestatus")
+	public boolean getMortgageStatus(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		boolean status = false;
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+			status = (player.getOwnedProperties().size() > 0);
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status;
+	}
+
 	/* Mutator Methods. */
 
 	@RequestMapping("/moveplayertojail")
@@ -574,17 +656,19 @@ public class GameController {
 		return string;
 	}
 
-	@RequestMapping("/addmonopoly")
-	public String addMonopoly(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+	@RequestMapping("/addmonopolyafterpurchase")
+	public String addMonopolyAfterPurchase(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
 		Gson gson = new Gson();
 		Board board = new Board();
 		Player player = new Player();
 		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
 		String string = "";
 
 		try {
 			board = boardService.findByGameId(id);
 			players = board.getPlayers();
+			spaces = board.getSpaces();
 
 			for (Player p : players) {
 				if (p.getName().equals(playerName)) {
@@ -593,11 +677,15 @@ public class GameController {
 				}
 			}
 
-			string = boardService.addMonopoly(board, player);
+			string = boardService.addMonopolyAfterPurchase(board, player);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		board.setPlayers(players);
+		board.setSpaces(spaces);
+		boardService.saveBoard(board);
 
 		return string;
 	}

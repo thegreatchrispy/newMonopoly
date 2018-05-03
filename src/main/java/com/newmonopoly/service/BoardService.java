@@ -38,7 +38,7 @@ public interface BoardService {
 	public String drawCard(Board board, Player player, String type);
 	public void build(Board board, Player player, Space space);
 	public void trade(Board board, Player player);
-	public String addMonopoly(Board board, Player player);
+	public String addMonopolyAfterPurchase(Board board, Player player);
 	public void findMonopolies(Board board, Player player);
 	public void bankrupt(Board board, Player player);
 	public int getPlayerIndex(Board boared, Player player);

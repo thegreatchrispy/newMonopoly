@@ -69,6 +69,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/getmoney").permitAll()
 				.antMatchers("/getposition").permitAll()
 				.antMatchers("/getinjail").permitAll()
+				.antMatchers("/getbuildstatus").permitAll()
+				.antMatchers("/gettradestatus").permitAll()
+				.antMatchers("/getmortgagestatus").permitAll()
 
 				/* Mutator Methods. */
 				.antMatchers("/moveplayertojail").permitAll()
@@ -82,7 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/performspaceaction").permitAll()
 				.antMatchers("/moveplayer").permitAll()
 				.antMatchers("/acceptpurchase").permitAll()
-				.antMatchers("/addmonopoly").permitAll()
+				.antMatchers("/addmonopolyafterpurchase").permitAll()
 
 				// Authorities.
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()

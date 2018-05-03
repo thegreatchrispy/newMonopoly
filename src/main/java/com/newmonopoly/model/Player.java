@@ -93,6 +93,14 @@ public class Player implements Comparable<Player> {
 		ownedProperties.remove(index);
 	}
 
+	public void updateOwnedProperties(Space property) {
+		for (Space s : ownedProperties) {
+			if (s.getName().equals(property.getName())) {
+				ownedProperties.set(ownedProperties.indexOf(s), property);
+			}
+		}
+	}
+
 	public boolean getJailCard() {
 		return jailCard;
 	}

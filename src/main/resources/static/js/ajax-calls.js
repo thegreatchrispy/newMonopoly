@@ -70,6 +70,42 @@ function getInJail(id, playerName) {
 	});
 }
 
+// Retrieve a player's building eligibility.
+function getBuildStatus(id, playerName) {
+    var urlString = "http://localhost:8080/getbuildstatus?gameid=" + id + "&player=" + playerName;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
+// Retrieve a board's trading eligibility.
+function getTradeStatus(id) {
+    var urlString = "http://localhost:8080/gettradestatus?gameid=" + id;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
+// Retrieve a board's trading eligibility.
+function getMortgageStatus(id, playerName) {
+    var urlString = "http://localhost:8080/getmortgagestatus?gameid=" + id + "&player=" + playerName;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
 /* Sending calls to set a given value in the Database. */
 
 // Send a call to send a player to jail.
@@ -190,8 +226,8 @@ function acceptPurchase(id, name) {
 }
 
 // Check if a player has a new monopoly.
-function addMonopoly(id, playerName) {
-    var urlString = "http://localhost:8080/addmonopoly?gameid=" + id + "&player=" + playerName;
+function addMonopolyAfterPurchase(id, playerName) {
+    var urlString = "http://localhost:8080/addmonopolyafterpurchase?gameid=" + id + "&player=" + playerName;
 	$.ajax({
     	url:`${urlString}`,
     	async: false,

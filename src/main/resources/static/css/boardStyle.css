@@ -851,3 +851,94 @@ h1, h2, h3, h4, h5, h6 {
 #endButton {
   display:none;
 }
+
+.box {
+  position: fixed;
+  background-color: beige;
+  border-radius: 30px;
+  width: 575px;
+  height: 575px;
+  top: 22%;
+  left: 46%;
+  margin-top: -50px;
+  margin-left: -100px;
+  z-index: 2;
+}
+
+.box_header {
+  color: black;
+  position: absolute;
+  float: left;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  font-size: 40px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#options-box {
+  display: none;
+}
+
+#cancel_button {
+  position: absolute;
+  top: 90%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  letter-spacing: 5px;
+  font-family: 'Verlag A','Verlag B';
+  background-color: black;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  color: #e0e0e0;
+  font-weight: 700;
+  font-size: 1.3em!important;
+  line-height: 1em;
+  padding: 14px 25px;
+  text-align: center;
+  min-width: 160px;
+  text-decoration: none;
+}
+
+#submit_button {
+  position: absolute;
+  top: 90%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  letter-spacing: 5px;
+  font-family: 'Verlag A','Verlag B';
+  background-color: black;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  color: #e0e0e0;
+  font-weight: 700;
+  font-size: 1.3em!important;
+  line-height: 1em;
+  padding: 14px 25px;
+  text-align: center;
+  min-width: 160px;
+  text-decoration: none;
+}
+
+#auction {
+  display: none;
+}
+
+#build {
+  display: none;
+}
+
+#trade {
+  display: none;
+}
+
+#mortgage {
+  display: none;
+}
