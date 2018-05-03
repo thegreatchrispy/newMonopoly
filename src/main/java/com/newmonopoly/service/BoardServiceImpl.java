@@ -63,6 +63,7 @@ public class BoardServiceImpl implements BoardService {
 		int groupsIndex;
 		Space space;
 		Iterator<Space> itr;
+		String swapped = "";
 
 		for (int i = 0; i < 4; i++) {
 			strongSeasons.add(i);
@@ -121,6 +122,7 @@ public class BoardServiceImpl implements BoardService {
 					}
 				}
 			}
+			swapped += group1 + " " + group2 + ";";
 			
 			itr = originalSpaces.iterator();
 		}
@@ -147,7 +149,7 @@ public class BoardServiceImpl implements BoardService {
 		else {
 			newSpaces = originalSpaces;
 		}
-
+		board.setSwappedString(swapped);
 		return newSpaces;
 	}
 

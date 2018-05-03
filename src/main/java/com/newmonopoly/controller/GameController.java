@@ -56,8 +56,8 @@ public class GameController {
 				throw new RuntimeException("save(): List of players is empty.");
 			}
 
-			board = new Board(players, randomize);
-			spaces = boardService.decideSeasonsAndOrder(board, randomize);
+			board = new Board(players, true);
+			spaces = boardService.decideSeasonsAndOrder(board, true);
 			community = board.getCommunity();
 			chance = board.getChance();
 
@@ -184,6 +184,42 @@ public class GameController {
 		}
 
 		return names;
+	}
+
+	@RequestMapping("/getrandomized")
+	public boolean isRandomized(@RequestParam("gameid") int id) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		List<Player> players = new Vector<Player>();
+		boolean status = false;
+
+		try {
+			board = boardService.findByGameId(id);
+			status = board.isRandomized();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status;
+	}
+
+	@RequestMapping("/getswappedstring")
+	public String getSwappedString(@RequestParam("gameid") int id) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		List<Player> players = new Vector<Player>();
+		String string = "";
+
+		try {
+			board = boardService.findByGameId(id);
+			string = board.getSwappedString();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return string;
 	}
 
 	@RequestMapping("/getdoublescount")

@@ -27,6 +27,7 @@
 		</script>
 		<script type="text/javascript" th:src="@{/js/alert.js}"></script>
 		<script type="text/javascript" th:src="@{/js/move.js}"></script>
+		<script type="text/javascript" th:src="@{/js/swap.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popup-details.js}"></script>
 		<script type="text/javascript" th:src="@{/js/player-info.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajax-calls.js}"></script>
@@ -258,14 +259,14 @@
 
 				<!-- Group #1 -->
 				<div id="group_1" class="row horizontal-row bottom-row-right">
-						<div class="space fee income-tax">
+						<div class="space fee income-tax" id="income-tax">
 							<div class="container">
 								<div class="name">Income Tax</div>
 								<div class="diamond"></div>
 								<div class="instructions">Pay 10%<br>or<br>$200</div>
 							</div>
 						</div>
-						<div class="space property">
+						<div class="space property" id="baltic">
 							<div class="container" id="Baltic Avenue">
 								<div class="color-bar dark-purple"></div>
 								<div class="name">Baltic Avenue</div>
@@ -277,14 +278,14 @@
 							</script>
 
 						</div>
-						<div class="space community-chest">
+						<div class="space community-chest" id="com-chest-1">
 							<div class="container">
 								<div class="name">Community Chest</div>
 								<i class="drawing fa fa-cube"></i>
 								<div class="instructions">Follow instructions on top card</div>
 							</div>
 						</div>
-						<div class="space property">
+						<div class="space property" id="mediterranean">
 							<div class="container" id="Mediterranean Avenue">
 								<div class="color-bar dark-purple"></div>
 								<div class="name three-line-name">Mediter-<br>ranean<br>Avenue</div>
@@ -310,7 +311,7 @@
 
 				<!-- Group #2 -->
 				<div id="group_2" class="row horizontal-row bottom-row-left">
-						<div class="space property">
+						<div class="space property" id="connecticut">
 								<div class="container" id="Connecticut Avenue">
 									<div class="color-bar light-blue"></div>
 									<div class="name">Connecticut Avenue</div>
@@ -320,7 +321,7 @@
 								popup_details('Connecticut Avenue');
 								</script>
 							</div>
-							<div class="space property">
+							<div class="space property" id="vermont">
 								<div class="container" id="Vermont Avenue">
 									<div class="color-bar light-blue"></div>
 									<div class="name">Vermont Avenue</div>
@@ -330,13 +331,13 @@
 								popup_details('Vermont Avenue');
 								</script>
 							</div>
-							<div class="space chance">
+							<div class="space chance" id="chance-2">
 								<div class="container">
 									<div class="name">Chance</div>
 									<i class="drawing fa fa-question"></i>
 								</div>
 							</div>
-							<div class="space property">
+							<div class="space property" id="oriental">
 								<div class="container" id="Oriental Avenue">
 									<div class="color-bar light-blue"></div>
 									<div class="name">Oriental Avenue</div>
@@ -368,7 +369,7 @@
 
 				<!-- GROUP #3 -->
 				<div id="group_3" class="row vertical-row left-row-bottom">
-						<div class="space property">
+						<div class="space property" id="virginia">
 								<div class="container" id="Virginia Avenue">
 									<div class="color-bar purple"></div>
 									<div class="name">Virginia Avenue</div>
@@ -378,7 +379,7 @@
 								popup_details('Virginia Avenue');
 								</script>
 							</div>
-							<div class="space property">
+							<div class="space property" id="states">
 								<div class="container" id="States Avenue">
 									<div class="color-bar purple"></div>
 									<div class="name">States Avenue</div>
@@ -388,7 +389,7 @@
 								popup_details('States Avenue');
 								</script>
 							</div>
-							<div class="space utility electric-company">
+							<div class="space utility electric-company" id="electric">
 								<div class="container" id="Electric Company">
 									<div class="name">Electric Company</div>
 									<i class="drawing fa fa-lightbulb-o"></i>
@@ -398,7 +399,7 @@
 								popup_details('Electric Company');
 								</script>
 							</div>
-							<div class="space property">
+							<div class="space property" id="saint">
 								<div class="container" id="St. Charles Place">
 									<div class="color-bar purple"></div>
 									<div class="name">St. Charles Place</div>
@@ -424,7 +425,7 @@
 
 				<!-- GROUP #4 -->
 				<div id="group_4" class="row vertical-row left-row-top">
-						<div class="space property">
+						<div class="space property" id="new">
 							<div class="container" id="New York Avenue">
 								<div class="color-bar orange"></div>
 								<div class="name">New York Avenue</div>
@@ -434,7 +435,7 @@
 							popup_details('New York Avenue');
 							</script>
 						</div>
-						<div class="space property">
+						<div class="space property" id="tenessee">
 							<div class="container" id="Tennessee Avenue">
 								<div class="color-bar orange"></div>
 								<div class="name">Tennessee Avenue</div>
@@ -444,14 +445,14 @@
 							popup_details('Tennessee Avenue');
 							</script>
 						</div>
-						<div class="space community-chest">
+						<div class="space community-chest" id="com-chest-4">
 							<div class="container">
 								<div class="name">Community Chest</div>
 								<i class="drawing fa fa-cube"></i>
 								<div class="instructions">Follow instructions on top card</div>
 							</div>
 						</div>
-						<div class="space property">
+						<div class="space property" id="james">
 							<div class="container" id="St. James Place">
 								<div class="color-bar orange"></div>
 								<div class="name">St. James Avenue</div>
@@ -475,7 +476,7 @@
 
 				<!-- GROUP #5 -->
 				<div id="group_5" class="row horizontal-row top-row-left">
-					<div class="space property">
+					<div class="space property" id="kentucky">
 						<div class="container" id="Kentucky Avenue">
 							<div class="color-bar red"></div>
 							<div class="name">Kentucky Avenue</div>
@@ -485,13 +486,13 @@
 						popup_details('Kentucky Avenue');
 						</script>
 					</div>
-					<div class="space chance">
+					<div class="space chance" id="chance-5">
 						<div class="container">
 							<div class="name">Chance</div>
 							<i class="drawing fa fa-question blue"></i>
 						</div>
 					</div>
-					<div class="space property">
+					<div class="space property" id="indiana">
 						<div class="container" id="Indiana Avenue">
 							<div class="color-bar red"></div>
 							<div class="name">Indiana Avenue</div>
@@ -501,7 +502,7 @@
 						popup_details('Indiana Avenue');
 						</script>
 					</div>
-					<div class="space property">
+					<div class="space property" id="illionis">
 						<div class="container" id="Illinois Avenue">
 							<div class="color-bar red"></div>
 							<div class="name">Illinois Avenue</div>
@@ -527,7 +528,7 @@
 
 				<!-- GROUP #6 -->
 				<div id="group_6" class="row horizontal-row top-row-right">
-					<div class="space property">
+					<div class="space property" id="atlantic">
 						<div class="container" id="Atlantic Avenue">
 							<div class="color-bar yellow"></div>
 							<div class="name">Atlantic Avenue</div>
@@ -537,7 +538,7 @@
 						popup_details('Atlantic Avenue');
 						</script>
 					</div>
-					<div class="space property">
+					<div class="space property" id="ventnor">
 						<div class="container" id="Ventnor Avenue">
 							<div class="color-bar yellow"></div>
 							<div class="name">Ventnor Avenue</div>
@@ -547,7 +548,7 @@
 						popup_details('Ventnor Avenue');
 						</script>
 					</div>
-					<div class="space utility waterworks">
+					<div class="space utility waterworks" id="waterworks">
 						<div class="container" id="Water Works">
 							<div class="name">Water Works</div>
 							<i class="drawing fa fa-tint"></i>
@@ -557,7 +558,7 @@
 						popup_details('Water Works');
 						</script>
 					</div>
-					<div class="space property">
+					<div class="space property" id="marvin">
 						<div class="container" id="Marvin Gardens">
 							<div class="color-bar yellow"></div>
 							<div class="name">Marvin Gardens</div>
@@ -583,7 +584,7 @@
 
 				<!-- GROUP #7 -->
 				<div id="group_7" class="row vertical-row right-row-top">
-					<div class="space property">
+					<div class="space property" id="pacific">
 						<div class="container" id="Pacific Avenue">
 							<div class="color-bar green"></div>
 							<div class="name">Pacific Avenue</div>
@@ -593,7 +594,7 @@
 						popup_details('Pacific Avenue');
 						</script>
 					</div>
-					<div class="space property">
+					<div class="space property" id="north">
 						<div class="container" id="North Carolina Avenue">
 							<div class="color-bar green"></div>
 							<div class="name three-line-name">North Carolina Avenue</div>
@@ -603,14 +604,14 @@
 						popup_details('North Carolina Avenue');
 						</script>
 					</div>
-					<div class="space community-chest">
+					<div class="space community-chest" id="com-chest-7">
 						<div class="container">
 							<div class="name">Community Chest</div>
 							<i class="drawing fa fa-cube"></i>
 							<div class="instructions">Follow instructions on top card</div>
 						</div>
 					</div>
-					<div class="space property">
+					<div class="space property" id="penn">
 						<div class="container" id="Pennsylvania Avenue">
 							<div class="color-bar green"></div>
 							<div class="name long-name">Pennsylvania Avenue</div>
@@ -637,13 +638,13 @@
 
 				<!-- GROUP #8 -->
 				<div id="group_8" class="row vertical-row right-row-bottom">
-					<div class="space chance">
+					<div class="space chance" id="chance-8">
 						<div class="container">
 							<div class="name">Chance</div>
 							<i class="drawing fa fa-question"></i>
 						</div>
 					</div>
-					<div class="space property">
+					<div class="space property" id="park">
 						<div class="container" id="Park Place">
 							<div class="color-bar dark-blue"></div>
 							<div class="name">Park Place</div>
@@ -653,14 +654,14 @@
 						popup_details('Park Place');
 						</script>
 					</div>
-					<div class="space fee luxury-tax">
+					<div class="space fee luxury-tax" id="luxury">
 						<div class="container">
 							<div class="name">Luxury Tax</div>
 							<div class="drawing fa fa-diamond"></div>
 							<div class="instructions">Pay $75.00</div>
 						</div>
 					</div>
-					<div class="space property">
+					<div class="space property" id="boardw">
 						<div class="container" id="Boardwalk">
 							<div class="color-bar dark-blue"></div>
 							<div class="name">Boardwalk</div>
@@ -694,7 +695,7 @@
 					<button id="continueButton">Continue</button>
 					<button id="buildButton">Build</button>
 					<button id="tradeButton">Trade</button>
-					<button id="mortgageButton">Mortgage</button>
+					<button id="accountsButton">Accounts</button>
 					<button id="endButton">End Turn</button>
 					<button id="jailCardButton">Use Card</button>
 					<button id="jailRollButton">Test My Luck</button>

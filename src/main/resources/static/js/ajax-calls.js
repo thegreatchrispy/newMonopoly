@@ -22,6 +22,28 @@ function getNamesOfPlayers() {
 	});
 }
 
+// Retrieve the randomized status from the board.
+function isRandomized() {
+	return $.ajax({
+    	url:"http://localhost:8080/getrandomized?gameid=1",
+    	async: false,
+    	success:function(data) {
+    		return data;
+		}
+	});
+}
+
+// Retrieve the swapped string from the board.
+function getSwappedString() {
+	return $.ajax({
+    	url:"http://localhost:8080/getswappedstring?gameid=1",
+    	async: false,
+    	success:function(data) {
+    		return data;
+		}
+	});
+}
+
 // Retrieve a player's doubles count.
 function getDoublesCount(id, playerName) {
     var urlString = "http://localhost:8080/getdoublescount?gameid=" + id + "&player=" + playerName;

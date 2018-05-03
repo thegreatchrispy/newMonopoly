@@ -1,16 +1,4 @@
-﻿function swap(swap_1, swap_2) {
-  // Declaring variables.
-  var element_1 = document.getElementById(swap_1);
-  var element_1_class = element_1.className;
-  var element_2 = document.getElementById(swap_2);
-  var element_2_class = element_2.className;
-
-  // Swap
-  element_1.className = element_2_class;
-  element_2.className = element_1_class;
-}
-
-function move(piece_id, row, column) {
+﻿function move(piece_id, row, column) {
   var piece = document.getElementById(piece_id);
   
   switch(piece_id) {

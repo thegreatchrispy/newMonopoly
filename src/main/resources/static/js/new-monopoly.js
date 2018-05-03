@@ -4,6 +4,26 @@
 
 	numPlayers = getNumberOfPlayers().responseText;
 
+	var status = isRandomized().responseText;
+	console.log(status);
+
+	var string = getSwappedString().responseText.split(";");
+
+	if (status == "true") {
+		for(j = 0; j < 4; j++) {
+			var group_pairs = string[j].split(" ");
+			var group1 = "group_" + group_pairs[0];
+			var group2 = "group_" + group_pairs[1];
+			if (!(Number(group_pairs[0]) > 4 && Number(group_pairs[1]) > 4)) {
+				if (!(Number(group_pairs[0]) <= 4 && Number(group_pairs[1]) <= 4)) {
+					reverse(group_pairs[0]);
+					reverse(group_pairs[1]);
+				}
+			}
+			swap(group1, group2);
+		}
+	}
+
     for(i = 0; i < numPlayers; i++) {
 		$(playerBlocks[i]).show();
 		$(playerTokens[i]).show();
@@ -160,8 +180,7 @@ function executeTurn(id, playerName) {
 	rollDie();
 	var die_1 = $('#dice1').html();
 	var die_2 = $('#dice2').html();
-	//var value = Number(die_1) + Number(die_2);
-	var value = 30;
+	var value = Number(die_1) + Number(die_2);
 	if (Number(die_1) == Number(die_2)) {
 		incrementDoublesCount(id, playerName);
 		doublesRolled = true;

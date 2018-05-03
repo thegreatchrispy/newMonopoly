@@ -65,6 +65,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				/* Accessor Methods. */
 				.antMatchers("/getnumberofplayers").permitAll()
 				.antMatchers("/getnamesofplayers").permitAll()
+				.antMatchers("/getrandomized").permitAll()
+				.antMatchers("/getswappedstring").permitAll()
 				.antMatchers("/getdoublescount").permitAll()
 				.antMatchers("/getmoney").permitAll()
 				.antMatchers("/getposition").permitAll()

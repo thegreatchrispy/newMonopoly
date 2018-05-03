@@ -6,7 +6,7 @@ function endTurn(id, playerName) {
         doublesRolled = false;
         $('#buildButton').hide();
         $('#tradeButton').hide();
-        $('#mortgageButton').hide();
+        $('#accountsButton').hide();
         $('#endButton').hide();
         $('#dieButton').show();
     }
@@ -18,7 +18,7 @@ function endTurn(id, playerName) {
         addAlert("It is " + names[index] + "'s turn!");
         $('#buildButton').hide();
         $('#tradeButton').hide();
-        $('#mortgageButton').hide();
+        $('#accountsButton').hide();
         $('#endButton').hide();
         $('#dieButton').show();
     }
@@ -70,14 +70,14 @@ function playerDecision(id, playerName) {
             $('#build').show();
             $('#buildButton').hide();
             $('#tradeButton').hide();
-            $('#mortgageButton').hide();
+            $('#accountsButton').hide();
             $('#endButton').hide();
             buildProperties(id, playerName);
             console.log("You can build!");
         } else {
             $('#buildButton').hide();
             $('#tradeButton').hide();
-            $('#mortgageButton').hide();
+            $('#accountsButton').hide();
             $('#endButton').hide();
             addAlert(playerName + ", you are not eligible to build!");
             waitContinue(id, playerName);
@@ -94,23 +94,23 @@ function playerDecision(id, playerName) {
             $('#trade').show();
             $('#buildButton').hide();
             $('#tradeButton').hide();
-            $('#mortgageButton').hide();
+            $('#accountsButton').hide();
             $('#endButton').hide();
             tradeProperties(id, playerName);
             console.log("You can trade!");
         } else {
             $('#buildButton').hide();
             $('#tradeButton').hide();
-            $('#mortgageButton').hide();
+            $('#accountsButton').hide();
             $('#endButton').hide();
             addAlert("There are currently no owned properties for any players! Go out and buy some!");
             waitContinue(id, playerName);
         }
     }
 
-    $('#mortgageButton').show();
-    var mortgage = document.getElementById("mortgageButton");
-    mortgage.onclick = function() {
+    $('#accountsButton').show();
+    var mortgage = document.getElementById("accountsButton");
+    accounts.onclick = function() {
         var canMortgage = getMortgageStatus(id, playerName).responseText;
         if (canMortgage == "true") {
             addAlert(playerName + " is currently viewing mortgages!");
@@ -118,14 +118,14 @@ function playerDecision(id, playerName) {
             $('#mortgage').show();
             $('#buildButton').hide();
             $('#tradeButton').hide();
-            $('#mortgageButton').hide();
+            $('#accountsButton').hide();
             $('#endButton').hide();
             mortgageProperties(id, playerName);
             console.log("You can mortgage!");
         } else {
             $('#buildButton').hide();
             $('#tradeButton').hide();
-            $('#mortgageButton').hide();
+            $('#accountsButton').hide();
             $('#endButton').hide();
             addAlert("You currently own no properties!");
             waitContinue(id, playerName);
