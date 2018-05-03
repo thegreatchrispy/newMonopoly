@@ -378,6 +378,38 @@ public class GameController {
 
 		return status;
 	}
+	
+	@RequestMapping("/getmortgagevalue")
+	public int getMortgageValue(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		Space space = new Space();
+		List<Player> players = new Vector<Player>();
+		int value = 0;
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+			space = board.getSpaces().get(player.getCurrentPosition());
+
+			value = space.getPrice() / 2;
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return value;
+	}
 
 	/* Mutator Methods. */
 

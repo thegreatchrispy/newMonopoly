@@ -106,6 +106,18 @@ function getMortgageStatus(id, playerName) {
 	});
 }
 
+// Retrieve a property's mortgage value.
+function getMortgageValue(id, playerName) {
+    var urlString = "http://localhost:8080/getmortgagevalue?gameid=" + id + "&player=" + playerName;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
 /* Sending calls to set a given value in the Database. */
 
 // Send a call to send a player to jail.

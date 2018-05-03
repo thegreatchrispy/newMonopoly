@@ -193,7 +193,8 @@ function updateMoneyAfterMove(id, playerName) {
 }
 
 function auction(id, startingBid) {
-    console.log("AUCTION");
+    console.log(startingBid);
+    //$('#cancel_button').html("CANCEL");
 }
 
 function chooseToBuy(id, playerName) {
@@ -219,8 +220,8 @@ function chooseToBuy(id, playerName) {
         $('#declineButton').hide();
         $('#options-box').show()
         $('#auction').show();
-        //var startingBid = getMortgageValue(id, playerName);
-        var startingBid = 0;
+        $('#cancel_button').html("PASS");
+        var startingBid = getMortgageValue(id, playerName).responseText;
         auction(id, startingBid);
     }
     $('#declineButton').onclick = function() {declinePurchase(id, playerName)};

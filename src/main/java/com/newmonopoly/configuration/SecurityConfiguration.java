@@ -72,6 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/getbuildstatus").permitAll()
 				.antMatchers("/gettradestatus").permitAll()
 				.antMatchers("/getmortgagestatus").permitAll()
+				.antMatchers("/getmortgagevalue").permitAll()
 
 				/* Mutator Methods. */
 				.antMatchers("/moveplayertojail").permitAll()
