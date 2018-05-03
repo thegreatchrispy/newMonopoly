@@ -67,5 +67,7 @@ CREATE TABLE `boards` (
 	`player_choice_char` CHAR(1),
 	`player_choice_int` INT,
 	`trade_choice_char` CHAR(1),
+	`randomize_set` BOOLEAN NOT NULL,
+	`swapped` CHAR(100),
 	PRIMARY KEY (`board_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

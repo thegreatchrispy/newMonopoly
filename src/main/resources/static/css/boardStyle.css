@@ -25,35 +25,186 @@ h1, h2, h3, h4, h5, h6 {
     border-left: 1px dotted #6d6d6d;
 }
 .side-block {
-    width: 90%;
-    margin: auto;
-    margin-top: 10px;
-    height: 150px;
-    text-align: center;
-    padding-top: 10px;
-    background-color: #e5eff3;
+  position:relative;
 }
+
+.side-block .player-block {
+  width: 90%;
+  margin: auto;
+  margin-top: 10px;
+  height: 150px;
+  text-align: center;
+  padding-top: 10px;
+  background-color: #e5eff3;
+}
+.side-block #in-jail1 {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  visibility:hidden;
+  z-index:1;
+  left:20px;
+}
+.side-block #in-jail2 {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  visibility:hidden;
+  z-index:1;
+  left:20px;
+}
+.side-block #in-jail3 {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  visibility:hidden;
+  z-index:1;
+  left:20px;
+}
+.side-block #in-jail4 {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  visibility:hidden;
+  z-index:1;
+  left:20px;
+}
+.side-block #in-jail5 {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  visibility:hidden;
+  z-index:1;
+  left:20px;
+}
+.side-block #in-jail6 {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  visibility:hidden;
+  z-index:1;
+  left:20px;
+}
+.side-block .jail-window {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+  height: 150px;
+  border: 2px solid #080808;
+}
+.side-block .player-bar {
+  height: 150px;
+  width: 2px;
+  background: #080808;
+}
+
+
+#player1{
+  display:none;
+}
+#player2{
+  display:none;
+}
+#player3{
+  display:none;
+}
+#player4{
+  display:none;
+}
+#player5{
+  display:none;
+}
+#player6{
+  display:none;
+}
+
 .side-block-content {
     color: grey;
     font-size: 18px;
 }
 
-.player-btn {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 8px;
-    color: white;
-    background-color: #800000;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
-    font-size: 18px;
+.side-block .player-btn {
+  position:relative;
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #800000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+  z-index: 2;
 }
-.player-btn:hover{
-    opacity: 0.7;
+.player-btn:hover,
+.player-btn:active{
+  opacity: 0.7;
 }
 
+.topright {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
+}
+
+.die-button {
+  background-color: rgb(82, 186, 179);
+  border-radius: 6px;
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  text-transform: uppercase;
+  width: 200px;
+  cursor: pointer;
+}
+.dieholder {
+  height: 100px;
+  width: 100px;
+  padding-top:10px;
+  text-align: center;
+  margin: 20px auto;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: #e5eff3;
+  color: grey;
+  font-size: 70px;
+}
+
+#control {
+  position: absolute;
+  z-index: 9;
+  bottom: 10px;
+  right: 25px;
+  border: 2px solid black;
+  padding: 10px;
+  background-color: white;
+}
+#alert {
+  width: 250px;
+  height: 300px;
+  margin: 0px;
+  padding-left: 1px;
+  border: 1px solid gray;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+  background-color: #FFFFFF;
+  overflow-y: scroll;
+}
 
 .dark-purple {
   background: #5e3577;
@@ -317,7 +468,7 @@ h1, h2, h3, h4, h5, h6 {
 .popup {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     padding-top: 100px;
     left: 0;
     top: 0;
@@ -367,7 +518,7 @@ h1, h2, h3, h4, h5, h6 {
 .modal{
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   padding-top: 100px;
   left: 0;
   top: 0;
@@ -643,7 +794,8 @@ h1, h2, h3, h4, h5, h6 {
   top: 5px;
 }
 
-.piece_1 {
+#piece_1 {
+  display: none;
   background: #000000;
   text-align: center;
   height: 25px;
@@ -659,7 +811,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-.piece_2 {
+#piece_2 {
+  display: none;
   background: blue;
   text-align: center;
   height: 25px;
@@ -675,7 +828,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-.piece_3 {
+#piece_3 {
+  display: none;
   background: red;
   text-align: center;
   height: 25px;
@@ -691,7 +845,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-.piece_4 {
+#piece_4 {
+  display: none;
   background: green;
   text-align: center;
   height: 25px;
@@ -707,7 +862,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-.piece_5 {
+#piece_5 {
+  display: none;
   background: orange;
   text-align: center;
   height: 25px;
@@ -723,7 +879,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-.piece_6 {
+#piece_6 {
+  display: none;
   background: plum;
   text-align: center;
   height: 25px;
@@ -737,4 +894,144 @@ h1, h2, h3, h4, h5, h6 {
   grid-column: 11;
   grid-row: 11;
   position: relative;
+}
+
+#dieButton {
+  display:none;
+}
+#acceptButton {
+  display:none;
+}
+#jailCardButton {
+  display:none;
+}
+#jailRollButton {
+  display:none;
+}
+#jailPayButton {
+  display:none;
+}
+#declineButton {
+  display:none;
+}
+#declineJailCardButton {
+  display:none;
+}
+#continueButton {
+  display:none;
+}
+#buildButton {
+  display:none;
+}
+#tradeButton {
+  display:none;
+}
+#accountsButton {
+  display:none;
+}
+#endButton {
+  display:none;
+}
+
+.box {
+  position: fixed;
+  background-color: beige;
+  border-radius: 30px;
+  width: 575px;
+  height: 575px;
+  top: 22%;
+  left: 46%;
+  margin-top: -50px;
+  margin-left: -100px;
+  z-index: 2;
+}
+
+.box_header {
+  color: black;
+  position: absolute;
+  float: left;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  font-size: 40px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#box_sub_header {
+  color: black;
+  position: absolute;
+  float: left;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  font-size: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#options-box {
+  display: none;
+}
+
+#cancel_button {
+  position: absolute;
+  top: 90%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  letter-spacing: 5px;
+  font-family: 'Verlag A','Verlag B';
+  background-color: black;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  color: #e0e0e0;
+  font-weight: 700;
+  font-size: 1.3em!important;
+  line-height: 1em;
+  padding: 14px 25px;
+  text-align: center;
+  min-width: 160px;
+  text-decoration: none;
+}
+
+#submit_button {
+  position: absolute;
+  top: 90%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  letter-spacing: 5px;
+  font-family: 'Verlag A','Verlag B';
+  background-color: black;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  color: #e0e0e0;
+  font-weight: 700;
+  font-size: 1.3em!important;
+  line-height: 1em;
+  padding: 14px 25px;
+  text-align: center;
+  min-width: 160px;
+  text-decoration: none;
+}
+
+#auction {
+  display: none;
+}
+
+#build {
+  display: none;
+}
+
+#trade {
+  display: none;
+}
+
+#mortgage {
+  display: none;
 }
