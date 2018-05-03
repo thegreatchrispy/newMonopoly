@@ -14,6 +14,7 @@ import java.lang.Math;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.hibernate.mapping.Index;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +39,8 @@ public class BoardServiceImpl implements BoardService {
 
 		try {
 			originalSpaces = gson.fromJson(new FileReader("spaces.json"), new TypeToken<List<Space>>(){}.getType());
-			chance = gson.fromJson(new FileReader("chance.json"), new TypeToken<List<Space>>(){}.getType());
-			community = gson.fromJson(new FileReader("community.json"), new TypeToken<List<Space>>(){}.getType());
+			chance = gson.fromJson(new FileReader("chance.json"), new TypeToken<List<Card>>(){}.getType());
+			community = gson.fromJson(new FileReader("community.json"), new TypeToken<List<Card>>(){}.getType());
 			Collections.shuffle(chance);
 			Collections.shuffle(community);
 			board.setChance(chance);
@@ -62,6 +63,7 @@ public class BoardServiceImpl implements BoardService {
 		int groupsIndex;
 		Space space;
 		Iterator<Space> itr;
+		String swapped = "";
 
 		for (int i = 0; i < 4; i++) {
 			strongSeasons.add(i);
@@ -120,6 +122,7 @@ public class BoardServiceImpl implements BoardService {
 					}
 				}
 			}
+			swapped += group1 + " " + group2 + ";";
 			
 			itr = originalSpaces.iterator();
 		}
@@ -146,7 +149,7 @@ public class BoardServiceImpl implements BoardService {
 		else {
 			newSpaces = originalSpaces;
 		}
-
+		board.setSwappedString(swapped);
 		return newSpaces;
 	}
 
@@ -166,49 +169,58 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void movePlayer(Board board, Player player, int value) {
+	public String movePlayer(Board board, Player player, int value) {
 		if (player == null) {
 			throw new IllegalArgumentException("In movePlayer: Player player is null.");
 		}
 
 		board.setDieValue(value);
 		board.setTurnOver(false);
+		String string = "";
 
 		if ( ((player.getCurrentPosition() + value) % 40) < (player.getCurrentPosition())) {
 			addFunds(board, player, 200);
+			string += player.getName() + " has collected $200 for passing GO.<br>";
 			System.out.println(player.getName() + " collected $200 for passing GO.");
 		}
 
 		player.setCurrentPosition((player.getCurrentPosition() + value) % 40);
 		// Update player
-		System.out.println(player.getName() + " landed on " + board.getSpaces().get(player.getCurrentPosition()).getName());
-		transaction(board, player);
+		string += player.getName() + " landed on " + board.getSpaces().get(player.getCurrentPosition()).getName() + ".";
+		return string;
+		//transaction(board, player);
 	}
 
 	@Override
-	public void movePlayer(Board board, Player player, String spaceName) {
+	public String movePlayer(Board board, Player player, String spaceName) {
 		if (player == null) {
 			throw new IllegalArgumentException("In movePlayer: Player player is null.");
 		}
 
+		int newIndex = 0;
 		for (Space space : board.getSpaces()) {
 			if (space.getName().equals(spaceName)) {
-				if (board.getSpaces().indexOf(space) < player.getCurrentPosition()) {
-					addFunds(board, player, 200);
-					System.out.println(player.getName() + " collected $200 for passing GO.");
-				}
-
-				player.setCurrentPosition(board.getSpaces().indexOf(space));
-				// Update: player
-				System.out.println(player.getName() + " moved to " + space.getName());
+				break;
 			}
+			newIndex++;
 		}
 
-		performSpaceAction(board, player, board.getSpaces().get(player.getCurrentPosition()));
+		String string = "";
+
+		if (newIndex < player.getCurrentPosition()) {
+			addFunds(board, player, 200);
+			string += player.getName() + " has collected $200 for passing GO.<br>";
+			System.out.println(player.getName() + " collected $200 for passing GO.");
+		}
+		player.setCurrentPosition(newIndex);
+		// Update: player
+		string += player.getName() + " moved to " + spaceName + ".";
+	
+		return string;
 	}
 
 	@Override
-	public void movePlayerToJail(Board board, Player player) {
+	public String movePlayerToJail(Board board, Player player) {
 		if (player == null) {
 			throw new IllegalArgumentException("In movePlayerToJail: Player player is null.");
 		}
@@ -217,11 +229,11 @@ public class BoardServiceImpl implements BoardService {
 		player.setInJail(true);
 		player.setJailTime(3);
 		// Update player
-		System.out.println(player.getName() + " has been moved to jail.");
+		return player.getName() + " has been locked up!";
 	}
 
 	@Override
-	public void moveToNearest(Board board, Player player, String type) {
+	public String moveToNearest(Board board, Player player, String type) {
 		if (player == null) {
 			throw new IllegalArgumentException("In moveToNearest: Player player is null.");
 		}
@@ -231,6 +243,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		boolean nearestFound = false;
+		String string = "";
 
 		for (int i = 1; i < 40 && !nearestFound; i++) {
 			if ((board.getSpaces().get((player.getCurrentPosition() + i) % 40).getType().equals(type))) {
@@ -241,16 +254,16 @@ public class BoardServiceImpl implements BoardService {
 
 				player.setCurrentPosition((player.getCurrentPosition() + i) % 40);
 				// Update player
-				System.out.println(player.getName() + " landed on " + board.getSpaces().get(player.getCurrentPosition()).getName());
+				string = player.getName() + " landed on " + board.getSpaces().get(player.getCurrentPosition()).getName() + ".";
 				nearestFound = true;
 			}
 		}
 
-		performSpaceAction(board, player, board.getSpaces().get(player.getCurrentPosition()));
+		return string;
 	}
 
 	@Override
-	public void moveToPosition(Board board, Player player, int position) {
+	public String moveToPosition(Board board, Player player, int position) {
 		if (player == null) {
 			throw new IllegalArgumentException("In moveToPosition: Player player is null.");
 		}
@@ -267,8 +280,7 @@ public class BoardServiceImpl implements BoardService {
 			player.setCurrentPosition(position);
 		}
 		// Update player
-		System.out.println(player.getName() + " moved to " + board.getSpaces().get(player.getCurrentPosition()).getName());
-		performSpaceAction(board, player, board.getSpaces().get(player.getCurrentPosition()));
+		return player.getName() + " moved to " + board.getSpaces().get(player.getCurrentPosition()).getName() + ".";
 	}
 
 	@Override
@@ -318,7 +330,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		for (Space space : board.getSpaces()){
-			if(space.getOwnedBy() == board.getPlayers().indexOf(player)){
+			if(space.getOwnedBy() == getPlayerIndex(board, player)){
 				if(space.getBuildings() == 5){
 					removeFunds(board, player, ((housePrice * 4) - hotelPrice));
 				}
@@ -349,8 +361,6 @@ public class BoardServiceImpl implements BoardService {
 			throw new IllegalArgumentException("In transaction: Player player is null.");
 		}
 
-		performSpaceAction(board, player, board.getSpaces().get(player.getCurrentPosition()));
-
 		if (player.getMoney() <= 0) {
 			board.setTurnOver(true);
 			// Update turnOver
@@ -362,137 +372,199 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
+	// @Override
+	// public String getSpaceAction(Board board, Player player) {
+	// 	Space space = board.getSpaces().get(player.getCurrentPosition());
+	// 	System.out.println(space.getType());
+	// 	return space.getType();
+	// }
+
 	@Override
-	public void performSpaceAction(Board board, Player player, Space space) {
+	public String performSpaceAction(Board board, Player player) {
 		if (player == null) {
 			throw new IllegalArgumentException("In performSpaceAction: Player player is null.");
 		}
-
+		Space space = board.getSpaces().get(player.getCurrentPosition());
 		if (space == null) {
 			throw new IllegalArgumentException("In performSpaceAction: Space space is null.");
 		}
+
+		String string = "";
 		
 		switch (space.getType()) {
 			case "gotojail":
-				movePlayerToJail(board, player);
+				string = movePlayerToJail(board, player) + ";movingToJail";
 				break;
 			case "property":
-				if ((space.getOwnedBy() != (board.getPlayerIndex())) && space.getOwnedBy() > -1) {
+				if ((space.getOwnedBy() != (getPlayerIndex(board, player))) && space.getOwnedBy() > -1) {
 					if (!space.isMortgaged()) {
-						payRent(board, player, space);					
+						//payRent(board, player, space);
+						string = payRent(board, player, board.getPlayers().get(space.getOwnedBy())) + ";moneyChange";					
 					}
 					else {
-						System.out.println(space.getName() + " is currently mortgaged.");
+						//System.out.println(space.getName() + " is currently mortgaged.");
+						string = "Property is currently mortgaged!;mortgaged";
 					}
 				}
-				else if (space.getOwnedBy() == board.getPlayerIndex()) {
+				else if (space.getOwnedBy() == getPlayerIndex(board, player)) {
+					string = "You already own this space, " + player.getName() + ".;nothing";
 					break;
 				}
 				else {
 					if((player.getMoney() - space.getPrice()) >= 0) {
-						chooseToBuy(board, player, space);
+						string = askToBuy(board, player) + ";chooseToBuy";
+						//chooseToBuy(board, player, space);
 					}
 					else {
-						System.out.println("You cannot buy this property!");
+						//System.out.println("You cannot buy this property!");
+						string = "You cannot afford this right now!;nothing";
 						break;
 					}
 				}
 				break;
 			case "railroad":
-				if ((space.getOwnedBy() != (board.getPlayerIndex())) && space.getOwnedBy() > -1) {
+				if ((space.getOwnedBy() != (getPlayerIndex(board, player))) && space.getOwnedBy() > -1) {
 					if (!space.isMortgaged()) {
-						payRailroad(board, player, space);
+						//payRailroad(board, player, space);
+						string = payRailroad(board, player, board.getPlayers().get(space.getOwnedBy())) + ";moneyChange";
 					}
 					else {
-						System.out.println(space.getName() + " is currently mortgaged.");
+						//System.out.println(space.getName() + " is currently mortgaged.");
+						string = "Property is currently mortgaged!;mortgaged";
 					}
 				}
-				else if (space.getOwnedBy() == board.getPlayerIndex()) {
+				else if (space.getOwnedBy() == getPlayerIndex(board, player)) {
+					string = "You already own this space, " + player.getName() + ".;nothing";
 					break;
 				} 
 				else {
-					chooseToBuy(board, player, space);
+					if((player.getMoney() - space.getPrice()) >= 0) {
+						string = askToBuy(board, player) + ";chooseToBuy";
+						//chooseToBuy(board, player, space);
+					}
+					else {
+						//System.out.println("You cannot buy this property!");
+						string = "You cannot afford this right now!;nothing";
+						break;
+					}
 				}
 				break;
 			case "utility":
-				if ((space.getOwnedBy() != (board.getPlayerIndex())) && space.getOwnedBy() > -1) {
+				if ((space.getOwnedBy() != (getPlayerIndex(board, player))) && space.getOwnedBy() > -1) {
 					if(!space.isMortgaged()) {	
-						payUtility(board, player, space);
+						//payUtility(board, player, space);
+						string = payUtility(board, player, board.getPlayers().get(space.getOwnedBy())) + ";moneyChange";
 					}
 					else {
-						System.out.println(space.getName() + " is currently mortgaged.");
+						string = "Property is currently mortgaged!;mortgaged";
+						//System.out.println(space.getName() + " is currently mortgaged.");
 					}
 				}
-				else if (space.getOwnedBy() == board.getPlayerIndex()) {
+				else if (space.getOwnedBy() == getPlayerIndex(board, player)) {
+					string = "You already own this space, " + player.getName() + ".;nothing";
 					break;
 				}
 				else {
-					chooseToBuy(board, player, space);
+					if((player.getMoney() - space.getPrice()) >= 0) {
+						string = askToBuy(board, player) + ";chooseToBuy";
+						//chooseToBuy(board, player, space);
+					}
+					else {
+						//System.out.println("You cannot buy this property!");
+						string = "You cannot afford this right now!;nothing";
+						break;
+					}
 				}
 				break;
 			case "tax":
-				payTax(board, player, space);
+				string = payTax(board, player, space) + ";moneyChange";
 				break;
 			case "comchest":
-				// drawCard(board, player, board.getCommunity());
+				string = drawCard(board, player, "comchest");
 				break;
 			case "chance":
-				//drawCard(board, player, board.getChance());
+				string = drawCard(board, player, "chance");
 				break;
 			default:
+				string = ";nothing";
 				break;
 		}
+		System.out.println(string);
+		return string;
 		// Update: player, space, chance, community
 	}
 
 	@Override
-	public void drawCard(Board board, Player player, List<Card> cards) {
+	public String drawCard(Board board, Player player, String type) {
 		if (player == null) {
 			throw new IllegalArgumentException("In drawCard: Player player is null.");
 		}
 
-		if (cards.isEmpty()) {
+		List<Card> cards = new Vector<Card>();
+		if (type.equals("comchest")) {
+			cards = board.getCommunity();
+		} else {
+			cards = board.getChance();
+		}
+
+		if (cards == null) {
 			throw new IllegalArgumentException("In drawCard: List<Card> cards is empty.");
 		}
 
+		String string = "";
 		Card card = cards.get(0);
-		System.out.println(player.getName() + " got the " + card.getTitle() + " card.");
+		string = player.getName() + " got the " + card.getTitle() + " card.";
 		cards.add(cards.remove(0));
+
+		if (type.equals("comchest")) {
+			board.setCommunity(cards);
+		} else {
+			board.setChance(cards);
+		}
+
 		switch (card.getAction()) {
 			case "move":
 				if(card.getPosition() != 0){
-					moveToPosition(board, player, card.getPosition());
+					string += "<br>" + moveToPosition(board, player, card.getPosition()) + ";move";
 				} else{
-					movePlayer(board, player, card.getSpaceName());
+					string += "<br>" + movePlayer(board, player, card.getSpaceName()) + ";move";
 				}
 				break;
 			case "movenearest":
-				moveToNearest(board, player, card.getType());
+				string += "<br>" + moveToNearest(board, player, card.getType()) + ";move";
 				break;
 			case "addfunds":
 				addFunds(board, player, card.getPayment());
+				string += ";moneyChange";
 				break;
 			case "removefunds":
 				removeFunds(board, player, card.getPayment());
+				string += ";moneyChange";
 				break;
 			case "repairs":
 				repairs(board, player, card.getHouses(), card.getHotels());
+				string += ";moneyChange";
 				break;
 			case "givetoplayers":
 				giveToPlayers(board, player, card.getPayment());
+				string += ";moneyChange";
 				break;
 			case "takefromplayers":
 				takeFromPlayers(board, player, card.getPayment());
+				string += ";moneyChange";
 				break;
 			case "gotojail":
-				movePlayerToJail(board, player);
+				string += "<br>" + movePlayerToJail(board, player) + ";movingToJail";
 				break;
 			case "outjail":
 				player.setJailCard(true);
+				string += ";nothing";
 				break;
 			default:
 				break;
 		}
+		System.out.println(string);
+		return string;
 		// Call a new Card object dependent on the type.
 	}
 
@@ -570,7 +642,7 @@ public class BoardServiceImpl implements BoardService {
 
 		do {
 			choice = getUserInput(board);
-		} while (choice == board.getPlayerIndex() + 1 || board.getPlayers().get(choice - 1) == null);
+		} while (choice == getPlayerIndex(board, player) + 1 || board.getPlayers().get(choice - 1) == null);
 
 		tradePlayer = board.getPlayers().get(choice  - 1);
 
@@ -597,10 +669,10 @@ public class BoardServiceImpl implements BoardService {
 				tradePlayer.addOwnedProperties(player.getOwnedProperties().get(myChoice - 1));
 				player.removeOwnedProperties(myChoice - 1);
 				tradePlayer.removeOwnedProperties(tradeChoice - 1);
-				player.getOwnedProperties().get(player.getOwnedProperties().size()-1).setOwnedBy(board.getPlayers().indexOf(player));
-				tradePlayer.getOwnedProperties().get(tradePlayer.getOwnedProperties().size()-1).setOwnedBy(board.getPlayers().indexOf(tradePlayer));
-				addMonopoly(board, player, player.getOwnedProperties().get(player.getOwnedProperties().size()-1));
-				addMonopoly(board, tradePlayer, tradePlayer.getOwnedProperties().get(tradePlayer.getOwnedProperties().size()-1));
+				player.getOwnedProperties().get(player.getOwnedProperties().size()-1).setOwnedBy(getPlayerIndex(board, player));
+				tradePlayer.getOwnedProperties().get(tradePlayer.getOwnedProperties().size()-1).setOwnedBy(getPlayerIndex(board, tradePlayer));
+				//addMonopoly(board, player, player.getOwnedProperties().get(player.getOwnedProperties().size()-1));
+				//addMonopoly(board, tradePlayer, tradePlayer.getOwnedProperties().get(tradePlayer.getOwnedProperties().size()-1));
 				approved = true;
 				// Update player, space
 			}
@@ -612,16 +684,20 @@ public class BoardServiceImpl implements BoardService {
 
 	// Checks if player has new monopolies.
 	@Override
-	public void addMonopoly(Board board, Player player, Space space) {
+	public String addMonopolyAfterPurchase(Board board, Player player) {
+		System.out.println("In addMonopoly");
 		if (player == null) {
 			throw new IllegalArgumentException("In addMonopoly: Player player is null.");
 		}
+
+		Space space = board.getSpaces().get(player.getCurrentPosition());
 
 		if (space == null) {
 			throw new IllegalArgumentException("In addMonopoly: Space space is null.");
 		}
 
 		boolean newMonopoly = true;
+		String string = "";
 
 		if (space.getType().equals("railroad") || space.getType().equals("utility")) {
 			newMonopoly = false;
@@ -630,7 +706,7 @@ public class BoardServiceImpl implements BoardService {
 			for (Space s : board.getSpaces()) {
 				if (s.getGroup() == space.getGroup()) {
 					if(s.getType().equals("property")) {
-						if (s.getOwnedBy() != board.getPlayers().indexOf(player)) {
+						if (s.getOwnedBy() != getPlayerIndex(board, player)) {
 							newMonopoly = false;
 							break;
 						}
@@ -640,7 +716,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		if (newMonopoly) {
-			System.out.println(player.getName() + " has a monopoly on group " + space.getGroup());
+			string = player.getName() + " has a monopoly on group " + space.getGroup() + ".";
 			player.addMonopolyGroup(space.getGroup()-1);
 
 			for (Space s : board.getSpaces()) {
@@ -648,10 +724,12 @@ public class BoardServiceImpl implements BoardService {
 					if (s.getType().equals("property")) {
 						s.setCurrentRent(s.getRent() * 2);
 						player.addMonopolyProperties(s);
+						player.updateOwnedProperties(s);
 					}
 				}
 			}
 		}
+		return string;
 	}
 
 	// Finds and prints the list of player's monopolies.
@@ -691,7 +769,7 @@ public class BoardServiceImpl implements BoardService {
 			auction(board, space);
 		}
 
-		board.getPlayers().set(board.getPlayerIndex(), null);
+		board.getPlayers().set(getPlayerIndex(board, player), null);
 		// Update players
 		System.out.println("\nPlayers remaining:");
 
@@ -701,6 +779,44 @@ public class BoardServiceImpl implements BoardService {
 			}
 		}
 	}
+	
+	@Override
+	public String askToBuy(Board board, Player player) {
+		if (player == null) {
+			throw new IllegalArgumentException("In chooseToBuy: Player player is null.");
+		}
+
+		Space space = board.getSpaces().get(player.getCurrentPosition());
+
+		if (space == null) {
+			throw new IllegalArgumentException("In chooseToBuy: Space space is null.");
+		}
+
+		return "Would you like to buy " + space.getName() + " for $" + space.getPrice() + ", " + player.getName() + "?";
+	}
+
+	@Override
+	public String buy(Board board, Player player, Space space) {
+		if (player == null) {
+			throw new IllegalArgumentException("In chooseToBuy: Player player is null.");
+		}
+		if (space == null) {
+			throw new IllegalArgumentException("In chooseToBuy: Space space is null.");
+		}
+		String string = "";
+
+		if (player.getMoney() - space.getPrice() > 0) {
+			string = player.getName() + " purchased " + space.getName() + ".";
+			removeFunds(board, player, space.getPrice()); // Player buys property.
+			player.addOwnedProperties(space); // Add property to board.getPlayers() Owned Properties list.
+			space.setOwnedBy(getPlayerIndex(board, player));
+		}
+		else {
+			string = "You can't afford " + space.getName();
+		}
+		return string;
+	}
+
 
 	@Override
 	public void chooseToBuy(Board board, Player player, Space space) {
@@ -720,8 +836,8 @@ public class BoardServiceImpl implements BoardService {
 				System.out.println(player.getName() + " purchased " + space.getName());
 				removeFunds(board, player, space.getPrice()); // Player buys property.
 				player.addOwnedProperties(space); // Add property to board.getPlayers() Owned Properties list.
-				space.setOwnedBy(board.getPlayers().indexOf(player));
-				addMonopoly(board, player, space);
+				space.setOwnedBy(getPlayerIndex(board, player));
+				//addMonopoly(board, player, space);
 			}
 			else {
 				System.out.println("You can't afford " + space.getName());
@@ -793,7 +909,7 @@ public class BoardServiceImpl implements BoardService {
 		board.getPlayers().get(index).addOwnedProperties(space); // Add property to players Owned Properties list.
 		space.setOwnedBy(index);
 		System.out.println(board.getPlayers().get(index).getName() + " has won the auction.");
-		addMonopoly(board, board.getPlayers().get(index), space);
+		//addMonopoly(board, board.getPlayers().get(index), space);
 		// Update: player who won auction
 	}
 
@@ -1004,7 +1120,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Player getCurrentPlayer(Board board) {
-		return board.getPlayers().get(board.getPlayerIndex());
+		return board.getPlayers().get(0);
 	}
 
 	// Return a boolean if the game has ended.
@@ -1033,20 +1149,20 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void nextTurn(Board board) {
 		do {
-			board.setPlayerIndex(board.getPlayerIndex() + 1);
+			board.setPlayerIndex(0);
 
-			if (board.getPlayerIndex() == board.getPlayers().size()) { // If playerIndex has reached the end of the list, set playerIndex back to zero.
+			if (0 == board.getPlayers().size()) { // If playerIndex has reached the end of the list, set playerIndex back to zero.
 				board.setPlayerIndex(0);
 			}
-		} while(board.getPlayers().get(board.getPlayerIndex()) == null);
+		} while(board.getPlayers().get(0) == null);
 	}
 
 	@Override
-	public void payRailroad(Board board, Player player, Space space) {
+	public String payRailroad(Board board, Player player, Player owner) {
 		if (player == null) {
 			throw new IllegalArgumentException("In payRailroad: Player player is null.");
 		}
-
+		Space space = board.getSpaces().get(player.getCurrentPosition());
 		if (space == null) {
 			throw new IllegalArgumentException("In payRailroad: Space space is null.");
 		}
@@ -1061,28 +1177,34 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		removeFunds(board, player, payment);
-		addFunds(board, board.getPlayers().get(index), payment);
+		addFunds(board, owner, payment);
+
+		return player.getName() + " has paid $" + payment + " to " + owner.getName() + ".";  
 	}
 
 	@Override
-	public void payRent(Board board, Player player, Space space) {
+	public String payRent(Board board, Player player, Player owner) {
 		if (player == null) {
 			throw new IllegalArgumentException("In payRent: Player player is null.");
 		}
-
-		if (space == null) {
-			throw new IllegalArgumentException("In payRent: Space space is null.");
+		Space space = new Space();
+		for (Space s : owner.getOwnedProperties()) {
+			if (s.getName().equals(board.getSpaces().get(player.getCurrentPosition()).getName())) {
+				space = s;
+				break;
+			}
 		}
 
 		// Rent will be changed in database in the build() method
 		int rent = space.getCurrentRent();
-		int index = space.getOwnedBy();
 		removeFunds(board, player, rent);
-		addFunds(board, board.getPlayers().get(index), rent);
+		addFunds(board, owner, rent);
+
+		return player.getName() + " has paid $" + rent + " to " + owner.getName() + ".";  
 	}
 
 	@Override
-	public void payTax(Board board, Player player, Space space) {
+	public String payTax(Board board, Player player, Space space) {
 		if (player == null) {
 			throw new IllegalArgumentException("In payTax: Player player is null.");
 		}
@@ -1091,24 +1213,29 @@ public class BoardServiceImpl implements BoardService {
 			throw new IllegalArgumentException("In payTax: Space space is null.");
 		}
 
+		int payment;
+
 		if(space.getName().equals("Luxury Tax")){
-			addFunds(board, player, space.getPrice());
+			payment = space.getPrice();
 		} else {
-			removeFunds(board, player, Math.min(200,(player.getMoney()/10)));
+			payment = Math.min(200, (player.getMoney()/10));
 		}
+		removeFunds(board, player, payment);
+		return player.getName() + " paid $" + payment + " for " + space.getName() + ".";
 	}
 
 	@Override
-	public void payUtility(Board board, Player player, Space space) {
+	public String payUtility(Board board, Player player, Player owner) {
 		if (player == null) {
 			throw new IllegalArgumentException("In payUtility: Player player is null.");
 		}
-
+		Space space = board.getSpaces().get(player.getCurrentPosition());
 		if (space == null) {
 			throw new IllegalArgumentException("In payUtility: Space space is null.");
 		}
 
 		int initialPayment;
+		int finalPayment;
 		boolean waterWorks = false;
 		boolean electricCompany = false;
 		List<Space> properties = board.getPlayers().get(space.getOwnedBy()).getOwnedProperties();
@@ -1129,8 +1256,24 @@ public class BoardServiceImpl implements BoardService {
 		}else {
 			initialPayment=4;
 		}
-		removeFunds(board, player, (initialPayment * board.getDieValue()));
-		addFunds(board, board.getPlayers().get(space.getOwnedBy()), (initialPayment * board.getDieValue()));
+		
+		finalPayment = initialPayment * board.getDieValue();
+		removeFunds(board, player, finalPayment);
+		addFunds(board, board.getPlayers().get(space.getOwnedBy()), finalPayment) ;
+
+		return player.getName() + " has paid $" + finalPayment + " to " + owner.getName() + ".";
+	}
+
+	@Override
+	public int getPlayerIndex(Board board, Player player) {
+		int index = -1;
+		for (Player p : board.getPlayers()) {
+			index++;
+			if (p.getName().equals(player.getName())) {
+				break;
+			}
+		}
+		return index;
 	}
 
 	@Override

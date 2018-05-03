@@ -47,6 +47,10 @@ public class Board {
 	private int playerChoiceInt;
 	@Column(name = "trade_choice_char")
 	private char tradeChoiceChar;
+	@Column(name = "randomize_set")
+	private boolean randomizeSet;
+	@Column(name = "swapped")
+	private String swapped;
 
 	public Board() {
 
@@ -61,10 +65,12 @@ public class Board {
 		spaces = "";
 		chance = "";
 		community = "";
+		swapped = "";
 		dieValue = 0;
 		playerIndex = 0;
 		housesAvailable = 32;
 		hotelsAvailable = 12;
+		this.randomizeSet = randomizeSet;
 	}
 
 	public long getId() {
@@ -207,5 +213,21 @@ public class Board {
 
 	public void setTradeChoiceChar(char tradeChoiceChar) {
 		this.tradeChoiceChar = tradeChoiceChar;
+	}
+
+	public boolean isRandomized() {
+		return randomizeSet;
+	}
+
+	public void setRandomize(boolean randomizeSet) {
+		this.randomizeSet = randomizeSet;
+	}
+
+	public String getSwappedString() {
+		return swapped;
+	}
+
+	public void setSwappedString(String swapped) {
+		this.swapped = swapped;
 	}
 }
