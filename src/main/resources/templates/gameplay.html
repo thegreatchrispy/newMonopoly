@@ -8,7 +8,7 @@
 		<link rel="stylesheet" th:href="@{/css/boardStyle.css}">
 		<script th:src="@{/jquery/3.3.1/jquery.min.js}"></script>
 		<script type="text/javascript"> 
-			var index = 0; 
+			var index = 0;
 			var numPlayers = 0;
 			var names = [];
 			var row = [11,11,11,11,11,11,11,11,11,11,11,
@@ -205,18 +205,20 @@
 					<table>
 						<tr>
 							<td>
+								<p>Your properties</p>
+							</td>
+							<td>
+								<select name="trade_player_selection" id="trade_player_selection">
+									<option value="0" selected="selected">Select Player to trade with</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								<input type="number" id="my_trade_amount" min="0" placeholder="$">
 							</td>
 							<td>
-								<select name="trade_player" id="trade_player">
-									<option value="0">Select Player to trade with</option>
-									<option value="trade_player1" style="display:none;"></option>
-									<option value="trade_player2" style="display:none;"></option>
-									<option value="trade_player3" style="display:none;"></option>
-									<option value="trade_player4" style="display:none;"></option>
-									<option value="trade_player5" style="display:none;"></option>
-									<option value="trade_player6" style="display:none;"></option>
-								</select>
+								<input type="number" id="other_trade_amount" min="0" placeholder="$" style="display:none;">
 							</td>
 						</tr>
 						<tr>

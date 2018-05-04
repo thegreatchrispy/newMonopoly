@@ -39,8 +39,27 @@ function tradeProperties(id, playerName) {
         console.log("cancel");
         $('#options-box').hide();
         $('#trade').hide();
+
+        $('#trade_player_selection')
+        .find('option')
+        .remove()
+        .end()
+        .append('<option value="0" selected="selected">Select Player to trade with</option>')
+        .val('0');
+
         playerDecision(id, playerName);
     }
+
+    $('#trade_player_selection').change(function(){
+        if ($('#trade_player_selection').val() == "0") {
+            $('#other_trade_amount').hide();
+            $('#other_trade_properties').hide();
+        }
+        else {
+            $('#other_trade_amount').show();
+            $('#other_trade_properties').show();
+        }
+    });
 }
 
 function mortgageProperties(id, playerName) {
@@ -96,6 +115,19 @@ function playerDecision(id, playerName) {
             $('#tradeButton').hide();
             $('#accountsButton').hide();
             $('#endButton').hide();
+
+            var name = "";
+            for (i = 0; i < numPlayers; i++) {
+                name = names[i];
+
+                if (names[index] != name) {
+                    $('#trade_player_selection').append($('<option>', {
+                        value: i+1,
+                        text: name
+                    }));
+                }
+            }
+
             tradeProperties(id, playerName);
             console.log("You can trade!");
         } else {
