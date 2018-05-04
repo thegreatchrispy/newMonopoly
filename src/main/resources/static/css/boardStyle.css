@@ -829,6 +829,7 @@ h1, h2, h3, h4, h5, h6 {
   grid-column: 11;
   grid-row: 11;
   position: relative;
+  z-index:1;
 }
 
 #piece_2 {
@@ -846,6 +847,7 @@ h1, h2, h3, h4, h5, h6 {
   grid-column: 11;
   grid-row: 11;
   position: relative;
+  z-index:1;
 }
 
 #piece_3 {
@@ -863,6 +865,7 @@ h1, h2, h3, h4, h5, h6 {
   grid-column: 11;
   grid-row: 11;
   position: relative;
+  z-index:1;
 }
 
 #piece_4 {
@@ -880,6 +883,7 @@ h1, h2, h3, h4, h5, h6 {
   grid-column: 11;
   grid-row: 11;
   position: relative;
+  z-index:1;
 }
 
 #piece_5 {
@@ -897,6 +901,7 @@ h1, h2, h3, h4, h5, h6 {
   grid-column: 11;
   grid-row: 11;
   position: relative;
+  z-index:1;
 }
 
 #piece_6 {
@@ -914,6 +919,7 @@ h1, h2, h3, h4, h5, h6 {
   grid-column: 11;
   grid-row: 11;
   position: relative;
+  z-index:1;
 }
 
 #dieButton {
@@ -1035,6 +1041,101 @@ h1, h2, h3, h4, h5, h6 {
 #build {
   display: none;
 }
+
+.custom-select {
+  left:65px;
+  top:150px;
+  position: relative;
+  font-family: Arial;
+}
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+.select-selected {
+  background-color: #A52A2A;
+}
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: #A52A2A;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+#numberhouses{
+  display: none;
+}
+.cardspace{
+  left:65px;
+  top:150px;
+  position: relative;
+  height:300px;
+  width:450px;
+}
+.cardcolumn{
+  height:300px;
+  width:33%;
+  background-color:red;
+  float:left;
+/*  add next line when u change the logic to display according to the
+  number of cards*/
+/*  display:none;*/
+}
+.qty {
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+input.qtyplus { 
+  width:25px;
+  height:25px;
+}
+input.qtyminus {
+  width:25px;
+  height:25px;
+}
+.cardDetailSpace {
+  margin: auto;
+  height:260px;
+}
+.houseQtySpace {
+  margin: auto;
+  height:40px;
+}
+
 
 #trade {
   display: none;
