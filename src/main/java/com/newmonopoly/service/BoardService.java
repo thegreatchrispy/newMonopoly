@@ -46,6 +46,7 @@ public interface BoardService {
 	// Monopoly logic functions - DO require user input
 	public String askToBuy(Board board, Player player);
 	public String buy(Board board, Player player, Space space);
+	public String buyAuction(Board board, Player player, Space space, int value);
 	public void chooseToBuy(Board board, Player player, Space space);
 	public void auction(Board board, Space space);
 	public void mortgage(Board board, Player player, int debt);

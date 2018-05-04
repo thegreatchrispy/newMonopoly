@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   z-index: 2;
   left:110px;
-  top:200px;
+  top:155px;
   border: 2px solid black;
   padding: 10px;
   background-color: white;
@@ -217,6 +217,32 @@ h1, h2, h3, h4, h5, h6 {
 #alert_auction {
   width: 350px;
   height: 250px;
+  margin: 0px;
+  padding-left: 1px;
+  border: 1px solid gray;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+  background-color: #FFFFFF;
+  overflow-y: scroll;
+}
+#bid {
+    width: 200px;
+    margin-top: 80%;
+    margin-left: 38%;
+}
+
+#control_build {
+  position: absolute;
+  z-index: 2;
+  bottom: 105px;
+  right: 25px;
+  border: 2px solid black;
+  padding: 10px;
+  background-color: white;
+}
+#alert_build {
+  width: 250px;
+  height: 300px;
   margin: 0px;
   padding-left: 1px;
   border: 1px solid gray;
@@ -966,7 +992,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 575px;
   height: 575px;
   top: 22%;
-  left: 46%;
+  left: 42%;
   margin-top: -50px;
   margin-left: -100px;
   z-index: 2;
@@ -984,7 +1010,7 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
 }
 
-#box_sub_header {
+.box_sub_header {
   color: black;
   position: absolute;
   float: left;
@@ -1120,11 +1146,21 @@ h1, h2, h3, h4, h5, h6 {
 .cardcolumn{
   height:300px;
   width:33%;
-  background-color:red;
+  background-color:white;
+  border-style: solid;
   float:left;
 /*  add next line when u change the logic to display according to the
   number of cards*/
 /*  display:none;*/
+}
+#card-1 {
+  display: none;
+}
+#card-2 {
+  display: none;
+}
+#card-3 {
+  display: none;
 }
 .qty {
     width: 40px;
@@ -1140,12 +1176,15 @@ input.qtyminus {
   height:25px;
 }
 .cardDetailSpace {
-  margin: auto;
-  height:260px;
+  margin-left: 5%;
+  margin-top: 10%;
+  font-size: 15px;
+  height: 260px;
 }
 .houseQtySpace {
-  margin: auto;
-  height:40px;
+  margin-left: 15%;
+  height: 40px;
+  margin-top: -5%;
 }
 
 

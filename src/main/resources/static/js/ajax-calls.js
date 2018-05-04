@@ -104,6 +104,30 @@ function getBuildStatus(id, playerName) {
 	});
 }
 
+// Retrieve a player's building eligibility.
+function getMonopolyGroups(id, playerName) {
+    var urlString = "http://localhost:8080/getmonopolygroups?gameid=" + id + "&player=" + playerName;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
+// Retrieve a player's building eligibility.
+function getBuildingInfo(id, playerName, group) {
+    var urlString = "http://localhost:8080/getbuildinginfo?gameid=" + id + "&player=" + playerName + "&group=" + group;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
 // Retrieve a board's trading eligibility.
 function getTradeStatus(id) {
     var urlString = "http://localhost:8080/gettradestatus?gameid=" + id;
@@ -259,6 +283,19 @@ function acceptPurchase(id, name) {
 		});
 }
 
+// Send a call to purchase the property for the winner of an auction
+function auctionPurchase(id, name, winner, value) {
+	var urlString = "http://localhost:8080/auctionpurchase?gameid=" + id + "&player=" + name + "&winner=" + winner + "&amount=" + value;
+
+	$.ajax({
+            url: `${urlString}`,
+            async: false,
+			success: function(data) {
+                addAlert(data);
+			}
+		});
+}
+
 // Check if a player has a new monopoly.
 function addMonopolyAfterPurchase(id, playerName) {
     var urlString = "http://localhost:8080/addmonopolyafterpurchase?gameid=" + id + "&player=" + playerName;
@@ -269,4 +306,16 @@ function addMonopolyAfterPurchase(id, playerName) {
             addAlert(data);
 		}
 	});
+}
+
+// Send a call to purchase buildings of specific group.
+function purchaseBuildings(id, playerName, spaceName, numberOfBuildings) {
+	var urlString = "http://localhost:8080/purchasebuildings?gameid=" + id + "&player=" + playerName + "&space=" + spaceName + "&buildings=" + numberOfBuildings;
+
+	$.ajax({
+            url: `${urlString}`,
+            async: false,
+			success: function(data) {
+			}
+		});
 }

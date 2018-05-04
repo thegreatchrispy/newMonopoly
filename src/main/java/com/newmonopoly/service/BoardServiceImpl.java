@@ -817,6 +817,28 @@ public class BoardServiceImpl implements BoardService {
 		return string;
 	}
 
+	@Override
+	public String buyAuction(Board board, Player player, Space space, int value) {
+		if (player == null) {
+			throw new IllegalArgumentException("In chooseToBuy: Player player is null.");
+		}
+		if (space == null) {
+			throw new IllegalArgumentException("In chooseToBuy: Space space is null.");
+		}
+		String string = "";
+
+		if (player.getMoney() - value > 0) {
+			string = player.getName() + " purchased " + space.getName() + ".";
+			removeFunds(board, player, value); // Player buys property.
+			player.addOwnedProperties(space); // Add property to board.getPlayers() Owned Properties list.
+			space.setOwnedBy(getPlayerIndex(board, player));
+		}
+		else {
+			string = "You can't afford " + space.getName();
+		}
+		return string;
+	}
+
 
 	@Override
 	public void chooseToBuy(Board board, Player player, Space space) {

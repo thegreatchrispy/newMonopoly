@@ -24,12 +24,194 @@ function endTurn(id, playerName) {
     }
 }
 
+function validateDevelopment(money, balance, numberOfHotels, numberOfHouses, totalHotels, totalHouses, maxBuildings, minBuildings) {
+    var status = "";
+
+    balance = balance * -1;
+
+    if ((numberOfHotels - totalHotels) < 0) {
+        status = "hotels";
+    } else if ((numberOfHouses - totalHouses) < 0) {
+        status = "houses";
+    } else if ((money - balance) <= 0) {
+        status = "money";
+    } else if ((maxBuildings - minBuildings) > 1) {
+        status = "even";
+    } else {
+        status = "pass";
+    }
+
+    return status;
+}
+
+function updateBalance(numberOfProperties, currentBuildings, buyingCosts, sellingCosts) {
+    console.log("In updateBalance");
+    var balance = 0;
+    for (i = 0; i < numberOfProperties; i++) {
+        var newBuildings = Number($('#field' + (i+1)).val());
+        console.log(newBuildings);
+        console.log(currentBuildings[i]);
+        if (newBuildings > currentBuildings[i]) {
+            balance = balance - ( (newBuildings - currentBuildings[i]) * buyingCosts[i] );
+        } else if (newBuildings < currentBuildings[i]) {
+            balance = balance + ( (currentBuildings[i] - newBuildings) * sellingCosts[i]);
+        }
+    }
+    console.log(balance);
+    $("#numberhouses_sub").html("BALANCE: $" + balance);
+}
+
+function buildHouses(id, playerName, group) {
+    $("#numberhouses_sub").html("BALANCE: $0");
+    var money = getMoney(id, playerName).responseText;
+    var string = getBuildingInfo(id, playerName, group).responseText.split(":");
+    var numberOfProperties = Number(string[0]);
+    var numberOfHotels = Number(string[1]);
+    var numberOfHouses = Number(string[2]);
+    var properties = string[3].split(";")
+    var currentBuildings = [];
+    var buyingCosts = [];
+    var sellingCosts = [];
+    
+    for (i = 0; i < numberOfProperties; i++) {
+        var property = properties[i].split(",");
+        var card = "#card-" + (i+1);
+        var details = "#details-" + (i+1);
+        $(card).show();
+        $(details).html(property[0]);
+        $('#field' + (i+1)).val(property[1]);
+        currentBuildings[i] = Number(property[1]);
+        buyingCosts[i] = Number(property[2]);
+        sellingCosts[i] = Number(property[3]);
+    }
+
+    $('.qtyplus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If is not undefined
+        if (!isNaN(currentVal) && currentVal < 5) {
+            // Increment
+            $('input[name='+fieldName+']').val(currentVal + 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(5);
+        }
+        updateBalance(numberOfProperties, currentBuildings, buyingCosts, sellingCosts);
+    });
+    // This button will decrement the value till 0
+    $(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input[name='+fieldName+']').val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+        updateBalance(numberOfProperties, currentBuildings, buyingCosts, sellingCosts);
+    });
+
+    $('#submit_button').html("PURCHASE");
+    var submit = document.getElementById("submit_button");
+    submit.onclick = function() {
+        var balance = $("#numberhouses_sub").html().split("$")[1];
+        var totalHouses = 0;
+        var totalHotels = 0;
+        var maxBuildings = 0;
+        var minBuildings = 5;
+
+        // Find total number of houses and hotels.
+        for (i = 0; i < numberOfProperties; i++) {
+            var number = Number($('#field' + (i+1)).val());
+            // Find total number of houses and hotels.
+            if(number == 5) {
+                totalHotels++;
+            } else {
+                totalHouses += number;
+            }
+
+            // Find max and min number of buildings out of all properties.
+            if(number >= maxBuildings) {
+                maxBuildings = number;
+            }
+
+            if(number <= minBuildings) {
+                minBuildings = number;
+            }
+        }
+
+        var status = validateDevelopment(money, balance, numberOfHotels, numberOfHouses, totalHotels, totalHouses, maxBuildings, minBuildings);
+        switch (status) {
+            case "hotels":
+                addAlert("There are not enough hotels available!");
+                break;
+            case "houses":
+                addAlert("There are not enough houses available!");
+                break;
+            case "money":
+                addAlert("You don't have enough money to process this!");
+                break;
+            case "even":
+                addAlert("You must even build!");
+                break;
+            case "pass":
+                addAlert(playerName + " has built improvements!");
+                for (i = 0; i < numberOfProperties; i++) {
+                    var property = properties[i].split(",");
+                    var number = Number($('#field' + (i+1)).val());
+                    purchaseBuildings(id, playerName, property[0], number);
+                }
+                setTimeout(function() {
+                    $('#submit_button').html("SUBMIT");
+                    $('#options-box').hide();
+                    $('#numberhouses').hide();
+                    $("#alert_build").html("");
+                    $('#card-1').hide();
+                    $('#card-2').hide();
+                    $('#card-3').hide();
+                    updateMoney(id, playerName);
+                }, 500);
+                break;
+        }
+
+    }
+}
+
 function buildProperties(id, playerName) {
+    $('#build_sub').html("SELECT GROUP");
+    var monopoly_group = getMonopolyGroups(id, playerName).responseText.split(";");
+
     var cancel = document.getElementById("cancel_button");
     cancel.onclick = function() {
         $('#options-box').hide();
         $('#build').hide();
+        $('#alert_build').html("");
         playerDecision(id, playerName);
+    }
+    $('#submit_button').html("CONTINUE");
+    var submit = document.getElementById("submit_button");
+    submit.onclick = function() {
+        var selected_group = $('#group_select').val();
+        var compared_group = Number(monopoly_group[selected_group - 1]);
+        if (selected_group == 0) {
+            addBuildAlert("Please select a monoopoly group or quit!");
+        } else if (compared_group != 1) {
+            addBuildAlert("You do not own this monopoly group! Please select a different one.");
+        } else {
+            $('#build').hide();
+            $('#numberhouses').show();
+            buildHouses(id, playerName, (selected_group));
+        }
     }
 }
 
@@ -192,8 +374,82 @@ function updateMoneyAfterMove(id, playerName) {
     $(moneyID).html("$" + money);
 }
 
-function auction(id, startingBid) {
-    console.log(startingBid);
+function bidStillActive() {
+    var count = 0;
+    for(i = 0; i < numPlayers; i++) {
+        if (players_in_auction[i] == 1) {
+            count++;
+        }
+    }
+
+    if (count > 1) {
+        bidStatus = true;
+    } else {
+        bidStatus = false;
+    }
+}
+
+function findAuctionWinner() {
+    var winner_index;
+    for (i = 0; i < numPlayers; i++) {
+        if (players_in_auction[i] == 1) {
+            winner_index = i;
+            break;
+        }
+    }
+    return winner_index;
+}
+
+function changePlayerAuctionStatus() {
+    players_in_auction[auction_index] = 0;
+}
+
+function auction(id, playerName) {
+    bidStillActive();
+    if (bidStatus) {
+        if(players_in_auction[auction_index]) {
+            addAuctionAlert("Please enter a bid more than the current bid amount, or pass the auction, " + names[auction_index]);
+            var string = $('#auction_sub').html().split("$");
+            var currentBid = Number(string[1]);
+
+            var submit = document.getElementById("submit_button");
+            submit.onclick = function() {
+                var bid = $('#bid_amount').val();
+                if (bid <= currentBid) {
+                    addAuctionAlert(names[auction_index] + ", you must enter a bid greater than the current bid!");
+                } else {
+                    addAuctionAlert("");
+                    $('#auction_sub').html("CURRENT BID: $" + bid);
+                    incrementAuctionIndex();
+                    auction(id, playerName);
+                }
+            }
+
+            var pass = document.getElementById("cancel_button");
+            pass.onclick = function() {
+                addAuctionAlert(names[auction_index] + " has left the auction!");
+                addAuctionAlert("");
+                changePlayerAuctionStatus();
+                incrementAuctionIndex();
+                auction(id, playerName);
+            }
+        } else {
+            incrementAuctionIndex();
+        }
+    } else {
+        var string = $('#auction_sub').html().split("$");
+        var currentBid = Number(string[1]);
+        addAlert(names[findAuctionWinner()] + " has won the auction!");
+        auctionPurchase(id, playerName, names[findAuctionWinner()], currentBid);
+        setTimeout(function() {
+            $('#cancel_button').html("CANCEL");
+            $('#options-box').hide();
+            bidStatus = true;
+            addMonopolyAfterPurchase(id, playerName);
+            updateMoney(id, playerName);
+        }, 500);
+    }
+
     //$('#cancel_button').html("CANCEL");
 }
 
@@ -203,9 +459,9 @@ function chooseToBuy(id, playerName) {
     var accept = document.getElementById("acceptButton");
     accept.onclick = function() {
         acceptPurchase(id, playerName);
+        $('#acceptButton').hide();
+        $('#declineButton').hide();
         setTimeout(function() {
-            $('#acceptButton').hide();
-            $('#declineButton').hide();
             addMonopolyAfterPurchase(id, playerName);
             updateMoney(id, playerName);
         }, 500);
@@ -220,9 +476,11 @@ function chooseToBuy(id, playerName) {
         $('#declineButton').hide();
         $('#options-box').show()
         $('#auction').show();
+        $('#auction_sub').html("CURRENT BID: $" + bid);
+        addAuctionAlert("An Auction Has Begun!");
         $('#cancel_button').html("PASS");
-        var startingBid = getMortgageValue(id, playerName).responseText;
-        auction(id, startingBid);
+        //var startingBid = getMortgageValue(id, playerName).responseText;
+        auction(id, playerName);
     }
     $('#declineButton').onclick = function() {declinePurchase(id, playerName)};
 

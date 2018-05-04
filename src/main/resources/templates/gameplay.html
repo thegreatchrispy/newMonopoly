@@ -8,7 +8,10 @@
 		<link rel="stylesheet" th:href="@{/css/boardStyle.css}">
 		<script th:src="@{/jquery/3.3.1/jquery.min.js}"></script>
 		<script type="text/javascript"> 
-			var index = 0; 
+			var index = 0;
+			var auction_index = 0;
+			var players_in_auction = [1, 1, 1, 1, 1, 1];
+			var bidStatus = true; 
 			var numPlayers = 0;
 			var names = [];
 			var row = [11,11,11,11,11,11,11,11,11,11,11,
@@ -30,7 +33,6 @@
 		<script type="text/javascript" th:src="@{/js/swap.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popup-details.js}"></script>
 		<script type="text/javascript" th:src="@{/js/player-info.js}"></script>
-		<script type="text/javascript" th:src="@{/js/plusminusbuttons.js}"></script>
 		<script type="text/javascript" th:src="@{/js/popup-bars.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajax-calls.js}"></script>
 		<script type="text/javascript" th:src="@{/js/board.js}"></script>
@@ -195,16 +197,20 @@
 		<div class="box" id="options-box">
 			<div id="auction">
 				<div class="box_header">AN AUCTION HAS BEGUN!</div>
-				<div id="box_sub_header">STARTING BID: </div>
+				<div class="box_sub_header" id="auction_sub"></div>
 				<div id="control_auction">
 					<div id="alert_auction"></div>
+				</div>
+				<div id="bid">
+					<input id="bid_amount" type="number" name="bid" min="1" placeholder="Bid Amount">
 				</div>
 				<!-- <div></div> -->
 			</div>
 			<div id="build">
 				<div class="box_header">BUILD ON PROPERTIES</div>
+				<div class="box_sub_header" id="build_sub"></div>
 				<div class="custom-select" style="width:200px;">
-					<select>
+					<select id="group_select">
 						<option value="0">Select group:</option>
 						<option value="1">Group 1</option>
 						<option value="2">Group 2</option>
@@ -215,6 +221,9 @@
 						<option value="7">Group 7</option>
 						<option value="8">Group 8</option>
 					</select>
+				</div>
+				<div id="control_build">
+					<div id="alert_build"></div>
 				</div>
 				<script>
 				var x, i, j, selElmnt, a, b, c;
@@ -292,36 +301,31 @@
 				</script>
 			</div>
 			<div id="numberhouses">
-				<div class="box_header">ASSIGN HOUSES</div>
+				<div class="box_header">MANAGE HOUSES</div>
+				<div class="box_sub_header" id="numberhouses_sub"></div>
 				<div class="cardspace">
-					<div class="cardcolumn">
-						<div class="cardDetailSpace">
-
-						</div>
+					<div class="cardcolumn" id="card-1">
+						<div class="cardDetailSpace" id="details-1"></div>
 						<div class="houseQtySpace">
-							<input type='button' value='-' class='qtyminus' field='field1' />
-							<input type='text' name='field1' value='0' class='qty' />
-							<input type='button' value='+' class='qtyplus' field='field1' />
+							<input type='button' id="field1-" value='-' class='qtyminus' field='field1' />
+							<input type='text' name='field1' id="field1" value='0' class='qty' readonly="readonly"/>
+							<input type='button' id="field1+" value='+' class='qtyplus' field='field1' />
 						</div>
 					</div>
-					<div class="cardcolumn">
-						<div class="cardDetailSpace">
-
-						</div>
+					<div class="cardcolumn" id="card-2">
+						<div class="cardDetailSpace" id="details-2"></div>
 						<div class="houseQtySpace">
-							<input type='button' value='-' class='qtyminus' field='field2' />
-							<input type='text' name='field2' value='0' class='qty' />
-							<input type='button' value='+' class='qtyplus' field='field2' />
+							<input type='button' id="field2-" value='-' class='qtyminus' field='field2' />
+							<input type='text' name='field2' id="field2" value='0' class='qty' readonly="readonly"/>
+							<input type='button' id="field2+" value='+' class='qtyplus' field='field2' />
 						</div>
 					</div>
-					<div class="cardcolumn">
-						<div class="cardDetailSpace">
-
-						</div>
+					<div class="cardcolumn" id="card-3">
+						<div class="cardDetailSpace" id="details-3"></div>
 						<div class="houseQtySpace">
-							<input type='button' value='-' class='qtyminus' field='field3' />
-							<input type='text' name='field3' value='0' class='qty' />
-							<input type='button' value='+' class='qtyplus' field='field3' />
+							<input type='button' id="field3-" value='-' class='qtyminus' field='field3' />
+							<input type='text' name='field3' id="field3" value='0' class='qty' readonly="readonly"/>
+							<input type='button' id="field3+" value='+' class='qtyplus' field='field3' />
 						</div>
 					</div>
 				</div>
@@ -337,7 +341,7 @@
 		</div>
 
 
-				<script>
+				<!-- <script>
 					document.getElementById("submit_button").onclick = function() {displayNextBox()};
 
 					function displayNextBox() {
@@ -347,7 +351,7 @@
 						setTimeout(function(){ document.getElementById("numberhouses").style.display = "none"; }, 10000);
 					}
 
-				</script>
+				</script> -->
 
 
 		<div class="table">
