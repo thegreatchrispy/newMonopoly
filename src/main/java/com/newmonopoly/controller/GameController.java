@@ -62,8 +62,6 @@ public class GameController {
 			chance = board.getChance();
 
 			board.setSpaces(spaces);
-			// board.setCommunity(community);
-			//board.setChance(chance);
 
 			boardService.saveBoard(board);
 		}

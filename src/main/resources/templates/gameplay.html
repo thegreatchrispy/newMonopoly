@@ -205,10 +205,11 @@
 					<table>
 						<tr>
 							<td>
-								<input type="text" id="my_trade_amount" readonly>
+								<input type="number" id="my_trade_amount" min="0" placeholder="$">
 							</td>
 							<td>
 								<select name="trade_player" id="trade_player">
+									<option value="0">Select Player to trade with</option>
 									<option value="trade_player1" style="display:none;"></option>
 									<option value="trade_player2" style="display:none;"></option>
 									<option value="trade_player3" style="display:none;"></option>
