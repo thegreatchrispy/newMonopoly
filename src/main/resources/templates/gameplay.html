@@ -333,9 +333,6 @@
 					</div>
 				</div>
 			</div>
-			<div id="trade">
-				<div class="box_header">TRADE PROPERTIES</div>
-			</div>
 			<div id="mortgage">
 				<div class="box_header">MORTGAGE</div>
 
@@ -382,6 +379,46 @@
 
 				</script> -->
 
+
+			</div>
+			<div id="trade">
+				<div class="box_header">TRADE PROPERTIES</div>
+				<div id="trade_display">
+					<table>
+						<tr>
+							<td>
+								<p>Your properties</p>
+							</td>
+							<td>
+								<select name="trade_player_selection" id="trade_player_selection">
+									<option value="0" selected="selected">Select Player to trade with</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="number" id="my_trade_amount" min="0" placeholder="$">
+							</td>
+							<td>
+								<input type="number" id="other_trade_amount" min="0" placeholder="$" style="display:none;">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="my_trade_properties">My properties will show up here.</div>
+							</td>
+							<td>
+								<div id="other_trade_properties" style="display:none;">Their properties will show up here.</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="mortgage">
+				<div class="box_header">MORTGAGE</div>
+			</div>
+			<button id="cancel_button">CANCEL</button> <button id="submit_button">SUBMIT</button>
+		</div>
 
 		<div class="table">
 			<div class="board">

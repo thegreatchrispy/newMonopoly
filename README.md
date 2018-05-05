@@ -25,8 +25,8 @@
 
 # Contents
 1. [Setup](#1-setup)
-    * [Gradle](#gradle-setup)
-    * [PostgreSQL](#postgresql-setup)
+    * [Maven](#maven-setup)
+    * [MySQL](#mysql-setup)
 2. [Edit Files](#2-edit-files)
 3. [Building the Project](#3-building-the-project)
 4. [Deploying the Project](#4-deploying-the-project)
@@ -34,153 +34,63 @@
 6. [Needs Completion](#6-needs-completion)
 
 # 1. Setup
-In order to build and deploy this project, you need to have the latest version of Gradle, and PostgreSQL.
+In order to build and deploy this project, you need to have the latest version of Maven, and MySQL.
 
-## Gradle Setup
-The following tutorial for setting up Gradle is taken from the install site located [here](https://gradle.org/install).
+## Maven Setup
+Maven is a build system that will allow you to build and deploy the project.<br/>
+There is a thorough tutorial for setting up Maven which can be located [here](https://www.tutorialspoint.com/maven/maven_environment_setup.htm). This tutorial will walk you through the process of installing and changing the appropriate environment variables to start using Maven.
 
-### Installation
-Gradle runs on all major operating systems and requires only a [Java JDK or JRE](http://www.oracle.com/technetwork/java/javase/downloads/index.html) version 7 or higher to be installed. To check, run java -version:
+## MySQL Setup
+MySQL is the relational database that is supported by this project.<br/>
+The MySQL website has a tutorial for installation and usage which can be found [here](https://dev.mysql.com/doc/mysql-getting-started/en/). 
 
-```
-$ java -version
-java version "1.8.0_121"
-```
+**\*\*IMPORTANT: Remember your username and password for the MySQL database on your system. You will need it later in order to build the project correctly!**
 
-### Install
-#### Install with a package manager
-[SDKMAN!](http://sdkman.io/) is a tool for managing parallel versions of multiple Software Development Kits on most Unix-based systems.
-
-```
-$ sdk install gradle 4.6
-```
-
-[Homebrew](https://brew.sh/) is “the missing package manager for macOS”.
-
-```
-$ brew install gradle
-```
-
-[Scoop](http://scoop.sh/) is a command-line installer for Windows inspired by Homebrew.
-
-```
-$ scoop install gradle
-```
-
-[Chocolatey](https://chocolatey.org/) is “the package manager for Windows”.
-
-```
-$ choco install gradle
-```
-
-[MacPorts](https://www.macports.org/) is a system for managing tools on macOS:
-
-```
-$ sudo port install gradle
-```
-
-[› Proceed to next steps](#upgrade-with-the-gradle-wrapper)
-
-#### Install manually
-##### Step 1. [Download](https://gradle.org/releases/) the latest Gradle distribution
-
-The current Gradle release is version 4.6, released on 28 Feb 2018. The distribution zip file comes in two flavors:
-
-  * [Binary-only](https://services.gradle.org/distributions/gradle-4.6-bin.zip) ([sha256](https://services.gradle.org/distributions/gradle-4.6-bin.zip.sha256))
-  * [Complete](https://services.gradle.org/distributions/gradle-4.6-all.zip), with docs and sources ([sha256](https://services.gradle.org/distributions/gradle-4.6-all.zip.sha256))
-
-If in doubt, choose the binary-only version and browse [docs](https://docs.gradle.org/current/userguide/userguide.html) and [sources](https://github.com/gradle/gradle) online.
-
-##### Step 2. Unpack the distribution
-*Linux & MacOS users*
-Unzip the distribution zip file in the directory of your choosing, e.g.:
-
-```
-$ mkdir /opt/gradle
-$ unzip -d /opt/gradle gradle-4.6-bin.zip
-$ ls /opt/gradle/gradle-4.6
-LICENSE  NOTICE  bin  getting-started.html  init.d  lib  media
-```
-
-*Microsoft Windows users*
-Create a new directory C:\Gradle with **File Explorer**.
-
-Open a second **File Explorer** window and go to the directory where the Gradle distribution was downloaded. Double-click the ZIP archive to expose the content. Drag the content folder gradle-4.6 to your newly created C:\Gradle folder.
-
-Alternatively you can unpack the Gradle distribution ZIP into C:\Gradle using an archiver tool of your choice.
-
-##### Step 3. Configure your system environment
-*Linux & MacOS users*
-Configure your PATH environment variable to include the bin directory of the unzipped distribution, e.g.:
-
-```
-$ export PATH=$PATH:/opt/gradle/gradle-4.6/bin
-```
-
-*Microsoft Windows users*
-In **File Explorer** right-click on the This PC (or Computer) icon, then click Properties -> Advanced System Settings -> Environmental Variables.
-
-Under System Variables select Path, then click Edit. Add an entry for C:\Gradle\gradle-4.6\bin. Click OK to save.
-
-##### Step 4. Verify your installation
-Open a console (or a Windows command prompt) and run gradle -v to run gradle and display the version, e.g.:
-
-```
-$ gradle -v
-
-------------------------------------------------------------
-Gradle 4.6
-------------------------------------------------------------
-```
-
-### Upgrade with the Gradle Wrapper
-If your existing Gradle-based build uses the [Gradle Wrapper](https://docs.gradle.org/4.6/userguide/gradle_wrapper.html), you can easily upgrade by running the wrapper task, specifying the desired Gradle version:
-
-```
-$ ./gradlew wrapper --gradle-version=4.6 --distribution-type=bin
-```
-
-Note that it is not necessary for Gradle to be installed to use the Gradle wrapper. The next invocation of gradlew or gradlew.bat will download and cache the specified version of Gradle.
-
-```
-$ ./gradlew tasks
-Downloading https://services.gradle.org/distributions/gradle-4.6-bin.zip
-...
-```
-
-## PostgreSQL Setup
-The setup for PostgreSQL is easier, just simply download the installer and let it install PostgreSQL for you. Tutorials for installing PostgreSQL can be found [here for all platforms](http://postgresguide.com/setup/install.html).
-Remember the username and password you use to set up the database, as you will need that information in the next step.
+After the two installations, you have the tools needed to build and deploy the project. Now we will edit some configuration files.
 
 # 2. Edit Files
 Currently, the only file that needs editing is the `application.properties` located at `src/main/resources/application.properties`. Open this file in a text editor, and change the following 3 lines:
-    * On line 2, ensure that the database name matches the name you create for your database. The only thing that should change here is the database name after the final slash.
-    * On line 3, change the value `postgres_username` to match the username you created in the last step.
-    * On line 4, change the value `postgres_password` to match the password you created in the last step.
+  * On line 4, ensure that the database name matches the name you create for your database. The only thing that should change here is the database name after the final slash. This name comes from the SQL command `CREATE DATABASE database_name`.
+  * On line 5, change the value `mysql_username` to match the username you use for your MySQL database system.
+  * On line 6, change the value `mysql_password` to match the password you use for your MySQL database system.
 
 This will take care of all of the setup and editing. We can now build and deploy the project.
 
 # 3. Building the Project
-To build the project, open a terminal and navigate to the project directory. Run the command: 
+To build the project, open a terminal and navigate to the project directory. Run the following command for your operating system:
 
-```
-$ gradle build
-```
+OS | Output
+----- | -----
+Windows | ```build -m```
+Linux | ```./build.sh -m```
+Mac | ```./build.sh -m```
 
 And you will see much information being produced and it should end with something looking like this:
 
 ```
-BUILD SUCCESSFUL in 3s
-3 actionable tasks: 2 executed, 1 up-to-date
+[INFO]
+[INFO] --- maven-jar-plugin:2.6:jar (default-jar) @ NewMonopoly ---
+[INFO] Building jar: C:\Users\cwall\Desktop\newMonopoly\target\NewMonopoly-0.0.1-SNAPSHOT.jar
+[INFO]
+[INFO] --- spring-boot-maven-plugin:1.4.2.RELEASE:repackage (default) @ NewMonopoly ---
+[INFO]
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ NewMonopoly ---
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 27.200 s
+[INFO] Finished at: 2018-05-03T01:14:54-05:00
+[INFO] ------------------------------------------------------------------------
 ```
 
-If you get any errors here, go back and ensure the files were changed correctly in the previous step. Also ensure that your Gradle and PostgreSQL installations are correct and up to date.
+If you get any errors here, go back and ensure the files were changed correctly in the previous step. Also ensure that your Maven and MySQL installations are correct and up to date.
 
 # 4. Deploying the Project
 Now to deploy the project, we simply need to run the `.jar` file that was produced in the previous step. To do this, run the command:
 
 ```
-java -jar build/libs/newMonopoly.jar
+java -jar target/newMonopoly.jar
 ```
 
 After some more information is displayed, the last few lines should look like this:
@@ -200,42 +110,66 @@ The project is now deployed and can be accessed from http://localhost:8080/.
 # 5. Current Project Files
 Here is the current file structure of the project:
 ```
-sql
-  |*.ddl
+docs
 src
-  |main
-    |java
-    | |com
-    |   |newmonopoly
-    |     |*.java
-    |resources
-      |static
-      | |css
-      | |images
-      | |jquery
-      | |js
-      | |*.html
-      |application.properties
-test
   |main
     |java
       |com
         |newmonopoly
-          |*Test.java
-build.gradle
-gradlew
-gradlew.bat
+          |configuration
+          |controller
+          |model
+          |repository
+          |service
+          |Application.java
+    |resources
+      |static
+        |css
+        |images
+        |jquery
+        |js
+      |templates
+        |*.html
+      |application.properties
+      |data.sql
+  test
+    |main
+      |java
+        |com
+          |newmonopoly
+            |*Test.java
+  text
+    |com
+      |newmonopoly
+        |*.java
+    |bugs.txt
+    |build.bat
+    |build.sh
+    |*.json
+    |gson-2.8.2.jar
+build.bat
+build.sh
+deploy.bat
+pom.xml
 README.md
 *.json
 ```
 
-In the last update, we have completed enough Java files to be able to play the text based version of the Monopoly game in the terminal. We also included all of the JUnit test case files that we will need for the project. After building, the results from these tests can be viewed in HTML format by going to ```build\reports\tests\test``` and opening ```index.html``` in a web browser.
+**Update: 04/01/18**</br>We have completed enough Java files to be able to play the text based version of the Monopoly game in the terminal. We also included all of the JUnit test case files that we will need for the project. After building, the results from these tests can be viewed in HTML format by going to ```build\reports\tests\test``` and opening ```index.html``` in a web browser.
+
+**Update: 04/20/18**</br>We have switched the project over to building using Maven instead of Gradle. We have also switched to using MySQL instead of PostgreSQL. These decisions were so that we could finish implementing the Account Creation functionality.
+
+**Update: 05/03/18**</br>In the last update, we have completely implemented the login system. We also added almost all of the functionality of playing the game with multiple users playing on a single screen.
 
 # 6. Needs Completion
 The following is the list of things that still need to be completed:
-* Create account system through webpage
-* Log in system through webpage
-* Finish the mortgage(), trade() and nextTurn() methods in Board.java
-* Write out all of the test cases
-* Connect the GUI webpage interface with the Java backend game files
-* Add the support for multiple players on webpage
+- [x] Create account system through webpage
+- [x] Log in system through webpage
+- [x] Finish the mortgage(), trade() and nextTurn() methods in Board.java
+- [x] Write out all of the test cases
+- [x] Connect the GUI webpage interface with the Java backend game files
+- [ ] Implement all gameplay functions through the GUI
+- [ ] Implement seasons based on turns
+- [ ] Implement seasonal pricing for properties
+- [ ] Finish documentation
+- [ ] Add the support for multiple players on webpage
