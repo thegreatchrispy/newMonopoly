@@ -165,7 +165,7 @@ aria.Listbox.prototype.findItemToFocus = function (key) {
   var character = String.fromCharCode(key);
 
   if (!this.keysSoFar) {
-    for (var i = 0; i < itemList.length; i++) {
+    for (i = 0; i < itemList.length; i++) {
       if (itemList[i].getAttribute('id') == this.activeDescendant) {
         this.searchIndex = i;
       }

@@ -173,8 +173,9 @@ function buildHouses(id, playerName, group) {
                 }
                 setTimeout(function() {
                     $('#submit_button').html("SUBMIT");
-                    $('#options-box').hide();
+                    $('#build').hide();
                     $('#numberhouses').hide();
+                    $('#options-box').hide();
                     $("#alert_build").html("");
                     $('#card-1').hide();
                     $('#card-2').hide();
@@ -221,15 +222,6 @@ function tradeProperties(id, playerName) {
         console.log("cancel");
         $('#options-box').hide();
         $('#trade').hide();
-        playerDecision(id, playerName);
-    }
-}
-
-function mortgageProperties(id, playerName) {
-    var cancel = document.getElementById("cancel_button");
-    cancel.onclick = function() {
-        $('#options-box').hide();
-        $('#mortgage').hide();
         playerDecision(id, playerName);
     }
 }
@@ -295,9 +287,9 @@ function playerDecision(id, playerName) {
     accounts.onclick = function() {
         var canMortgage = getMortgageStatus(id, playerName).responseText;
         if (canMortgage == "true") {
-            addAlert(playerName + " is currently viewing mortgages!");
+            addAlert(playerName + " is currently viewing their accounts!");
             $('#options-box').show();
-            $('#mortgage').show();
+            $('#accounts').show();
             $('#buildButton').hide();
             $('#tradeButton').hide();
             $('#accountsButton').hide();
@@ -443,9 +435,13 @@ function auction(id, playerName) {
         auctionPurchase(id, playerName, names[findAuctionWinner()], currentBid);
         setTimeout(function() {
             $('#cancel_button').html("CANCEL");
+            $('#auction').hide();
             $('#options-box').hide();
+            $('#alert_auction').html("");
+            $('#bid_amount').val(0);
+            addMonopolyAfterAuction(id, playerName, names[findAuctionWinner()]);
             bidStatus = true;
-            addMonopolyAfterPurchase(id, playerName);
+            players_in_auction = [1, 1, 1, 1, 1, 1];
             updateMoney(id, playerName);
         }, 500);
     }
@@ -476,10 +472,9 @@ function chooseToBuy(id, playerName) {
         $('#declineButton').hide();
         $('#options-box').show()
         $('#auction').show();
-        $('#auction_sub').html("CURRENT BID: $" + bid);
+        $('#auction_sub').html("CURRENT BID: $0");
         addAuctionAlert("An Auction Has Begun!");
         $('#cancel_button').html("PASS");
-        //var startingBid = getMortgageValue(id, playerName).responseText;
         auction(id, playerName);
     }
     $('#declineButton').onclick = function() {declinePurchase(id, playerName)};

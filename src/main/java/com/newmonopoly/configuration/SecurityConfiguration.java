@@ -76,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/getbuildinginfo").permitAll()
 				.antMatchers("/gettradestatus").permitAll()
 				.antMatchers("/getmortgagestatus").permitAll()
-				.antMatchers("/getmortgagevalue").permitAll()
+				.antMatchers("/getmortgageinfo").permitAll()
 
 				/* Mutator Methods. */
 				.antMatchers("/moveplayertojail").permitAll()
@@ -92,7 +92,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/acceptpurchase").permitAll()
 				.antMatchers("/auctionpurchase").permitAll()
 				.antMatchers("/addmonopolyafterpurchase").permitAll()
+				.antMatchers("/addmonopolyafterauction").permitAll()
 				.antMatchers("/purchasebuildings").permitAll()
+				.antMatchers("/addmortgage").permitAll()
+				.antMatchers("/paymortgage").permitAll()
 
 				// Authorities.
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
