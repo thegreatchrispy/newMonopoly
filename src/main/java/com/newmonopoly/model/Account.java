@@ -15,6 +15,12 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
 
+/**
+ * Account model object.
+ * 
+ * <p>Model for the columns stored in the <tt>account</tt> table.
+ * See {@link #Account(String, String, String)} for more information.
+ */
 @Entity
 @Table(name = "account")
 public class Account {
@@ -35,16 +41,31 @@ public class Account {
 	@JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 	
+	/**
+	 * Default constructor.
+	 */
 	public Account() {
 
 	}
 	
+	/**
+	 * Constructor given parameters.
+	 * 
+	 * @param email The email address that will be used to log in to the account.
+	 * @param username The username that will be used during gameplay.
+	 * @param password The password that will be used to log in to the account.
+	 */
 	public Account (String email, String username, String password) {
 		this.email = email;
 		this.username = username;
 		this.password = password;
 	}
 
+	/**
+	 * Returns an integer id number that is associated with this <tt>Account</tt> object from the database.
+	 * 
+	 * @return the id for the <tt>Account</tt> in the database
+	 */
 	public int getId() {
 		return id;
 	}

@@ -830,7 +830,7 @@ public class GameController {
 	}
 
 	@RequestMapping("/auctionpurchase")
-	public String buy(@RequestParam("gameid") int id, @RequestParam("player") String playerName, @RequestParam("winner") String winnerName, @RequestParam("amount") int bid) {
+	public String buyAuction(@RequestParam("gameid") int id, @RequestParam("player") String playerName, @RequestParam("winner") String winnerName, @RequestParam("amount") int bid) {
 		Gson gson = new Gson();
 		Board board = new Board();
 		Player player = new Player();
@@ -890,6 +890,10 @@ public class GameController {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		board.setPlayers(players);
+		board.setSpaces(spaces);
+		boardService.saveBoard(board);
 
 		board.setPlayers(players);
 		board.setSpaces(spaces);
