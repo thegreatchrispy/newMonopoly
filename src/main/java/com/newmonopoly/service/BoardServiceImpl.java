@@ -732,6 +732,56 @@ public class BoardServiceImpl implements BoardService {
 		return string;
 	}
 
+	// Checks if player has new monopolies.
+	@Override
+	public String addMonopolyAfterAuction(Board board, Player index, Player player) {
+		System.out.println("In addMonopoly");
+		if (player == null) {
+			throw new IllegalArgumentException("In addMonopoly: Player player is null.");
+		}
+
+		Space space = board.getSpaces().get(index.getCurrentPosition());
+
+		if (space == null) {
+			throw new IllegalArgumentException("In addMonopoly: Space space is null.");
+		}
+
+		boolean newMonopoly = true;
+		String string = "";
+
+		if (space.getType().equals("railroad") || space.getType().equals("utility")) {
+			newMonopoly = false;
+		}
+		else {
+			for (Space s : board.getSpaces()) {
+				if (s.getGroup() == space.getGroup()) {
+					if(s.getType().equals("property")) {
+						if (s.getOwnedBy() != getPlayerIndex(board, player)) {
+							newMonopoly = false;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		if (newMonopoly) {
+			string = player.getName() + " has a monopoly on group " + space.getGroup() + ".";
+			player.addMonopolyGroup(space.getGroup()-1);
+
+			for (Space s : board.getSpaces()) {
+				if (s.getGroup() == space.getGroup()) {
+					if (s.getType().equals("property")) {
+						s.setCurrentRent(s.getRent() * 2);
+						player.addMonopolyProperties(s);
+						player.updateOwnedProperties(s);
+					}
+				}
+			}
+		}
+		return string;
+	}
+
 	// Finds and prints the list of player's monopolies.
 	// Display only
 	@Override

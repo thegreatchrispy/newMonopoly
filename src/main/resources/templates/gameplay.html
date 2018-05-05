@@ -37,6 +37,7 @@
 		<script type="text/javascript" th:src="@{/js/listbox.js}"></script>
 		<script type="text/javascript" th:src="@{/js/toolbar.js}"></script>
 		<script type="text/javascript" th:src="@{/js/listbox-rearrangeable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/mortgage.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajax-calls.js}"></script>
 		<script type="text/javascript" th:src="@{/js/board.js}"></script>
 		<script type="text/javascript" th:src="@{/js/new-monopoly.js}"></script>
@@ -199,7 +200,7 @@
 
 		<div class="box" id="options-box">
 			<div id="auction">
-				<div class="box_header">AN AUCTION HAS BEGUN!</div>
+				<div class="box_header" id="auction_header">AN AUCTION HAS BEGUN!</div>
 				<div class="box_sub_header" id="auction_sub"></div>
 				<div id="control_auction">
 					<div id="alert_auction"></div>
@@ -333,14 +334,14 @@
 					</div>
 				</div>
 			</div>
-			<div id="mortgage">
-				<div class="box_header">MORTGAGE</div>
-
+			<div id="accounts">
+				<div class="box_header">ACCOUNTS</div>
+				<div class="box_sub_header" id="accounts_sub"></div>
 		        <div class="listbox-area">
-		          <div class="left-area">
+		          <div class="left-area" id="unmortgaged">
 		            <span id="ms_av_l">Available properties:</span>
 		            <ul id="ms_imp_list" tabindex="0" role="listbox" aria-labelledby="ms_av_l" aria-multiselectable="true" aria-activedescendant = "">
-		              <li id="ms_opt1" role="option" aria-selected="false">property 1</li>
+		              <!-- <li id="ms_opt1" role="option" aria-selected="false">property 1</li>
 		              <li id="ms_opt2" role="option" aria-selected="false">some</li>
 		              <li id="ms_opt3" role="option" aria-selected="false">other</li>
 		              <li id="ms_opt4" role="option" aria-selected="false">property</li>
@@ -349,36 +350,17 @@
 		              <li id="ms_opt7" role="option" aria-selected="false">Privacy cloque</li>
 		              <li id="ms_opt8" role="option" aria-selected="false">Food synthesizer</li>
 		              <li id="ms_opt9" role="option" aria-selected="false">property 9</li>
-		              <li id="ms_opt10" role="option" aria-selected="false">property 10</li>
+		              <li id="ms_opt10" role="option" aria-selected="false">property 10</li> -->
 		            </ul>
 		            <button id="ex2-add" class="move-right-btn" aria-keyshortcuts="Alt+ArrowRight Enter" aria-disabled="true">Mortgage</button>
 		          </div>
-		          <div class="right-area">
+		          <div class="right-area" id="mortgaged">
 		            <span id="ms_ch_l">Mortgaged Properties:</span>
 		            <ul id="ms_unimp_list" tabindex="0" role="listbox" aria-labelledby="ms_ch_l" aria-activedescendant="" aria-multiselectable="true"> </ul>
 		            <button id="ex2-delete" class="move-left-btn" aria-keyshortcuts="Alt+ArrowLeft Delete" aria-disabled="true">Pay Off</button>
 		          </div>
 		          <div class="offscreen">Last change: <span aria-live="polite" id="ms_live_region"></span></div>
 		        </div>
-
-			</div>
-			<button id="cancel_button">CANCEL</button>
-			<button id="submit_button">SUBMIT</button>
-		</div>
-
-
-				<!-- <script>
-					document.getElementById("submit_button").onclick = function() {displayNextBox()};
-
-					function displayNextBox() {
-
-						document.getElementById("build").style.display = "none";
-						document.getElementById("numberhouses").style.display = "block";
-						setTimeout(function(){ document.getElementById("numberhouses").style.display = "none"; }, 10000);
-					}
-
-				</script> -->
-
 
 			</div>
 			<div id="trade">
@@ -414,11 +396,22 @@
 					</table>
 				</div>
 			</div>
-			<div id="mortgage">
-				<div class="box_header">MORTGAGE</div>
-			</div>
-			<button id="cancel_button">CANCEL</button> <button id="submit_button">SUBMIT</button>
+			<button id="cancel_button">CANCEL</button>
+			<button id="submit_button">SUBMIT</button>
 		</div>
+
+
+				<!-- <script>
+					document.getElementById("submit_button").onclick = function() {displayNextBox()};
+
+					function displayNextBox() {
+
+						document.getElementById("build").style.display = "none";
+						document.getElementById("numberhouses").style.display = "block";
+						setTimeout(function(){ document.getElementById("numberhouses").style.display = "none"; }, 10000);
+					}
+
+				</script> -->
 
 		<div class="table">
 			<div class="board">

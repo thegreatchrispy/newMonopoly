@@ -488,38 +488,112 @@ public class GameController {
 
 		return status;
 	}
-	
-	@RequestMapping("/getmortgagevalue")
-	public int getMortgageValue(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+
+	@RequestMapping("/getmortgageinfo")
+	public String getMortgageInfo(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
 		Gson gson = new Gson();
 		Board board = new Board();
 		Player player = new Player();
-		Space space = new Space();
 		List<Player> players = new Vector<Player>();
-		int value = 0;
+		List<Space> spaces = new Vector<Space>();
+
+		String string = "";
+		String temp = "";
+		boolean groupHasBuildings = false;
+		int mortgageValue = 0;
+		int loanAmount = 0;
+		int groupHasNoBuildings[] = {1, 1, 1, 1, 1, 1, 1, 1};
 
 		try {
 			board = boardService.findByGameId(id);
 			players = board.getPlayers();
 
+			int player_index = 0;
 			for (Player p : players) {
 				if (p.getName().equals(playerName)) {
 					player = p;
 					break;
 				}
+				player_index++;
 			}
 
-			space = board.getSpaces().get(player.getCurrentPosition());
+			// Find groups that have buildings.
+			for (int i = 1; i < 9; i++) {
+				for (Space space : player.getOwnedProperties()) {
+					if (space.getGroup() == i) {
+						if (space.getBuildings() != 0) {
+							groupHasNoBuildings[i-1] = 0;
+						}
+					}
+				}
+			}
 
-			value = space.getPrice() / 2;
+			// Unmortgaged.
+			for (int i = 1; i < 9; i++) {
+				for (Space space : player.getOwnedProperties()) {
+					if (space.getGroup() == i) {
+						if (groupHasNoBuildings[i-1] == 1) {
+							if (!space.isMortgaged()) {
+								mortgageValue = space.getPrice() / 2;
+								loanAmount = (int)(mortgageValue * 1.1);
+								temp += space.getName() + "," + mortgageValue + "," + loanAmount + ";";
+							}
+						}
+					}
+				}
+			}
 
+			string += temp + ":";
+
+			// // Unmortgaged
+			// int property_index = 0;
+			// for (int i = 1; i < 9; i++) {
+			// 	for (Space space : spaces) {
+			// 		if (space.getOwnedBy() == player_index) {
+			// 			if (space.getGroup() == i) {
+			// 				if (!groupHasBuildings) {
+			// 					if (!space.isMortgaged()) {
+			// 						if (space.getBuildings() == 0) {
+			// 							mortgageValue = space.getPrice() / 2;
+			// 							loanAmount = (int)(mortgageValue * 1.1);
+			// 							temp += space.getName() + "," + mortgageValue + "," + loanAmount + "," + property_index + ";";
+			// 							property_index++;
+			// 						} else {
+			// 							groupHasBuildings = true;
+			// 							temp = "";
+			// 							break;
+			// 						}
+			// 					}
+			// 				}
+			// 			}
+			// 		}
+			// 	}
+			// 	string += temp;
+			// 	groupHasBuildings = false;
+			// }
+
+			// string += ":";
+
+			for (int i = 1; i < 9; i++) {
+				for (Space space : player.getOwnedProperties()) {
+					if (space.getGroup() == i) {
+						if (space.isMortgaged()) {
+							mortgageValue = space.getPrice() / 2;
+							loanAmount = (int)(mortgageValue * 1.1);
+							string += space.getName() + "," + mortgageValue + "," + loanAmount + ";";
+						}
+					}
+				}
+			}
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return value;
+		
+		return string + ":" + player.getMoney();
 	}
+	
 
 	@RequestMapping("/getownedproperties")
 	public String getOwnedProperties(@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
@@ -902,6 +976,47 @@ public class GameController {
 		return string;
 	}
 
+	@RequestMapping("/addmonopolyafterauction")
+	public String addMonopolyAfterAuction(@RequestParam("gameid") int id, @RequestParam("indexPlayer") String indexName, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player index = new Player();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+		String string = "";
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			spaces = board.getSpaces();
+
+			for (Player p : players) {
+				if (p.getName().equals(indexName)) {
+					index = p;
+				}
+				if (p.getName().equals(playerName)) {
+					player = p;
+				}
+			}
+
+			string = boardService.addMonopolyAfterAuction(board, index, player);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		board.setPlayers(players);
+		board.setSpaces(spaces);
+		boardService.saveBoard(board);
+
+		board.setPlayers(players);
+		board.setSpaces(spaces);
+		boardService.saveBoard(board);
+
+		return string;
+	}
+
 	@RequestMapping("/purchasebuildings")
 	public void purchaseBuildings(@RequestParam("gameid") int id, @RequestParam("player") String playerName, @RequestParam("space") String spaceName, @RequestParam("buildings") int buildings) {
 		Gson gson = new Gson();
@@ -921,13 +1036,23 @@ public class GameController {
 					break;
 				}
 			}
-			
+			int monopoly_index = 0;
 			for (Space s : player.getMonopolyProperties()) {
 				if (s.getName().equals(spaceName)) {
 					space = s;
 					break;
 				}
+				monopoly_index++;
 			}
+
+			int space_index = 0;
+			for (Space s : player.getOwnedProperties()) {
+				if (s.getName().equals(spaceName)) {
+					break;
+				}
+				space_index++;
+			}
+
 			if (buildings > space.getBuildings()) {
 				balance = (buildings - space.getBuildings()) * space.getHouseCost();
 				boardService.removeFunds(board, player, balance); 
@@ -949,12 +1074,153 @@ public class GameController {
 			}
 			
 			space.setBuildings(buildings);
+			if (space.getBuildings() > 0) {
+				space.setCurrentRent(space.getMultipliedRent()[ space.getBuildings() - 1]);
+			} else {
+				space.setCurrentRent(space.getRent() * 2);
+			}
+
+			player.getMonopolyProperties().set(monopoly_index, space);
+			player.getOwnedProperties().set(space_index, space);
 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		board.setPlayers(players);
+		boardService.saveBoard(board);
+	}
+
+	@RequestMapping("/addmortgage")
+	public void addMortgage(@RequestParam("gameid") int id, @RequestParam("player") String playerName, @RequestParam("space") String spaceName, @RequestParam("value") int mortgageValue) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+		Space space = new Space();
+
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			spaces = board.getSpaces();
+			
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+			int owned_index = 0;
+			for (Space s : player.getOwnedProperties()) {
+				if (s.getName().equals(spaceName)) {
+					space = s;
+					break;
+				}
+				owned_index++;
+			}
+
+			int monopoly_index = -1;
+			int index = 0;
+			for (Space s : player.getMonopolyProperties()) {
+				if (s.getName().equals(spaceName)) {
+					monopoly_index = index;
+					break;
+				}
+				index++;
+			}
+
+			int space_index = 0;
+			for (Space s : spaces) {
+				if (s.getName().equals(spaceName)) {
+					break;
+				}
+				space_index++;
+			}
+
+
+			boardService.addFunds(board, player, mortgageValue);
+			space.setMortgaged(true);
+			spaces.set(space_index, space);
+			player.getOwnedProperties().set(owned_index, space);
+			if (monopoly_index != -1) {
+				player.getMonopolyProperties().set(monopoly_index, space);
+			}
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		board.setPlayers(players);
+		board.setSpaces(spaces);
+		boardService.saveBoard(board);
+	}
+
+	@RequestMapping("/paymortgage")
+	public void payMortgage(@RequestParam("gameid") int id, @RequestParam("player") String playerName, @RequestParam("space") String spaceName, @RequestParam("value") int loanValue) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+		Space space = new Space();
+
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+			spaces = board.getSpaces();
+			
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+
+			int owned_index = 0;
+			for (Space s : player.getOwnedProperties()) {
+				if (s.getName().equals(spaceName)) {
+					space = s;
+					break;
+				}
+				owned_index++;
+			}
+
+			int monopoly_index = -1;
+			int index = 0;
+			for (Space s : player.getMonopolyProperties()) {
+				if (s.getName().equals(spaceName)) {
+					monopoly_index = index;
+					break;
+				}
+				index++;
+			}
+
+			int space_index = 0;
+			for (Space s : spaces) {
+				if (s.getName().equals(spaceName)) {
+					break;
+				}
+				space_index++;
+			}
+
+
+			boardService.removeFunds(board, player, loanValue);
+			space.setMortgaged(false);
+			spaces.set(space_index, space);
+			player.getOwnedProperties().set(owned_index, space);
+			if (monopoly_index != -1) {
+				player.getMonopolyProperties().set(monopoly_index, space);
+			}
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		board.setPlayers(players);
+		board.setSpaces(spaces);
 		boardService.saveBoard(board);
 	}
 }

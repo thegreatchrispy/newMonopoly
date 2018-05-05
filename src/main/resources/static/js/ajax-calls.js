@@ -152,9 +152,9 @@ function getMortgageStatus(id, playerName) {
 	});
 }
 
-// Retrieve a property's mortgage value.
-function getMortgageValue(id, playerName) {
-    var urlString = "http://localhost:8080/getmortgagevalue?gameid=" + id + "&player=" + playerName;
+// Retrieve a player's building eligibility.
+function getMortgageInfo(id, playerName, group) {
+    var urlString = "http://localhost:8080/getmortgageinfo?gameid=" + id + "&player=" + playerName;
 	return $.ajax({
     	url:`${urlString}`,
     	async: false,
@@ -308,9 +308,45 @@ function addMonopolyAfterPurchase(id, playerName) {
 	});
 }
 
+// Check if a player has a new monopoly.
+function addMonopolyAfterAuction(id, indexName, playerName) {
+    var urlString = "http://localhost:8080/addmonopolyafterpurchase?gameid=" + id + "&indexPlayer=" + indexName + "&player=" + playerName;
+	$.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            addAlert(data);
+		}
+	});
+}
+
 // Send a call to purchase buildings of specific group.
 function purchaseBuildings(id, playerName, spaceName, numberOfBuildings) {
 	var urlString = "http://localhost:8080/purchasebuildings?gameid=" + id + "&player=" + playerName + "&space=" + spaceName + "&buildings=" + numberOfBuildings;
+
+	$.ajax({
+            url: `${urlString}`,
+            async: false,
+			success: function(data) {
+			}
+		});
+}
+
+// Send a call to purchase buildings of specific group.
+function addMortgage(id, playerName, spaceName, mortgageValue) {
+	var urlString = "http://localhost:8080/addmortgage?gameid=" + id + "&player=" + playerName + "&space=" + spaceName + "&value=" + mortgageValue;
+
+	$.ajax({
+            url: `${urlString}`,
+            async: false,
+			success: function(data) {
+			}
+		});
+}
+
+// Send a call to purchase buildings of specific group.
+function payMortgage(id, playerName, spaceName, loanValue) {
+	var urlString = "http://localhost:8080/paymortgage?gameid=" + id + "&player=" + playerName + "&space=" + spaceName + "&value=" + loanValue;
 
 	$.ajax({
             url: `${urlString}`,

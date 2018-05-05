@@ -1203,7 +1203,7 @@ input.qtyminus {
 
 .listbox-area {
   padding: 20px;
-  margin-top:120px;
+  margin-top:140px;
   background: #eee;
   border: 1px solid #aaa;
   font-size: 0px;
@@ -1256,7 +1256,7 @@ input.qtyminus {
 }
 
 button {
-  font-size: 16px;
+  font-size: 13px;
 }
 
 button[aria-disabled="true"] {
