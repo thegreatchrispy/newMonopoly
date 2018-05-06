@@ -39,6 +39,7 @@
 		<script type="text/javascript" th:src="@{/js/toolbar.js}"></script>
 		<script type="text/javascript" th:src="@{/js/listbox-rearrangeable.js}"></script>
 		<script type="text/javascript" th:src="@{/js/mortgage.js}"></script>
+		<script type="text/javascript" th:src="@{/js/trade.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajax-calls.js}"></script>
 		<script type="text/javascript" th:src="@{/js/board.js}"></script>
 		<script type="text/javascript" th:src="@{/js/new-monopoly.js}"></script>
@@ -341,18 +342,7 @@
 		        <div class="listbox-area">
 		          <div class="left-area" id="unmortgaged">
 		            <span id="ms_av_l">Available properties:</span>
-		            <ul id="ms_imp_list" tabindex="0" role="listbox" aria-labelledby="ms_av_l" aria-multiselectable="true" aria-activedescendant = "">
-		              <!-- <li id="ms_opt1" role="option" aria-selected="false">property 1</li>
-		              <li id="ms_opt2" role="option" aria-selected="false">some</li>
-		              <li id="ms_opt3" role="option" aria-selected="false">other</li>
-		              <li id="ms_opt4" role="option" aria-selected="false">property</li>
-		              <li id="ms_opt5" role="option" aria-selected="false">Front sun roof</li>
-		              <li id="ms_opt6" role="option" aria-selected="false">Rear sun roof</li>
-		              <li id="ms_opt7" role="option" aria-selected="false">Privacy cloque</li>
-		              <li id="ms_opt8" role="option" aria-selected="false">Food synthesizer</li>
-		              <li id="ms_opt9" role="option" aria-selected="false">property 9</li>
-		              <li id="ms_opt10" role="option" aria-selected="false">property 10</li> -->
-		            </ul>
+		            <ul id="ms_imp_list" tabindex="0" role="listbox" aria-labelledby="ms_av_l" aria-multiselectable="true" aria-activedescendant = ""></ul>
 		            <button id="ex2-add" class="move-right-btn" aria-keyshortcuts="Alt+ArrowRight Enter" aria-disabled="true">Mortgage</button>
 		          </div>
 		          <div class="right-area" id="mortgaged">
@@ -362,7 +352,6 @@
 		          </div>
 		          <div class="offscreen">Last change: <span aria-live="polite" id="ms_live_region"></span></div>
 		        </div>
-
 			</div>
 			<div id="trade">
 				<div class="box_header">TRADE PROPERTIES</div>
@@ -389,27 +378,16 @@
 					</table>
 					<div class="listbox-area" id="trade-listbox-area" style="display:none;">
 						<div class="left-area" id="my_trade_properties">
-							<span id="ms_av_l">Your Properties:</span>
-							<ul id="ms_imp_list" tabindex="0" role="listbox" aria-labelledby="ms_av_l" aria-multiselectable="true" aria-activedescendant = "">
-							<!-- <li id="ms_opt1" role="option" aria-selected="false">property 1</li>
-							<li id="ms_opt2" role="option" aria-selected="false">some</li>
-							<li id="ms_opt3" role="option" aria-selected="false">other</li>
-							<li id="ms_opt4" role="option" aria-selected="false">property</li>
-							<li id="ms_opt5" role="option" aria-selected="false">Front sun roof</li>
-							<li id="ms_opt6" role="option" aria-selected="false">Rear sun roof</li>
-							<li id="ms_opt7" role="option" aria-selected="false">Privacy cloque</li>
-							<li id="ms_opt8" role="option" aria-selected="false">Food synthesizer</li>
-							<li id="ms_opt9" role="option" aria-selected="false">property 9</li>
-							<li id="ms_opt10" role="option" aria-selected="false">property 10</li> -->
-							</ul>
-							<button id="ex2-add" class="move-right-btn" aria-keyshortcuts="Alt+ArrowRight Enter" aria-disabled="true">Give Away</button>
+							<span id="trade_av_l">Your Properties:</span>
+							<ul id="trade_imp_list" tabindex="0" role="listbox" aria-labelledby="trade_av_l" aria-multiselectable="true" aria-activedescendant = ""></ul>
+							<button id="trade-add" class="move-right-btn" aria-keyshortcuts="Alt+ArrowRight Enter" aria-disabled="true">Give Away</button>
 						</div>
 						<div class="right-area" id="other_trade_properties">
-							<span id="ms_ch_l">Other Player's Properties:</span>
-							<ul id="ms_unimp_list" tabindex="0" role="listbox" aria-labelledby="ms_ch_l" aria-activedescendant="" aria-multiselectable="true"> </ul>
-							<button id="ex2-delete" class="move-left-btn" aria-keyshortcuts="Alt+ArrowLeft Delete" aria-disabled="true">Take</button>
+							<span id="trade_ch_l">Other Player's Properties:</span>
+							<ul id="trade_unimp_list" tabindex="0" role="listbox" aria-labelledby="trade_ch_l" aria-activedescendant="" aria-multiselectable="true"> </ul>
+							<button id="trade-delete" class="move-left-btn" aria-keyshortcuts="Alt+ArrowLeft Delete" aria-disabled="true">Take</button>
 						</div>
-						<div class="offscreen">Last change: <span aria-live="polite" id="ms_live_region"></span></div>
+						<div class="offscreen">Last change: <span aria-live="polite" id="trade_live_region"></span></div>
 					</div>
 				</div>
 			</div>

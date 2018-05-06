@@ -27,19 +27,7 @@ public class GameController {
 	@Autowired
 	private BoardService boardService;
 
-	/*
-	 * hasWinner()
-	 * getCurrentPlayer()
-	 * getCharInput() -> getButtonInput()
-	 * removeFunds()
-	 * movePlayer(Player p, int v)
-	 * playerDecision()
-	 * nextTurn()
-	 * movePlayerToJail()
-	 */
-
-	 /* Creating, join, retrieve, update, and delete game. */
-
+	 /* Create, join, retrieve, update, and delete game. */
 	@RequestMapping("/creategame")
 	public String save(@RequestParam("players") String jsonPlayers, @RequestParam("randomize") boolean randomize) {
 		Gson gson = new Gson();
@@ -615,7 +603,7 @@ public class GameController {
 			}
 
 			for (Space space : player.getOwnedProperties()) {
-				string += space.getName() + " " + space.isMortgaged() + ";";
+				string += space.getName() + " " + space.getPrice() + ";";
 			}
 
 		}

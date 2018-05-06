@@ -216,47 +216,6 @@ function buildProperties(id, playerName) {
     }
 }
 
-function tradeProperties(id, playerName) {
-    // Set the players on the trade_player_selection
-    for (i = 0; i < numPlayers; i++) {
-        if (names[i] != names[index]) {
-            $('#trade_player_selection').append($('<option>', {
-                value: i,
-                text: names[i]
-            }))
-        }
-    }
-
-    var cancel = document.getElementById("cancel_button");
-    cancel.onclick = function() {
-        console.log("cancel");
-        $('#other_trade_amount').hide();
-        $('#trade-listbox-area').hide();
-        $('#options-box').hide();
-        $('#trade').hide();
-
-        $('#trade_player_selection')
-        .find('option')
-        .remove()
-        .end()
-        .append('<option value="0" selected="selected">Select Player to trade with</option>')
-        .val('0');
-
-        playerDecision(id, playerName);
-    }
-
-    $('#trade_player_selection').change(function(){
-        if ($('#trade_player_selection').val() == "0") {
-            $('#other_trade_amount').hide();
-            $('#trade-listbox-area').hide();
-        }
-        else {
-            $('#other_trade_amount').show();
-            $('#trade-listbox-area').show();
-        }
-    });
-}
-
 function playerDecision(id, playerName) {
     console.log("Player's Turn is about to end..");  
     $('#acceptButton').hide();
