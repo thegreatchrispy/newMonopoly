@@ -2,6 +2,7 @@
 <html>
     <head>
     <meta charset="UTF-8">
+        <link rel="stylesheet" th:href="@{/css/lobby.css}">
         <script th:src="@{/jquery/3.3.1/jquery.min.js}"></script>
         <script th:src="@{/js/lobby.js}"></script>
 	    <title>NEW MONOPOLY :: LOBBY</title>
@@ -10,9 +11,15 @@
     <div id="setup">
         <form name="players">
             <h3>PLAYERS</h3>
-            <input type="text" name="player_1">
-            <input type="text" name="player_2">
-            <button type="button" id="launch">SUBMIT</button>
+            <div id="players">
+                <input type="text" name="player_1">
+                <input type="text" name="player_2">
+                <input type="text" name="player_3">
+                <input type="text" name="player_4">
+                <input type="text" name="player_5">
+                <input type="text" name="player_6">
+                <button type="button" id="launch">SUBMIT</button>
+            </div>
         </form>
     </div>
     </body>

@@ -1,4 +1,4 @@
-$('#musicButton').addEventListener("click", function() {
+$('#musicButton').on("click", function() {
 	toggleMusic();
 });
 

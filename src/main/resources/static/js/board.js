@@ -217,10 +217,21 @@ function buildProperties(id, playerName) {
 }
 
 function tradeProperties(id, playerName) {
+    // Set the players on the trade_player_selection
+    for (i = 0; i < numPlayers; i++) {
+        if (names[i] != names[index]) {
+            $('#trade_player_selection').append($('<option>', {
+                value: i,
+                text: names[i]
+            }))
+        }
+    }
+
     var cancel = document.getElementById("cancel_button");
     cancel.onclick = function() {
         console.log("cancel");
         $('#other_trade_amount').hide();
+        $('#trade-listbox-area').hide();
         $('#options-box').hide();
         $('#trade').hide();
 

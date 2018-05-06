@@ -386,33 +386,31 @@
 								<input type="number" id="other_trade_amount" min="0" placeholder="$" style="display:none;">
 							</td>
 						</tr>
-						<tr>
-							<div class="listbox-area" id="trade-listbox-area" style="display:none;">
-								<div class="left-area" id="my_trade_properties">
-									<span id="ms_av_l">Your Properties:</span>
-									<ul id="ms_imp_list" tabindex="0" role="listbox" aria-labelledby="ms_av_l" aria-multiselectable="true" aria-activedescendant = "">
-									<!-- <li id="ms_opt1" role="option" aria-selected="false">property 1</li>
-									<li id="ms_opt2" role="option" aria-selected="false">some</li>
-									<li id="ms_opt3" role="option" aria-selected="false">other</li>
-									<li id="ms_opt4" role="option" aria-selected="false">property</li>
-									<li id="ms_opt5" role="option" aria-selected="false">Front sun roof</li>
-									<li id="ms_opt6" role="option" aria-selected="false">Rear sun roof</li>
-									<li id="ms_opt7" role="option" aria-selected="false">Privacy cloque</li>
-									<li id="ms_opt8" role="option" aria-selected="false">Food synthesizer</li>
-									<li id="ms_opt9" role="option" aria-selected="false">property 9</li>
-									<li id="ms_opt10" role="option" aria-selected="false">property 10</li> -->
-									</ul>
-									<button id="ex2-add" class="move-right-btn" aria-keyshortcuts="Alt+ArrowRight Enter" aria-disabled="true">Give Away</button>
-								</div>
-								<div class="right-area" id="other_trade_properties">
-									<span id="ms_ch_l">Other Player's Properties:</span>
-									<ul id="ms_unimp_list" tabindex="0" role="listbox" aria-labelledby="ms_ch_l" aria-activedescendant="" aria-multiselectable="true"> </ul>
-									<button id="ex2-delete" class="move-left-btn" aria-keyshortcuts="Alt+ArrowLeft Delete" aria-disabled="true">Take</button>
-								</div>
-								<div class="offscreen">Last change: <span aria-live="polite" id="ms_live_region"></span></div>
-							</div>
-						</tr>
 					</table>
+					<div class="listbox-area" id="trade-listbox-area" style="display:none;">
+						<div class="left-area" id="my_trade_properties">
+							<span id="ms_av_l">Your Properties:</span>
+							<ul id="ms_imp_list" tabindex="0" role="listbox" aria-labelledby="ms_av_l" aria-multiselectable="true" aria-activedescendant = "">
+							<!-- <li id="ms_opt1" role="option" aria-selected="false">property 1</li>
+							<li id="ms_opt2" role="option" aria-selected="false">some</li>
+							<li id="ms_opt3" role="option" aria-selected="false">other</li>
+							<li id="ms_opt4" role="option" aria-selected="false">property</li>
+							<li id="ms_opt5" role="option" aria-selected="false">Front sun roof</li>
+							<li id="ms_opt6" role="option" aria-selected="false">Rear sun roof</li>
+							<li id="ms_opt7" role="option" aria-selected="false">Privacy cloque</li>
+							<li id="ms_opt8" role="option" aria-selected="false">Food synthesizer</li>
+							<li id="ms_opt9" role="option" aria-selected="false">property 9</li>
+							<li id="ms_opt10" role="option" aria-selected="false">property 10</li> -->
+							</ul>
+							<button id="ex2-add" class="move-right-btn" aria-keyshortcuts="Alt+ArrowRight Enter" aria-disabled="true">Give Away</button>
+						</div>
+						<div class="right-area" id="other_trade_properties">
+							<span id="ms_ch_l">Other Player's Properties:</span>
+							<ul id="ms_unimp_list" tabindex="0" role="listbox" aria-labelledby="ms_ch_l" aria-activedescendant="" aria-multiselectable="true"> </ul>
+							<button id="ex2-delete" class="move-left-btn" aria-keyshortcuts="Alt+ArrowLeft Delete" aria-disabled="true">Take</button>
+						</div>
+						<div class="offscreen">Last change: <span aria-live="polite" id="ms_live_region"></span></div>
+					</div>
 				</div>
 			</div>
 			<button id="cancel_button">CANCEL</button>
@@ -924,6 +922,10 @@
 					<button id="jailCardButton">Use Card</button>
 					<button id="jailRollButton">Test My Luck</button>
 					<button id="jailPayButton">Bail Me Out</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<button id="musicButton">Mute</button>
 				</td>
 			</tr>

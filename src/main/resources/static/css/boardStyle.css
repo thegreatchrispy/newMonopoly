@@ -1192,7 +1192,7 @@ input.qtyminus {
   display: none;
 }
 
-#mortgage {
+#accounts {
   display: none;
 }
 
@@ -1378,5 +1378,6 @@ button[aria-disabled="true"] {
 }
 
 #trade-listbox-area {
-	margin-top: 25%;
+  margin-top: 25%;
+  margin-left: 15%;
 }
