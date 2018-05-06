@@ -220,10 +220,30 @@ function tradeProperties(id, playerName) {
     var cancel = document.getElementById("cancel_button");
     cancel.onclick = function() {
         console.log("cancel");
+        $('#other_trade_amount').hide();
         $('#options-box').hide();
         $('#trade').hide();
+
+        $('#trade_player_selection')
+        .find('option')
+        .remove()
+        .end()
+        .append('<option value="0" selected="selected">Select Player to trade with</option>')
+        .val('0');
+
         playerDecision(id, playerName);
     }
+
+    $('#trade_player_selection').change(function(){
+        if ($('#trade_player_selection').val() == "0") {
+            $('#other_trade_amount').hide();
+            $('#other_trade_properties').hide();
+        }
+        else {
+            $('#other_trade_amount').show();
+            $('#other_trade_properties').show();
+        }
+    });
 }
 
 function playerDecision(id, playerName) {
