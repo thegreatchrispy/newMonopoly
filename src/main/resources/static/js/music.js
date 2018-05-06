@@ -1,8 +1,9 @@
 $('#musicButton').addEventListener("click", function() {
-	toggleMusic();
+	if (this.paused == false) {
+		this.pause();
+		alert('music paused');
+	} else {
+		this.play();
+		alert('music playing');
+	}
 });
-
-function toggleMusic() {
-	var bool = $("#music").prop("muted");
-    $("#music").prop("muted",!bool);
-}
