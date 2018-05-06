@@ -1371,7 +1371,12 @@ button[aria-disabled="true"] {
   white-space: nowrap;
   width: 1px;
 }
+
 #trade_display {
   margin-top: 25%;
   margin-left: 15%;
+}
+
+#trade-listbox-area {
+	margin-top: 25%;
 }
