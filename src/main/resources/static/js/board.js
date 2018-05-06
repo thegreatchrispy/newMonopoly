@@ -237,11 +237,11 @@ function tradeProperties(id, playerName) {
     $('#trade_player_selection').change(function(){
         if ($('#trade_player_selection').val() == "0") {
             $('#other_trade_amount').hide();
-            $('#other_trade_properties').hide();
+            $('#trade-listbox-area').hide();
         }
         else {
             $('#other_trade_amount').show();
-            $('#other_trade_properties').show();
+            $('#trade-listbox-area').show();
         }
     });
 }
