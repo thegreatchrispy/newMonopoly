@@ -13,18 +13,19 @@ function checkIfGameHasWinner() {
     }
 }
 
-function incrementTurnCounter(seasonChange) {
+function incrementTurnCounter(id, seasonChange) {
     turnCount += 1;
     if((turnCount % seasonChange) == 0) {
-        changeNextSeason();
+        changeNextSeason(id);
     }
 }
 
-function changeNextSeason() {
+function changeNextSeason(id) {
     currentSeason += 1;
     $(".center").css("background","url(images/"+currentSeason+".jpg)");
     $(".center").css("background-size","50%");
 
+    changeSpacePrice(id, currentSeason);
     if (currentSeason >= 3){
         currentSeason = -1;
     }
@@ -44,7 +45,7 @@ function endTurn(id, playerName) {
     }
     else {
         checkIfGameHasWinner();
-        incrementTurnCounter(2);
+        incrementTurnCounter(id, 2);
         incrementIndex();
         setDoubles(id, playerName);
         $("#alert").html("");

@@ -242,6 +242,61 @@ public class GameController {
 		return space.getName() + ";" + space.getGroup() + ";" + space.getPrice() + ";" + space.getCurrentRent() + ";" + temp + ";" + space.getHouseCost() + ";" + space.getOwnedBy() + ";" + space.getBuildings() + ";" + space.isMortgaged() + ";" + space.getStrongSeason() + ";" + space.getWeakSeason() + ";" + space.getType();
 	}
 
+	@RequestMapping("/changespaceprice")
+	public String changeSpacePrice (@RequestParam("gameid") int id, @RequestParam("currentseason") int season) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		List<Space> spaces = new Vector<Space>();
+		String string = "";
+		double priceChangeLimit = .1;
+		double randomOne = 0;
+		double randomTwo = 0;
+		
+		try {
+			board = boardService.findByGameId(id);
+			spaces = board.getSpaces();
+
+			for (Space s : spaces) {
+				if (s.getType().equals("property")) {
+					if (s.getStrongSeason() == season) {
+						randomOne = Math.random();
+						if (randomOne > .25) {
+							do {
+								randomTwo = Math.random();
+							} while (randomTwo <= priceChangeLimit);
+						} else {
+							do {
+								randomTwo = Math.random() * -1;
+							} while (randomTwo >= (priceChangeLimit * -1));
+						}
+						s.setCurrentRent( (int)(s.getCurrentRent() * (1 + randomTwo)));
+					} else if (s.getWeakSeason() == season) {
+						randomOne = Math.random();
+						if (randomOne > .25) {
+							do {
+								randomTwo = Math.random();
+							} while (randomTwo <= priceChangeLimit);
+						} else {
+							do {
+								randomTwo = Math.random() * -1;
+							} while (randomTwo >= (priceChangeLimit * -1));
+						}
+						s.setCurrentRent( (int)(s.getCurrentRent() * (1 - randomTwo)));
+					}
+				}
+			}
+
+			board.setSpaces(spaces);
+			boardService.saveBoard(board);
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return string;
+	}
+
 	@RequestMapping("/getrandomized")
 	public boolean isRandomized(@RequestParam("gameid") int id) {
 		Gson gson = new Gson();
