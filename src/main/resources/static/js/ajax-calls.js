@@ -485,3 +485,14 @@ function removePlayerFromBoard(id, playerName) {
 			}
 		});
 }
+
+function changeSpacePrice(id, currentSeason) {
+    var urlString = "http://localhost:8080/changespaceprice?gameid=" + id + "&currentseason=" + currentSeason;
+
+    $.ajax({
+            url: `${urlString}`,
+            async: false,
+            success: function(data) {
+            }
+        });
+}

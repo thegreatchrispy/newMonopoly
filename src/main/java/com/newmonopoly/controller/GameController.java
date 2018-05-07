@@ -242,6 +242,34 @@ public class GameController {
 		return space.getName() + ";" + space.getGroup() + ";" + space.getPrice() + ";" + space.getCurrentRent() + ";" + temp + ";" + space.getHouseCost() + ";" + space.getOwnedBy() + ";" + space.getBuildings() + ";" + space.isMortgaged() + ";" + space.getStrongSeason() + ";" + space.getWeakSeason() + ";" + space.getType();
 	}
 
+	@RequestMapping("/changespaceprice")
+	public String changeSpacePrice (@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		String temp = "";
+		for(Space s:player.getOwnedProperties()){
+			temp += s.getName() + ", ";
+		}
+		return player.getName() + ";" + player.getMoney() + ";" + temp + ";" + player.getJailCard() + ";" + player.getMonopolyGroups();
+	}
+
 	@RequestMapping("/getrandomized")
 	public boolean isRandomized(@RequestParam("gameid") int id) {
 		Gson gson = new Gson();
