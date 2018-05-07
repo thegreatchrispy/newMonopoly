@@ -69,6 +69,7 @@ function rollDie(){
 function startTurn() {
 	console.log("Starting Turn.");
 	var playerName = names[index];
+	var id = Number(sessionStorage.getItem("currentBoardId"));
 	console.log("Current Position: " + getPosition(id, playerName).responseText);
 	var id = 1;
 	var string = getInJail(id, playerName).responseText.split(";");
@@ -214,6 +215,7 @@ function executeTurn(id, playerName) {
 	var die_1 = $('#dice1').html();
 	var die_2 = $('#dice2').html();
 	var value = Number(die_1) + Number(die_2);
+	// var value = 39; // for testing
 	if (Number(die_1) == Number(die_2)) {
 		incrementDoublesCount(id, playerName);
 		doublesRolled = true;

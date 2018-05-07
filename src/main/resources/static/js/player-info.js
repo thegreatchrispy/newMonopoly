@@ -52,7 +52,9 @@
 
 		captionText.innerHTML = '<p>'+playerdata[0]+'<br>'+
 							'Money: $'+playerdata[1]+'<br>'+
+							'<br>'+
 							'Properties: '+playerdata[2]+'<br>'+
+							'<br>'+
 							'Jail Card: '+outofjailText+'<br>'+
 							'Monopoly Groups Owned: '+groupStorage+
 							'</p>';
