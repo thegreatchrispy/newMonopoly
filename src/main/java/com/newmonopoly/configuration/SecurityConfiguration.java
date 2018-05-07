@@ -83,6 +83,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/hasanyhouses").permitAll()
 				.antMatchers("/gethousegroups").permitAll()
 				.antMatchers("/getspacename").permitAll()
+				.antMatchers("/playerdata").permitAll()
+				.antMatchers("/cardsdata").permitAll()
 
 				/* Mutator Methods. */
 				.antMatchers("/moveplayertojail").permitAll()

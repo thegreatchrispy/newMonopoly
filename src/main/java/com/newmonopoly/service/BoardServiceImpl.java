@@ -40,9 +40,9 @@ public class BoardServiceImpl implements BoardService {
 		List<Card> community = new Vector<Card>();
 
 		try {
-			originalSpaces = gson.fromJson(new FileReader("/Users/isaacperalez/newMonopoly/src/main/java/com/newmonopoly/service/spaces.json"), new TypeToken<List<Space>>(){}.getType());
-			chance = gson.fromJson(new FileReader("/Users/isaacperalez/newMonopoly/src/main/java/com/newmonopoly/service/chance.json"), new TypeToken<List<Card>>(){}.getType());
-			community = gson.fromJson(new FileReader("/Users/isaacperalez/newMonopoly/src/main/java/com/newmonopoly/service/community.json"), new TypeToken<List<Card>>(){}.getType());
+			originalSpaces = gson.fromJson(new FileReader("/Users/JuanMarcelo/Desktop/newMonopoly/src/main/java/com/newmonopoly/service/spaces.json"), new TypeToken<List<Space>>(){}.getType());
+			chance = gson.fromJson(new FileReader("/Users/JuanMarcelo/Desktop/newMonopoly/src/main/java/com/newmonopoly/service/chance.json"), new TypeToken<List<Card>>(){}.getType());
+			community = gson.fromJson(new FileReader("/Users/JuanMarcelo/Desktop/newMonopoly/src/main/java/com/newmonopoly/service/community.json"), new TypeToken<List<Card>>(){}.getType());
 			Collections.shuffle(chance);
 			Collections.shuffle(community);
 			board.setChance(chance);

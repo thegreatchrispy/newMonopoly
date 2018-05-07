@@ -191,6 +191,67 @@ public class GameController {
 		return names;
 	}
 
+	@RequestMapping("/playerdata")
+	public String playerData (@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		Player player = new Player();
+		List<Player> players = new Vector<Player>();
+		
+		try {
+			board = boardService.findByGameId(id);
+			players = board.getPlayers();
+
+			for (Player p : players) {
+				if (p.getName().equals(playerName)) {
+					player = p;
+					break;
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		String temp = "";
+		for(Space s:player.getOwnedProperties()){
+			temp += s.getName() + ", ";
+		}
+		return player.getName() + ";" + player.getMoney() + ";" + temp + ";" + player.getJailCard() + ";" + player.getMonopolyGroups();
+	}
+
+	@RequestMapping("/cardsdata")
+	public String cardsData (@RequestParam("gameid") int id, @RequestParam("space") String spaceName ) {
+		Gson gson = new Gson();
+		Board board = new Board();
+		List<Space> spaces = new Vector<Space>();
+		Space space = new Space();
+
+		try {
+			board = boardService.findByGameId(id);
+			spaces = board.getSpaces();
+
+			for (Space s : spaces) {
+				if (s.getName().equals(spaceName)) {
+					space = s;
+					break;
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		String temp = "";
+		if(space.getType().equals("utility")){
+			temp = "";
+		} else {
+			for(int s:space.getMultipliedRent()){
+				temp += Integer.toString(s) + "\t";
+			}
+		}
+
+		return space.getName() + ";" + space.getGroup() + ";" + space.getPrice() + ";" + space.getCurrentRent() + ";" + temp + ";" + space.getHouseCost() + ";" + space.getOwnedBy() + ";" + space.getBuildings() + ";" + space.isMortgaged() + ";" + space.getStrongSeason() + ";" + space.getWeakSeason() + ";" + space.getType();
+	}
+
 	@RequestMapping("/getrandomized")
 	public boolean isRandomized(@RequestParam("gameid") int id) {
 		Gson gson = new Gson();
