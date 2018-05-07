@@ -18,15 +18,122 @@
                         <li><a th:href="@{/home}">HOME</a></li>
                         <li><a th:href="@{/create_join}">CREATE/JOIN GAME</a></li>
                         <li><a class="active" th:href="@{/help}">HELP/ABOUT</a></li>
-                        <li><a th:href="@{/edit_profile}">EDIT PROFILE</a></li>
                         <li class="rightli"><a th:href="@{/logout}">LOGOUT</a></li>
                     </ul>
                 </nav>
             </div>
-            <div class="box" id="about">
-                <div class="box_header">ABOUT
-                    <p>TEST</p>
+            <div class="box">
+                <div id="option">
+                    <div class="box_header">SELECT OPTION</div>
+                        <a id="about_button" class="forward_choice">ABOUT</a> <a id="rules_button" class="forward_choice">RULES</a>
+                    </div>
+                <div id="about">
+                    <div class="box_header">ABOUT</div>
+                    <div class="box_text">Similar in gameplay and structure to the great classic board game, New Monopoly®
+                            connects players all over the world in a live, multiplayer game experience. Hasbro currently does
+                            not have a free virtual board game, nor do they offer a balanced board game experience. Often
+                            players at a strategic advantage dominate the game. This online game model will allow players to
+                            experience a more difficult, but balanced gameplay with the following added features: <br><br>
+                             Seasons that change the Luck and Charity cards, the board graphics, and the property
+                            values.<br><br>
+                             Options that allow randomized board spaces, or other game board styles.<br><br>
+                             House rules that turn a boring old board game into a personalized experience.<br><br>
+                            Everyone plays the game a little differently; however, with the help of New Monopoly®, the
+                            style of the traditional board game will change forever. Each experience with New Monopoly®
+                            will give players a unique sense of familiarity, yet the challenges are far greater. Sign up now,
+                            and help us launch New Monopoly® into the future of gaming!</div>
                 </div>
-            </div>          
+                <div id="rules_1">
+                        <div class="box_header">HOW TO PLAY:</div>
+                        <div class="box_sub_header">CREATE/JOIN GAME</div>
+                        <div class="box_text">Select Create/Join Game. <br><br>
+                             Selecting the CREATE GAME button: Allows a player to become the host player; this player will 
+                            determine the web-based game settings unique to New Monopoly®. The host player sets the lobby to public or private 
+                            (password required), decides the difficulty level, chooses the number of allowed players and the number of turns to 
+                            be played.<br><br>
+                             Selecting the JOIN GAME button: Allows non-host players to search for all available games to join.
+                            These players will also be able to filter these games out based on difficulty level, number of players, and 
+                            number of turns; as well as search for a game by a specific ID. If players desire to enter a private lobby, they must 
+                            have the password required to gain access in that lobby.</div>
+                    </div>
+                <div id="rules_2">
+                        <div class="box_header">HOW TO PLAY:</div>
+                        <div class="box_sub_header">WINNING/LOSING</div>
+                        <div class="box_text">New Monopoly® has the same concepts of winning and losing from the traditional game.<br><br>
+                             Winning the game: The object of the game is to be the only player remaining (who has not gone
+                            bankrupt).<br><br>
+                             Losing the game: The losers of the game are the players to go “bankrupt,” or lose all money and
+                            property.
+                            </div>
+                    </div>
+                <div id="rules_3">
+                        <div class="box_header">HOW TO PLAY:</div>
+                        <div class="box_sub_header">BEGINNING GAME</div>
+                        <div class="box_text">New Monopoly® has the same concepts of starting a game from the traditional game.<br><br>
+                             Starting the game: To determine which player will roll first, each player will roll the dice once.
+                            The player who rolls the highest number begins the game. Each subsequent turn will be based on
+                            the player’s rank during the initial dice roll.
+                            </div>
+                    </div>
+                <div id="rules_4">
+                        <div class="box_header">HOW TO PLAY:</div>
+                        <div class="box_sub_header">PLAYING THE GAME</div>
+                        <div class="box_text">After the initial roll is determined, the player pawns will move across the board counter-clockwise.<br><br>
+                                 Each turn a player passes START, the player receives $200 from THE BANK.<br><br>
+                                 Property spaces: When a player lands on an unowned property space, the player has the
+                                option to BUY or AUCTION the property. To BUY the property, the player must pay the
+                                full amount listed on the property card; to AUCTION the property, the bank will take the
+                                property and sell it to the highest bidder (out of the rest of the players). Once a player
+                                owns all property cards of the same color group, this player owns a MONOPOLY, and
+                                can begin building HOUSES/HOTELS to collect higher rent. Players also have the option
+                                to purchase RAILROADS and UTILITIES. RAILROADS are bought and auctioned the same
+                                way as properties. The amount in rent a player receives from an Railroad space depends on
+                                how many Railroads the player owns. UTILITIES are bought and auctioned the same way
+                                as properties. The amount in rent a player receives from a utility space is five times the
+                                amount shown on the dice roll.
+                            </div>
+                    </div>
+                <div id="rules_4">
+                        <div class="box_header">HOW TO PLAY:</div>
+                        <div class="box_sub_header">PLAYING THE GAME</div>
+                        <div class="box_text"> Two or more paws may land on the same space; however, if the first pawn to land on the
+                                space has purchased the property, the second pawn will owe the first pawn RENT.<br><br>
+                                 Building HOUSES/HOTELS increases rent on monopolized properties. To build
+                                HOUSES/HOTELS, a player must own all properties of one color group. Players must
+                                build evenly when purchasing houses and hotels: a player cannot build two houses on a
+                                property space until all property spaces have one house. To buy a hotel, a player must
+                                have four houses on each property space of the same color group: a player cannot build
+                                more than one hotel per property.<br><br>
+                                 Players can SELL/TRADE properties, Railroads, or utilities.<br><br>
+                                 Players can make extra money by selling houses/hotels, selling properties, Railroads, or
+                                utilities, or mortgaging property. Each property has a mortgage amount listed below the
+                                selling price. To repay a mortgage, a player must pay the original mortgage amount, plus
+                                10% interest.
+                            </div>
+                    </div>
+                <div id="rules_5">
+                        <div class="box_header">HOW TO PLAY:</div>
+                        <div class="box_sub_header">PLAYING THE GAME</div>
+                        <div class="box_text"> LUCK and CHARITY spaces: When a player lands on a LUCK or CHARITY space, the
+                                player will see a pop-up card with the instructions. These cards can bring both good and
+                                bad fortune. If a player receives a BAIL card, he/she can use it in future turns to get out
+                                of jail for free (or sell it, if the player needs extra cash).<br><br>
+                                 HOUSE RULES space: This can be a “free” space, in which players do not win or lose
+                                any money by landing here, or the host player can one of dozens of house rules to further
+                                personalize the game experience. These options include the popular “lottery” option, in
+                                which money that players owe to income taxes and other expenses is combined into a
+                                lottery; the first player to land on the House Rule space will receive all money collected
+                                in the lottery.<br><br>
+                                 BUSTED and LOCKED-UP spaces: When a player lands on the Go-to- Jail corner, the
+                                player will see a pop-up that says BUSTED. The player will go directly to the Jail space.
+                                The player can get out of jail by paying a $50 fine, using a BAIL card, or rolling a double
+                                on the dice. When a player lands on the Jail corner, the player is just visiting, and it is
+                                considered a “free” space.
+                            </div>
+                    </div>
+                <a class="back_button" id="back"> &lt; BACK</a>
+                <a class="page_back_button" id="page_back"> &lt; PREV</a>
+                <a class="forward_button" id="forward"> NEXT &gt;</a>
+            </div>         
     </body>
 </html>
