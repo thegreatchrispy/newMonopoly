@@ -243,31 +243,58 @@ public class GameController {
 	}
 
 	@RequestMapping("/changespaceprice")
-	public String changeSpacePrice (@RequestParam("gameid") int id, @RequestParam("player") String playerName) {
+	public String changeSpacePrice (@RequestParam("gameid") int id, @RequestParam("currentseason") int season) {
 		Gson gson = new Gson();
 		Board board = new Board();
-		Player player = new Player();
-		List<Player> players = new Vector<Player>();
+		List<Space> spaces = new Vector<Space>();
+		String string = "";
+		double priceChangeLimit = .25;
+		double randomOne = 0;
+		double randomTwo = 0;
 		
 		try {
 			board = boardService.findByGameId(id);
-			players = board.getPlayers();
+			spaces = board.getSpaces();
 
-			for (Player p : players) {
-				if (p.getName().equals(playerName)) {
-					player = p;
-					break;
+			for (Space s : spaces) {
+				if (s.getType().equals("property")) {
+					if (s.getStrongSeason() == season) {
+						randomOne = Math.random();
+						if (randomOne > .25) {
+							do {
+								randomTwo = Math.random();
+							} while (randomTwo <= priceChangeLimit);
+						} else {
+							do {
+								randomTwo = Math.random() * -1;
+							} while (randomTwo >= (priceChangeLimit * -1));
+						}
+						s.setCurrentRent( (int)(s.getCurrentRent() * (1 + randomTwo)));
+					} else if (s.getWeakSeason() == season) {
+						randomOne = Math.random();
+						if (randomOne > .25) {
+							do {
+								randomTwo = Math.random();
+							} while (randomTwo <= priceChangeLimit);
+						} else {
+							do {
+								randomTwo = Math.random() * -1;
+							} while (randomTwo >= (priceChangeLimit * -1));
+						}
+						s.setCurrentRent( (int)(s.getCurrentRent() * (1 - randomTwo)));
+					}
 				}
 			}
+
+			board.setSpaces(spaces);
+			boardService.saveBoard(board);
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		String temp = "";
-		for(Space s:player.getOwnedProperties()){
-			temp += s.getName() + ", ";
-		}
-		return player.getName() + ";" + player.getMoney() + ";" + temp + ";" + player.getJailCard() + ";" + player.getMonopolyGroups();
+		
+		return string;
 	}
 
 	@RequestMapping("/getrandomized")
