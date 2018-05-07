@@ -240,6 +240,26 @@ function getOutOfJail(id, playerName) {
 	});
 }
 
+//Retrieves player information
+function playerData(id, playerName) {
+    var urlString = "http://localhost:8080/playerdata?gameid=" + id + "&player=" + playerName;
+    return $.ajax({
+        url:`${urlString}`,
+        async: false,
+        success:function(data) {}
+    });
+}
+
+//Retrieves card information
+function cardsData(id, spaceName) {
+    var urlString = "http://localhost:8080/cardsdata?gameid=" + id + "&space=" + spaceName;
+    return $.ajax({
+        url:`${urlString}`,
+        async: false,
+        success:function(data) {}
+    });
+}
+
 /* Logical calls to the Database. */
 
 // Send a call to perform the space action of the player's current position.

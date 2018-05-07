@@ -524,3 +524,19 @@ function spaceAction(id, playerName) {
             break;
    }
 }
+
+// function updatePlayerInfo(id, playerName) {
+//     var name = "";
+//     for (i = 0; i < numPlayers; i++) {
+//         name = names[i];
+//         var money = getMoney(id, name).responseText;
+//         var moneyPosition = -1;
+//         for(i = 0; i < numPlayers; i++) {
+//             moneyPosition++;
+//             if (names[moneyPosition] == name)
+//                 break;
+//         }
+//         moneyPosition++;
+//         player_money(money);
+//     }
+// }
