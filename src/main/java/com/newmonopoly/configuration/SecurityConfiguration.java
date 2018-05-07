@@ -61,6 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/retrievegame").permitAll()
 				.antMatchers("/updategame").permitAll()
 				.antMatchers("/deletegame").permitAll()
+				.antMatchers("/gameover").permitAll()
 
 				/* Accessor Methods. */
 				.antMatchers("/getnumberofplayers").permitAll()
@@ -77,6 +78,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/gettradestatus").permitAll()
 				.antMatchers("/getmortgagestatus").permitAll()
 				.antMatchers("/getmortgageinfo").permitAll()
+				.antMatchers("/getownedproperties").permitAll()
+				.antMatchers("/getbankruptstatus").permitAll()
+				.antMatchers("/hasanyhouses").permitAll()
+				.antMatchers("/gethousegroups").permitAll()
+				.antMatchers("/getspacename").permitAll()
 
 				/* Mutator Methods. */
 				.antMatchers("/moveplayertojail").permitAll()
@@ -96,6 +102,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/purchasebuildings").permitAll()
 				.antMatchers("/addmortgage").permitAll()
 				.antMatchers("/paymortgage").permitAll()
+				.antMatchers("/givetoallplayers").permitAll()
+				.antMatchers("/paytoplayers").permitAll()
+				.antMatchers("/auctionbankruptpurchase").permitAll()
+				.antMatchers("/removeplayer").permitAll()
 
 				// Authorities.
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()

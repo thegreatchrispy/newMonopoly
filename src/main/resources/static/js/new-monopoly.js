@@ -29,6 +29,13 @@
 		$(playerTokens[i]).show();
 		$(playerNames[i]).html(names[i]);
 	}
+
+	var count = numPlayers - 1;
+	for(i = 0; i < 6; i++) {
+		if (i > count) {
+			players_in_game[i] = 0;
+		}
+	}
 }
 
 function rollDie(){
@@ -55,10 +62,9 @@ function rollDie(){
 function startTurn() {
 	console.log("Starting Turn.");
 	var playerName = names[index];
-	var id = 1;
 	console.log("Current Position: " + getPosition(id, playerName).responseText);
-	var string = getInJail(1, playerName).responseText.split(";");
-
+	var id = 1;
+	var string = getInJail(id, playerName).responseText.split(";");
 	if (string[0] == "true") {
 		addAlert(playerName + " is still locked up!");
 		inJail(id, playerName, string);
@@ -71,6 +77,8 @@ function startTurn() {
 function inJail(id, playerName, string) {
 	console.log("inJail Function.");
 	$('#dieButton').hide();
+
+	var currentMoney = getMoney(id, playerName).responseText;
 
 	var useCard = document.getElementById("jailCardButton");
 	useCard.onclick = function() {
@@ -86,15 +94,19 @@ function inJail(id, playerName, string) {
 
 	var pay = document.getElementById("jailPayButton");
 	pay.onclick = function() {
-		getOutOfJail(id, playerName);
-		setTimeout(function() {
-			$('#jailCardButton').hide();
-			$('#jailRollButton').hide();
-			$('#jailPayButton').hide();
-			var lockup = 'in-jail' + (index + 1);
-    		popup_bars(lockup,'nei');
-			executeTurnWithoutDoubles(id, playerName);
-		}, 500);
+		if (currentMoney - 50 <= 0) {
+			addAlert("You do not have enough money to pay bail, " + playerName + "!");
+		} else {
+			getOutOfJail(id, playerName);
+			setTimeout(function() {
+				$('#jailCardButton').hide();
+				$('#jailRollButton').hide();
+				$('#jailPayButton').hide();
+				var lockup = 'in-jail' + (index + 1);
+				popup_bars(lockup,'nei');
+				executeTurnWithoutDoubles(id, playerName);
+			}, 500);
+		}
 	}
 	
 	// Player has more than one turn in jail.
@@ -159,15 +171,29 @@ function inJail(id, playerName, string) {
 				}, 500);
 			} else {
 				addAlert(playerName + " did not roll doubles.");
-				getOutOfJail(id, playerName);
-				setTimeout(function() {
-					$('#jailCardButton').hide();
-					$('#jailRollButton').hide();
-					$('#jailPayButton').hide();
-					var lockup = 'in-jail' + (index + 1);
-    				popup_bars(lockup,'nei');
-					executeTurnWithoutDoubles(id, playerName);
-				}, 500);
+				if (currentMoney - 50 <= 0) {
+					addAlert("You do not have enough money to pay bail, " + playerName + "!");
+					var willBankrupt = paymentWillCauseBankrupt(id, playerName, 50).responseText;
+					if (willBankrupt == "true") {
+						addAlert(playerName + " has declared bankruptcy!");
+					} else {
+						addAlert(playerName + " owes a debt!");
+						$('#jailCardButton').hide();
+						$('#jailRollButton').hide();
+						$('#jailPayButton').hide();
+						debt(id, playerName, 50, false, true);
+					}
+				} else {
+					getOutOfJail(id, playerName);
+					setTimeout(function() {
+						$('#jailCardButton').hide();
+						$('#jailRollButton').hide();
+						$('#jailPayButton').hide();
+						var lockup = 'in-jail' + (index + 1);
+						popup_bars(lockup,'nei');
+						executeTurnWithoutDoubles(id, playerName);
+					}, 500);
+				}
 			}
 		}
 		$('#jailRollButton').show();

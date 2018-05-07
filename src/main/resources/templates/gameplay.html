@@ -7,10 +7,12 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" th:href="@{/css/boardStyle.css}">
 		<script th:src="@{/jquery/3.3.1/jquery.min.js}"></script>
-		<script type="text/javascript"> 
+		<script type="text/javascript">
 			var index = 0;
 			var auction_index = 0;
 			var players_in_auction = [1, 1, 1, 1, 1, 1];
+			var players_in_game = [1, 1, 1, 1, 1, 1];
+			var bankruptProperties = [];
 			var bidStatus = true; 
 			var numPlayers = 0;
 			var names = [];

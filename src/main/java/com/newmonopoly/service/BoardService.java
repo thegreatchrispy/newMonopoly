@@ -28,18 +28,18 @@ public interface BoardService {
 
 	// Player funds decrease functions
 	public void removeFunds(Board board, Player player, int payment);
-	public void repairs(Board board, Player player, int housePrice, int hotelPrice);
-	public void giveToPlayers(Board board, Player player, int payment);
+	public String repairs(Board board, Player player, int housePrice, int hotelPrice);
+	public String giveToPlayers(Board board, Player player, int payment);
 	
 	// Monopoly logic functions - DO NOT require user input
-	public String performSpaceAction(Board board, Player player);
+	public String performSpaceAction(Board board, Player player, Player owner);
 	public void transaction(Board board, Player player);
 	//public void performSpaceAction(Board board, Player player, Space space);
 	public String drawCard(Board board, Player player, String type);
 	public void build(Board board, Player player, Space space);
 	public void trade(Board board, Player player);
-	public String addMonopolyAfterPurchase(Board board, Player player);
-	public String addMonopolyAfterAuction(Board board, Player index, Player player);
+	public String addMonopolyAfterPurchase(Board board, Player player, List<Space> spaces);
+	public String addMonopolyAfterAuction(Board board, Player index, Player player, List<Space> spaces);
 	public void findMonopolies(Board board, Player player);
 	public void bankrupt(Board board, Player player);
 	public int getPlayerIndex(Board boared, Player player);
@@ -67,6 +67,10 @@ public interface BoardService {
 	public String payRent(Board board, Player player, Player owner);
 	public String payTax(Board board, Player player, Space space);
 	public String payUtility(Board board, Player player, Player owner);
+	public int getTotalWorth(Board board, Player player);
+	public boolean paymentWillCauseBankrupt(Board board, Player player, int debt);
+	public boolean paymentWillCauseDebt(Board board, Player player, int debt);
+	
 
 	// Repository functions
 	public void saveBoard(Board board);

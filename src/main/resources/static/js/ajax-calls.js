@@ -164,6 +164,66 @@ function getMortgageInfo(id, playerName, group) {
 	});
 }
 
+// Retrieve a player's owned properties.
+function getOwnedProperties(id, playerName) {
+	var urlString = "http://localhost:8080/getownedproperties?gameid=" + id + "&player=" + playerName;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
+// Retrieve a player's status on bankruptcy.
+function paymentWillCauseBankrupt(id, playerName, debt) {
+    var urlString = "http://localhost:8080/getbankruptstatus?gameid=" + id + "&player=" + playerName + "&debt=" + debt;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
+// Retrieve if a player owns any houses.
+function hasAnyHouses(id, playerName) {
+    var urlString = "http://localhost:8080/hasanyhouses?gameid=" + id + "&player=" + playerName;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
+// Retrieve the array where a player has a house still on a specific group.
+function getHouseGroups(id, playerName) {
+    var urlString = "http://localhost:8080/gethousegroups?gameid=" + id + "&player=" + playerName;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
+// Retrieve the array where a player has a house still on a specific group.
+function getSpaceName(id, playerName) {
+    var urlString = "http://localhost:8080/getspacename?gameid=" + id + "&player=" + playerName;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
 /* Sending calls to set a given value in the Database. */
 
 // Send a call to send a player to jail.
@@ -310,7 +370,7 @@ function addMonopolyAfterPurchase(id, playerName) {
 
 // Check if a player has a new monopoly.
 function addMonopolyAfterAuction(id, indexName, playerName) {
-    var urlString = "http://localhost:8080/addmonopolyafterpurchase?gameid=" + id + "&indexPlayer=" + indexName + "&player=" + playerName;
+    var urlString = "http://localhost:8080/addmonopolyafterauction?gameid=" + id + "&indexPlayer=" + indexName + "&player=" + playerName;
 	$.ajax({
     	url:`${urlString}`,
     	async: false,
@@ -352,6 +412,56 @@ function payMortgage(id, playerName, spaceName, loanValue) {
             url: `${urlString}`,
             async: false,
 			success: function(data) {
+			}
+		});
+}
+
+// Send a call to pay a debt to all the players.
+function giveToAllPlayers(id, playerName, debt) {
+	var urlString = "http://localhost:8080/givetoallplayers?gameid=" + id + "&player=" + playerName + "&debt=" + debt;
+
+	$.ajax({
+            url: `${urlString}`,
+            async: false,
+			success: function(data) {
+			}
+		});
+}
+
+// Send a call to pay a debt to a playerge
+function payToPlayer(id, playerName, debt) {
+	var urlString = "http://localhost:8080/paytoplayer?gameid=" + id + "&player=" + playerName + "&debt=" + debt;
+
+	$.ajax({
+            url: `${urlString}`,
+            async: false,
+			success: function(data) {
+			}
+		});
+}
+
+// Send a call to purchase the property for the winner of an auction
+function auctionBankruptPurchase(id, winner, value, spaceName) {
+	var urlString = "http://localhost:8080/auctionbankruptpurchase?gameid=" + id + "&winner=" + winner + "&amount=" + value + "&space=" + spaceName;
+
+	$.ajax({
+            url: `${urlString}`,
+            async: false,
+			success: function(data) {
+                addAlert(data);
+			}
+		});
+}
+
+// Send a call to purchase the property for the winner of an auction
+function removePlayerFromBoard(id, playerName) {
+	var urlString = "http://localhost:8080/removeplayer?gameid=" + id + "&player=" + playerName;
+
+	$.ajax({
+            url: `${urlString}`,
+            async: false,
+			success: function(data) {
+                addAlert(data);
 			}
 		});
 }
