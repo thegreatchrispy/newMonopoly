@@ -13,6 +13,23 @@ function checkIfGameHasWinner() {
     }
 }
 
+function incrementTurnCounter(seasonChange) {
+    turnCount += 1;
+    if((turnCount % seasonChange) == 0) {
+        changeNextSeason();
+    }
+}
+
+function changeNextSeason() {
+    currentSeason += 1;
+    $(".center").css("background","url(images/"+currentSeason+".jpg)");
+    $(".center").css("background-size","50%");
+
+    if (currentSeason == 3){
+        currentSeason = -1;
+    }
+}
+
 function endTurn(id, playerName) {
     console.log("Ending players turn.");  
     console.log("");
@@ -27,6 +44,7 @@ function endTurn(id, playerName) {
     }
     else {
         checkIfGameHasWinner();
+        incrementTurnCounter(2);
         incrementIndex();
         setDoubles(id, playerName);
         $("#alert").html("");

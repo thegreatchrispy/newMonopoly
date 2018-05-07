@@ -302,7 +302,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .center {
-  background:url('http://localhost:8080/images/winter.jpg');
+  background:url('http://localhost:8080/images/0.jpg');
   background-size:50%;
   border:1px solid black;
   height:737px;width:737px;
