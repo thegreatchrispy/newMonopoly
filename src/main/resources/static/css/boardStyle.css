@@ -1371,7 +1371,43 @@ button[aria-disabled="true"] {
   white-space: nowrap;
   width: 1px;
 }
+
 #trade_display {
   margin-top: 25%;
   margin-left: 15%;
+}
+
+#trade-listbox-area {
+  padding: 20px;
+  margin: 0 auto;
+  width: 500px;
+  background: #eee;
+  border: 1px solid #aaa;
+  font-size: 0px;
+}
+
+#log_window {
+  display: none;
+}
+
+#log_space {
+  position: absolute;
+  z-index: 2;
+  left: 110px;
+  top: 155px;
+  border: 2px solid black;
+  padding: 10px;
+  background-color: white;
+}
+
+#log_control {
+  width: 350px;
+  height: 250px;
+  margin: 0px;
+  padding-left: 1px;
+  border: 1px solid gray;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+  background-color: #FFFFFF;
+  overflow-y: scroll;
 }

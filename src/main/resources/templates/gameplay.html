@@ -32,6 +32,7 @@
 			var pieces = ["piece_1", "piece_2", "piece_3", "piece_4", "piece_5", "piece_6"];
 			var doublesRolled = false;
 		</script>
+		<script type="text/javascript" th:src="@{/js/music.js}"></script>
 		<script type="text/javascript" th:src="@{/js/alert.js}"></script>
 		<script type="text/javascript" th:src="@{/js/move.js}"></script>
 		<script type="text/javascript" th:src="@{/js/swap.js}"></script>
@@ -43,10 +44,9 @@
 		<script type="text/javascript" th:src="@{/js/toolbar.js}"></script>
 		<script type="text/javascript" th:src="@{/js/listbox-rearrangeable.js}"></script>
 		<script type="text/javascript" th:src="@{/js/mortgage.js}"></script>
+		<script type="text/javascript" th:src="@{/js/trade.js}"></script>
 		<script type="text/javascript" th:src="@{/js/board.js}"></script>
 		<script type="text/javascript" th:src="@{/js/new-monopoly.js}"></script>
-
-
 	</head>
 
 
@@ -182,7 +182,9 @@
 	</aside>
 
 	<body>
-
+		<audio id="music" autoplay loop>
+			<source th:src="@{/mp3/test.mp3}" type="audio/mpeg">
+		</audio>
 		<div class="box" id="options-box">
 			<div id="auction">
 				<div class="box_header" id="auction_header">AN AUCTION HAS BEGUN!</div>
@@ -325,8 +327,7 @@
 		        <div class="listbox-area">
 		          <div class="left-area" id="unmortgaged">
 		            <span id="ms_av_l">Available properties:</span>
-		            <ul id="ms_imp_list" tabindex="0" role="listbox" aria-labelledby="ms_av_l" aria-multiselectable="true" aria-activedescendant = "">
-		            </ul>
+		            <ul id="ms_imp_list" tabindex="0" role="listbox" aria-labelledby="ms_av_l" aria-multiselectable="true" aria-activedescendant = ""></ul>
 		            <button id="ex2-add" class="move-right-btn" aria-keyshortcuts="Alt+ArrowRight Enter" aria-disabled="true">Mortgage</button>
 		          </div>
 		          <div class="right-area" id="mortgaged">
@@ -336,7 +337,6 @@
 		          </div>
 		          <div class="offscreen">Last change: <span aria-live="polite" id="ms_live_region"></span></div>
 		        </div>
-
 			</div>
 			<div id="trade">
 				<div class="box_header">TRADE PROPERTIES</div>
@@ -360,20 +360,36 @@
 								<input type="number" id="other_trade_amount" min="0" placeholder="$" style="display:none;">
 							</td>
 						</tr>
-						<tr>
-							<td>
-								<div id="my_trade_properties">My properties will show up here.</div>
-							</td>
-							<td>
-								<div id="other_trade_properties" style="display:none;">Their properties will show up here.</div>
-							</td>
-						</tr>
 					</table>
+					<div id="trade-listbox-area" style="display:none;">
+						<div class="left-area" id="my_trade_properties">
+							<span id="trade_av_l">Your Properties:</span>
+							<ul id="trade_imp_list" tabindex="0" role="listbox" aria-labelledby="trade_av_l" aria-multiselectable="true" aria-activedescendant = ""></ul>
+							<button id="trade-add" class="move-right-btn" aria-keyshortcuts="Alt+ArrowRight Enter" aria-disabled="true">Give Away</button>
+						</div>
+						<div class="right-area" id="other_trade_properties">
+							<span id="trade_ch_l">Other Player's Properties:</span>
+							<ul id="trade_unimp_list" tabindex="0" role="listbox" aria-labelledby="trade_ch_l" aria-activedescendant="" aria-multiselectable="true"> </ul>
+							<button id="trade-delete" class="move-left-btn" aria-keyshortcuts="Alt+ArrowLeft Delete" aria-disabled="true">Take</button>
+						</div>
+						<div class="offscreen">Last change: <span aria-live="polite" id="trade_live_region"></span></div>
+					</div>
+				</div>
+			</div>
+			<div id="log_window">
+				<div class="box_header">GAME LOG</div>
+				<div class="box_sub_header" id="numberhouses_sub"></div>
+				<div id="log_space">
+					<div id="log_control">
+						<ul id="log_entry_list"></ul>
+					</div>
 				</div>
 			</div>
 			<button id="cancel_button">CANCEL</button>
 			<button id="submit_button">SUBMIT</button>
 		</div>
+
+		<!-- Board -->
 
 		<div class="table">
 			<div class="board">
@@ -766,6 +782,13 @@
 					<button id="jailCardButton">Use Card</button>
 					<button id="jailRollButton">Test My Luck</button>
 					<button id="jailPayButton">Bail Me Out</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button id="musicButton" onclick="toggleMusic()">Mute</button>
+					<button id="viewLogButton">View Log</button>
+					<button id="quitButton">Quit Game</button>
 				</td>
 			</tr>
 		</table>
