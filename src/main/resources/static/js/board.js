@@ -25,7 +25,7 @@ function changeNextSeason() {
     $(".center").css("background","url(images/"+currentSeason+".jpg)");
     $(".center").css("background-size","50%");
 
-    if (currentSeason == 3){
+    if (currentSeason >= 3){
         currentSeason = -1;
     }
 }
