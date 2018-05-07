@@ -82,5 +82,6 @@ $(document).ready(function(){
 });
 
 function goToLobby() {
+	window.location.href = "http://localhost:8080/lobby";
 }
 
