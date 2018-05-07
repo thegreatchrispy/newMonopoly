@@ -164,6 +164,18 @@ function getMortgageInfo(id, playerName, group) {
 	});
 }
 
+// Retrieve a player's owned properties.
+function getOwnedProperties(id, playerName) {
+	var urlString = "http://localhost:8080/getownedproperties?gameid=" + id + "&player=" + playerName;
+	return $.ajax({
+    	url:`${urlString}`,
+    	async: false,
+    	success:function(data) {
+            return data;
+		}
+	});
+}
+
 /* Sending calls to set a given value in the Database. */
 
 // Send a call to send a player to jail.
