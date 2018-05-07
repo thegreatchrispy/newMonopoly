@@ -391,22 +391,18 @@
 					</div>
 				</div>
 			</div>
+			<div id="log_window">
+				<div class="box_header">GAME LOG</div>
+				<div class="box_sub_header" id="numberhouses_sub"></div>
+				<div id="log_space">
+					<ul id="log_entry_list"></ul>
+				</div>
+			</div>
 			<button id="cancel_button">CANCEL</button>
 			<button id="submit_button">SUBMIT</button>
 		</div>
 
-
-				<!-- <script>
-					document.getElementById("submit_button").onclick = function() {displayNextBox()};
-
-					function displayNextBox() {
-
-						document.getElementById("build").style.display = "none";
-						document.getElementById("numberhouses").style.display = "block";
-						setTimeout(function(){ document.getElementById("numberhouses").style.display = "none"; }, 10000);
-					}
-
-				</script> -->
+		<!-- Board -->
 
 		<div class="table">
 			<div class="board">
@@ -905,6 +901,8 @@
 			<tr>
 				<td>
 					<button id="musicButton" onclick="toggleMusic()">Mute</button>
+					<button id="viewLogButton">View Log</button>
+					<button id="quitButton">Quit Game</button>
 				</td>
 			</tr>
 		</table>

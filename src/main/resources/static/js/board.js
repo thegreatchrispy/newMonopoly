@@ -122,6 +122,7 @@ function buildHouses(id, playerName, group) {
     });
 
     $('#submit_button').html("PURCHASE");
+    $('#submit_button').show();
     var submit = document.getElementById("submit_button");
     submit.onclick = function() {
         var balance = $("#numberhouses_sub").html().split("$")[1];
@@ -173,6 +174,7 @@ function buildHouses(id, playerName, group) {
                 }
                 setTimeout(function() {
                     $('#submit_button').html("SUBMIT");
+                    $('#submit_button').show();
                     $('#build').hide();
                     $('#numberhouses').hide();
                     $('#options-box').hide();
@@ -200,6 +202,7 @@ function buildProperties(id, playerName) {
         playerDecision(id, playerName);
     }
     $('#submit_button').html("CONTINUE");
+    $('#submit_button').show();
     var submit = document.getElementById("submit_button");
     submit.onclick = function() {
         var selected_group = $('#group_select').val();
@@ -232,10 +235,12 @@ function playerDecision(id, playerName) {
             addAlert(playerName + " is currently building!");
             $('#options-box').show();
             $('#build').show();
+            $('#submit_button').show();
             $('#buildButton').hide();
             $('#tradeButton').hide();
             $('#accountsButton').hide();
             $('#endButton').hide();
+            $('#viewLogButton').hide();
             buildProperties(id, playerName);
             console.log("You can build!");
         } else {
@@ -243,6 +248,7 @@ function playerDecision(id, playerName) {
             $('#tradeButton').hide();
             $('#accountsButton').hide();
             $('#endButton').hide();
+            $('#viewLogButton').hide();
             addAlert(playerName + ", you are not eligible to build!");
             waitContinue(id, playerName);
         }
@@ -256,10 +262,12 @@ function playerDecision(id, playerName) {
             addAlert(playerName + " is currently trading!");
             $('#options-box').show();
             $('#trade').show();
+            $('#submit_button').show();
             $('#buildButton').hide();
             $('#tradeButton').hide();
             $('#accountsButton').hide();
             $('#endButton').hide();
+            $('#viewLogButton').hide();
             tradeProperties(id, playerName);
             console.log("You can trade!");
         } else {
@@ -267,6 +275,7 @@ function playerDecision(id, playerName) {
             $('#tradeButton').hide();
             $('#accountsButton').hide();
             $('#endButton').hide();
+            $('#viewLogButton').hide();
             addAlert("There are currently no owned properties for any players! Go out and buy some!");
             waitContinue(id, playerName);
         }
@@ -280,10 +289,12 @@ function playerDecision(id, playerName) {
             addAlert(playerName + " is currently viewing their accounts!");
             $('#options-box').show();
             $('#accounts').show();
+            $('#submit_button').show();
             $('#buildButton').hide();
             $('#tradeButton').hide();
             $('#accountsButton').hide();
             $('#endButton').hide();
+            $('#viewLogButton').hide();
             mortgageProperties(id, playerName);
             console.log("You can mortgage!");
         } else {
@@ -291,6 +302,7 @@ function playerDecision(id, playerName) {
             $('#tradeButton').hide();
             $('#accountsButton').hide();
             $('#endButton').hide();
+            $('#viewLogButton').hide();
             addAlert("You currently own no properties!");
             waitContinue(id, playerName);
         }
@@ -301,6 +313,26 @@ function playerDecision(id, playerName) {
     end.onclick = function() {
         endTurn(id, playerName);
     };
+
+    $('#viewLogButton').show();
+    var viewLog = document.getElementById("viewLogButton");
+    viewLog.onclick = function() {
+        $('#options-box').show();
+        $('#log_window').show();
+        $('#buildButton').hide();
+        $('#tradeButton').hide();
+        $('#accountsButton').hide();
+        $('#endButton').hide();
+        $('#viewLogButton').hide();
+        $('#submit_button').hide();
+        addAlert("Viewing Log...");
+        var cancel = document.getElementById("cancel_button");
+        cancel.onclick = function() {
+            $('#options-box').hide();
+            $('#log_window').hide();
+            playerDecision(id, playerName);
+        }
+    }
 }
 
 function waitContinue(id, playerName) {
@@ -425,6 +457,7 @@ function auction(id, playerName) {
         auctionPurchase(id, playerName, names[findAuctionWinner()], currentBid);
         setTimeout(function() {
             $('#cancel_button').html("CANCEL");
+            $('#submit_button').show();
             $('#auction').hide();
             $('#options-box').hide();
             $('#alert_auction').html("");
@@ -465,6 +498,7 @@ function chooseToBuy(id, playerName) {
         $('#auction_sub').html("CURRENT BID: $0");
         addAuctionAlert("An Auction Has Begun!");
         $('#cancel_button').html("PASS");
+        $('#submit_button').show();
         auction(id, playerName);
     }
     $('#declineButton').onclick = function() {declinePurchase(id, playerName)};

@@ -1381,3 +1381,19 @@ button[aria-disabled="true"] {
   margin-top: 25%;
   margin-left: 15%;
 } */
+
+#log_window {
+  display: none;
+}
+
+#log_space {
+  width: 250px;
+  height: 300px;
+  margin: 0px;
+  padding-left: 1px;
+  border: 1px solid gray;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+  background-color: #FFFFFF;
+  overflow-y: scroll;
+}

@@ -29,13 +29,14 @@ public class GameController {
 
 	 /* Create, join, retrieve, update, and delete game. */
 	@RequestMapping("/creategame")
-	public String save(@RequestParam("players") String jsonPlayers, @RequestParam("randomize") boolean randomize) {
+	public long save(@RequestParam("players") String jsonPlayers, @RequestParam("randomize") boolean randomize) {
 		Gson gson = new Gson();
 		List<Player> players = new Vector<Player>();
 		List<Space> spaces = new Vector<Space>();
 		List<Card> community = new Vector<Card>();
 		List<Card> chance = new Vector<Card>();
 		Board board;
+		long id = -1;
 
 		try {
 			players = gson.fromJson(jsonPlayers, new TypeToken<List<Player>>(){}.getType());
@@ -52,12 +53,13 @@ public class GameController {
 			board.setSpaces(spaces);
 
 			boardService.saveBoard(board);
+			id = board.getId();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return gson.toJson(players);
+		return id;
 	}
 
 	@RequestMapping("/joingame")

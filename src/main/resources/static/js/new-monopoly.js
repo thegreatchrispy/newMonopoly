@@ -55,7 +55,7 @@ function rollDie(){
 function startTurn() {
 	console.log("Starting Turn.");
 	var playerName = names[index];
-	var id = 1;
+	var id = Number(sessionStorage.getItem("currentBoardId"));
 	console.log("Current Position: " + getPosition(id, playerName).responseText);
 	var string = getInJail(1, playerName).responseText.split(";");
 
