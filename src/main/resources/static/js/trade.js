@@ -6,7 +6,7 @@ function tradeProperties(id, playerName) {
     for (i = 0; i < numPlayers; i++) {
         if (names[i] != names[index]) {
             $('#trade_player_selection').append($('<option>', {
-                value: i,
+                value: (i+1),
                 text: names[i]
             }))
         }
@@ -56,12 +56,12 @@ function tradeProperties(id, playerName) {
 			}
 
 			//populate selected trade player side
-			tradeOwnedProperties = getOwnedProperties(id, $("#trade_player_selection option:selected").text());
-			console.log("Trade player selected: " + $("#trade_player_selection option:selected").text());
+			tradeOwnedProperties = getOwnedProperties(id, $("#trade_player_selection option:selected").text()).responseText.split(";");
+            console.log("trade properties: " + tradeOwnedProperties[i]);
 			for (var i = 0; i < tradeOwnedProperties.length - 1; i++) {
 				var listItem = "<li id='trade_opt_t_" + i + "' role='option' aria-selected='false'>";
-				$('#trade_imp_list').append($(listItem));
-        		$('#trade_opt_o_' + i).html(tradeOwnedProperties[i]);
+				$('#trade_unimp_list').append($(listItem));
+        		$('#trade_opt_t_' + i).html(tradeOwnedProperties[i]);
 			}
         }
     });

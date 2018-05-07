@@ -171,6 +171,7 @@ function getOwnedProperties(id, playerName) {
     	url:`${urlString}`,
     	async: false,
     	success:function(data) {
+			console.log("data: " + data);
             return data;
 		}
 	});
