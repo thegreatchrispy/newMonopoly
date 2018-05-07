@@ -64,6 +64,7 @@ public class BoardServiceImpl implements BoardService {
 		Space space;
 		Iterator<Space> itr;
 		String swapped = "";
+		boolean notShuffled = true;
 
 		for (int i = 0; i < 4; i++) {
 			strongSeasons.add(i);
@@ -76,7 +77,16 @@ public class BoardServiceImpl implements BoardService {
 		do {
 			Collections.shuffle(strongSeasons);
 			Collections.shuffle(weakSeasons);
-		} while (strongSeasons.equals(weakSeasons));
+			for (int i = 0, j = 0; i < 4; i++, j++) {
+				if (strongSeasons.get(i) == weakSeasons.get(i)) {
+					notShuffled = true;
+					Collections.shuffle(strongSeasons);
+					Collections.shuffle(weakSeasons);
+				} else {
+					notShuffled = false;
+				}
+			} 
+		} while (notShuffled);
 		
 		for (int i = 1; i < 9; i++) {
 			groups.add(i);

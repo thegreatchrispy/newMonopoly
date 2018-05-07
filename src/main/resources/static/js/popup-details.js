@@ -67,8 +67,8 @@
 		var cardInfo = cardsData(1,'Illinois Avenue').responseText.split(";");
 		popup_details(cardInfo);
 	};
-	document.getElementById('B. & O. Railroad').onclick = function(){
-		var cardInfo = cardsData(1,'B. & O. Railroad').responseText.split(";");
+	document.getElementById('B.O. Railroad').onclick = function(){
+		var cardInfo = cardsData(1,'B.O. Railroad').responseText.split(";");
 		popup_details(cardInfo);
 	};
 	document.getElementById('Atlantic Avenue').onclick = function(){
@@ -136,6 +136,16 @@
 			owner = names[data[6]];
 		}
 
+		var mortgageText = "";
+		if(data[8]=="false"){
+			mortgageText = "no";
+		} else {
+			mortgageText = "yes";
+		}
+
+		var strongName = seasonName(data[9]);
+		var weakName = seasonName(data[10]);
+
 		if(data[11] == "property"){
 			captionText.innerHTML = '<p>'+data[0]+'<br>'+
 			'Group: '+data[1]+'<br>'+
@@ -145,25 +155,26 @@
 			'HOUSE COST: $'+data[5]+'<br>'+
 			'OWNED BY: '+owner+'<br>'+
 			'BUILDINGS: '+buildingText+'<br>'+
-			'MORTGAGED: '+data[8]+'<br>'+
-			'Strong Season: '+data[9]+'<br>'+
-			'Weak Season: '+data[10]+'<br>'+
+			'MORTGAGED: '+mortgageText+'<br>'+
+			'Strong Season: '+strongName+'<br>'+
+			'Weak Season: '+weakName+'<br>'+
 			'</p>';
 		}
 		if(data[11] == "railroad"){
 			captionText.innerHTML = '<p>'+data[0]+'<br>'+
 			'PRICE: $'+data[2]+'<br>'+
-			'RENT: $'+data[3]+'<br>'+
+			'RENT: $25 <br>'+
 			'Multiplied RENT: $'+data[4]+'<br>'+
 			'OWNED BY: '+owner+'<br>'+
-			'MORTGAGED: '+data[8]+'<br>'+
+			'MORTGAGED: '+mortgageText+'<br>'+
 			'</p>';
 		}
 		if(data[11] == "utility"){
+
 			captionText.innerHTML = '<p>'+data[0]+'<br>'+
 			'PRICE: $'+data[2]+'<br>'+
 			'OWNED BY: '+owner+'<br>'+
-			'MORTGAGED: '+data[8]+'<br>'+
+			'MORTGAGED: '+mortgageText+'<br>'+
 			'</p>';
 		}
 
@@ -171,6 +182,25 @@
 		closeMark.onclick = function() {
 			modal.style.display = "none";
 		}
+	}
+
+	function seasonName(seasonid) {
+		var newname = "";
+		switch (seasonid) {
+			case "0":
+				newname = "Spring";
+				break;
+			case "1":
+				newname = "Summer";
+				break;
+			case "2":
+				newname = "Fall";
+				break;
+			case "3":
+				newname = "Winter";
+				break;
+		}
+		return newname;
 	}
 });
 

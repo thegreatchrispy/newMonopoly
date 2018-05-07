@@ -234,9 +234,14 @@ public class GameController {
 			e.printStackTrace();
 		}
 		String temp = "";
-		for(int s:space.getMultipliedRent()){
-			temp += Integer.toString(s) + "\t";
+		if(space.getType().equals("utility")){
+			temp = "";
+		} else {
+			for(int s:space.getMultipliedRent()){
+				temp += Integer.toString(s) + "\t";
+			}
 		}
+
 		return space.getName() + ";" + space.getGroup() + ";" + space.getPrice() + ";" + space.getCurrentRent() + ";" + temp + ";" + space.getHouseCost() + ";" + space.getOwnedBy() + ";" + space.getBuildings() + ";" + space.isMortgaged() + ";" + space.getStrongSeason() + ";" + space.getWeakSeason() + ";" + space.getType();
 	}
 

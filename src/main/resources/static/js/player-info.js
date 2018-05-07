@@ -39,10 +39,15 @@
 			outofjailText = "You got one card."
 		}
 
-		var groups = "";
-		for(var i=0; i<8 ; i++){
-			if(playerdata[4][i]==1){
-				groups += "i ";
+		var groups = playerdata[4].slice(1,23);
+		groups = groups.replace(/\s+/g, '');
+		var groupsArray = groups.split(',');
+		var groupStorage = "";
+		alert(groups);
+		var i;
+		for(i=0; i<8 ; i++){
+			if(groupsArray[i]=="1"){
+				groupStorage += (i+1)+" ";
 			}
 		}
 
@@ -50,7 +55,7 @@
 							'Money: $'+playerdata[1]+'<br>'+
 							'Properties: '+playerdata[2]+'<br>'+
 							'Jail Card: '+outofjailText+'<br>'+
-							'Monopoly Groups Owned: '+playerdata[4]+
+							'Monopoly Groups Owned: '+groupStorage+
 							'</p>';
 		var closeMark = document.getElementById('close1');
 		closeMark.onclick = function() {
