@@ -248,7 +248,7 @@ public class GameController {
 		Board board = new Board();
 		List<Space> spaces = new Vector<Space>();
 		String string = "";
-		double priceChangeLimit = .25;
+		double priceChangeLimit = .1;
 		double randomOne = 0;
 		double randomTwo = 0;
 		

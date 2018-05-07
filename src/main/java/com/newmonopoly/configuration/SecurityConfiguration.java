@@ -85,6 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/getspacename").permitAll()
 				.antMatchers("/playerdata").permitAll()
 				.antMatchers("/cardsdata").permitAll()
+				.antMatchers("/changespaceprice").permitAll()
 
 				/* Mutator Methods. */
 				.antMatchers("/moveplayertojail").permitAll()
