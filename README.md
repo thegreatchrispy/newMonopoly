@@ -50,7 +50,7 @@ After the two installations, you have the tools needed to build and deploy the p
 
 # 2. Edit Files
 Currently, the only file that needs editing is the `application.properties` located at `src/main/resources/application.properties`. Open this file in a text editor, and change the following 3 lines:
-  * On line 4, ensure that the database name matches the name you create for your database. The only thing that should change here is the database name after the final slash. This name comes from the SQL command `CREATE DATABASE database_name`.
+  * On line 4, ensure that the database name matches the name you create for your database. The only thing that should change here is the database name after the final slash. This name comes from the SQL command `CREATE DATABASE database_name`. **Make sure to run this command before running the project.**
   * On line 5, change the value `mysql_username` to match the username you use for your MySQL database system.
   * On line 6, change the value `mysql_password` to match the password you use for your MySQL database system.
 
