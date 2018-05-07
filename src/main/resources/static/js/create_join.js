@@ -79,9 +79,8 @@ $(document).ready(function(){
 		}
 	});
 
-	// TO LOBBY
-	$('#create_game_button').click(function(){
-        window.location.href = "http://localhost:8080/lobby";
-    });
 });
+
+function goToLobby() {
+}
 

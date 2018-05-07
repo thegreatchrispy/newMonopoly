@@ -36,6 +36,13 @@
 			players_in_game[i] = 0;
 		}
 	}
+
+	addAlert("It is " + names[index] + "'s turn!");
+	// First Die Button Appears.
+	$('#dieButton').show();
+	$('#dieButton').click(function() {
+		startTurn();
+	});
 }
 
 function rollDie(){
@@ -206,8 +213,7 @@ function executeTurn(id, playerName) {
 	rollDie();
 	var die_1 = $('#dice1').html();
 	var die_2 = $('#dice2').html();
-	//var value = Number(die_1) + Number(die_2);
-	var value = 39;
+	var value = Number(die_1) + Number(die_2);
 	if (Number(die_1) == Number(die_2)) {
 		incrementDoublesCount(id, playerName);
 		doublesRolled = true;
@@ -256,10 +262,4 @@ function executeTurnWithoutDoubles(id, playerName) {
 window.onload = function() {
 	setup();
 	// Start game.
-	addAlert("It is " + names[index] + "'s turn!");
-	// First Die Button Appears.
-	$('#dieButton').show();
-	$('#dieButton').click(function() {
-		startTurn();
-	});
 }

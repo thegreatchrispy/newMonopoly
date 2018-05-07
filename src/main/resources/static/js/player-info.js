@@ -43,7 +43,6 @@
 		groups = groups.replace(/\s+/g, '');
 		var groupsArray = groups.split(',');
 		var groupStorage = "";
-		alert(groups);
 		var i;
 		for(i=0; i<8 ; i++){
 			if(groupsArray[i]=="1"){
