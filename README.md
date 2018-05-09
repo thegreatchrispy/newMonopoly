@@ -169,7 +169,7 @@ The following is the list of things that still need to be completed:
 - [x] Write out all of the test cases
 - [x] Connect the GUI webpage interface with the Java backend game files
 - [ ] Implement all gameplay functions through the GUI
-- [ ] Implement seasons based on turns
-- [ ] Implement seasonal pricing for properties
-- [ ] Finish documentation
+- [x] Implement seasons based on turns
+- [x] Implement seasonal pricing for properties
+- [x] Finish documentation
 - [ ] Add the support for multiple players on webpage
