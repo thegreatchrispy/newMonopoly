@@ -12,7 +12,7 @@ function createGame() {
 	urlString = urlString.slice(0, -3);
 	console.log("After truncation:");
 	console.log(urlString);
-	urlString += "%5D&randomize=false";
+	urlString += "%5D&randomize=true";
 	
 	return $.ajax({
 		url: `${urlString}`,
